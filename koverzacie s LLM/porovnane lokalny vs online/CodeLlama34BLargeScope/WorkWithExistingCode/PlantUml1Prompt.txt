@@ -1,0 +1,132 @@
+Prompt: Can you provide me plantuml for this code in java?
+```
+class Main {
+    public static void main(String[] args) {
+        SimpleText simple = new SimpleText("Hello, World!");
+
+        Text bolded = new Bold(simple);
+        System.out.println(bolded.render()); // Outputs: <b>Hello, World!</b>
+
+        Text italicized = new Italics(simple);
+        System.out.println(italicized.render()); // Outputs: <i>Hello, World!</i>
+
+        Text boldItalics = new Bold(new Italics(simple));
+        System.out.println(boldItalics.render());
+
+        Text italicsBold = new Italics(new Bold(simple));
+        System.out.println(italicsBold.render());
+
+        Text paragraphBold = new Paragraph(new Bold(simple));
+        System.out.println(paragraphBold.render());
+
+        Text paragraphItalics = new Paragraph(new Italics(simple));
+        System.out.println(paragraphItalics.render());
+
+        Text paragraphBoldItalics = new Paragraph(new Bold(new Italics(simple)));
+        System.out.println(paragraphBoldItalics.render());
+
+        Text paragraphItalicsBold = new Paragraph(new Italics(new Bold(simple)));
+        System.out.println(paragraphItalicsBold.render());
+    }
+}
+
+interface Text {
+    String render();
+}
+
+class SimpleText implements Text{
+    private final String text;
+
+    public SimpleText(String text){
+        this.text = text;
+    }
+
+    @Override
+    public String render() {
+        return text;
+    }
+}
+
+abstract class Decorator implements Text{
+    protected final Text decoratedText;
+
+    public Decorator(Text decoratedText){
+        this.decoratedText = decoratedText;
+    }
+
+    @Override
+    public String render() {
+        return decoratedText.render();
+    }
+}
+
+class Bold extends Decorator{
+    public Bold(Text text) {
+        super(text);
+    }
+
+    @Override
+    public String render(){
+        return "<b>" + decoratedText.render() + "</b>";
+    }
+}
+
+class Italics extends Decorator{
+    public Italics(Text text){
+        super(text);
+    }
+
+    @Override
+    public String render(){
+        return "<i>" + decoratedText.render() + "</i>";
+    }
+}
+
+class Paragraph extends Decorator{
+    public Paragraph(Text decoratedText) {
+        super(decoratedText);
+    }
+
+    @Override
+    public String render() {
+        return "<p>" + decoratedText.render() + "</p>";
+    }
+}
+
+```
+Response: Here is the PlantUML representation for your Java code:
+
+```plantuml
+@startuml
+interface Text {
+  render(): String
+}
+
+class SimpleText implements Text{
+  -text: String
+  +SimpleText(text: String)
+  #render() : String
+}
+
+abstract class Decorator implements Text{
+  --decoratedText: Text
+  ++Decorator(decoratedText: Text)
+  render(): String
+}
+
+class Bold extends Decorator {
+  +Bold(text: Text)
+  #render() : String
+}
+
+class Italics extends Decorator{
+  +Italics(text: Text)
+  #render() : String
+}
+
+class Paragraph extends Decorator{
+  +Paragraph(decoratedText: Text)
+  #render(): String
+}
+@enduml
+```

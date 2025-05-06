@@ -1,0 +1,50 @@
+@startuml
+interface Text {
+  +render(): String
+}
+
+class SimpleText implements Text{
+  -text: String
+  --
+  +SimpleText(text: String)
+  +render() : String
+}
+
+abstract class Decorator implements Text{
+  -decoratedText: Text
+  --
+  +Decorator(decoratedText: Text)
+  +render(): String
+}
+
+class Bold extends Decorator {
+  +Bold(text: Text)
+  +render() : String
+}
+
+class Italics extends Decorator{
+  +Italics(text: Text)
+  +render() : String
+}
+
+class Paragraph extends Decorator{
+  +Paragraph(decoratedText: Text)
+  +render(): String
+}
+
+class Underline extends Decorator {
+  +Underline(text: Text)
+  +render() : String
+}
+
+Main "main" o-- SimpleText : create
+Main "main" o-- Bold : create
+Main "main" o-- Italics : create
+Main "main" o-- Paragraph : create
+Main "main" o-- Underline : create
+SimpleText <|.. Decorator
+Bold <|.. Decorator
+Italics <|.. Decorator
+Paragraph <|.. Decorator
+Underline <|.. Decorator
+@enduml

@@ -1,0 +1,174 @@
+Prompt: provide me an example of decorator pattern in java and include plantuml
+Response: The Decorator Pattern is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects called decorators. 
+
+Here's an example implementation of the Decorator Pattern in Java, followed by a PlantUML diagram:
+
+```java
+// The Component interface defines the operations that both concrete components and decorators must implement.
+interface Component {
+    void operation();
+}
+
+// Concrete Components provide default implementations of the operations. There can be several variations of these classes.
+class ConcreteComponent implements Component {
+    public void operation() {
+        System.out.println("ConcreteComponent: Base functionality");
+    }
+}
+
+// The Decorator class maintains a reference to a Component object and defines an interface that conforms to Component's interface.
+abstract class Decorator implements Component {
+    protected Component component;
+    
+    public Decorator(Component c) {
+        this.component = c;
+    }
+    
+    public void operation() {
+        if (this.component != null) {
+            this.component.operation();
+        }
+    }
+}
+
+// ConcreteDecorators call the wrapped object's method and then add something of their own. There can be several variations of these classes.
+class ConcreteDecoratorA extends Decorator {
+    public ConcreteDecoratorA(Component c) {
+        super(c);
+    }
+    
+    @Override
+    public void operation() {
+        System.out.println("ConcreteDecoratorA: Added functionality before call");
+        this.component.operation();
+        System.out.println("ConcreteDecoratorA: Added functionality after call");
+    }
+}
+
+class ConcreteDecoratorB extends Decorator {
+    public ConcreteDecoratorB(Component c) {
+        super(c);
+    }
+    
+    @Override
+    public void operation() {
+        System.out.println("ConcreteDecoratorB: Added functionality before call");
+        this.component.operation();
+        System.out.println("ConcreteDecoratorB: Added functionality after call");
+    }
+}
+```
+
+Here's a PlantUML diagram that represents the structure of classes in the above example:
+
+```plantuml
+@startuml
+interface Component {
+  operation()
+}
+class ConcreteComponent implements Component {
+  operation()
+}
+abstract class Decorator implements Component {
+  component : Component
+  --
+  operation()
+}
+class ConcreteDecoratorA extends Decorator {
+  operation()
+}
+class ConcreteDecoratorB extends Decorator {
+  operation()
+}
+ConcreteComponent ..> Component: implements
+ConcreteDecoratorA ..> Component: implements
+ConcreteDecoratorB ..> Component: implements
+ConcreteDecoratorA ..> Decorator: extends
+ConcreteDecoratorB ..> Decorator: extends
+@enduml
+```
+Prompt: can you add new decorator that prints "hello" + decorator name. Also provide updated plantuml
+Response: Here's an example of a new ConcreteDecoratorC class that adds the functionality of printing "Hello" along with its own name:
+
+```java
+class ConcreteDecoratorC extends Decorator {
+    public ConcreteDecoratorC(Component c) {
+        super(c);
+    }
+    
+    @Override
+    public void operation() {
+        System.out.println("Hello, I'm ConcreteDecoratorC");
+        this.component.operation();
+    }
+}
+```
+
+And here's the updated PlantUML diagram:
+
+```plantuml
+@startuml
+interface Component {
+  operation()
+}
+class ConcreteComponent implements Component {
+  operation()
+}
+abstract class Decorator implements Component {
+  component : Component
+  --
+  operation()
+}
+class ConcreteDecoratorA extends Decorator {
+  operation()
+}
+class ConcreteDecoratorB extends Decorator {
+  operation()
+}
+class ConcreteDecoratorC extends Decorator {
+  operation()
+}
+ConcreteComponent ..> Component: implements
+ConcreteDecoratorA ..> Component: implements
+ConcreteDecoratorB ..> Component: implements
+ConcreteDecoratorC ..> Component: implements
+ConcreteDecoratorA ..> Decorator: extends
+ConcreteDecoratorB ..> Decorator: extends
+ConcreteDecoratorC ..> Decorator: extends
+@enduml
+```
+Prompt: can you show me how can i use it?
+Response: Sure, here's an example of how to use the decorators with a ConcreteComponent object:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Component c = new ConcreteComponent();
+        
+        // Create DecoratorA and DecoratorB, passing in the base component.
+        Component d1 = new ConcreteDecoratorA(c);
+        Component d2 = new ConcreteDecoratorB(d1);
+        
+        // Now we can call operation() on DecoratorB, which will delegate to DecoratorA, which in turn will delegate to the base component.
+        d2.operation();
+    }
+}
+```
+Prompt: can you decorate d2 with ConcreteDecoratorC and provide me full code again?
+Response: Sure, here's an example of how to use the new ConcreteDecoratorC with a d2 object:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Component c = new ConcreteComponent();
+        
+        // Create DecoratorA and DecoratorB, passing in the base component.
+        Component d1 = new ConcreteDecoratorA(c);
+        Component d2 = new ConcreteDecoratorB(d1);
+        
+        // Now we can call operation() on DecoratorC, which will delegate to DecoratorB, which in turn will delegate to DecoratorA, which in turn will delegate to the base component.
+        Component d3 = new ConcreteDecoratorC(d2);
+        d3.operation();
+    }
+}
+```
