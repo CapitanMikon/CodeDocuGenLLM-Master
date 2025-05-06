@@ -1,0 +1,28 @@
+[
+    {
+        "signature": "static <V> FunctionStringLookup<V> on(final Map<String, V> map)",
+        "implementation": "static <V> FunctionStringLookup<V> on(final Map<String, V> map) {\n        return on(StringLookupFactory.toMap(map)::get);\n    }",
+        "called_methods": [
+            "on",
+            "toMap"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\FunctionStringLookup.java",
+        "name": "on",
+        "javadoc": "/**\n * Creates a function that looks up values in the provided map.\n *\n * @param map the map to look up values from\n * @return a function that takes a key and returns the corresponding value, or null if not present\n */\n",
+        "improved_javadoc": "/**\n * Returns a function that retrieves a value from the specified map based on the provided key.\n *\n * @param map the map containing the values to be looked up\n * @return a function that takes a key and returns the corresponding value, or null if not present in the map\n */\n"
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (function == null) {\n            return null;\n        }\n        final V obj;\n        try {\n            obj = function.apply(key);\n        } catch (final SecurityException | NullPointerException | IllegalArgumentException e) {\n            // Squelched. All lookup(String) will return null.\n            // Could be a ConcurrentHashMap and a null key request\n            return null;\n        }\n        return Objects.toString(obj, null);\n    }",
+        "called_methods": [
+            "apply",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\FunctionStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up an object in the function's domain using the provided key.\n *\n * @param key the key to look up in the function's domain\n * @return the object associated with the key, or null if the function is null or a lookup error occurs\n */\n",
+        "improved_javadoc": "/**\n * Retrieves an object from the function's domain based on the specified key.\n *\n * @param key the unique identifier for the object to be retrieved\n * @return the associated object, or {@code null} if the function is {@code null}, a lookup error occurs, or no matching object exists in the domain\n */\n"
+    }
+]

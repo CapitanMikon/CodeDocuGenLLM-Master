@@ -1,0 +1,19 @@
+[
+    {
+        "signature": "public CharSequence[] apply(final CharSequence text)",
+        "implementation": "public CharSequence[] apply(final CharSequence text) {\n        Validate.isTrue(StringUtils.isNotBlank(text), \"Invalid text\");\n        final Matcher matcher = PATTERN.matcher(text);\n        final List<String> tokens = new ArrayList<>();\n        while (matcher.find()) {\n            tokens.add(matcher.group(0));\n        }\n        return tokens.toArray(ArrayUtils.EMPTY_STRING_ARRAY);\n    }",
+        "called_methods": [
+            "isTrue",
+            "isNotBlank",
+            "matcher",
+            "find",
+            "add",
+            "group",
+            "toArray"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\RegexTokenizer.java",
+        "name": "apply",
+        "javadoc": "/**\n     * {@inheritDoc}\n     *\n     * @throws IllegalArgumentException if the input text is blank\n     */"
+    }
+]

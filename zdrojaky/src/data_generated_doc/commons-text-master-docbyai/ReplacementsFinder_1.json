@@ -1,0 +1,37 @@
+[
+    {
+        "signature": "public void visitDeleteCommand(final T object)",
+        "implementation": "public void visitDeleteCommand(final T object) {\n        pendingDeletions.add(object);\n    }",
+        "called_methods": [
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\ReplacementsFinder.java",
+        "name": "visitDeleteCommand",
+        "javadoc": "/**\n * Adds a delete command to be executed on the specified object.\n *\n * @param object The object that will be deleted.\n */\n"
+    },
+    {
+        "signature": "public void visitInsertCommand(final T object)",
+        "implementation": "public void visitInsertCommand(final T object) {\n        pendingInsertions.add(object);\n    }",
+        "called_methods": [
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\ReplacementsFinder.java",
+        "name": "visitInsertCommand",
+        "javadoc": "/**\n * Adds an insertion command to be executed on the database.\n *\n * @param object The object that will be inserted into the database.\n */\n"
+    },
+    {
+        "signature": "public void visitKeepCommand(final T object)",
+        "implementation": "public void visitKeepCommand(final T object) {\n        if (pendingDeletions.isEmpty() && pendingInsertions.isEmpty()) {\n            ++skipped;\n        } else {\n            handler.handleReplacement(skipped, pendingDeletions, pendingInsertions);\n            pendingDeletions.clear();\n            pendingInsertions.clear();\n            skipped = 1;\n        }\n    }",
+        "called_methods": [
+            "isEmpty",
+            "handleReplacement",
+            "clear"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\ReplacementsFinder.java",
+        "name": "visitKeepCommand",
+        "javadoc": "/**\n * Visits a keep command.\n *\n * If there are no pending deletions or insertions, increments the number of skipped commands.\n * Otherwise, handles the replacement and resets the pending collections.\n *\n * @param object the object to visit (not used in this implementation)\n */\n"
+    }
+]

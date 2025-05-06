@@ -1,0 +1,182 @@
+[
+    {
+        "signature": "public static String abbreviate(final String str, int lower, int upper, final String appendToEnd)",
+        "implementation": "public static String abbreviate(final String str, int lower, int upper, final String appendToEnd) {\n        Validate.isTrue(upper >= -1, \"upper value cannot be less than -1\");\n        Validate.isTrue(upper >= lower || upper == -1, \"upper value is less than lower value\");\n        if (StringUtils.isEmpty(str)) {\n            return str;\n        }\n\n        // if the lower value is greater than the length of the string,\n        // set to the length of the string\n        if (lower > str.length()) {\n            lower = str.length();\n        }\n\n        // if the upper value is -1 (i.e. no limit) or is greater\n        // than the length of the string, set to the length of the string\n        if (upper == -1 || upper > str.length()) {\n            upper = str.length();\n        }\n\n        final StringBuilder result = new StringBuilder();\n        final int index = StringUtils.indexOf(str, \" \", lower);\n        if (index == -1) {\n            result.append(str, 0, upper);\n            // only if abbreviation has occurred do we append the appendToEnd value\n            if (upper != str.length()) {\n                result.append(StringUtils.defaultString(appendToEnd));\n            }\n        } else {\n            result.append(str, 0, Math.min(index, upper));\n            result.append(StringUtils.defaultString(appendToEnd));\n        }\n\n        return result.toString();\n    }",
+        "called_methods": [
+            "isTrue",
+            "isEmpty",
+            "length",
+            "indexOf",
+            "append",
+            "defaultString",
+            "min",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "abbreviate",
+        "javadoc": "/**\n * Abbreviates a string by limiting its length to the specified range.\n *\n * @param str   the input string to be abbreviated\n * @param lower the starting index of the abbreviation (inclusive)\n * @param upper the ending index of the abbreviation (exclusive). If -1, no limit is applied\n * @param appendToEnd the string to be appended at the end of the abbreviation. Defaults to an empty string if null.\n *\n * @return the abbreviated string\n *\n * @throws IllegalArgumentException if the upper value is less than -1 or if the upper value is less than the lower value\n */\n",
+        "improved_javadoc": "/**\n * Abbreviates a string by limiting its length to the specified range.\n *\n * @param str   the input string to be abbreviated\n * @param lower the starting index of the abbreviation (inclusive)\n * @param upper the ending index of the abbreviation (exclusive). If -1, no limit is applied\n * @param appendToEnd the string to be appended at the end of the abbreviation. Defaults to an empty string if null.\n *\n * @return the abbreviated string\n *\n * @throws IllegalArgumentException if the upper value is less than -1 or if the upper value is less than the lower value\n */\n"
+    },
+    {
+        "signature": "public static String capitalize(final String str, final char... delimiters)",
+        "implementation": "public static String capitalize(final String str, final char... delimiters) {\n        if (StringUtils.isEmpty(str)) {\n            return str;\n        }\n        final Predicate<Integer> isDelimiter = generateIsDelimiterFunction(delimiters);\n        final int strLen = str.length();\n        final int[] newCodePoints = new int[strLen];\n        int outOffset = 0;\n\n        boolean capitalizeNext = true;\n        for (int index = 0; index < strLen;) {\n            final int codePoint = str.codePointAt(index);\n\n            if (isDelimiter.test(codePoint)) {\n                capitalizeNext = true;\n                newCodePoints[outOffset++] = codePoint;\n                index += Character.charCount(codePoint);\n            } else if (capitalizeNext) {\n                final int titleCaseCodePoint = Character.toTitleCase(codePoint);\n                newCodePoints[outOffset++] = titleCaseCodePoint;\n                index += Character.charCount(titleCaseCodePoint);\n                capitalizeNext = false;\n            } else {\n                newCodePoints[outOffset++] = codePoint;\n                index += Character.charCount(codePoint);\n            }\n        }\n        return new String(newCodePoints, 0, outOffset);\n    }",
+        "called_methods": [
+            "capitalize",
+            "isEmpty",
+            "generateIsDelimiterFunction",
+            "length",
+            "codePointAt",
+            "test",
+            "charCount",
+            "toTitleCase"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "capitalize",
+        "javadoc": "/**\n * Capitalizes a string by converting each character to its title case equivalent,\n * unless it is immediately preceded by a delimiter.\n *\n * @param str the input string to be capitalized\n * @param delimiters an array of characters that should not be followed by capitalization\n * @return the capitalized string\n */\n",
+        "improved_javadoc": "/**\n * Capitalizes a string by converting each character to its title case equivalent,\n * unless it is immediately preceded by a delimiter.\n *\n * @param str the input string to be capitalized, which may contain any Unicode characters\n * @param delimiters an array of delimiter characters that should not be followed by capitalization (e.g. spaces, punctuation marks)\n * @return the modified string with each character converted to its title case equivalent, unless preceded by a delimiter\n */\n"
+    },
+    {
+        "signature": "public static String capitalizeFully(String str, final char... delimiters)",
+        "implementation": "public static String capitalizeFully(String str, final char... delimiters) {\n        if (StringUtils.isEmpty(str)) {\n            return str;\n        }\n        str = str.toLowerCase();\n        return capitalize(str, delimiters);\n    }",
+        "called_methods": [
+            "capitalizeFully",
+            "isEmpty",
+            "toLowerCase",
+            "capitalize"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "capitalizeFully",
+        "javadoc": "/**\n * Capitalizes all words in a given string, ignoring specified delimiters.\n *\n * @param str the input string to be capitalized\n * @param delimiters an array of characters that should not be followed by capitalization\n * @return the fully capitalized version of the input string\n */\n",
+        "improved_javadoc": "/**\n * Capitalizes all words in a given string, ignoring specified delimiters.\n *\n * This method iterates over each character in the input string and capitalizes it if it is not preceded by a delimiter.\n * Delimiters are characters that should not be followed by capitalization, such as spaces or punctuation marks.\n *\n * @param str the input string to be capitalized\n * @param delimiters an array of characters that should not be followed by capitalization (e.g. space, comma, period)\n * @return the fully capitalized version of the input string\n */\n"
+    },
+    {
+        "signature": "public static boolean containsAllWords(final CharSequence word, final CharSequence... words)",
+        "implementation": "public static boolean containsAllWords(final CharSequence word, final CharSequence... words) {\n        if (StringUtils.isEmpty(word) || ArrayUtils.isEmpty(words)) {\n            return false;\n        }\n        for (final CharSequence w : words) {\n            if (StringUtils.isBlank(w)) {\n                return false;\n            }\n            final Pattern p = Pattern.compile(\".*\\\\b\" + Pattern.quote(w.toString()) + \"\\\\b.*\");\n            if (!p.matcher(word).matches()) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "isEmpty",
+            "isBlank",
+            "compile",
+            "quote",
+            "toString",
+            "matcher",
+            "matches"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "containsAllWords",
+        "javadoc": "/**\n * Checks if a given CharSequence contains all of the specified words.\n *\n * @param word   the CharSequence to search in\n * @param words  the words to search for, can be multiple\n * @return      true if the CharSequence contains all words, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks if a given {@code CharSequence} contains all of the specified words.\n *\n * This method performs a case-sensitive search and considers each word as a whole word only (i.e., it does not consider substrings).\n *\n * @param word   the {@link CharSequence} to search in\n * @param words  an array of words to search for, can be multiple\n * @return      {@code true} if the {@code CharSequence} contains all words, {@code false} otherwise\n */\n"
+    },
+    {
+        "signature": "private static Predicate<Integer> generateIsDelimiterFunction(final char[] delimiters)",
+        "implementation": "private static Predicate<Integer> generateIsDelimiterFunction(final char[] delimiters) {\n        final Predicate<Integer> isDelimiter;\n        if (delimiters == null || delimiters.length == 0) {\n            isDelimiter = delimiters == null ? Character::isWhitespace : c -> false;\n        } else {\n            final Set<Integer> delimiterSet = new HashSet<>();\n            for (int index = 0; index < delimiters.length; index++) {\n                delimiterSet.add(Character.codePointAt(delimiters, index));\n            }\n            isDelimiter = delimiterSet::contains;\n        }\n\n        return isDelimiter;\n    }",
+        "called_methods": [
+            "add",
+            "codePointAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "generateIsDelimiterFunction",
+        "javadoc": "/**\n * Generates a predicate function that checks if a given character code is a delimiter.\n *\n * @param delimiters an array of delimiter characters\n * @return a predicate function that takes an integer character code and returns true if it's a delimiter, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Generates a predicate function that checks if a given character code is a delimiter.\n *\n * This method creates a functional interface that can be used to check whether a specific character code is present in the provided array of delimiters.\n *\n * @param delimiters an array of delimiter characters\n * @return a predicate function that takes an integer character code and returns true if it's a delimiter, false otherwise\n */\n"
+    },
+    {
+        "signature": "public static String initials(final String str, final char... delimiters)",
+        "implementation": "public static String initials(final String str, final char... delimiters) {\n        if (StringUtils.isEmpty(str)) {\n            return str;\n        }\n        if (delimiters != null && delimiters.length == 0) {\n            return StringUtils.EMPTY;\n        }\n        final Predicate<Integer> isDelimiter = generateIsDelimiterFunction(delimiters);\n        final int strLen = str.length();\n        final int[] newCodePoints = new int[strLen / 2 + 1];\n        int count = 0;\n        boolean lastWasGap = true;\n        for (int i = 0; i < strLen;) {\n            final int codePoint = str.codePointAt(i);\n\n            if (isDelimiter.test(codePoint)) {\n                lastWasGap = true;\n            } else if (lastWasGap) {\n                newCodePoints[count++] = codePoint;\n                lastWasGap = false;\n            }\n\n            i += Character.charCount(codePoint);\n        }\n        return new String(newCodePoints, 0, count);\n    }",
+        "called_methods": [
+            "initials",
+            "isEmpty",
+            "generateIsDelimiterFunction",
+            "length",
+            "codePointAt",
+            "test",
+            "charCount"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "initials",
+        "javadoc": "/**\n * Returns a string containing the initials of the input string.\n * The initial is defined as the first character of each word in the string,\n * where words are separated by any of the specified delimiters.\n *\n * @param str the input string\n * @param delimiters an array of characters that separate words in the string\n * @return a string containing the initials of the input string, or an empty string if the input is empty\n */\n",
+        "improved_javadoc": "/**\n * Returns a string containing the initials of the input string.\n * The initial is defined as the first character of each word in the string,\n * where words are separated by any of the specified delimiters.\n *\n * @param str the input string to extract initials from\n * @param delimiters an array of characters that separate words in the string (e.g. \" ,.-_\")\n * @return a string containing the initials of the input string, or an empty string if the input is empty\n */\n"
+    },
+    {
+        "signature": "public static boolean isDelimiter(final int codePoint, final char[] delimiters)",
+        "implementation": "public static boolean isDelimiter(final int codePoint, final char[] delimiters) {\n        if (delimiters == null) {\n            return Character.isWhitespace(codePoint);\n        }\n        for (int index = 0; index < delimiters.length; index++) {\n            final int delimiterCodePoint = Character.codePointAt(delimiters, index);\n            if (delimiterCodePoint == codePoint) {\n                return true;\n            }\n        }\n        return false;\n    }",
+        "called_methods": [
+            "isWhitespace",
+            "codePointAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "isDelimiter",
+        "javadoc": "/**\n * Checks whether a specified Unicode code point is a delimiter.\n *\n * @param codePoint  the Unicode code point to check\n * @param delimiters an array of characters that represent delimiters; may be null\n * @return true if the code point is a delimiter, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks whether a specified Unicode code point is a delimiter.\n *\n * This method determines whether the given Unicode code point represents a character that separates or terminates text in a specific context.\n * It does this by comparing the code point to an array of predefined delimiter characters, which may be null if no delimiters are defined.\n *\n * @param codePoint  the Unicode code point to check (a non-negative integer value)\n * @param delimiters an array of characters that represent delimiters; may be null\n * @return true if the code point is a delimiter, false otherwise\n */\n"
+    },
+    {
+        "signature": "public static String swapCase(final String str)",
+        "implementation": "public static String swapCase(final String str) {\n        if (StringUtils.isEmpty(str)) {\n            return str;\n        }\n        final int strLen = str.length();\n        final int[] newCodePoints = new int[strLen];\n        int outOffset = 0;\n        boolean whitespace = true;\n        for (int index = 0; index < strLen;) {\n            final int oldCodepoint = str.codePointAt(index);\n            final int newCodePoint;\n            if (Character.isUpperCase(oldCodepoint) || Character.isTitleCase(oldCodepoint)) {\n                newCodePoint = Character.toLowerCase(oldCodepoint);\n                whitespace = false;\n            } else if (Character.isLowerCase(oldCodepoint)) {\n                if (whitespace) {\n                    newCodePoint = Character.toTitleCase(oldCodepoint);\n                    whitespace = false;\n                } else {\n                    newCodePoint = Character.toUpperCase(oldCodepoint);\n                }\n            } else {\n                whitespace = Character.isWhitespace(oldCodepoint);\n                newCodePoint = oldCodepoint;\n            }\n            newCodePoints[outOffset++] = newCodePoint;\n            index += Character.charCount(newCodePoint);\n        }\n        return new String(newCodePoints, 0, outOffset);\n    }",
+        "called_methods": [
+            "isEmpty",
+            "length",
+            "codePointAt",
+            "isUpperCase",
+            "isTitleCase",
+            "toLowerCase",
+            "isLowerCase",
+            "toTitleCase",
+            "toUpperCase",
+            "isWhitespace",
+            "charCount"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "swapCase",
+        "javadoc": "/**\n * Swaps the case of all characters in a string.\n *\n * This method iterates over each character code point in the input string,\n * converting it to its opposite case (lowercase to uppercase, or vice versa).\n * If the original character is whitespace, it will be converted to title case\n * if it was previously lowercase, and left unchanged otherwise. Non-whitespace\n * characters are simply toggled between uppercase and lowercase.\n *\n * @param str the input string whose case should be swapped\n * @return a new string with the same contents as the original, but with all\n *         characters in opposite case\n */\n",
+        "improved_javadoc": "/**\n * Swaps the case of all characters in a string.\n *\n * This method iterates over each character code point in the input string,\n * converting it to its opposite case (lowercase to uppercase, or vice versa).\n * If the original character is whitespace, it will be converted to title case\n * if it was previously lowercase, and left unchanged otherwise. Non-whitespace\n * characters are simply toggled between uppercase and lowercase.\n *\n * @param str the input string whose case should be swapped\n * @return a new string with the same contents as the original, but with all\n *         characters in opposite case\n */\n"
+    },
+    {
+        "signature": "public static String uncapitalize(final String str, final char... delimiters)",
+        "implementation": "public static String uncapitalize(final String str, final char... delimiters) {\n        if (StringUtils.isEmpty(str)) {\n            return str;\n        }\n        final Predicate<Integer> isDelimiter = generateIsDelimiterFunction(delimiters);\n        final int strLen = str.length();\n        final int[] newCodePoints = new int[strLen];\n        int outOffset = 0;\n\n        boolean uncapitalizeNext = true;\n        for (int index = 0; index < strLen;) {\n            final int codePoint = str.codePointAt(index);\n\n            if (isDelimiter.test(codePoint)) {\n                uncapitalizeNext = true;\n                newCodePoints[outOffset++] = codePoint;\n                index += Character.charCount(codePoint);\n            } else if (uncapitalizeNext) {\n                final int titleCaseCodePoint = Character.toLowerCase(codePoint);\n                newCodePoints[outOffset++] = titleCaseCodePoint;\n                index += Character.charCount(titleCaseCodePoint);\n                uncapitalizeNext = false;\n            } else {\n                newCodePoints[outOffset++] = codePoint;\n                index += Character.charCount(codePoint);\n            }\n        }\n        return new String(newCodePoints, 0, outOffset);\n    }",
+        "called_methods": [
+            "uncapitalize",
+            "isEmpty",
+            "generateIsDelimiterFunction",
+            "length",
+            "codePointAt",
+            "test",
+            "charCount",
+            "toLowerCase"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "uncapitalize",
+        "javadoc": "/**\n * Un capitalizes a string by converting each character to its title case equivalent,\n * unless it is immediately preceded by a delimiter.\n *\n * @param str the input string to be uncapitalized\n * @param delimiters an array of characters that indicate when to start or stop\n *                   uncapitalizing the next character\n * @return the uncapitalized string\n */\n",
+        "improved_javadoc": "/**\n * Un capitalizes a string by converting each character to its title case equivalent,\n * unless it is immediately preceded by a delimiter.\n *\n * @param str the input string to be uncapitalized, which may contain any Unicode characters\n * @param delimiters an array of characters that indicate when to start or stop uncapitalizing the next character;\n *                   for example, if this parameter contains only spaces and underscores, the method will preserve the original case of these characters in the input string\n * @return the uncapitalized string, where each character is converted to its title case equivalent unless it was immediately preceded by a delimiter\n */\n"
+    },
+    {
+        "signature": "public static String wrap(final String str,\n                              int wrapLength,\n                              String newLineStr,\n                              final boolean wrapLongWords,\n                              String wrapOn)",
+        "implementation": "public static String wrap(final String str,\n                              int wrapLength,\n                              String newLineStr,\n                              final boolean wrapLongWords,\n                              String wrapOn) {\n        if (str == null) {\n            return null;\n        }\n        if (newLineStr == null) {\n            newLineStr = System.lineSeparator();\n        }\n        if (wrapLength < 1) {\n            wrapLength = 1;\n        }\n        if (StringUtils.isBlank(wrapOn)) {\n            wrapOn = \" \";\n        }\n        final Pattern patternToWrapOn = Pattern.compile(wrapOn);\n        final int inputLineLength = str.length();\n        int offset = 0;\n        final StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);\n        int matcherSize = -1;\n\n        while (offset < inputLineLength) {\n            int spaceToWrapAt = -1;\n            Matcher matcher = patternToWrapOn.matcher(str.substring(offset,\n                    Math.min((int) Math.min(Integer.MAX_VALUE, offset + wrapLength + 1L), inputLineLength)));\n            if (matcher.find()) {\n                if (matcher.start() == 0) {\n                    matcherSize = matcher.end();\n                    if (matcherSize != 0) {\n                        offset += matcher.end();\n                        continue;\n                    }\n                    offset += 1;\n                }\n                spaceToWrapAt = matcher.start() + offset;\n            }\n\n            // only last line without leading spaces is left\n            if (inputLineLength - offset <= wrapLength) {\n                break;\n            }\n\n            while (matcher.find()) {\n                spaceToWrapAt = matcher.start() + offset;\n            }\n\n            if (spaceToWrapAt >= offset) {\n                // normal case\n                wrappedLine.append(str, offset, spaceToWrapAt);\n                wrappedLine.append(newLineStr);\n                offset = spaceToWrapAt + 1;\n\n            } else // really long word or URL\n            if (wrapLongWords) {\n                if (matcherSize == 0) {\n                    offset--;\n                }\n                // wrap really long word one line at a time\n                wrappedLine.append(str, offset, wrapLength + offset);\n                wrappedLine.append(newLineStr);\n                offset += wrapLength;\n                matcherSize = -1;\n            } else {\n                // do not wrap really long word, just extend beyond limit\n                matcher = patternToWrapOn.matcher(str.substring(offset + wrapLength));\n                if (matcher.find()) {\n                    matcherSize = matcher.end() - matcher.start();\n                    spaceToWrapAt = matcher.start() + offset + wrapLength;\n                }\n\n                if (spaceToWrapAt >= 0) {\n                    if (matcherSize == 0 && offset != 0) {\n                        offset--;\n                    }\n                    wrappedLine.append(str, offset, spaceToWrapAt);\n                    wrappedLine.append(newLineStr);\n                    offset = spaceToWrapAt + 1;\n                } else {\n                    if (matcherSize == 0 && offset != 0) {\n                        offset--;\n                    }\n                    wrappedLine.append(str, offset, str.length());\n                    offset = inputLineLength;\n                    matcherSize = -1;\n                }\n            }\n        }\n\n        if (matcherSize == 0 && offset < inputLineLength) {\n            offset--;\n        }\n\n        // Whatever is left in line is short enough to just pass through\n        wrappedLine.append(str, offset, str.length());\n\n        return wrappedLine.toString();\n    }",
+        "called_methods": [
+            "wrap",
+            "lineSeparator",
+            "isBlank",
+            "compile",
+            "length",
+            "matcher",
+            "substring",
+            "min",
+            "find",
+            "start",
+            "end",
+            "append",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\WordUtils.java",
+        "name": "wrap",
+        "javadoc": "/**\n * Wraps a string at specified length and wraps long words.\n *\n * @param str the input string to be wrapped\n * @param wrapLength the maximum length of each line\n * @param newLineStr the string used as a newline character (defaults to System.lineSeparator())\n * @param wrapLongWords whether to wrap long words or not\n * @param wrapOn the pattern to match for wrapping (defaults to \" \")\n *\n * @return the wrapped string\n */\n",
+        "improved_javadoc": "/**\n * Wraps a string at specified length and wraps long words.\n *\n * This method takes an input string, splits it into lines of a maximum specified length,\n * and handles long words by breaking them across multiple lines. The newline character\n * used for wrapping can be customized, as well as the pattern to match for wrapping.\n *\n * @param str the input string to be wrapped\n * @param wrapLength the maximum length of each line\n * @param newLineStr the string used as a newline character (defaults to System.lineSeparator())\n * @param wrapLongWords whether to wrap long words or not\n * @param wrapOn the pattern to match for wrapping (defaults to \" \")\n *\n * @return the wrapped string\n */\n"
+    }
+]

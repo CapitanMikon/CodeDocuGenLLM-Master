@@ -1,0 +1,322 @@
+[
+    {
+        "signature": "public String replace(final StringBuffer source, final int offset, final int length)",
+        "implementation": "public String replace(final StringBuffer source, final int offset, final int length) {\n        if (source == null) {\n            return null;\n        }\n        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);\n        substitute(buf, 0, length);\n        return buf.toString();\n    }",
+        "called_methods": [
+            "replace",
+            "toString",
+            "stringPropertyNames",
+            "stream",
+            "collect",
+            "toMap",
+            "identity",
+            "append",
+            "substitute",
+            "length",
+            "substring"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "replace",
+        "javadoc": "/**\n * Replaces a substring in the source StringBuffer with its equivalent representation.\n *\n * @param source the StringBuffer containing the string to be modified\n * @param offset the starting position of the substring to replace (inclusive)\n * @param length the number of characters in the substring to replace\n * @return the modified StringBuffer, or null if the input is null\n */\n",
+        "improved_javadoc": "/**\n * Replaces a specified substring within the source StringBuffer with its equivalent representation.\n *\n * @param source the non-null StringBuffer containing the string to be modified\n * @param offset the starting position of the substring to replace (inclusive), must not be negative and not greater than the length of the source StringBuffer\n * @param length the number of characters in the substring to replace, must be a positive integer less than or equal to the remaining length from the offset to the end of the source StringBuffer\n * @return the modified StringBuffer, or null if the input is null\n */\n"
+    },
+    {
+        "signature": "public static String replaceSystemProperties(final Object source)",
+        "implementation": "public static String replaceSystemProperties(final Object source) {\n        return new StrSubstitutor(StrLookup.systemPropertiesLookup()).replace(source);\n    }",
+        "called_methods": [
+            "replace",
+            "systemPropertiesLookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "replaceSystemProperties",
+        "javadoc": "/**\n * Replaces placeholders in a string with system properties.\n *\n * @param source the input string containing placeholders to be replaced\n * @return the modified string with placeholders replaced by their corresponding system property values\n */\n",
+        "improved_javadoc": "/**\n * Replaces placeholders in a string with system properties, using the format ${property.name}.\n *\n * @param source the input string containing placeholders to be replaced (e.g. \"Hello, ${user.name}!\")\n * @return the modified string with placeholders replaced by their corresponding system property values\n */\n"
+    },
+    {
+        "signature": "private void checkCyclicSubstitution(final String varName, final List<String> priorVariables)",
+        "implementation": "private void checkCyclicSubstitution(final String varName, final List<String> priorVariables) {\n        if (!priorVariables.contains(varName)) {\n            return;\n        }\n        final StrBuilder buf = new StrBuilder(256);\n        buf.append(\"Infinite loop in property interpolation of \");\n        buf.append(priorVariables.remove(0));\n        buf.append(\": \");\n        buf.appendWithSeparators(priorVariables, \"->\");\n        throw new IllegalStateException(buf.toString());\n    }",
+        "called_methods": [
+            "contains",
+            "append",
+            "remove",
+            "appendWithSeparators",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "checkCyclicSubstitution",
+        "javadoc": "/**\n * Checks if a variable is involved in a cyclic substitution.\n *\n * @param varName  the name of the variable to check\n * @param priorVariables  the list of variables that have been processed so far\n */\n",
+        "improved_javadoc": "/**\n * Checks if a variable is involved in a cyclic substitution by verifying whether it directly or indirectly references any of the previously processed variables.\n *\n * @param varName        the name of the variable to check for cyclic substitution\n * @param priorVariables  the list of variables that have been processed so far, used to detect indirect references\n * @return              true if the variable is involved in a cyclic substitution, false otherwise\n */\n"
+    },
+    {
+        "signature": "public char getEscapeChar()",
+        "implementation": "public char getEscapeChar() {\n        return this.escapeChar;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "getEscapeChar",
+        "javadoc": "/**\n * Returns the escape character used for escaping special characters.\n *\n * @return the escape character\n */\n",
+        "improved_javadoc": "/**\n * Returns the escape character used to escape special characters in strings, such as backslashes (\\) or double quotes (\").\n *\n * @return the escape character (e.g. \\)\n */\n"
+    },
+    {
+        "signature": "public StrMatcher getValueDelimiterMatcher()",
+        "implementation": "public StrMatcher getValueDelimiterMatcher() {\n        return valueDelimiterMatcher;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "getValueDelimiterMatcher",
+        "javadoc": "/**\n * Returns a matcher for the value delimiter.\n *\n * @return A matcher that matches the value delimiter.\n */\n",
+        "improved_javadoc": "/**\n * Returns a matcher for the value delimiter, which can be used to match occurrences of this delimiter in input strings.\n *\n * @return A matcher object that matches the value delimiter.\n */\n"
+    },
+    {
+        "signature": "public StrMatcher getVariablePrefixMatcher()",
+        "implementation": "public StrMatcher getVariablePrefixMatcher() {\n        return prefixMatcher;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "getVariablePrefixMatcher",
+        "javadoc": "/**\n * Returns a matcher that matches variable names with a given prefix.\n *\n * @return A {@link StrMatcher} instance that can be used to match variable names\n *         with a specified prefix.\n */\n",
+        "improved_javadoc": "/**\n * Returns a matcher that matches variable names with a given prefix.\n *\n * @param prefix The prefix to match against variable names.\n * @return A {@link StrMatcher} instance that can be used to match variable names\n *         with the specified prefix.\n */\n"
+    },
+    {
+        "signature": "public StrLookup<?> getVariableResolver()",
+        "implementation": "public StrLookup<?> getVariableResolver() {\n        return this.variableResolver;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "getVariableResolver",
+        "javadoc": "/**\n * Returns the variable resolver used to resolve variables in templates.\n *\n * @return the variable resolver\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the variable resolver instance that is used to resolve variables within template strings.\n *\n * @return the variable resolver instance, or null if not initialized\n */\n"
+    },
+    {
+        "signature": "public StrMatcher getVariableSuffixMatcher()",
+        "implementation": "public StrMatcher getVariableSuffixMatcher() {\n        return suffixMatcher;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "getVariableSuffixMatcher",
+        "javadoc": "/**\n * Returns a matcher for variable suffixes.\n *\n * @return A matcher that matches variable suffixes.\n */\n",
+        "improved_javadoc": "/**\n * Returns a matcher that matches variable suffixes, such as \"var1\", \"var2\", etc.\n *\n * @return A matcher object that can be used to match variable suffixes in strings.\n */\n"
+    },
+    {
+        "signature": "public boolean isDisableSubstitutionInValues()",
+        "implementation": "public boolean isDisableSubstitutionInValues() {\n        return disableSubstitutionInValues;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "isDisableSubstitutionInValues",
+        "javadoc": "/**\n * Returns whether substitution in values should be disabled.\n *\n * @return true if substitution in values is disabled, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Indicates whether substitution of values in expressions should be disabled.\n * This setting can be used to prevent potential security vulnerabilities by \n * preventing the evaluation of user-supplied input as part of an expression.\n *\n * @return true if value substitution is disabled, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isEnableSubstitutionInVariables()",
+        "implementation": "public boolean isEnableSubstitutionInVariables() {\n        return enableSubstitutionInVariables;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "isEnableSubstitutionInVariables",
+        "javadoc": "/**\n * Returns whether substitution in variables is enabled.\n *\n * @return true if substitution in variables is enabled, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Indicates whether variable substitution is currently enabled for this application.\n *\n * @return  {@code true} if variable substitution is enabled; otherwise, {@code false}\n */\n"
+    },
+    {
+        "signature": "public boolean isPreserveEscapes()",
+        "implementation": "public boolean isPreserveEscapes() {\n        return preserveEscapes;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "isPreserveEscapes",
+        "javadoc": "/**\n * Returns whether escape characters should be preserved.\n *\n * @return true if escape characters are preserved, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether escape characters in input strings should be interpreted or preserved as literal characters.\n *\n * @return true if escape characters are preserved, false if they are interpreted and replaced with their corresponding special characters\n */\n"
+    },
+    {
+        "signature": "public boolean replaceIn(final StringBuilder source, final int offset, final int length)",
+        "implementation": "public boolean replaceIn(final StringBuilder source, final int offset, final int length) {\n        if (source == null) {\n            return false;\n        }\n        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);\n        if (!substitute(buf, 0, length)) {\n            return false;\n        }\n        source.replace(offset, offset + length, buf.toString());\n        return true;\n    }",
+        "called_methods": [
+            "substitute",
+            "length",
+            "replaceIn",
+            "append",
+            "replace",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "replaceIn",
+        "javadoc": "/**\n * Replaces a substring in the provided StringBuilder with its substitute.\n *\n * @param source  the StringBuilder to replace the substring in\n * @param offset  the starting index of the substring to replace (inclusive)\n * @param length  the number of characters to replace\n * @return true if the replacement was successful, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Replaces a specified range of characters in the provided StringBuilder with its substitute.\n *\n * @param source   the StringBuilder on which to perform the substring replacement\n * @param offset   the starting index (inclusive) of the substring to replace\n * @param length   the number of characters to replace, may not exceed the remaining length at the specified offset\n * @return true if the replacement was successful, false otherwise\n */\n"
+    },
+    {
+        "signature": "protected String resolveVariable(final String variableName,\n                                     final StrBuilder buf,\n                                     final int startPos,\n                                     final int endPos)",
+        "implementation": "protected String resolveVariable(final String variableName,\n                                     final StrBuilder buf,\n                                     final int startPos,\n                                     final int endPos) {\n        final StrLookup<?> resolver = getVariableResolver();\n        if (resolver == null) {\n            return null;\n        }\n        return resolver.lookup(variableName);\n    }",
+        "called_methods": [
+            "getVariableResolver",
+            "lookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "resolveVariable",
+        "javadoc": "/**\n * Resolves a variable using the configured variable resolver.\n *\n * @param variableName  the name of the variable to resolve\n * @param buf           the buffer to append the resolved value to (not used in this implementation)\n * @param startPos      the start position of the variable in the buffer (not used in this implementation)\n * @param endPos        the end position of the variable in the buffer (not used in this implementation)\n *\n * @return  the resolved value, or null if no resolver is configured\n */\n",
+        "improved_javadoc": "/**\n * Resolves a variable using the configured variable resolver.\n *\n * @param variableName the name of the variable to resolve\n * \n * @return the resolved value, or null if no resolver is configured\n */\n"
+    },
+    {
+        "signature": "public void setDisableSubstitutionInValues(final boolean disableSubstitutionInValues)",
+        "implementation": "public void setDisableSubstitutionInValues(final boolean disableSubstitutionInValues) {\n        this.disableSubstitutionInValues = disableSubstitutionInValues;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setDisableSubstitutionInValues",
+        "javadoc": "/**\n * Sets whether substitution in values should be disabled.\n *\n * @param disableSubstitutionInValues true to disable substitution in values, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Disables or enables substitution of placeholders with actual values in property files and other configuration sources.\n *\n * @param disableSubstitutionInValues true to prevent the replacement of placeholders (e.g. ${key}) with their corresponding values, false to allow it\n */\n"
+    },
+    {
+        "signature": "public void setEnableSubstitutionInVariables(\n            final boolean enableSubstitutionInVariables)",
+        "implementation": "public void setEnableSubstitutionInVariables(\n            final boolean enableSubstitutionInVariables) {\n        this.enableSubstitutionInVariables = enableSubstitutionInVariables;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setEnableSubstitutionInVariables",
+        "javadoc": "/**\n * Enables or disables substitution of variables in expressions.\n *\n * @param enableSubstitutionInVariables true to enable variable substitution, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Enables or disables the substitution of variables in expressions.\n * \n * This setting controls whether variables can be used directly within expressions,\n * allowing for more complex and dynamic logic. When enabled, variables are replaced\n * with their actual values at runtime, whereas when disabled, they are treated as literal strings.\n * \n * @param enableSubstitutionInVariables true to enable variable substitution, false otherwise\n */\n"
+    },
+    {
+        "signature": "public void setEscapeChar(final char escapeCharacter)",
+        "implementation": "public void setEscapeChar(final char escapeCharacter) {\n        this.escapeChar = escapeCharacter;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setEscapeChar",
+        "javadoc": "/**\n * Sets the character used to escape special characters.\n *\n * @param escapeCharacter The character to use as an escape character.\n */\n",
+        "improved_javadoc": "/**\n * Sets the character used to escape special characters in regular expressions.\n *\n * @param escapeCharacter The character to use as an escape character. This character will be used to escape any special regex characters, allowing them to be treated as literal characters instead of having their special meaning interpreted by the regex engine.\n */\n"
+    },
+    {
+        "signature": "public void setPreserveEscapes(final boolean preserveEscapes)",
+        "implementation": "public void setPreserveEscapes(final boolean preserveEscapes) {\n        this.preserveEscapes = preserveEscapes;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setPreserveEscapes",
+        "javadoc": "/**\n * Sets whether to preserve escape characters.\n *\n * @param preserveEscapes true if escape characters should be preserved, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Configures whether to preserve escape characters in string literals when reading from a file or database.\n * \n * @param preserveEscapes true if escape characters (e.g. \\n, \\t) should be preserved, false to interpret them as literal characters\n */\n"
+    },
+    {
+        "signature": "public StrSubstitutor setValueDelimiter(final String valueDelimiter)",
+        "implementation": "public StrSubstitutor setValueDelimiter(final String valueDelimiter) {\n        if (valueDelimiter == null || valueDelimiter.isEmpty()) {\n            setValueDelimiterMatcher(null);\n            return this;\n        }\n        return setValueDelimiterMatcher(StrMatcher.stringMatcher(valueDelimiter));\n    }",
+        "called_methods": [
+            "setValueDelimiterMatcher",
+            "charMatcher",
+            "isEmpty",
+            "stringMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setValueDelimiter",
+        "javadoc": "/**\n * Sets the delimiter to be used when substituting values.\n *\n * @param valueDelimiter the new delimiter, or null to reset it to its default value\n * @return this object for chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets the delimiter character to be used when substituting values into a string.\n *\n * @param valueDelimiter the new delimiter character, or null to reset it to its default value\n * @return this object for chaining, allowing method calls to be concatenated\n */\n"
+    },
+    {
+        "signature": "public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher)",
+        "implementation": "public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher) {\n        this.valueDelimiterMatcher = valueDelimiterMatcher;\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setValueDelimiterMatcher",
+        "javadoc": "/**\n * Sets a custom matcher for the delimiter between values.\n *\n * @param valueDelimiterMatcher the custom matcher to use\n * @return this object, for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets a custom matcher for the delimiter between values.\n *\n * @param valueDelimiterMatcher the custom matcher to use; must not be null\n * @return this object, for method chaining\n */\n"
+    },
+    {
+        "signature": "public StrSubstitutor setVariablePrefix(final String prefix)",
+        "implementation": "public StrSubstitutor setVariablePrefix(final String prefix) {\n        Validate.isTrue(prefix != null, \"Variable prefix must not be null!\");\n        return setVariablePrefixMatcher(StrMatcher.stringMatcher(prefix));\n    }",
+        "called_methods": [
+            "setVariablePrefixMatcher",
+            "charMatcher",
+            "isTrue",
+            "stringMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setVariablePrefix",
+        "javadoc": "/**\n * Sets the variable prefix.\n *\n * @param prefix The new variable prefix. Must not be null.\n * @return This StrSubstitutor instance, allowing method chaining.\n */\n",
+        "improved_javadoc": "/**\n * Sets the variable prefix to use for substitutions.\n *\n * @param prefix The new variable prefix. Must not be null.\n * @return This StrSubstitutor instance, allowing method chaining.\n */\n"
+    },
+    {
+        "signature": "public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher)",
+        "implementation": "public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {\n        Validate.isTrue(prefixMatcher != null, \"Variable prefix matcher must not be null!\");\n        this.prefixMatcher = prefixMatcher;\n        return this;\n    }",
+        "called_methods": [
+            "isTrue"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setVariablePrefixMatcher",
+        "javadoc": "/**\n * Sets a variable prefix matcher.\n *\n * @param prefixMatcher the new variable prefix matcher (must not be null)\n * @return this instance, for chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets a variable prefix matcher. The provided matcher must not be null.\n *\n * @param prefixMatcher the new variable prefix matcher\n * @return this instance, for method chaining\n */\n"
+    },
+    {
+        "signature": "public void setVariableResolver(final StrLookup<?> variableResolver)",
+        "implementation": "public void setVariableResolver(final StrLookup<?> variableResolver) {\n        this.variableResolver = variableResolver;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setVariableResolver",
+        "javadoc": "/**\n * Sets a custom variable resolver.\n *\n * @param variableResolver the new variable resolver, or null to reset to default\n */\n",
+        "improved_javadoc": "/**\n * Sets a custom variable resolver. If the provided resolver is null, this method resets the variable resolver to its default value.\n *\n * @param variableResolver the new variable resolver, or null to reset to default\n */\n"
+    },
+    {
+        "signature": "public StrSubstitutor setVariableSuffix(final String suffix)",
+        "implementation": "public StrSubstitutor setVariableSuffix(final String suffix) {\n        Validate.isTrue(suffix != null, \"Variable suffix must not be null!\");\n        return setVariableSuffixMatcher(StrMatcher.stringMatcher(suffix));\n    }",
+        "called_methods": [
+            "setVariableSuffixMatcher",
+            "charMatcher",
+            "isTrue",
+            "stringMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setVariableSuffix",
+        "javadoc": "/**\n * Sets a variable suffix to be used in substitutions.\n *\n * @param suffix The suffix to use when substituting variables. This value must not be null.\n * @return A reference to this object, so that method calls can be chained together.\n */\n",
+        "improved_javadoc": "/**\n * Sets a variable suffix to be used in substitutions.\n *\n * @param suffix The suffix to use when substituting variables. This value must not be null.\n * @return A reference to this object, so that method calls can be chained together.\n * @throws NullPointerException if the provided suffix is null\n */\n"
+    },
+    {
+        "signature": "public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher)",
+        "implementation": "public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {\n        Validate.isTrue(suffixMatcher != null, \"Variable suffix matcher must not be null!\");\n        this.suffixMatcher = suffixMatcher;\n        return this;\n    }",
+        "called_methods": [
+            "isTrue"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "setVariableSuffixMatcher",
+        "javadoc": "/**\n * Sets a variable suffix matcher.\n *\n * @param suffixMatcher the new variable suffix matcher (must not be null)\n * @return this instance, for chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets a variable suffix matcher. The provided {@code suffixMatcher} must not be null.\n *\n * @param suffixMatcher the new variable suffix matcher\n * @return this instance, for method chaining\n */\n"
+    },
+    {
+        "signature": "private int substitute(final StrBuilder buf, final int offset, final int length, List<String> priorVariables)",
+        "implementation": "private int substitute(final StrBuilder buf, final int offset, final int length, List<String> priorVariables) {\n        final StrMatcher pfxMatcher = getVariablePrefixMatcher();\n        final StrMatcher suffMatcher = getVariableSuffixMatcher();\n        final char escape = getEscapeChar();\n        final StrMatcher valueDelimMatcher = getValueDelimiterMatcher();\n        final boolean substitutionInVariablesEnabled = isEnableSubstitutionInVariables();\n        final boolean substitutionInValuesDisabled = isDisableSubstitutionInValues();\n\n        final boolean top = priorVariables == null;\n        boolean altered = false;\n        int lengthChange = 0;\n        char[] chars = buf.buffer;\n        int bufEnd = offset + length;\n        int pos = offset;\n        while (pos < bufEnd) {\n            final int startMatchLen = pfxMatcher.isMatch(chars, pos, offset,\n                    bufEnd);\n            if (startMatchLen == 0) {\n                pos++;\n            } else // found variable start marker\n            if (pos > offset && chars[pos - 1] == escape) {\n                // escaped\n                if (preserveEscapes) {\n                    pos++;\n                    continue;\n                }\n                buf.deleteCharAt(pos - 1);\n                chars = buf.buffer; // in case buffer was altered\n                lengthChange--;\n                altered = true;\n                bufEnd--;\n            } else {\n                // find suffix\n                final int startPos = pos;\n                pos += startMatchLen;\n                int endMatchLen = 0;\n                int nestedVarCount = 0;\n                while (pos < bufEnd) {\n                    if (substitutionInVariablesEnabled\n                            && pfxMatcher.isMatch(chars,\n                                    pos, offset, bufEnd) != 0) {\n                        // found a nested variable start\n                        endMatchLen = pfxMatcher.isMatch(chars,\n                                pos, offset, bufEnd);\n                        nestedVarCount++;\n                        pos += endMatchLen;\n                        continue;\n                    }\n\n                    endMatchLen = suffMatcher.isMatch(chars, pos, offset,\n                            bufEnd);\n                    if (endMatchLen == 0) {\n                        pos++;\n                    } else {\n                        // found variable end marker\n                        if (nestedVarCount == 0) {\n                            String varNameExpr = new String(chars, startPos\n                                    + startMatchLen, pos - startPos\n                                    - startMatchLen);\n                            if (substitutionInVariablesEnabled) {\n                                final StrBuilder bufName = new StrBuilder(varNameExpr);\n                                substitute(bufName, 0, bufName.length());\n                                varNameExpr = bufName.toString();\n                            }\n                            pos += endMatchLen;\n                            final int endPos = pos;\n\n                            String varName = varNameExpr;\n                            String varDefaultValue = null;\n\n                            if (valueDelimMatcher != null) {\n                                final char[] varNameExprChars = varNameExpr.toCharArray();\n                                int valueDelimiterMatchLen = 0;\n                                for (int i = 0; i < varNameExprChars.length; i++) {\n                                    // if there's any nested variable when nested variable substitution disabled,\n                                    // then stop resolving name and default value.\n                                    if (!substitutionInVariablesEnabled\n                                            && pfxMatcher.isMatch(varNameExprChars,\n                                                                    i,\n                                                                    i,\n                                                                    varNameExprChars.length) != 0) {\n                                        break;\n                                    }\n                                    if (valueDelimMatcher.isMatch(varNameExprChars, i) != 0) {\n                                        valueDelimiterMatchLen = valueDelimMatcher.isMatch(varNameExprChars, i);\n                                        varName = varNameExpr.substring(0, i);\n                                        varDefaultValue = varNameExpr.substring(i + valueDelimiterMatchLen);\n                                        break;\n                                    }\n                                }\n                            }\n\n                            // on the first call initialize priorVariables\n                            if (priorVariables == null) {\n                                priorVariables = new ArrayList<>();\n                                priorVariables.add(new String(chars,\n                                        offset, length));\n                            }\n\n                            // handle cyclic substitution\n                            checkCyclicSubstitution(varName, priorVariables);\n                            priorVariables.add(varName);\n\n                            // resolve the variable\n                            String varValue = resolveVariable(varName, buf,\n                                    startPos, endPos);\n                            if (varValue == null) {\n                                varValue = varDefaultValue;\n                            }\n                            if (varValue != null) {\n                                final int varLen = varValue.length();\n                                buf.replace(startPos, endPos, varValue);\n                                altered = true;\n                                int change = 0;\n                                if (!substitutionInValuesDisabled) { // recursive replace\n                                    change = substitute(buf, startPos,\n                                        varLen, priorVariables);\n                                }\n                                change = change\n                                    + varLen - (endPos - startPos);\n                                pos += change;\n                                bufEnd += change;\n                                lengthChange += change;\n                                chars = buf.buffer; // in case buffer was\n                                                    // altered\n                            }\n\n                            // remove variable from the cyclic stack\n                            priorVariables\n                                    .remove(priorVariables.size() - 1);\n                            break;\n                        }\n                        nestedVarCount--;\n                        pos += endMatchLen;\n                    }\n                }\n            }\n        }\n        if (top) {\n            return altered ? 1 : 0;\n        }\n        return lengthChange;\n    }",
+        "called_methods": [
+            "substitute",
+            "getVariablePrefixMatcher",
+            "getVariableSuffixMatcher",
+            "getEscapeChar",
+            "getValueDelimiterMatcher",
+            "isEnableSubstitutionInVariables",
+            "isDisableSubstitutionInValues",
+            "isMatch",
+            "deleteCharAt",
+            "length",
+            "toString",
+            "toCharArray",
+            "substring",
+            "add",
+            "checkCyclicSubstitution",
+            "resolveVariable",
+            "replace",
+            "remove",
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrSubstitutor.java",
+        "name": "substitute",
+        "javadoc": "/**\n * Substitutes variables in a string buffer.\n *\n * This method iterates over the characters in the buffer, identifying variable start and end markers.\n * It then resolves the variable names and values, replacing them with their actual values in the buffer.\n *\n * @param buf        The string buffer to substitute variables in.\n * @param offset     The starting position of the substring to process.\n * @param length     The length of the substring to process.\n * @param priorVariables A list of previously encountered variable names. May be null on the first call.\n * @return 1 if any substitutions were made, or 0 otherwise. If this method is called as part of a recursive substitution,\n *         returns the total length change caused by all substitutions.\n */\n",
+        "improved_javadoc": "/**\n * Substitutes variables in a string buffer.\n *\n * This method iterates over the characters in the specified substring of the buffer, identifying variable start and end markers.\n * It then resolves the variable names and values from the provided list of previously encountered variables,\n * replacing them with their actual values in the buffer. The method returns the total length change caused by all substitutions.\n *\n * @param buf        The string buffer to substitute variables in.\n * @param offset     The starting position of the substring to process.\n * @param length     The length of the substring to process.\n * @param priorVariables A list of previously encountered variable names, used for resolving variable values. May be null on the first call.\n * @return 1 if any substitutions were made, or 0 otherwise. If this method is called as part of a recursive substitution,\n *         returns the total length change caused by all substitutions.\n */\n"
+    }
+]

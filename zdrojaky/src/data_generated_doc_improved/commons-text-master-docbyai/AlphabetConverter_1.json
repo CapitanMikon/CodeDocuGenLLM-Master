@@ -1,0 +1,180 @@
+[
+    {
+        "signature": "private static String codePointToString(final int i)",
+        "implementation": "private static String codePointToString(final int i) {\n        if (Character.charCount(i) == 1) {\n            return String.valueOf((char) i);\n        }\n        return new String(Character.toChars(i));\n    }",
+        "called_methods": [
+            "charCount",
+            "valueOf",
+            "toChars"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "codePointToString",
+        "javadoc": "/**\n * Converts a Unicode code point to its corresponding string representation.\n *\n * @param i the Unicode code point to convert\n * @return the string representation of the code point, or null if the input is invalid\n */\n",
+        "improved_javadoc": "/**\n * Converts a Unicode code point to its corresponding string representation.\n *\n * This method takes an integer representing a Unicode code point and returns its equivalent string representation.\n * If the input code point is not valid (i.e., outside the range U+0000 to U+10FFFF), this method returns null.\n *\n * @param codePoint the Unicode code point to convert\n * @return the string representation of the code point, or null if the input is invalid\n */\n"
+    },
+    {
+        "signature": "private static Integer[] convertCharsToIntegers(final Character[] chars)",
+        "implementation": "private static Integer[] convertCharsToIntegers(final Character[] chars) {\n        if (ArrayUtils.isEmpty(chars)) {\n            return ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY;\n        }\n        final Integer[] integers = new Integer[chars.length];\n        Arrays.setAll(integers, i -> (int) chars[i]);\n        return integers;\n    }",
+        "called_methods": [
+            "isEmpty",
+            "setAll"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "convertCharsToIntegers",
+        "javadoc": "/**\n * Converts an array of characters to an array of integers.\n *\n * @param chars the array of characters to convert\n * @return an array of integers equivalent to the input characters, or an empty array if the input is empty\n */\n",
+        "improved_javadoc": "/**\n * Converts an array of Unicode code points (represented as characters) to an array of their corresponding integer values.\n *\n * @param chars the array of characters to convert\n * @return an array of integers representing the Unicode code point values equivalent to the input characters, or an empty array if the input is empty\n */\n"
+    },
+    {
+        "signature": "public static AlphabetConverter createConverter(\n            final Integer[] original,\n            final Integer[] encoding,\n            final Integer[] doNotEncode)",
+        "implementation": "public static AlphabetConverter createConverter(\n            final Integer[] original,\n            final Integer[] encoding,\n            final Integer[] doNotEncode) {\n        final Set<Integer> originalCopy = new LinkedHashSet<>(Arrays.asList(original));\n        final Set<Integer> encodingCopy = new LinkedHashSet<>(Arrays.asList(encoding));\n        final Set<Integer> doNotEncodeCopy = new LinkedHashSet<>(Arrays.asList(doNotEncode));\n\n        final Map<Integer, String> originalToEncoded = new LinkedHashMap<>();\n        final Map<String, String> encodedToOriginal = new LinkedHashMap<>();\n        final Map<Integer, String> doNotEncodeMap = new HashMap<>();\n\n        final int encodedLetterLength;\n\n        for (final int i : doNotEncodeCopy) {\n            if (!originalCopy.contains(i)) {\n                throw new IllegalArgumentException(\n                        \"Can not use 'do not encode' list because original \"\n                                + \"alphabet does not contain '\"\n                                + codePointToString(i) + \"'\");\n            }\n\n            if (!encodingCopy.contains(i)) {\n                throw new IllegalArgumentException(\n                        \"Can not use 'do not encode' list because encoding alphabet does not contain '\"\n                                + codePointToString(i) + \"'\");\n            }\n\n            doNotEncodeMap.put(i, codePointToString(i));\n        }\n\n        if (encodingCopy.size() >= originalCopy.size()) {\n            encodedLetterLength = 1;\n\n            final Iterator<Integer> it = encodingCopy.iterator();\n\n            for (final int originalLetter : originalCopy) {\n                final String originalLetterAsString = codePointToString(originalLetter);\n\n                if (doNotEncodeMap.containsKey(originalLetter)) {\n                    originalToEncoded.put(originalLetter, originalLetterAsString);\n                    encodedToOriginal.put(originalLetterAsString, originalLetterAsString);\n                } else {\n                    Integer next = it.next();\n\n                    while (doNotEncodeCopy.contains(next)) {\n                        next = it.next();\n                    }\n\n                    final String encodedLetter = codePointToString(next);\n\n                    originalToEncoded.put(originalLetter, encodedLetter);\n                    encodedToOriginal.put(encodedLetter, originalLetterAsString);\n                }\n            }\n\n            return new AlphabetConverter(originalToEncoded, encodedToOriginal, encodedLetterLength);\n\n        }\n        if (encodingCopy.size() - doNotEncodeCopy.size() < 2) {\n            throw new IllegalArgumentException(\n                    \"Must have at least two encoding characters (excluding \"\n                            + \"those in the 'do not encode' list), but has \"\n                            + (encodingCopy.size() - doNotEncodeCopy.size()));\n        }\n        // we start with one which is our minimum, and because we do the\n        // first division outside the loop\n        int lettersSoFar = 1;\n\n        // the first division takes into account that the doNotEncode\n        // letters can't be in the leftmost place\n        int lettersLeft = (originalCopy.size() - doNotEncodeCopy.size())\n                / (encodingCopy.size() - doNotEncodeCopy.size());\n\n        while (lettersLeft / encodingCopy.size() >= 1) {\n            lettersLeft /= encodingCopy.size();\n            lettersSoFar++;\n        }\n\n        encodedLetterLength = lettersSoFar + 1;\n\n        final AlphabetConverter ac =\n                new AlphabetConverter(originalToEncoded,\n                        encodedToOriginal,\n                        encodedLetterLength);\n\n        ac.addSingleEncoding(encodedLetterLength,\n                StringUtils.EMPTY,\n                encodingCopy,\n                originalCopy.iterator(),\n                doNotEncodeMap);\n\n        return ac;\n    }",
+        "called_methods": [
+            "asList",
+            "contains",
+            "codePointToString",
+            "put",
+            "size",
+            "iterator",
+            "containsKey",
+            "next",
+            "addSingleEncoding"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "createConverter",
+        "javadoc": "/**\n * Creates an AlphabetConverter instance based on the provided original, \n * encoding and doNotEncode arrays.\n *\n * @param original  The original alphabet as an array of integers.\n * @param encoding  The encoding alphabet as an array of integers.\n * @param doNotEncode  The list of characters that should not be encoded in the output.\n * @return An AlphabetConverter instance configured with the provided parameters.\n * @throws IllegalArgumentException If the 'do not encode' list contains a character \n *                                  that is not present in either the original or encoding alphabets, \n *                                  or if there are not enough unique characters in the encoding alphabet \n *                                  to create at least two encoded letters (excluding those in the 'do not encode' list).\n */\n",
+        "improved_javadoc": "/**\n * Creates an AlphabetConverter instance based on the provided original, \n * encoding and doNotEncode arrays.\n *\n * @param original  The original alphabet as an array of integers.\n * @param encoding  The encoding alphabet as an array of integers.\n * @param doNotEncode  The list of characters that should not be encoded in the output.\n * @return An AlphabetConverter instance configured with the provided parameters.\n * @throws IllegalArgumentException If the 'do not encode' list contains a character \n *                                  that is not present in either the original or encoding alphabets, \n *                                  or if there are not enough unique characters in the encoding alphabet \n *                                  to create at least two encoded letters (excluding those in the 'do not encode' list).\n */\n"
+    },
+    {
+        "signature": "public static AlphabetConverter createConverterFromChars(\n            final Character[] original,\n            final Character[] encoding,\n            final Character[] doNotEncode)",
+        "implementation": "public static AlphabetConverter createConverterFromChars(\n            final Character[] original,\n            final Character[] encoding,\n            final Character[] doNotEncode) {\n        return AlphabetConverter.createConverter(\n                convertCharsToIntegers(original),\n                convertCharsToIntegers(encoding),\n                convertCharsToIntegers(doNotEncode));\n    }",
+        "called_methods": [
+            "createConverter",
+            "convertCharsToIntegers"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "createConverterFromChars",
+        "javadoc": "/**\n * Creates a new instance of an AlphabetConverter from character arrays.\n *\n * @param original  The characters to be converted, in their original form.\n * @param encoding  The characters that represent the encoded values.\n * @param doNotEncode  The characters that should not be encoded.\n *\n * @return A new instance of an AlphabetConverter.\n *\n * @throws NullPointerException if any of the input arrays are null.\n */\n",
+        "improved_javadoc": "/**\n * Creates a new instance of an AlphabetConverter from character arrays, \n * allowing for flexible encoding and decoding of characters.\n *\n * @param original  The characters to be converted, in their original form. \n *                  This array should contain all characters that need to be encoded or decoded.\n * @param encoding  The characters that represent the encoded values. \n *                  This array should contain the corresponding encoded values for each character in the original array.\n * @param doNotEncode  The characters that should not be encoded. \n *                     This array should contain the characters that should remain unchanged during the conversion process.\n *\n * @return A new instance of an AlphabetConverter, initialized with the provided arrays.\n *\n * @throws NullPointerException if any of the input arrays are null, indicating invalid input data.\n */\n"
+    },
+    {
+        "signature": "public static AlphabetConverter createConverterFromMap(final Map<Integer, String> originalToEncoded)",
+        "implementation": "public static AlphabetConverter createConverterFromMap(final Map<Integer, String> originalToEncoded) {\n        final Map<Integer, String> unmodifiableOriginalToEncoded = Collections.unmodifiableMap(originalToEncoded);\n        final Map<String, String> encodedToOriginal = new LinkedHashMap<>();\n\n        int encodedLetterLength = 1;\n\n        for (final Entry<Integer, String> e : unmodifiableOriginalToEncoded.entrySet()) {\n            encodedToOriginal.put(e.getValue(), codePointToString(e.getKey()));\n\n            if (e.getValue().length() > encodedLetterLength) {\n                encodedLetterLength = e.getValue().length();\n            }\n        }\n\n        return new AlphabetConverter(unmodifiableOriginalToEncoded, encodedToOriginal, encodedLetterLength);\n    }",
+        "called_methods": [
+            "unmodifiableMap",
+            "entrySet",
+            "put",
+            "getValue",
+            "codePointToString",
+            "getKey",
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "createConverterFromMap",
+        "javadoc": "/**\n * Creates an instance of {@link AlphabetConverter} from a map of original to encoded values.\n *\n * @param originalToEncoded A map where keys are original code points and values are their corresponding encoded strings.\n * @return An instance of {@link AlphabetConverter}.\n */\n",
+        "improved_javadoc": "/**\n * Creates an instance of {@link AlphabetConverter} from a map of original to encoded values, \n * allowing for efficient conversion between Unicode code points and their encoded representations.\n *\n * @param originalToEncoded A non-null map where keys are original Unicode code points (integers) \n *                          and values are their corresponding encoded strings. The map must not be empty.\n * @return An instance of {@link AlphabetConverter} that can be used for encoding and decoding operations.\n */\n"
+    },
+    {
+        "signature": "private void addSingleEncoding(final int level,\n                                   final String currentEncoding,\n                                   final Collection<Integer> encoding,\n                                   final Iterator<Integer> originals,\n                                   final Map<Integer, String> doNotEncodeMap)",
+        "implementation": "private void addSingleEncoding(final int level,\n                                   final String currentEncoding,\n                                   final Collection<Integer> encoding,\n                                   final Iterator<Integer> originals,\n                                   final Map<Integer, String> doNotEncodeMap) {\n\n        if (level > 0) {\n            for (final int encodingLetter : encoding) {\n                if (!originals.hasNext()) {\n                    return; // done encoding all the original alphabet\n                }\n                // this skips the doNotEncode chars if they are in the\n                // leftmost place\n                if (level != encodedLetterLength\n                        || !doNotEncodeMap.containsKey(encodingLetter)) {\n                    addSingleEncoding(level - 1,\n                            currentEncoding\n                                    + codePointToString(encodingLetter),\n                            encoding,\n                            originals,\n                            doNotEncodeMap\n                    );\n                }\n            }\n        } else {\n            Integer next = originals.next();\n\n            while (doNotEncodeMap.containsKey(next)) {\n                final String originalLetterAsString = codePointToString(next);\n\n                originalToEncoded.put(next, originalLetterAsString);\n                encodedToOriginal.put(originalLetterAsString,\n                        originalLetterAsString);\n\n                if (!originals.hasNext()) {\n                    return;\n                }\n\n                next = originals.next();\n            }\n\n            final String originalLetterAsString = codePointToString(next);\n\n            originalToEncoded.put(next, currentEncoding);\n            encodedToOriginal.put(currentEncoding, originalLetterAsString);\n        }\n    }",
+        "called_methods": [
+            "hasNext",
+            "containsKey",
+            "addSingleEncoding",
+            "codePointToString",
+            "next",
+            "put"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "addSingleEncoding",
+        "javadoc": "/**\n * Recursively adds a single encoding to the mapping of original characters to their encoded equivalents.\n *\n * @param level The current recursion level (i.e., how many levels deep we are in the encoding process).\n * @param currentEncoding The current encoding string being built up.\n * @param encoding A collection of integers representing the encoding letters.\n * @param originals An iterator over the original alphabet characters.\n * @param doNotEncodeMap A map of characters that should not be encoded.\n */\n",
+        "improved_javadoc": "/**\n * Recursively adds a single encoding to the mapping of original characters to their encoded equivalents.\n *\n * @param level The current recursion level (i.e., how many levels deep we are in the encoding process).\n * @param currentEncoding The current encoding string being built up.\n * @param encoding A collection of integers representing the encoding letters.\n * @param originals An iterator over the original alphabet characters.\n * @param doNotEncodeMap A map of characters that should not be encoded.\n */\n"
+    },
+    {
+        "signature": "public String decode(final String encoded)\n            throws UnsupportedEncodingException",
+        "implementation": "public String decode(final String encoded)\n            throws UnsupportedEncodingException {\n        if (encoded == null) {\n            return null;\n        }\n\n        final StringBuilder result = new StringBuilder();\n\n        for (int j = 0; j < encoded.length();) {\n            final int i = encoded.codePointAt(j);\n            final String s = codePointToString(i);\n\n            if (s.equals(originalToEncoded.get(i))) {\n                result.append(s);\n                j++; // because we do not encode in Unicode extended the\n                     // length of each encoded char is 1\n            } else {\n                if (j + encodedLetterLength > encoded.length()) {\n                    throw new UnsupportedEncodingException(\"Unexpected end \"\n                            + \"of string while decoding \" + encoded);\n                }\n                final String nextGroup = encoded.substring(j,\n                        j + encodedLetterLength);\n                final String next = encodedToOriginal.get(nextGroup);\n                if (next == null) {\n                    throw new UnsupportedEncodingException(\n                            \"Unexpected string without decoding (\"\n                                    + nextGroup + \") in \" + encoded);\n                }\n                result.append(next);\n                j += encodedLetterLength;\n            }\n        }\n\n        return result.toString();\n    }",
+        "called_methods": [
+            "length",
+            "codePointAt",
+            "codePointToString",
+            "equals",
+            "get",
+            "append",
+            "substring",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "decode",
+        "javadoc": "/**\n * Decodes a string that was previously encoded using this class.\n *\n * @param encoded the string to be decoded\n * @return the decoded string, or null if the input is null\n * @throws UnsupportedEncodingException if an error occurs during decoding\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public String encode(final String original)\n            throws UnsupportedEncodingException",
+        "implementation": "public String encode(final String original)\n            throws UnsupportedEncodingException {\n        if (original == null) {\n            return null;\n        }\n\n        final StringBuilder sb = new StringBuilder();\n\n        for (int i = 0; i < original.length();) {\n            final int codePoint = original.codePointAt(i);\n\n            final String nextLetter = originalToEncoded.get(codePoint);\n\n            if (nextLetter == null) {\n                throw new UnsupportedEncodingException(\n                        \"Couldn't find encoding for '\"\n                                + codePointToString(codePoint)\n                                + \"' in \"\n                                + original\n                );\n            }\n\n            sb.append(nextLetter);\n\n            i += Character.charCount(codePoint);\n        }\n\n        return sb.toString();\n    }",
+        "called_methods": [
+            "length",
+            "codePointAt",
+            "get",
+            "codePointToString",
+            "append",
+            "charCount",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "encode",
+        "javadoc": "/**\n * Encodes a string using the provided mapping.\n *\n * @param original the string to be encoded\n * @return the encoded string, or null if the input is null\n * @throws UnsupportedEncodingException if an encoding cannot be found for any character in the input string\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public boolean equals(final Object obj)",
+        "implementation": "public boolean equals(final Object obj) {\n        if (obj == null) {\n            return false;\n        }\n        if (obj == this) {\n            return true;\n        }\n        if (!(obj instanceof AlphabetConverter)) {\n            return false;\n        }\n        final AlphabetConverter other = (AlphabetConverter) obj;\n        return originalToEncoded.equals(other.originalToEncoded)\n                && encodedToOriginal.equals(other.encodedToOriginal)\n                && encodedLetterLength == other.encodedLetterLength;\n    }",
+        "called_methods": [
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "equals",
+        "javadoc": "/**\n * Compares this object with the specified object for equality.\n *\n * @param obj the object to compare with, may be null\n * @return true if this object is equal to the specified object, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Compares this object with the specified object for equality based on their hash codes and contents.\n *\n * @param obj the object to compare with, may be null\n * @return true if this object is equal to the specified object, false otherwise\n */\n"
+    },
+    {
+        "signature": "public int getEncodedCharLength()",
+        "implementation": "public int getEncodedCharLength() {\n        return encodedLetterLength;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "getEncodedCharLength",
+        "javadoc": "/**\n * Returns the length of an encoded character.\n *\n * @return The length of an encoded character.\n */\n",
+        "improved_javadoc": "/**\n * Returns the number of bytes required to represent the given Unicode code point in UTF-8 encoding.\n *\n * @param codePoint the Unicode code point for which to determine the byte length\n * @return the number of bytes required to represent the given code point in UTF-8 encoding\n */\n"
+    },
+    {
+        "signature": "public Map<Integer, String> getOriginalToEncoded()",
+        "implementation": "public Map<Integer, String> getOriginalToEncoded() {\n        return Collections.unmodifiableMap(originalToEncoded);\n    }",
+        "called_methods": [
+            "unmodifiableMap"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "getOriginalToEncoded",
+        "javadoc": "/**\n * Returns an unmodifiable map of original keys to their corresponding encoded values.\n *\n * @return a read-only map where each key is an integer and the corresponding value is a string\n */\n",
+        "improved_javadoc": "/**\n * Returns an immutable map of original keys to their corresponding encoded values,\n * where each key is an integer and the corresponding value is a string.\n *\n * @return an unmodifiable Map where each key is an integer and the corresponding value is a string\n */\n"
+    },
+    {
+        "signature": "public int hashCode()",
+        "implementation": "public int hashCode() {\n        return Objects.hash(originalToEncoded,\n                encodedToOriginal,\n                encodedLetterLength);\n    }",
+        "called_methods": [
+            "hash"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\AlphabetConverter.java",
+        "name": "hashCode",
+        "javadoc": "/**\n * Returns a hash code value for the object.\n *\n * This implementation uses the {@link Objects#hash(Object...)} method to compute\n * a hash code based on the values of the originalToEncoded, encodedToOriginal,\n * and encodedLetterLength fields.\n *\n * @return a hash code value for this object\n */\n",
+        "improved_javadoc": "/**\n * Returns a hash code value for the object.\n *\n * This implementation uses the {@link Objects#hash(Object...)} method to compute\n * a hash code based on the values of the originalToEncoded, encodedToOriginal,\n * and encodedLetterLength fields. The computed hash code is then returned as an integer.\n *\n * @return the hash code value for this object\n */\n"
+    }
+]

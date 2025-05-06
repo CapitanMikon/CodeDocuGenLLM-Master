@@ -1,0 +1,18 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String[] keys = key.split(String.valueOf(SPLIT_CH));\n        final int keyLen = keys.length;\n        if (keyLen < 2) {\n            throw IllegalArgumentExceptions.format(\"Bad file key format [%s], expected format is CharsetName:DocumentPath.\", key);\n        }\n        final String charsetName = keys[0];\n        final String fileName = StringUtils.substringAfter(key, SPLIT_CH);\n        try {\n            return new String(Files.readAllBytes(getPath(fileName)), charsetName);\n        } catch (final Exception e) {\n            throw IllegalArgumentExceptions.format(e, \"Error looking up file [%s] with charset [%s].\", fileName, charsetName);\n        }\n    }",
+        "called_methods": [
+            "split",
+            "valueOf",
+            "format",
+            "substringAfter",
+            "readAllBytes",
+            "getPath"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\FileStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a file based on the provided key.\n *\n * The key is expected to be in the format \"CharsetName:DocumentPath\".\n * If the key is null, this method returns null.\n *\n * @param key the file key to look up\n * @return the contents of the file as a string, or null if the key is null\n * @throws IllegalArgumentException if the key does not match the expected format\n */\n"
+    }
+]

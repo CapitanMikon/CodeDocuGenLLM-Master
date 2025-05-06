@@ -1,0 +1,34 @@
+[
+    {
+        "signature": "public R apply(final CharSequence right)",
+        "implementation": "public R apply(final CharSequence right) {\n        return similarityScore.apply(left, right);\n    }",
+        "called_methods": [
+            "apply"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityScoreFrom.java",
+        "name": "apply",
+        "javadoc": "/**\n * Applies the similarity score to the given {@code right} sequence.\n *\n * @param right the sequence to which the similarity score should be applied\n * @return the result of applying the similarity score to the given sequence\n */\n",
+        "improved_javadoc": "/**\n * Calculates and applies the similarity score between this sequence and the specified {@code right} sequence.\n *\n * @param right the sequence with which to calculate the similarity score\n * @return the result of applying the similarity score, indicating the degree of similarity between the two sequences\n */\n"
+    },
+    {
+        "signature": "public CharSequence getLeft()",
+        "implementation": "public CharSequence getLeft() {\n        return left;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityScoreFrom.java",
+        "name": "getLeft",
+        "javadoc": "/**\n * Returns the left part of the sequence.\n *\n * @return the left part of the sequence\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the left part of the specified sequence, up to but not including the specified index.\n *\n * @param index the index up to which the left part should be retrieved\n * @return the left part of the sequence\n */\n"
+    },
+    {
+        "signature": "public SimilarityScore<R> getSimilarityScore()",
+        "implementation": "public SimilarityScore<R> getSimilarityScore() {\n        return similarityScore;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityScoreFrom.java",
+        "name": "getSimilarityScore",
+        "javadoc": "/**\n * Returns the calculated similarity score.\n *\n * @return The similarity score, which represents a measure of how similar two objects are.\n */\n",
+        "improved_javadoc": "/**\n * Calculates and returns the similarity score between two objects.\n *\n * @param object1 The first object to compare.\n * @param object2 The second object to compare.\n * @return A numerical value representing the degree of similarity between the two objects, where higher values indicate greater similarity.\n */\n"
+    }
+]

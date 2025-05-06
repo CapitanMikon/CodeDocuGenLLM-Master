@@ -1,0 +1,370 @@
+[
+    {
+        "signature": "char getMinusSign();\n\n        /**\n         * Return",
+        "implementation": "char getMinusSign();\n\n        /**\n         * Return {@code true} if exponent values should always be included in",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "getMinusSign",
+        "javadoc": "/**\n         * Gets the minus sign character.\n         * @return minus sign character\n         */"
+    },
+    {
+        "signature": "boolean isAlwaysIncludeExponent();\n\n        /**\n         * Return",
+        "implementation": "boolean isAlwaysIncludeExponent();\n\n        /**\n         * Return {@code true} if thousands should be grouped.",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "isAlwaysIncludeExponent",
+        "javadoc": "/**\n         * Return {@code true} if exponent values should always be included in\n         * formatted output, even if the value is zero.\n         * @return {@code true} if exponent values should always be included\n         */"
+    },
+    {
+        "signature": "boolean isGroupThousands();\n\n        /**\n         * Return",
+        "implementation": "boolean isGroupThousands();\n\n        /**\n         * Return {@code true} if fraction placeholders (e.g., {@code \".0\"} in {@code \"1.0\"})",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "isGroupThousands",
+        "javadoc": "/**\n         * Return {@code true} if thousands should be grouped.\n         * @return {@code true} if thousand should be grouped\n         */"
+    },
+    {
+        "signature": "boolean isIncludeFractionPlaceholder();\n\n        /**\n         * Return",
+        "implementation": "boolean isIncludeFractionPlaceholder();\n\n        /**\n         * Return {@code true} if the string zero should be prefixed with the minus sign",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "isIncludeFractionPlaceholder",
+        "javadoc": "/**\n         * Return {@code true} if fraction placeholders (e.g., {@code \".0\"} in {@code \"1.0\"})\n         * should be included.\n         * @return {@code true} if fraction placeholders should be included\n         */"
+    },
+    {
+        "signature": "private static int digitValue(final char ch)",
+        "implementation": "private static int digitValue(final char ch) {\n        return ch - ZERO_CHAR;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "digitValue",
+        "javadoc": "/**\n     * Gets the numeric value of the given digit character. No validation of the\n     * character type is performed.\n     * @param ch digit character\n     * @return numeric value of the digit character, ex: '1' = 1\n     */"
+    },
+    {
+        "signature": "public static ParsedDecimal from(final double d)",
+        "implementation": "public static ParsedDecimal from(final double d) {\n        if (!Double.isFinite(d)) {\n            throw new IllegalArgumentException(\"Double is not finite\");\n        }\n\n        // Get the canonical string representation of the double value and parse\n        // it to extract the components of the decimal value. From the documentation\n        // of Double.toString() and the fact that d is finite, we are guaranteed the\n        // following:\n        // - the string will not be empty\n        // - it will contain exactly one decimal point character\n        // - all digit characters are in the ASCII range\n        final char[] strChars = Double.toString(d).toCharArray();\n\n        final boolean negative = strChars[0] == MINUS_CHAR;\n        final int digitStartIdx = negative ? 1 : 0;\n\n        final int[] digits = new int[strChars.length - digitStartIdx - 1];\n\n        boolean foundDecimalPoint = false;\n        int digitCount = 0;\n        int significantDigitCount = 0;\n        int decimalPos = 0;\n\n        int i;\n        for (i = digitStartIdx; i < strChars.length; ++i) {\n            final char ch = strChars[i];\n\n            if (ch == DECIMAL_SEP_CHAR) {\n                foundDecimalPoint = true;\n                decimalPos = digitCount;\n            } else if (ch == EXPONENT_CHAR) {\n                // no more mantissa digits\n                break;\n            } else if (ch != ZERO_CHAR || digitCount > 0) {\n                // this is either the first non-zero digit or one after it\n                final int val = digitValue(ch);\n                digits[digitCount++] = val;\n\n                if (val > 0) {\n                    significantDigitCount = digitCount;\n                }\n            } else if (foundDecimalPoint) {\n                // leading zero in a fraction; adjust the decimal position\n                --decimalPos;\n            }\n        }\n\n        if (digitCount > 0) {\n            // determine the exponent\n            final int explicitExponent = i < strChars.length\n                    ? parseExponent(strChars, i + 1)\n                    : 0;\n            final int exponent = explicitExponent + decimalPos - significantDigitCount;\n\n            return new ParsedDecimal(negative, digits, significantDigitCount, exponent);\n        }\n\n        // no non-zero digits, so value is zero\n        return new ParsedDecimal(negative, new int[] {0}, 1, 0);\n    }",
+        "called_methods": [
+            "isFinite",
+            "toString",
+            "toCharArray",
+            "digitValue",
+            "parseExponent"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "from",
+        "javadoc": "/**\n     * Constructs a new instance from the given double value.\n     * @param d double value\n     * @return a new instance containing the parsed components of the given double value\n     * @throws IllegalArgumentException if {@code d} is {@code NaN} or infinite\n     */"
+    },
+    {
+        "signature": "private static int parseExponent(final char[] chars, final int start)",
+        "implementation": "private static int parseExponent(final char[] chars, final int start) {\n        int i = start;\n        final boolean neg = chars[i] == MINUS_CHAR;\n        if (neg) {\n            ++i;\n        }\n\n        int exp = 0;\n        for (; i < chars.length; ++i) {\n            exp = exp * DECIMAL_RADIX + digitValue(chars[i]);\n        }\n\n        return neg ? -exp : exp;\n    }",
+        "called_methods": [
+            "digitValue"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "parseExponent",
+        "javadoc": "/**\n     * Parses a double exponent value from {@code chars}, starting at the {@code start}\n     * index and continuing through the end of the array.\n     * @param chars character array to parse a double exponent value from\n     * @param start start index\n     * @return parsed exponent value\n     */"
+    },
+    {
+        "signature": "private void append(final char[] chars)",
+        "implementation": "private void append(final char[] chars) {\n        for (final char c : chars) {\n            append(c);\n        }\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "append",
+        "javadoc": "/**\n     * Appends the given character array directly to the output buffer.\n     * @param chars characters to append\n     */"
+    },
+    {
+        "signature": "private void appendFraction(final int zeroCount, final int startIdx, final FormatOptions opts)",
+        "implementation": "private void appendFraction(final int zeroCount, final int startIdx, final FormatOptions opts) {\n        final char[] localizedDigits = opts.getDigits();\n        final char localizedZero = localizedDigits[0];\n\n        if (startIdx < digitCount) {\n            append(opts.getDecimalSeparator());\n\n            // add the zero prefix\n            for (int i = 0; i < zeroCount; ++i) {\n                append(localizedZero);\n            }\n\n            // add the fraction digits\n            for (int i = startIdx; i < digitCount; ++i) {\n                appendLocalizedDigit(digits[i], localizedDigits);\n            }\n        } else if (opts.isIncludeFractionPlaceholder()) {\n            append(opts.getDecimalSeparator());\n            append(localizedZero);\n        }\n    }",
+        "called_methods": [
+            "getDigits",
+            "append",
+            "getDecimalSeparator",
+            "appendLocalizedDigit",
+            "isIncludeFractionPlaceholder"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "appendFraction",
+        "javadoc": "/**\n     * Appends the fractional component of the number to the current output buffer.\n     * @param zeroCount number of zeros to add after the decimal point and before the\n     *      first significant digit\n     * @param startIdx significant digit start index\n     * @param opts format options\n     */"
+    },
+    {
+        "signature": "private void appendLocalizedDigit(final int n, final char[] digitChars)",
+        "implementation": "private void appendLocalizedDigit(final int n, final char[] digitChars) {\n        append(digitChars[n]);\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "appendLocalizedDigit",
+        "javadoc": "/**\n     * Appends the localized representation of the digit {@code n} to the output buffer.\n     * @param n digit to append\n     * @param digitChars character array containing localized versions of the digits {@code 0-9}\n     *      in that order\n     */"
+    },
+    {
+        "signature": "private int appendWhole(final int wholeCount, final FormatOptions opts)",
+        "implementation": "private int appendWhole(final int wholeCount, final FormatOptions opts) {\n        if (shouldIncludeMinus(opts)) {\n            append(opts.getMinusSign());\n        }\n\n        final char[] localizedDigits = opts.getDigits();\n        final char localizedZero = localizedDigits[0];\n\n        final int significantDigitCount = Math.max(0, Math.min(wholeCount, digitCount));\n\n        if (significantDigitCount > 0) {\n            int i;\n            for (i = 0; i < significantDigitCount; ++i) {\n                appendLocalizedDigit(digits[i], localizedDigits);\n            }\n\n            for (; i < wholeCount; ++i) {\n                append(localizedZero);\n            }\n        } else {\n            append(localizedZero);\n        }\n\n        return significantDigitCount;\n    }",
+        "called_methods": [
+            "shouldIncludeMinus",
+            "append",
+            "getMinusSign",
+            "getDigits",
+            "max",
+            "min",
+            "appendLocalizedDigit"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "appendWhole",
+        "javadoc": "/**\n     * Appends the whole number portion of this value to the output buffer. No thousands\n     * separators are added.\n     * @param wholeCount total number of digits required to the left of the decimal point\n     * @param opts format options\n     * @return number of digits from {@code digits} appended to the output buffer\n     * @see #appendWholeGrouped(int, FormatOptions)\n     */"
+    },
+    {
+        "signature": "private int appendWholeGrouped(final int wholeCount, final FormatOptions opts)",
+        "implementation": "private int appendWholeGrouped(final int wholeCount, final FormatOptions opts) {\n        if (shouldIncludeMinus(opts)) {\n            append(opts.getMinusSign());\n        }\n\n        final char[] localizedDigits = opts.getDigits();\n        final char localizedZero = localizedDigits[0];\n        final char groupingChar = opts.getGroupingSeparator();\n\n        final int appendCount = Math.max(0, Math.min(wholeCount, digitCount));\n\n        if (appendCount > 0) {\n            int i;\n            int pos = wholeCount;\n            for (i = 0; i < appendCount; ++i, --pos) {\n                appendLocalizedDigit(digits[i], localizedDigits);\n                if (requiresGroupingSeparatorAfterPosition(pos)) {\n                    append(groupingChar);\n                }\n            }\n\n            for (; i < wholeCount; ++i, --pos) {\n                append(localizedZero);\n                if (requiresGroupingSeparatorAfterPosition(pos)) {\n                    append(groupingChar);\n                }\n            }\n        } else {\n            append(localizedZero);\n        }\n\n        return appendCount;\n    }",
+        "called_methods": [
+            "shouldIncludeMinus",
+            "append",
+            "getMinusSign",
+            "getDigits",
+            "getGroupingSeparator",
+            "max",
+            "min",
+            "appendLocalizedDigit",
+            "requiresGroupingSeparatorAfterPosition"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "appendWholeGrouped",
+        "javadoc": "/**\n     * Appends the whole number portion of this value to the output buffer, adding thousands\n     * separators as needed.\n     * @param wholeCount total number of digits required to the right of the decimal point\n     * @param opts format options\n     * @return number of digits from {@code digits} appended to the output buffer\n     * @see #appendWhole(int, FormatOptions)\n     */"
+    },
+    {
+        "signature": "private int getDigitStringSize(final int decimalPos, final FormatOptions opts)",
+        "implementation": "private int getDigitStringSize(final int decimalPos, final FormatOptions opts) {\n        int size = digitCount;\n        if (shouldIncludeMinus(opts)) {\n            ++size;\n        }\n        if (decimalPos < 1) {\n            // no whole component;\n            // add decimal point and leading zeros\n            size += 2 + Math.abs(decimalPos);\n        } else if (decimalPos >= digitCount) {\n            // no fraction component;\n            // add trailing zeros\n            size += decimalPos - digitCount;\n            if (opts.isIncludeFractionPlaceholder()) {\n                size += 2;\n            }\n        } else {\n            // whole and fraction components;\n            // add decimal point\n            size += 1;\n        }\n\n        return size;\n    }",
+        "called_methods": [
+            "shouldIncludeMinus",
+            "abs",
+            "isIncludeFractionPlaceholder"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "getDigitStringSize",
+        "javadoc": "/**\n     * Gets the number of characters required for the digit portion of a string representation of\n     * this value. This excludes any exponent or thousands groupings characters.\n     * @param decimalPos decimal point position relative to the {@code digits} array\n     * @param opts format options\n     * @return number of characters required for the digit portion of a string representation of\n     *      this value\n     */"
+    },
+    {
+        "signature": "public int getExponent()",
+        "implementation": "public int getExponent() {\n        return exponent;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "getExponent",
+        "javadoc": "/**\n     * Gets the exponent value. This exponent produces a floating point value with the\n     * correct magnitude when applied to the internal unsigned integer.\n     * @return exponent value\n     */"
+    },
+    {
+        "signature": "private int getPlainStringSize(final int decimalPos, final FormatOptions opts)",
+        "implementation": "private int getPlainStringSize(final int decimalPos, final FormatOptions opts) {\n        int size = getDigitStringSize(decimalPos, opts);\n\n        // adjust for groupings if needed\n        if (opts.isGroupThousands() && decimalPos > 0) {\n            size += (decimalPos - 1) / THOUSANDS_GROUP_SIZE;\n        }\n\n        return size;\n    }",
+        "called_methods": [
+            "getDigitStringSize",
+            "isGroupThousands"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "getPlainStringSize",
+        "javadoc": "/**\n     * Gets the number of characters required to create a plain format representation\n     * of this value.\n     * @param decimalPos decimal position relative to the {@code digits} array\n     * @param opts format options\n     * @return number of characters in the plain string representation of this value,\n     *      created using the given parameters\n     */"
+    },
+    {
+        "signature": "public int getScientificExponent()",
+        "implementation": "public int getScientificExponent() {\n        return digitCount + exponent - 1;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "getScientificExponent",
+        "javadoc": "/**\n     * Gets the exponent that would be used when representing this number in scientific\n     * notation (i.e., with a single non-zero digit in front of the decimal point).\n     * @return the exponent that would be used when representing this number in scientific\n     *      notation\n     */"
+    },
+    {
+        "signature": "boolean isZero()",
+        "implementation": "boolean isZero() {\n        return digits[0] == 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "isZero",
+        "javadoc": "/**\n     * Tests {@code true} if this value is equal to zero. The sign field is ignored,\n     * meaning that this method will return {@code true} for both {@code +0} and {@code -0}.\n     * @return {@code true} if the value is equal to zero\n     */"
+    },
+    {
+        "signature": "public void maxPrecision(final int precision)",
+        "implementation": "public void maxPrecision(final int precision) {\n        if (precision > 0 && precision < digitCount) {\n            if (shouldRoundUp(precision)) {\n                roundUp(precision);\n            } else {\n                truncate(precision);\n            }\n        }\n    }",
+        "called_methods": [
+            "shouldRoundUp",
+            "roundUp",
+            "truncate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "maxPrecision",
+        "javadoc": "/**\n     * Ensures that this instance has <em>at most</em> the given number of significant digits\n     * (i.e. precision). If this instance already has a precision less than or equal\n     * to the argument, nothing is done. If the given precision requires a reduction in the number\n     * of digits, then the value is rounded using {@link java.math.RoundingMode#HALF_EVEN half-even rounding}.\n     * @param precision maximum number of significant digits to include\n     */"
+    },
+    {
+        "signature": "private String outputString()",
+        "implementation": "private String outputString() {\n        final String str = String.valueOf(outputChars);\n        outputChars = null;\n        return str;\n    }",
+        "called_methods": [
+            "valueOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "outputString",
+        "javadoc": "/**\n     * Gets the output buffer as a string.\n     * @return output buffer as a string\n     */"
+    },
+    {
+        "signature": "private void prepareOutput(final int size)",
+        "implementation": "private void prepareOutput(final int size) {\n        outputChars = new char[size];\n        outputIdx = 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "prepareOutput",
+        "javadoc": "/**\n     * Prepares the output buffer for a string of the given size.\n     * @param size buffer size\n     */"
+    },
+    {
+        "signature": "private boolean requiresGroupingSeparatorAfterPosition(final int pos)",
+        "implementation": "private boolean requiresGroupingSeparatorAfterPosition(final int pos) {\n        return pos > 1 && pos % THOUSANDS_GROUP_SIZE == 1;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "requiresGroupingSeparatorAfterPosition",
+        "javadoc": "/**\n     * Returns {@code true} if a grouping separator should be added after the whole digit\n     * character at the given position.\n     * @param pos whole digit character position, with values starting at 1 and increasing\n     *      from right to left.\n     * @return {@code true} if a grouping separator should be added\n     */"
+    },
+    {
+        "signature": "public void round(final int roundExponent)",
+        "implementation": "public void round(final int roundExponent) {\n        if (roundExponent > exponent) {\n            final int max = digitCount + exponent;\n\n            if (roundExponent < max) {\n                // rounding to a decimal place less than the max; set max precision\n                maxPrecision(max - roundExponent);\n            } else if (roundExponent == max && shouldRoundUp(0)) {\n                // rounding up directly on the max decimal place\n                setSingleDigitValue(1, roundExponent);\n            } else {\n                // change to zero\n                setSingleDigitValue(0, 0);\n            }\n        }\n    }",
+        "called_methods": [
+            "maxPrecision",
+            "shouldRoundUp",
+            "setSingleDigitValue"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "round",
+        "javadoc": "/**\n     * Rounds the instance to the given decimal exponent position using\n     * {@link java.math.RoundingMode#HALF_EVEN half-even rounding}. For example, a value of {@code -2}\n     * will round the instance to the digit at the position 10<sup>-2</sup> (i.e. to the closest multiple of 0.01).\n     * @param roundExponent exponent defining the decimal place to round to\n     */"
+    },
+    {
+        "signature": "private void roundUp(final int count)",
+        "implementation": "private void roundUp(final int count) {\n        int removedDigits = digitCount - count;\n        int i;\n        for (i = count - 1; i >= 0; --i) {\n            final int d = digits[i] + 1;\n\n            if (d < DECIMAL_RADIX) {\n                // value did not carry over; done adding\n                digits[i] = d;\n                break;\n            }\n            // value carried over; the current position is 0\n            // which we will ignore by shortening the digit count\n            ++removedDigits;\n        }\n\n        if (i < 0) {\n            // all values carried over\n            setSingleDigitValue(1, exponent + removedDigits);\n        } else {\n            // values were updated in-place; just need to update the length\n            truncate(digitCount - removedDigits);\n        }\n    }",
+        "called_methods": [
+            "setSingleDigitValue",
+            "truncate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "roundUp",
+        "javadoc": "/**\n     * Rounds the value up to the given number of digits.\n     * @param count target number of digits; must be greater than zero and\n     *      less than the current number of digits\n     */"
+    },
+    {
+        "signature": "private void setSingleDigitValue(final int digit, final int newExponent)",
+        "implementation": "private void setSingleDigitValue(final int digit, final int newExponent) {\n        digits[0] = digit;\n        digitCount = 1;\n        exponent = newExponent;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "setSingleDigitValue",
+        "javadoc": "/**\n     * Sets the value of this instance to a single digit with the given exponent.\n     * The sign of the value is retained.\n     * @param digit digit value\n     * @param newExponent new exponent value\n     */"
+    },
+    {
+        "signature": "private boolean shouldIncludeExponent(final int targetExponent, final FormatOptions opts)",
+        "implementation": "private boolean shouldIncludeExponent(final int targetExponent, final FormatOptions opts) {\n        return targetExponent != 0 || opts.isAlwaysIncludeExponent();\n    }",
+        "called_methods": [
+            "isAlwaysIncludeExponent"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "shouldIncludeExponent",
+        "javadoc": "/**\n     * Returns {@code true} if a formatted string with the given target exponent should include\n     * the exponent field.\n     * @param targetExponent exponent of the formatted result\n     * @param opts format options\n     * @return {@code true} if the formatted string should include the exponent field\n     */"
+    },
+    {
+        "signature": "private boolean shouldIncludeMinus(final FormatOptions opts)",
+        "implementation": "private boolean shouldIncludeMinus(final FormatOptions opts) {\n        return negative && (opts.isSignedZero() || !isZero());\n    }",
+        "called_methods": [
+            "isSignedZero",
+            "isZero"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "shouldIncludeMinus",
+        "javadoc": "/**\n     * Returns {@code true} if formatted strings should include the minus sign, considering\n     * the value of this instance and the given format options.\n     * @param opts format options\n     * @return {@code true} if a minus sign should be included in the output\n     */"
+    },
+    {
+        "signature": "private boolean shouldRoundUp(final int count)",
+        "implementation": "private boolean shouldRoundUp(final int count) {\n        // Round up in the following cases:\n        // 1. The digit after the last digit is greater than 5.\n        // 2. The digit after the last digit is 5 and there are additional (non-zero)\n        //      digits after it.\n        // 3. The digit after the last digit is 5, there are no additional digits afterward,\n        //      and the last digit is odd (half-even rounding).\n        final int digitAfterLast = digits[count];\n\n        return digitAfterLast > ROUND_CENTER || digitAfterLast == ROUND_CENTER\n                && (count < digitCount - 1 || digits[count - 1] % 2 != 0);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "shouldRoundUp",
+        "javadoc": "/**\n     * Returns {@code true} if a rounding operation for the given number of digits should\n     * round up.\n     * @param count number of digits to round to; must be greater than zero and less\n     *      than the current number of digits\n     * @return {@code true} if a rounding operation for the given number of digits should\n     *      round up\n     */"
+    },
+    {
+        "signature": "public String toEngineeringString(final FormatOptions opts)",
+        "implementation": "public String toEngineeringString(final FormatOptions opts) {\n        final int decimalPos = 1 + Math.floorMod(getScientificExponent(), ENG_EXPONENT_MOD);\n        return toScientificString(decimalPos, opts);\n    }",
+        "called_methods": [
+            "floorMod",
+            "getScientificExponent",
+            "toScientificString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "toEngineeringString",
+        "javadoc": "/**\n     * Returns a string representation of this value in engineering notation. This is similar to {@link #toScientificString(FormatOptions) scientific notation}\n     * but with the exponent forced to be a multiple of 3, allowing easier alignment with SI prefixes.\n     * <p>\n     * For example:\n     * </p>\n     *\n     * <pre>\n     * 0 = \"0.0\"\n     * 10 = \"10.0\"\n     * 1e-6 = \"1.0E-6\"\n     * 1e11 = \"100.0E9\"\n     * </pre>\n     *\n     * @param opts format options\n     * @return value in engineering format\n     */"
+    },
+    {
+        "signature": "public String toPlainString(final FormatOptions opts)",
+        "implementation": "public String toPlainString(final FormatOptions opts) {\n        final int decimalPos = digitCount + exponent;\n        final int fractionZeroCount = decimalPos < 1\n                ? Math.abs(decimalPos)\n                : 0;\n\n        prepareOutput(getPlainStringSize(decimalPos, opts));\n\n        final int fractionStartIdx = opts.isGroupThousands()\n                ? appendWholeGrouped(decimalPos, opts)\n                : appendWhole(decimalPos, opts);\n\n        appendFraction(fractionZeroCount, fractionStartIdx, opts);\n\n        return outputString();\n    }",
+        "called_methods": [
+            "abs",
+            "prepareOutput",
+            "getPlainStringSize",
+            "isGroupThousands",
+            "appendWholeGrouped",
+            "appendWhole",
+            "appendFraction",
+            "outputString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "toPlainString",
+        "javadoc": "/**\n     * Returns a string representation of this value with no exponent field.\n     * <p>\n     * For example:\n     * </p>\n     *\n     * <pre>\n     * 10 = \"10.0\"\n     * 1e-6 = \"0.000001\"\n     * 1e11 = \"100000000000.0\"\n     * </pre>\n     *\n     * @param opts format options\n     * @return value in plain format\n     */"
+    },
+    {
+        "signature": "private String toScientificString(final int decimalPos, final FormatOptions opts)",
+        "implementation": "private String toScientificString(final int decimalPos, final FormatOptions opts) {\n        final int targetExponent = digitCount + exponent - decimalPos;\n        final int absTargetExponent = Math.abs(targetExponent);\n        final boolean includeExponent = shouldIncludeExponent(targetExponent, opts);\n        final boolean negativeExponent = targetExponent < 0;\n\n        // determine the size of the full formatted string, including the number of\n        // characters needed for the exponent digits\n        int size = getDigitStringSize(decimalPos, opts);\n        int exponentDigitCount = 0;\n        if (includeExponent) {\n            exponentDigitCount = absTargetExponent > 0\n                    ? (int) Math.floor(Math.log10(absTargetExponent)) + 1\n                    : 1;\n\n            size += opts.getExponentSeparatorChars().length + exponentDigitCount;\n            if (negativeExponent) {\n                ++size;\n            }\n        }\n\n        prepareOutput(size);\n\n        // append the portion before the exponent field\n        final int fractionStartIdx = appendWhole(decimalPos, opts);\n        appendFraction(0, fractionStartIdx, opts);\n\n        if (includeExponent) {\n            // append the exponent field\n            append(opts.getExponentSeparatorChars());\n\n            if (negativeExponent) {\n                append(opts.getMinusSign());\n            }\n\n            // append the exponent digits themselves; compute the\n            // string representation directly and add it to the output\n            // buffer to avoid the overhead of Integer.toString()\n            final char[] localizedDigits = opts.getDigits();\n            int rem = absTargetExponent;\n            for (int i = size - 1; i >= outputIdx; --i) {\n                outputChars[i] = localizedDigits[rem % DECIMAL_RADIX];\n                rem /= DECIMAL_RADIX;\n            }\n            outputIdx = size;\n        }\n\n        return outputString();\n    }",
+        "called_methods": [
+            "toScientificString",
+            "abs",
+            "shouldIncludeExponent",
+            "getDigitStringSize",
+            "floor",
+            "log10",
+            "getExponentSeparatorChars",
+            "prepareOutput",
+            "appendWhole",
+            "appendFraction",
+            "append",
+            "getMinusSign",
+            "getDigits",
+            "outputString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "toScientificString",
+        "javadoc": "/**\n     * Returns a string representation of the value in scientific notation using the\n     * given decimal point position.\n     * @param decimalPos decimal position relative to the {@code digits} array; this value\n     *      is expected to be greater than 0\n     * @param opts format options\n     * @return value in scientific format\n     */"
+    },
+    {
+        "signature": "private void truncate(final int count)",
+        "implementation": "private void truncate(final int count) {\n        // trim all trailing zero digits, making sure to leave\n        // at least one digit left\n        int nonZeroCount = count;\n        for (int i = count - 1;\n                i > 0 && digits[i] == 0;\n                --i) {\n            --nonZeroCount;\n        }\n        exponent += digitCount - nonZeroCount;\n        digitCount = nonZeroCount;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\ParsedDecimal.java",
+        "name": "truncate",
+        "javadoc": "/**\n     * Truncates the value to the given number of digits.\n     * @param count number of digits; must be greater than zero and less than\n     *      the current number of digits\n     */"
+    }
+]

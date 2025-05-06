@@ -1,0 +1,11 @@
+[
+    {
+        "signature": "public boolean translate(final int codePoint, final Writer writer) throws IOException",
+        "implementation": "public boolean translate(final int codePoint, final Writer writer) throws IOException {\n        // If true, it is a surrogate. Write nothing and say we've translated. Otherwise return false, and don't translate it.\n        return codePoint >= Character.MIN_SURROGATE && codePoint <= Character.MAX_SURROGATE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeUnpairedSurrogateRemover.java",
+        "name": "translate",
+        "javadoc": "/**\n     * Implements translate to throw out unpaired surrogates.\n     * {@inheritDoc}\n     */"
+    }
+]

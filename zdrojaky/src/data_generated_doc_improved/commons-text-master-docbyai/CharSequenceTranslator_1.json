@@ -1,0 +1,48 @@
+[
+    {
+        "signature": "public static String hex(final int codePoint)",
+        "implementation": "public static String hex(final int codePoint) {\n        return Integer.toHexString(codePoint).toUpperCase(Locale.ENGLISH);\n    }",
+        "called_methods": [
+            "toHexString",
+            "toUpperCase"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\CharSequenceTranslator.java",
+        "name": "hex",
+        "javadoc": "/**\n * Converts a Unicode code point to its hexadecimal representation.\n *\n * @param codePoint the Unicode code point to convert\n * @return the hexadecimal representation of the code point, in uppercase\n */\n",
+        "improved_javadoc": "/**\n * Converts a specified Unicode code point to its standard 4-digit or 8-digit hexadecimal representation.\n *\n * @param codePoint the Unicode code point to convert (in the range U+0000 to U+10FFFF)\n * @return the hexadecimal representation of the code point, in uppercase, with leading zeros if necessary\n */\n"
+    },
+    {
+        "signature": "public final void translate(final CharSequence input, final Writer writer) throws IOException",
+        "implementation": "public final void translate(final CharSequence input, final Writer writer) throws IOException {\n        Validate.isTrue(writer != null, \"The Writer must not be null\");\n        if (input == null) {\n            return;\n        }\n        int pos = 0;\n        final int len = input.length();\n        while (pos < len) {\n            final int consumed = translate(input, pos, writer);\n            if (consumed == 0) {\n                // inlined implementation of Character.toChars(Character.codePointAt(input, pos))\n                // avoids allocating temp char arrays and duplicate checks\n                final char c1 = input.charAt(pos);\n                writer.write(c1);\n                pos++;\n                if (Character.isHighSurrogate(c1) && pos < len) {\n                    final char c2 = input.charAt(pos);\n                    if (Character.isLowSurrogate(c2)) {\n                      writer.write(c2);\n                      pos++;\n                    }\n                }\n                continue;\n            }\n            // contract with translators is that they have to understand code points\n            // and they just took care of a surrogate pair\n            for (int pt = 0; pt < consumed; pt++) {\n                pos += Character.charCount(Character.codePointAt(input, pos));\n            }\n        }\n    }",
+        "called_methods": [
+            "length",
+            "translate",
+            "toString",
+            "isTrue",
+            "charAt",
+            "write",
+            "isHighSurrogate",
+            "isLowSurrogate",
+            "charCount",
+            "codePointAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\CharSequenceTranslator.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates the input character sequence to a writer.\n *\n * This method translates the input character sequence into a series of Unicode code points,\n * which are then written to the provided writer. It handles surrogate pairs and ensures that\n * each code point is properly represented in the output.\n *\n * @param input  The input character sequence to be translated.\n * @param writer The writer to write the translated characters to.\n * @throws IOException If an I/O error occurs while writing to the writer.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public final CharSequenceTranslator with(final CharSequenceTranslator... translators)",
+        "implementation": "public final CharSequenceTranslator with(final CharSequenceTranslator... translators) {\n        final CharSequenceTranslator[] newArray = new CharSequenceTranslator[translators.length + 1];\n        newArray[0] = this;\n        System.arraycopy(translators, 0, newArray, 1, translators.length);\n        return new AggregateTranslator(newArray);\n    }",
+        "called_methods": [
+            "arraycopy"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\CharSequenceTranslator.java",
+        "name": "with",
+        "javadoc": "/**\n * Combines this translator with one or more additional translators.\n *\n * @param translators The translators to combine with this translator. May be empty.\n * @return A new translator that combines the functionality of all provided translators, including this one.\n */\n",
+        "improved_javadoc": "/**\n * Combines this translator with one or more additional translators into a single translator,\n * allowing their translation capabilities to be used together.\n *\n * @param translators The translators to combine with this translator. May be empty.\n * @return A new translator that combines the functionality of all provided translators, including this one.\n */\n"
+    }
+]

@@ -1,0 +1,25 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String[] keys = key.split(SPLIT_STR);\n        final int keyLen = keys.length;\n        if (keyLen != 2) {\n            throw IllegalArgumentExceptions.format(\"Bad XML key format [%s]; expected format is DocumentPath:XPath.\",\n                    key);\n        }\n        final String documentPath = keys[0];\n        final String xpath = StringUtils.substringAfter(key, SPLIT_CH);\n        try (InputStream inputStream = Files.newInputStream(getPath(documentPath))) {\n            final XPathFactory factory = XPathFactory.newInstance();\n            for (final Entry<String, Boolean> p : xPathFactoryFeatures.entrySet()) {\n                factory.setFeature(p.getKey(), p.getValue());\n            }\n            return factory.newXPath().evaluate(xpath, new InputSource(inputStream));\n        } catch (final Exception e) {\n            throw IllegalArgumentExceptions.format(e, \"Error looking up XML document [%s] and XPath [%s].\",\n                    documentPath, xpath);\n        }\n    }",
+        "called_methods": [
+            "split",
+            "format",
+            "substringAfter",
+            "newInputStream",
+            "getPath",
+            "newInstance",
+            "entrySet",
+            "setFeature",
+            "getKey",
+            "getValue",
+            "newXPath",
+            "evaluate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\XmlStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up an XML document using a key in the format \"DocumentPath:XPath\".\n *\n * @param key The key to look up. Must be in the format \"DocumentPath:XPath\".\n * @return The result of evaluating the XPath expression against the XML document.\n * @throws IllegalArgumentException If the key is not in the correct format or if an error occurs while looking up the document.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    }
+]

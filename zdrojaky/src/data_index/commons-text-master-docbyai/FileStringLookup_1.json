@@ -1,0 +1,18 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String[] keys = key.split(String.valueOf(SPLIT_CH));\n        final int keyLen = keys.length;\n        if (keyLen < 2) {\n            throw IllegalArgumentExceptions.format(\"Bad file key format [%s], expected format is CharsetName:DocumentPath.\", key);\n        }\n        final String charsetName = keys[0];\n        final String fileName = StringUtils.substringAfter(key, SPLIT_CH);\n        try {\n            return new String(Files.readAllBytes(getPath(fileName)), charsetName);\n        } catch (final Exception e) {\n            throw IllegalArgumentExceptions.format(e, \"Error looking up file [%s] with charset [%s].\", fileName, charsetName);\n        }\n    }",
+        "called_methods": [
+            "split",
+            "valueOf",
+            "format",
+            "substringAfter",
+            "readAllBytes",
+            "getPath"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\FileStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n     * Looks up the value for the key in the format \"charsetName:DocumentPath\".\n     * <p>\n     * For example: \"UTF-8:com/domain/document.properties\".\n     * </p>\n     *\n     * @param key the key to be looked up, may be null\n     * @return The value associated with the key.\n     */"
+    }
+]

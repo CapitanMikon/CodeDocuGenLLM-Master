@@ -1,0 +1,25 @@
+[
+    {
+        "signature": "public Integer fuzzyScore(final CharSequence term, final CharSequence query)",
+        "implementation": "public Integer fuzzyScore(final CharSequence term, final CharSequence query) {\n        if (term == null || query == null) {\n            throw new IllegalArgumentException(\"CharSequences must not be null\");\n        }\n\n        // fuzzy logic is case insensitive. We normalize the Strings to lower\n        // case right from the start. Turning characters to lower case\n        // via Character.toLowerCase(char) is unfortunately insufficient\n        // as it does not accept a locale.\n        final String termLowerCase = term.toString().toLowerCase(locale);\n        final String queryLowerCase = query.toString().toLowerCase(locale);\n\n        // the resulting score\n        int score = 0;\n\n        // the position in the term which will be scanned next for potential\n        // query character matches\n        int termIndex = 0;\n\n        // index of the previously matched character in the term\n        int previousMatchingCharacterIndex = Integer.MIN_VALUE;\n\n        for (int queryIndex = 0; queryIndex < queryLowerCase.length(); queryIndex++) {\n            final char queryChar = queryLowerCase.charAt(queryIndex);\n\n            boolean termCharacterMatchFound = false;\n            for (; termIndex < termLowerCase.length()\n                    && !termCharacterMatchFound; termIndex++) {\n                final char termChar = termLowerCase.charAt(termIndex);\n\n                if (queryChar == termChar) {\n                    // simple character matches result in one point\n                    score++;\n\n                    // subsequent character matches further improve\n                    // the score.\n                    if (previousMatchingCharacterIndex + 1 == termIndex) {\n                        score += 2;\n                    }\n\n                    previousMatchingCharacterIndex = termIndex;\n\n                    // we can leave the nested loop. Every character in the\n                    // query can match at most one character in the term.\n                    termCharacterMatchFound = true;\n                }\n            }\n        }\n\n        return score;\n    }",
+        "called_methods": [
+            "toString",
+            "toLowerCase",
+            "length",
+            "charAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\FuzzyScore.java",
+        "name": "fuzzyScore",
+        "javadoc": "/**\n     * Find the Fuzzy Score which indicates the similarity score between two\n     * Strings.\n     *\n     * <pre>\n     * score.fuzzyScore(null, null)                          = IllegalArgumentException\n     * score.fuzzyScore(\"not null\", null)                    = IllegalArgumentException\n     * score.fuzzyScore(null, \"not null\")                    = IllegalArgumentException\n     * score.fuzzyScore(\"\", \"\")                              = 0\n     * score.fuzzyScore(\"Workshop\", \"b\")                     = 0\n     * score.fuzzyScore(\"Room\", \"o\")                         = 1\n     * score.fuzzyScore(\"Workshop\", \"w\")                     = 1\n     * score.fuzzyScore(\"Workshop\", \"ws\")                    = 2\n     * score.fuzzyScore(\"Workshop\", \"wo\")                    = 4\n     * score.fuzzyScore(\"Apache Software Foundation\", \"asf\") = 3\n     * </pre>\n     *\n     * @param term a full term that should be matched against, must not be null\n     * @param query the query that will be matched against a term, must not be\n     *            null\n     * @return result score\n     * @throws IllegalArgumentException if the term or query is {@code null}\n     */"
+    },
+    {
+        "signature": "public Locale getLocale()",
+        "implementation": "public Locale getLocale() {\n        return locale;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\FuzzyScore.java",
+        "name": "getLocale",
+        "javadoc": "/**\n     * Gets the locale.\n     *\n     * @return The locale\n     */"
+    }
+]

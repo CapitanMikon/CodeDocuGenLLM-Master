@@ -1,0 +1,15 @@
+[
+    {
+        "signature": "public void accept(final CommandVisitor<T> visitor)",
+        "implementation": "public void accept(final CommandVisitor<T> visitor) {\n        visitor.visitInsertCommand(getObject());\n    }",
+        "called_methods": [
+            "visitInsertCommand",
+            "getObject"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\InsertCommand.java",
+        "name": "accept",
+        "javadoc": "/**\n * Accepts a command visitor and notifies it about this insert command.\n *\n * @param visitor the command visitor to notify\n */\n",
+        "improved_javadoc": "/**\n * Notifies the given command visitor about this insert command, allowing it to perform any necessary actions or processing.\n *\n * @param visitor the command visitor to be notified; must not be null\n */\n"
+    }
+]

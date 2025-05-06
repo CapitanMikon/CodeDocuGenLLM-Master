@@ -1,0 +1,17 @@
+[
+    {
+        "signature": "public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map)",
+        "implementation": "public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map) {\n        return map.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));\n    }",
+        "called_methods": [
+            "entrySet",
+            "stream",
+            "collect",
+            "toMap"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\EntityArrays.java",
+        "name": "invert",
+        "javadoc": "/**\n * Inverts a given map by swapping its key-value pairs.\n *\n * @param map the input map to be inverted\n * @return a new map with the original values as keys and the original keys as values\n */\n",
+        "improved_javadoc": "/**\n * Inverts a given map by swapping its key-value pairs, effectively creating a new map where each key in the original map becomes a value and vice versa.\n *\n * @param map the input map to be inverted (must not be null)\n * @return a new map with the original values as keys and the original keys as values\n * @throws NullPointerException if the input map is null\n */\n"
+    }
+]

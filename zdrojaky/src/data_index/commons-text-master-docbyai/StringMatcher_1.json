@@ -1,0 +1,35 @@
+[
+    {
+        "signature": "default StringMatcher andThen(final StringMatcher stringMatcher)",
+        "implementation": "default StringMatcher andThen(final StringMatcher stringMatcher) {\n        return StringMatcherFactory.INSTANCE.andMatcher(this, stringMatcher);\n    }",
+        "called_methods": [
+            "andMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\StringMatcher.java",
+        "name": "andThen",
+        "javadoc": "/**\n     * Returns a matcher that matches this matcher followed by the given matcher.\n     *\n     * @param stringMatcher the next matcher.\n     * @return a matcher that matches this matcher followed by the given matcher.\n     * @since 1.9\n     */"
+    },
+    {
+        "signature": "default int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd)",
+        "implementation": "default int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {\n        return isMatch(CharSequenceUtils.toCharArray(buffer), start, bufferEnd, bufferEnd);\n    }",
+        "called_methods": [
+            "isMatch",
+            "length",
+            "toCharArray"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\StringMatcher.java",
+        "name": "isMatch",
+        "javadoc": "/**\n     * Returns the number of matching characters, {@code 0} if there is no match.\n     * <p>\n     * This method is called to check for a match against a source {@code buffer}. The parameter {@code start}\n     * represents the start position to be checked in the {@code buffer} (a character array which MUST not be changed).\n     * The implementation SHOULD guarantees that {@code start} is a valid index in {@code buffer}.\n     * </p>\n     * <p>\n     * The character array may be larger than the active area to be matched. Only values in the buffer between the\n     * specified indices may be accessed, in other words: {@code bufferStart <= start < bufferEnd}.\n     * </p>\n     * <p>\n     * The matching code may check one character or many. It may check characters preceding {@code start} as well as\n     * those after, so long as no checks exceed the bounds specified.\n     * </p>\n     * <p>\n     * It must return zero for no match, or a positive number if a match was found. The number indicates the number of\n     * characters that matched.\n     * </p>\n     *\n     * @param buffer the source text to search, do not change.\n     * @param start the starting position for the match, valid in {@code buffer}.\n     * @param bufferStart the first active index in the buffer, valid in {@code buffer}.\n     * @param bufferEnd the end index (exclusive) of the active buffer, valid in {@code buffer}.\n     * @return The number of matching characters, zero if there is no match.\n     * @since 1.9\n     */"
+    },
+    {
+        "signature": "default int size()",
+        "implementation": "default int size() {\n        return 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\StringMatcher.java",
+        "name": "size",
+        "javadoc": "/**\n     * Returns the size of the matching string. Defaults to 0.\n     *\n     * @return the size of the matching string.\n     * @since 1.9\n     */"
+    }
+]

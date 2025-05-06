@@ -1,0 +1,65 @@
+[
+    {
+        "signature": "public static UnicodeEscaper above(final int codePoint)",
+        "implementation": "public static UnicodeEscaper above(final int codePoint) {\n        return outsideOf(0, codePoint);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeEscaper.java",
+        "name": "above",
+        "javadoc": "/**\n * Returns a Unicode escaper that escapes all Unicode characters with code points\n * greater than the specified value.\n *\n * @param codePoint the maximum code point to escape\n * @return a Unicode escaper that escapes all Unicode characters with code points\n *         greater than the specified value\n */\n"
+    },
+    {
+        "signature": "public static UnicodeEscaper below(final int codePoint)",
+        "implementation": "public static UnicodeEscaper below(final int codePoint) {\n        return outsideOf(codePoint, Integer.MAX_VALUE);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeEscaper.java",
+        "name": "below",
+        "javadoc": "/**\n * Returns a Unicode escaper that escapes all characters with code points\n * less than or equal to the specified value.\n *\n * @param codePoint the maximum code point to escape\n * @return a Unicode escaper for the given range of code points\n */\n"
+    },
+    {
+        "signature": "public static UnicodeEscaper between(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static UnicodeEscaper between(final int codePointLow, final int codePointHigh) {\n        return new UnicodeEscaper(codePointLow, codePointHigh, true);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeEscaper.java",
+        "name": "between",
+        "javadoc": "/**\n * Creates a UnicodeEscaper that escapes all Unicode characters in the range\n * [codePointLow, codePointHigh].\n *\n * @param codePointLow the low end of the Unicode character range (inclusive)\n * @param codePointHigh the high end of the Unicode character range (inclusive)\n * @return a new UnicodeEscaper instance\n */\n"
+    },
+    {
+        "signature": "public static UnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static UnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {\n        return new UnicodeEscaper(codePointLow, codePointHigh, false);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeEscaper.java",
+        "name": "outsideOf",
+        "javadoc": "/**\n * Creates a UnicodeEscaper that escapes all Unicode characters in the range\n * [codePointLow, codePointHigh].\n *\n * @param codePointLow the low end of the Unicode character range (inclusive)\n * @param codePointHigh the high end of the Unicode character range (exclusive)\n * @return a new UnicodeEscaper instance\n */\n"
+    },
+    {
+        "signature": "protected String toUtf16Escape(final int codePoint)",
+        "implementation": "protected String toUtf16Escape(final int codePoint) {\n        return \"\\\\u\" + hex(codePoint);\n    }",
+        "called_methods": [
+            "hex"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeEscaper.java",
+        "name": "toUtf16Escape",
+        "javadoc": "/**\n * Escapes a Unicode code point as a UTF-16 escape sequence.\n *\n * @param codePoint the Unicode code point to be escaped\n * @return the UTF-16 escape sequence for the given code point\n */\n"
+    },
+    {
+        "signature": "public boolean translate(final int codePoint, final Writer writer) throws IOException",
+        "implementation": "public boolean translate(final int codePoint, final Writer writer) throws IOException {\n        if (between) {\n            if (codePoint < below || codePoint > above) {\n                return false;\n            }\n        } else if (codePoint >= below && codePoint <= above) {\n            return false;\n        }\n\n        if (codePoint > 0xffff) {\n            writer.write(toUtf16Escape(codePoint));\n        } else {\n          writer.write(\"\\\\u\");\n          writer.write(HEX_DIGITS[codePoint >> 12 & 15]);\n          writer.write(HEX_DIGITS[codePoint >> 8 & 15]);\n          writer.write(HEX_DIGITS[codePoint >> 4 & 15]);\n          writer.write(HEX_DIGITS[codePoint & 15]);\n        }\n        return true;\n    }",
+        "called_methods": [
+            "write",
+            "toUtf16Escape"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeEscaper.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates a Unicode code point to its escaped representation in the specified writer.\n *\n * @param codePoint the Unicode code point to translate\n * @param writer the writer to write the translated representation to\n * @return true if the translation was successful, false otherwise\n * @throws IOException if an I/O error occurs while writing to the writer\n */\n"
+    }
+]

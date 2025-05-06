@@ -1,0 +1,14 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        return StringEscapeUtils.escapeXml10(key);\n    }",
+        "called_methods": [
+            "escapeXml10"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\XmlEncoderStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Escapes special characters in the given key using XML 1.0 escaping rules.\n *\n * @param key the key to escape\n * @return the escaped key\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in the given key according to XML 1.0 escaping rules, \n * replacing special characters with their corresponding entity references.\n *\n * @param key the key containing special characters to be escaped\n * @return the key with all special characters replaced by their XML entity references\n */\n"
+    }
+]

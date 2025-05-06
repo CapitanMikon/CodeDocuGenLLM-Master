@@ -1,0 +1,31 @@
+[
+    {
+        "signature": "public R apply(final CharSequence right)",
+        "implementation": "public R apply(final CharSequence right) {\n        return editDistance.apply(left, right);\n    }",
+        "called_methods": [
+            "apply"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\EditDistanceFrom.java",
+        "name": "apply",
+        "javadoc": "/**\n     * Compares \"left\" field against the \"right\" parameter\n     * using the \"edit distance\" implementation.\n     *\n     * @param right the second CharSequence\n     * @return The similarity score between two CharSequences\n     */"
+    },
+    {
+        "signature": "public EditDistance<R> getEditDistance()",
+        "implementation": "public EditDistance<R> getEditDistance() {\n        return editDistance;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\EditDistanceFrom.java",
+        "name": "getEditDistance",
+        "javadoc": "/**\n     * Gets the edit distance.\n     *\n     * @return The edit distance\n     */"
+    },
+    {
+        "signature": "public CharSequence getLeft()",
+        "implementation": "public CharSequence getLeft() {\n        return left;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\EditDistanceFrom.java",
+        "name": "getLeft",
+        "javadoc": "/**\n     * Gets the left parameter.\n     *\n     * @return The left parameter\n     */"
+    }
+]

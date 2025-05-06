@@ -1,0 +1,205 @@
+{
+    "started": "2025-04-25T19:32:15.557452",
+    "ended": "2025-04-25T19:32:39.017485",
+    "total_seconds_taken": 23.460033,
+    "llm_runs": [
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-314b30a8-c669-482d-8280-5dec1e847a93-0",
+            "prompt_tokens": 89,
+            "response_tokens": 55,
+            "total_tokens": 144,
+            "duration_in_seconds": 3.3629298000000003,
+            "tokens_per_second": 117.54580599769994,
+            "started": "2025-04-25T17:32:20.2235814Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-39d01a87-cf8b-4ec0-a61d-d2dd6c9afae4-0",
+            "prompt_tokens": 126,
+            "response_tokens": 122,
+            "total_tokens": 248,
+            "duration_in_seconds": 1.0891309,
+            "tokens_per_second": 115.04955712521712,
+            "started": "2025-04-25T17:32:21.3165219Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-5e82aa55-7637-48a9-9bb5-4a9d4f8f6483-0",
+            "prompt_tokens": 77,
+            "response_tokens": 59,
+            "total_tokens": 136,
+            "duration_in_seconds": 0.5300421000000001,
+            "tokens_per_second": 117.31191867221996,
+            "started": "2025-04-25T17:32:21.8514901Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-a9b1854c-c245-4ed1-b042-abd58de4091d-0",
+            "prompt_tokens": 180,
+            "response_tokens": 142,
+            "total_tokens": 322,
+            "duration_in_seconds": 1.2880809,
+            "tokens_per_second": 112.64619314173486,
+            "started": "2025-04-25T17:32:23.1432546Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-b6028c57-db19-47c3-8f6c-4e7a1e112b4e-0",
+            "prompt_tokens": 99,
+            "response_tokens": 56,
+            "total_tokens": 155,
+            "duration_in_seconds": 0.5069363,
+            "tokens_per_second": 116.56632249072257,
+            "started": "2025-04-25T17:32:23.6546946Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-25af0da3-143e-4d60-a690-2ea0c37c93ea-0",
+            "prompt_tokens": 107,
+            "response_tokens": 85,
+            "total_tokens": 192,
+            "duration_in_seconds": 0.7591718000000001,
+            "tokens_per_second": 115.94095359115511,
+            "started": "2025-04-25T17:32:24.4183519Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-b59c5217-b715-4774-878a-8f3bb702154f-0",
+            "prompt_tokens": 125,
+            "response_tokens": 132,
+            "total_tokens": 257,
+            "duration_in_seconds": 1.1779057000000002,
+            "tokens_per_second": 114.78362677651576,
+            "started": "2025-04-25T17:32:25.6012796Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-e5704fe0-dfb8-45bf-8ce0-859b93d4acf5-0",
+            "prompt_tokens": 305,
+            "response_tokens": 183,
+            "total_tokens": 488,
+            "duration_in_seconds": 1.7266667,
+            "tokens_per_second": 108.80244478498884,
+            "started": "2025-04-25T17:32:27.3322811Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-f6c468ec-e79e-4dba-b896-c03c437185a9-0",
+            "prompt_tokens": 186,
+            "response_tokens": 138,
+            "total_tokens": 324,
+            "duration_in_seconds": 1.2565821000000001,
+            "tokens_per_second": 112.32681829647589,
+            "started": "2025-04-25T17:32:28.5935272Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-b9e5a940-77a9-4736-928a-e4b0a4f4c17b-0",
+            "prompt_tokens": 344,
+            "response_tokens": 104,
+            "total_tokens": 448,
+            "duration_in_seconds": 1.0162967,
+            "tokens_per_second": 107.01390758916908,
+            "started": "2025-04-25T17:32:29.6156398Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-e5b6720e-67f6-43a9-b025-bbf1b94138fd-0",
+            "prompt_tokens": 133,
+            "response_tokens": 236,
+            "total_tokens": 369,
+            "duration_in_seconds": 2.0998688000000003,
+            "tokens_per_second": 113.77412192169892,
+            "started": "2025-04-25T17:32:31.7201381Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-79019845-4eb4-4ddf-9299-38e44cdc116f-0",
+            "prompt_tokens": 209,
+            "response_tokens": 86,
+            "total_tokens": 295,
+            "duration_in_seconds": 0.8051932,
+            "tokens_per_second": 110.65808491772763,
+            "started": "2025-04-25T17:32:32.529835Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-25423cae-564b-4f7a-8689-90913b59ae6a-0",
+            "prompt_tokens": 139,
+            "response_tokens": 143,
+            "total_tokens": 282,
+            "duration_in_seconds": 1.2745149,
+            "tokens_per_second": 114.94515267449238,
+            "started": "2025-04-25T17:32:33.8087065Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-b99ca8a7-dc7b-437f-8e0d-5ec1776de619-0",
+            "prompt_tokens": 94,
+            "response_tokens": 122,
+            "total_tokens": 216,
+            "duration_in_seconds": 1.0818399,
+            "tokens_per_second": 116.36756545985553,
+            "started": "2025-04-25T17:32:34.8972299Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-217ce3f7-7482-4a6e-bd07-1628a0d29be7-0",
+            "prompt_tokens": 360,
+            "response_tokens": 216,
+            "total_tokens": 576,
+            "duration_in_seconds": 2.0308335,
+            "tokens_per_second": 109.07965405387716,
+            "started": "2025-04-25T17:32:36.9325362Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-0b8ed664-8ea0-4335-8fa4-e184be6754d4-0",
+            "prompt_tokens": 181,
+            "response_tokens": 154,
+            "total_tokens": 335,
+            "duration_in_seconds": 1.4009736000000002,
+            "tokens_per_second": 112.312031411779,
+            "started": "2025-04-25T17:32:38.3390145Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-761234e3-bf45-47dc-8cfa-cf7cd4c89e74-0",
+            "prompt_tokens": 221,
+            "response_tokens": 95,
+            "total_tokens": 316,
+            "duration_in_seconds": 0.8894476,
+            "tokens_per_second": 110.56288729742988,
+            "started": "2025-04-25T17:32:39.2356879Z",
+            "max_context_size": 8092
+        },
+        {
+            "model": "llama3.1:8b-instruct-q4_K_M",
+            "langchain_run_id": "run-fa2461a3-4bef-4c47-bc8d-b26b2ca8e139-0",
+            "prompt_tokens": 120,
+            "response_tokens": 115,
+            "total_tokens": 235,
+            "duration_in_seconds": 1.0313642,
+            "tokens_per_second": 115.13131878220298,
+            "started": "2025-04-25T17:32:40.2715828Z",
+            "max_context_size": 8092
+        }
+    ]
+}

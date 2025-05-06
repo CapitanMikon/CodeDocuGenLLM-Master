@@ -1,0 +1,31 @@
+[
+    {
+        "signature": "static String toPropertyKey(final String file, final String key)",
+        "implementation": "static String toPropertyKey(final String file, final String key) {\n        return AbstractStringLookup.toLookupKey(file, SEPARATOR, key);\n    }",
+        "called_methods": [
+            "toLookupKey"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\PropertiesStringLookup.java",
+        "name": "toPropertyKey",
+        "javadoc": "/**\n * Converts a file and key into a property key.\n *\n * @param file  the file to convert\n * @param key   the key to convert\n * @return      the converted property key\n */\n"
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String[] keys = key.split(SEPARATOR);\n        final int keyLen = keys.length;\n        if (keyLen < 2) {\n            throw IllegalArgumentExceptions.format(\"Bad properties key format [%s]; expected format is %s.\", key,\n                toPropertyKey(\"DocumentPath\", \"Key\"));\n        }\n        final String documentPath = keys[0];\n        final String propertyKey = StringUtils.substringAfter(key, SEPARATOR);\n        try {\n            final Properties properties = new Properties();\n            try (InputStream inputStream = Files.newInputStream(getPath(documentPath))) {\n                properties.load(inputStream);\n            }\n            return properties.getProperty(propertyKey);\n        } catch (final Exception e) {\n            throw IllegalArgumentExceptions.format(e, \"Error looking up properties [%s] and key [%s].\", documentPath,\n                propertyKey);\n        }\n    }",
+        "called_methods": [
+            "split",
+            "format",
+            "toPropertyKey",
+            "substringAfter",
+            "newInputStream",
+            "getPath",
+            "load",
+            "getProperty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\PropertiesStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a property value by its key.\n *\n * @param key The key to look up, in the format \"documentPath:propertyKey\".\n *            If the key is null, returns null.\n * @return The value of the property with the specified key, or null if not found.\n * @throws IllegalArgumentException If the key has an invalid format (i.e., it does not contain exactly one colon).\n */\n"
+    }
+]

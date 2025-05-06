@@ -1,0 +1,53 @@
+[
+    {
+        "signature": "static void clear()",
+        "implementation": "static void clear() {\n        CONSTANT_CACHE.clear();\n    }",
+        "called_methods": [
+            "clear"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ConstantStringLookup.java",
+        "name": "clear",
+        "javadoc": "/**\n * Clears the constant cache.\n */\n"
+    },
+    {
+        "signature": "protected Class<?> fetchClass(final String className) throws ClassNotFoundException",
+        "implementation": "protected Class<?> fetchClass(final String className) throws ClassNotFoundException {\n        return ClassUtils.getClass(className);\n    }",
+        "called_methods": [
+            "getClass"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ConstantStringLookup.java",
+        "name": "fetchClass",
+        "javadoc": "/**\n * Fetches a class by its fully qualified name.\n *\n * @param className the fully qualified name of the class to fetch\n * @return the loaded class, or null if the class cannot be found\n * @throws ClassNotFoundException if the class cannot be found\n */\n"
+    },
+    {
+        "signature": "public synchronized String lookup(final String key)",
+        "implementation": "public synchronized String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        String result;\n        result = CONSTANT_CACHE.get(key);\n        if (result != null) {\n            return result;\n        }\n        final int fieldPos = key.lastIndexOf(FIELD_SEPARATOR);\n        if (fieldPos < 0) {\n            return null;\n        }\n        try {\n            final Object value = resolveField(key.substring(0, fieldPos), key.substring(fieldPos + 1));\n            if (value != null) {\n                final String string = Objects.toString(value, null);\n                CONSTANT_CACHE.put(key, string);\n                result = string;\n            }\n        } catch (final Exception ex) {\n            // TODO it would be nice to log\n            return null;\n        }\n        return result;\n    }",
+        "called_methods": [
+            "get",
+            "lastIndexOf",
+            "resolveField",
+            "substring",
+            "toString",
+            "put"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ConstantStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a constant value in the cache or resolves it from the underlying data source.\n *\n * @param key The key of the constant value to look up. It should be in the format \"namespace:field\".\n * @return The resolved constant value as a string, or null if not found or an error occurred.\n * @throws Exception If an error occurs while resolving the field from the underlying data source.\n */\n"
+    },
+    {
+        "signature": "protected Object resolveField(final String className, final String fieldName) throws ReflectiveOperationException",
+        "implementation": "protected Object resolveField(final String className, final String fieldName) throws ReflectiveOperationException {\n        final Class<?> clazz = fetchClass(className);\n        if (clazz == null) {\n            return null;\n        }\n        return clazz.getField(fieldName).get(null);\n    }",
+        "called_methods": [
+            "fetchClass",
+            "getField",
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ConstantStringLookup.java",
+        "name": "resolveField",
+        "javadoc": "/**\n * Resolves a field of a specified class.\n *\n * @param className  the name of the class to resolve the field from\n * @param fieldName  the name of the field to resolve\n * @return          the resolved field value, or null if the class is not found\n * @throws ReflectiveOperationException if an error occurs while accessing the field\n */\n"
+    }
+]

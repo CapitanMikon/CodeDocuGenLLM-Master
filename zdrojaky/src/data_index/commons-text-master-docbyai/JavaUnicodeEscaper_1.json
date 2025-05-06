@@ -1,0 +1,54 @@
+[
+    {
+        "signature": "public static JavaUnicodeEscaper above(final int codePoint)",
+        "implementation": "public static JavaUnicodeEscaper above(final int codePoint) {\n        return outsideOf(0, codePoint);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "above",
+        "javadoc": "/**\n     * Constructs a {@code JavaUnicodeEscaper} above the specified value (exclusive).\n     *\n     * @param codePoint\n     *            above which to escape\n     * @return The newly created {@code UnicodeEscaper} instance\n     */"
+    },
+    {
+        "signature": "public static JavaUnicodeEscaper below(final int codePoint)",
+        "implementation": "public static JavaUnicodeEscaper below(final int codePoint) {\n        return outsideOf(codePoint, Integer.MAX_VALUE);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "below",
+        "javadoc": "/**\n     * Constructs a {@code JavaUnicodeEscaper} below the specified value (exclusive).\n     *\n     * @param codePoint\n     *            below which to escape\n     * @return The newly created {@code UnicodeEscaper} instance\n     */"
+    },
+    {
+        "signature": "public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {\n        return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "between",
+        "javadoc": "/**\n     * Constructs a {@code JavaUnicodeEscaper} between the specified values (inclusive).\n     *\n     * @param codePointLow\n     *            above which to escape\n     * @param codePointHigh\n     *            below which to escape\n     * @return The newly created {@code UnicodeEscaper} instance\n     */"
+    },
+    {
+        "signature": "public static JavaUnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static JavaUnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {\n        return new JavaUnicodeEscaper(codePointLow, codePointHigh, false);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "outsideOf",
+        "javadoc": "/**\n     * Constructs a {@code JavaUnicodeEscaper} outside of the specified values (exclusive).\n     *\n     * @param codePointLow\n     *            below which to escape\n     * @param codePointHigh\n     *            above which to escape\n     * @return The newly created {@code UnicodeEscaper} instance\n     */"
+    },
+    {
+        "signature": "protected String toUtf16Escape(final int codePoint)",
+        "implementation": "protected String toUtf16Escape(final int codePoint) {\n        final char[] surrogatePair = Character.toChars(codePoint);\n        return \"\\\\u\" + hex(surrogatePair[0]) + \"\\\\u\" + hex(surrogatePair[1]);\n    }",
+        "called_methods": [
+            "toChars",
+            "hex"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "toUtf16Escape",
+        "javadoc": "/**\n     * Converts the given code point to a hexadecimal string of the form {@code \"\\\\uXXXX\\\\uXXXX\"}.\n     *\n     * @param codePoint\n     *            a Unicode code point\n     * @return The hexadecimal string for the given code point\n     */"
+    }
+]

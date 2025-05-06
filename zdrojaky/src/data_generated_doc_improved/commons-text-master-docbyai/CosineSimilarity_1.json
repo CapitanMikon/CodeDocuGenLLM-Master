@@ -1,0 +1,43 @@
+[
+    {
+        "signature": "public Double cosineSimilarity(final Map<CharSequence, Integer> leftVector,\n                                   final Map<CharSequence, Integer> rightVector)",
+        "implementation": "public Double cosineSimilarity(final Map<CharSequence, Integer> leftVector,\n                                   final Map<CharSequence, Integer> rightVector) {\n        if (leftVector == null || rightVector == null) {\n            throw new IllegalArgumentException(\"Vectors must not be null\");\n        }\n\n        final Set<CharSequence> intersection = getIntersection(leftVector, rightVector);\n\n        final double dotProduct = dot(leftVector, rightVector, intersection);\n        double d1 = 0.0d;\n        for (final Integer value : leftVector.values()) {\n            d1 += Math.pow(value, 2);\n        }\n        double d2 = 0.0d;\n        for (final Integer value : rightVector.values()) {\n            d2 += Math.pow(value, 2);\n        }\n        final double cosineSimilarity;\n        if (d1 <= 0.0 || d2 <= 0.0) {\n            cosineSimilarity = 0.0;\n        } else {\n            cosineSimilarity = dotProduct / (Math.sqrt(d1) * Math.sqrt(d2));\n        }\n        return cosineSimilarity;\n    }",
+        "called_methods": [
+            "getIntersection",
+            "dot",
+            "values",
+            "pow",
+            "sqrt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\CosineSimilarity.java",
+        "name": "cosineSimilarity",
+        "javadoc": "/**\n * Calculates the cosine similarity between two vectors.\n *\n * The cosine similarity is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them. The cosine of the angle between two vectors can be calculated as the dot product of the two vectors divided by the product of their magnitudes.\n *\n * @param leftVector  the first vector\n * @param rightVector the second vector\n * @return the cosine similarity between the two vectors, or 0 if either vector has a magnitude of zero\n * @throws IllegalArgumentException if either vector is null\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "private double dot(final Map<CharSequence, Integer> leftVector, final Map<CharSequence, Integer> rightVector,\n            final Set<CharSequence> intersection)",
+        "implementation": "private double dot(final Map<CharSequence, Integer> leftVector, final Map<CharSequence, Integer> rightVector,\n            final Set<CharSequence> intersection) {\n        long dotProduct = 0;\n        for (final CharSequence key : intersection) {\n            dotProduct += leftVector.get(key) * (long) rightVector.get(key);\n        }\n        return dotProduct;\n    }",
+        "called_methods": [
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\CosineSimilarity.java",
+        "name": "dot",
+        "javadoc": "/**\n * Calculates the dot product of two vectors.\n *\n * The dot product is calculated by summing up the products of corresponding elements\n * in the intersection of the two input maps. If a key is present in only one map,\n * its value is ignored.\n *\n * @param leftVector  the first vector, represented as a map from keys to values\n * @param rightVector the second vector, represented as a map from keys to values\n * @param intersection the set of common keys between the two input maps\n * @return the dot product of the two vectors\n */\n",
+        "improved_javadoc": "/**\n * Calculates the dot product of two vectors.\n *\n * The dot product is calculated by summing up the products of corresponding elements\n * in the intersection of the two input maps. If a key is present in only one map,\n * its value is ignored.\n *\n * @param leftVector  the first vector, represented as a map from keys to values\n * @param rightVector the second vector, represented as a map from keys to values\n * @return the dot product of the two vectors\n */\n"
+    },
+    {
+        "signature": "private Set<CharSequence> getIntersection(final Map<CharSequence, Integer> leftVector,\n            final Map<CharSequence, Integer> rightVector)",
+        "implementation": "private Set<CharSequence> getIntersection(final Map<CharSequence, Integer> leftVector,\n            final Map<CharSequence, Integer> rightVector) {\n        final Set<CharSequence> intersection = new HashSet<>(leftVector.keySet());\n        intersection.retainAll(rightVector.keySet());\n        return intersection;\n    }",
+        "called_methods": [
+            "keySet",
+            "retainAll"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\CosineSimilarity.java",
+        "name": "getIntersection",
+        "javadoc": "/**\n * Returns the intersection of two vectors.\n *\n * The intersection is calculated by retaining all keys present in both input maps.\n *\n * @param leftVector  the first vector\n * @param rightVector the second vector\n * @return a set containing the intersecting keys\n */\n",
+        "improved_javadoc": "/**\n * Returns the intersection of two vectors, retaining all keys present in both input maps.\n *\n * This method calculates the intersection by comparing each key in the leftVector with the rightVector,\n * and returning a set containing only the keys that are common to both vectors.\n *\n * @param leftVector  the first vector (key-value pairs)\n * @param rightVector the second vector (key-value pairs)\n * @return a set of keys present in both input maps\n */\n"
+    }
+]

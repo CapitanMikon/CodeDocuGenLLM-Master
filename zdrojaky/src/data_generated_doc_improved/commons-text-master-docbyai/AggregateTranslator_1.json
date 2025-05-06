@@ -1,0 +1,14 @@
+[
+    {
+        "signature": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n        for (final CharSequenceTranslator translator : translators) {\n            final int consumed = translator.translate(input, index, writer);\n            if (consumed != 0) {\n                return consumed;\n            }\n        }\n        return 0;\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\AggregateTranslator.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates a portion of the input character sequence to the output stream.\n *\n * This method iterates over all registered translators and calls their translate methods in turn. The first translator that consumes any characters returns its consumed count, which is then returned by this method. If no translator consumes any characters, 0 is returned.\n *\n * @param input the input character sequence\n * @param index the starting position of the portion to be translated\n * @param writer the output stream where the translation result will be written\n * @return the number of characters consumed from the input by the first translator that consumed some characters; otherwise, 0\n * @throws IOException if an I/O error occurs while writing to the output stream\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    }
+]

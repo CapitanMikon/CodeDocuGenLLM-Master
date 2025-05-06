@@ -1,0 +1,35 @@
+[
+    {
+        "signature": "static String toLookupKey(final String left, final String separator, final String right)",
+        "implementation": "static String toLookupKey(final String left, final String separator, final String right) {\n        return left + separator + right;\n    }",
+        "called_methods": [
+            "toLookupKey"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\AbstractStringLookup.java",
+        "name": "toLookupKey",
+        "javadoc": "/**\n     * Creates a lookup key for a given file and key.\n     */"
+    },
+    {
+        "signature": "protected String substringAfter(final String value, final String str)",
+        "implementation": "protected String substringAfter(final String value, final String str) {\n        return StringUtils.substringAfter(value, str);\n    }",
+        "called_methods": [
+            "substringAfter"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\AbstractStringLookup.java",
+        "name": "substringAfter",
+        "javadoc": "/**\n     * Returns the substring after the first occurrence of {@code str} in {@code value}.\n     *\n     * @param value The source string.\n     * @param str The string to search.\n     * @return a new string.\n     * @deprecated Use {@link StringUtils#substringAfter(String, String)}.\n     */"
+    },
+    {
+        "signature": "protected String substringAfterLast(final String value, final char ch)",
+        "implementation": "protected String substringAfterLast(final String value, final char ch) {\n        return StringUtils.substringAfterLast(value, ch);\n    }",
+        "called_methods": [
+            "substringAfterLast"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\AbstractStringLookup.java",
+        "name": "substringAfterLast",
+        "javadoc": "/**\n     * Returns the substring after the first occurrence of {@code ch} in {@code value}.\n     *\n     * @param value The source string.\n     * @param ch The character to search.\n     * @return a new string.\n     * @deprecated Use {@link StringUtils#substringAfterLast(String, int)}.\n     */"
+    }
+]

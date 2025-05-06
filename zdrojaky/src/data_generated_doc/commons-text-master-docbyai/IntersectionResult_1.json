@@ -1,0 +1,51 @@
+[
+    {
+        "signature": "public boolean equals(final Object o)",
+        "implementation": "public boolean equals(final Object o) {\n        if (this == o) {\n            return true;\n        }\n        if (o == null || getClass() != o.getClass()) {\n            return false;\n        }\n        final IntersectionResult result = (IntersectionResult) o;\n        return sizeA == result.sizeA && sizeB == result.sizeB && intersection == result.intersection;\n    }",
+        "called_methods": [
+            "getClass"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionResult.java",
+        "name": "equals",
+        "javadoc": "/**\n * Indicates whether some other object is \"equal to\" this one.\n *\n * @param o the reference object with which to compare.\n * @return true if this object is the same as the obj and false otherwise.\n */\n"
+    },
+    {
+        "signature": "public int getIntersection()",
+        "implementation": "public int getIntersection() {\n        return intersection;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionResult.java",
+        "name": "getIntersection",
+        "javadoc": "/**\n * Returns the intersection of two sets.\n *\n * @return The intersection value.\n */\n"
+    },
+    {
+        "signature": "public int getSizeA()",
+        "implementation": "public int getSizeA() {\n        return sizeA;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionResult.java",
+        "name": "getSizeA",
+        "javadoc": "/**\n * Returns the value of sizeA.\n *\n * @return the value of sizeA\n */\n"
+    },
+    {
+        "signature": "public int getSizeB()",
+        "implementation": "public int getSizeB() {\n        return sizeB;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionResult.java",
+        "name": "getSizeB",
+        "javadoc": "/**\n * Returns the value of sizeB.\n *\n * @return the value of sizeB\n */\n"
+    },
+    {
+        "signature": "public int hashCode()",
+        "implementation": "public int hashCode() {\n        return Objects.hash(sizeA, sizeB, intersection);\n    }",
+        "called_methods": [
+            "hash"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionResult.java",
+        "name": "hashCode",
+        "javadoc": "/**\n * Returns a hash code value for this object.\n *\n * @return  a hash code value for this object\n */\n"
+    }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "signature": "private String getClassName()",
+        "implementation": "private String getClassName() {\n        final Class<? extends SinglePassTranslator> clazz = this.getClass();\n        return clazz.isAnonymousClass() ?  clazz.getName() : clazz.getSimpleName();\n    }",
+        "called_methods": [
+            "getClass",
+            "isAnonymousClass",
+            "getName",
+            "getSimpleName"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\SinglePassTranslator.java",
+        "name": "getClassName",
+        "javadoc": "/**\n * Returns the name of the class that implements the {@link SinglePassTranslator} interface.\n *\n * If the class is an anonymous class, its fully qualified name is returned. Otherwise,\n * its simple name (i.e., without package qualification) is returned.\n *\n * @return the name of the implementing class\n */\n"
+    },
+    {
+        "signature": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n        if (index != 0) {\n            throw new IllegalArgumentException(getClassName() + \".translate(final CharSequence input, final int \"\n                    + \"index, final Writer out) cannot handle a non-zero index.\");\n        }\n\n        translateWhole(input, writer);\n\n        return Character.codePointCount(input, index, input.length());\n    }",
+        "called_methods": [
+            "getClassName",
+            "translateWhole",
+            "codePointCount",
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\SinglePassTranslator.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates the specified character sequence to the output writer.\n *\n * @param input  the character sequence to be translated\n * @param index  the starting index of the translation (must be zero)\n * @param writer the writer where the translated characters will be written\n * @return the number of code points in the input sequence\n * @throws IOException if an I/O error occurs while writing to the output writer\n */\n"
+    }
+]

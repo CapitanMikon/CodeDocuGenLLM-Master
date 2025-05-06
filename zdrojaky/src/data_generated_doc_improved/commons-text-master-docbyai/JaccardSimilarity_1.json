@@ -1,0 +1,20 @@
+[
+    {
+        "signature": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right)",
+        "implementation": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"Input cannot be null\");\n        }\n        final int leftLength = left.length();\n        final int rightLength = right.length();\n        if (leftLength == 0 && rightLength == 0) {\n            return 1d;\n        }\n        if (leftLength == 0 || rightLength == 0) {\n            return 0d;\n        }\n        final Set<E> leftSet = new HashSet<>();\n        for (int i = 0; i < leftLength; i++) {\n            leftSet.add(left.at(i));\n        }\n        final Set<E> rightSet = new HashSet<>();\n        for (int i = 0; i < rightLength; i++) {\n            rightSet.add(right.at(i));\n        }\n        final Set<E> unionSet = new HashSet<>(leftSet);\n        unionSet.addAll(rightSet);\n        final int intersectionSize = leftSet.size() + rightSet.size() - unionSet.size();\n        return 1.0d * intersectionSize / unionSet.size();\n    }",
+        "called_methods": [
+            "apply",
+            "input",
+            "length",
+            "add",
+            "at",
+            "addAll",
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\JaccardSimilarity.java",
+        "name": "apply",
+        "javadoc": "/**\n * Calculates a similarity measure between two SimilarityInput objects.\n *\n * The similarity is defined as the size of the intersection divided by the size of the union of the two sets.\n * If either input is null, an IllegalArgumentException is thrown.\n * If both inputs are empty, a similarity of 1.0 is returned (i.e., they are identical).\n * If one or both inputs are empty, a similarity of 0.0 is returned (i.e., they have no elements in common).\n *\n * @param left the first SimilarityInput object\n * @param right the second SimilarityInput object\n * @return a measure of similarity between the two input objects\n * @throws IllegalArgumentException if either input is null\n */\n",
+        "improved_javadoc": "/**\n * Calculates the Jaccard similarity coefficient between two sets represented by the given SimilarityInput objects.\n *\n * The Jaccard similarity is defined as the size of the intersection divided by the size of the union of the two sets.\n * This measure is often used in information retrieval and data mining applications to quantify the similarity between two sets.\n *\n * @param left the first SimilarityInput object\n * @param right the second SimilarityInput object\n * @return a value between 0.0 (completely dissimilar) and 1.0 (identical), representing the Jaccard similarity coefficient\n * @throws IllegalArgumentException if either input is null\n */\n"
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {
+        "signature": "public static Map<CharSequence, Integer> of(final CharSequence[] tokens)",
+        "implementation": "public static Map<CharSequence, Integer> of(final CharSequence[] tokens) {\n        final Map<CharSequence, Integer> map = new HashMap<>();\n        Stream.of(tokens).forEach(token -> map.compute(token, (k, v) -> v != null ? v + 1 : 1));\n        return map;\n    }",
+        "called_methods": [
+            "of",
+            "forEach",
+            "compute"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\Counter.java",
+        "name": "of",
+        "javadoc": "/**\n * Creates a map where each key is a token from the input array and its corresponding value is the frequency of that token.\n *\n * @param tokens an array of CharSequence objects representing the tokens to be counted\n * @return a Map where each key is a token and its corresponding value is the frequency of that token\n */\n",
+        "improved_javadoc": "/**\n * Creates a map where each key is a token from the input array and its corresponding value is the frequency of that token.\n *\n * @param tokens an array of CharSequence objects representing the tokens to be counted, which may contain null values or empty strings\n * @return a Map where each key is a unique token and its corresponding value is the frequency of that token in the input array\n * @throws NullPointerException if the input array contains null elements\n */\n"
+    }
+]

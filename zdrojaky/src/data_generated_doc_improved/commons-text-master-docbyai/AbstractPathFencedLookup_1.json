@@ -1,0 +1,22 @@
+[
+    {
+        "signature": "protected Path getPath(final String fileName)",
+        "implementation": "protected Path getPath(final String fileName) {\n        final Path path = Paths.get(fileName);\n        if (fences.isEmpty()) {\n            return path;\n        }\n        final Path pathAbs = path.normalize().toAbsolutePath();\n        final Optional<Path> first = fences.stream().filter(pathAbs::startsWith).findFirst();\n        if (first.isPresent()) {\n            return path;\n        }\n        throw IllegalArgumentExceptions.format(\"[%s] -> [%s] not in %s\", fileName, pathAbs, fences);\n    }",
+        "called_methods": [
+            "get",
+            "isEmpty",
+            "normalize",
+            "toAbsolutePath",
+            "stream",
+            "filter",
+            "findFirst",
+            "isPresent",
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\AbstractPathFencedLookup.java",
+        "name": "getPath",
+        "javadoc": "/**\n * Returns a normalized and absolute path for the given file name.\n * If the file is located within one of the fenced directories, \n * the original path is returned. Otherwise, an IllegalArgumentException is thrown.\n *\n * @param fileName the name of the file to get the path for\n * @return the normalized and absolute path for the file\n * @throws IllegalArgumentException if the file is not in any of the fenced directories\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    }
+]

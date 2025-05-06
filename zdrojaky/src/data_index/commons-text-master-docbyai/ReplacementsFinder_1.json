@@ -1,0 +1,37 @@
+[
+    {
+        "signature": "public void visitDeleteCommand(final T object)",
+        "implementation": "public void visitDeleteCommand(final T object) {\n        pendingDeletions.add(object);\n    }",
+        "called_methods": [
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\ReplacementsFinder.java",
+        "name": "visitDeleteCommand",
+        "javadoc": "/**\n     * Add an object to the pending deletions set.\n     *\n     * @param object  object to delete\n     */"
+    },
+    {
+        "signature": "public void visitInsertCommand(final T object)",
+        "implementation": "public void visitInsertCommand(final T object) {\n        pendingInsertions.add(object);\n    }",
+        "called_methods": [
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\ReplacementsFinder.java",
+        "name": "visitInsertCommand",
+        "javadoc": "/**\n     * Add an object to the pending insertions set.\n     *\n     * @param object  object to insert\n     */"
+    },
+    {
+        "signature": "public void visitKeepCommand(final T object)",
+        "implementation": "public void visitKeepCommand(final T object) {\n        if (pendingDeletions.isEmpty() && pendingInsertions.isEmpty()) {\n            ++skipped;\n        } else {\n            handler.handleReplacement(skipped, pendingDeletions, pendingInsertions);\n            pendingDeletions.clear();\n            pendingInsertions.clear();\n            skipped = 1;\n        }\n    }",
+        "called_methods": [
+            "isEmpty",
+            "handleReplacement",
+            "clear"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\ReplacementsFinder.java",
+        "name": "visitKeepCommand",
+        "javadoc": "/**\n     * Handle a synchronization object.\n     * <p>\n     * When a synchronization object is identified, the pending insertions and\n     * pending deletions sets are provided to the user handler as subsequences.\n     * </p>\n     *\n     * @param object  synchronization object detected\n     */"
+    }
+]

@@ -1,0 +1,81 @@
+[
+    {
+        "signature": "public int getDiag()",
+        "implementation": "public int getDiag() {\n            return diag;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getDiag",
+        "javadoc": "/**\n         * Gets the diagonal number of the snake.\n         *\n         * @return diagonal number of the snake\n         */"
+    },
+    {
+        "signature": "public int getEnd()",
+        "implementation": "public int getEnd() {\n            return end;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getEnd",
+        "javadoc": "/**\n         * Gets the end index of the snake.\n         *\n         * @return end index of the snake\n         */"
+    },
+    {
+        "signature": "public int getStart()",
+        "implementation": "public int getStart() {\n            return start;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getStart",
+        "javadoc": "/**\n         * Gets the start index of the snake.\n         *\n         * @return start index of the snake\n         */"
+    },
+    {
+        "signature": "private void buildScript(final int start1, final int end1, final int start2, final int end2,\n            final EditScript<Character> script)",
+        "implementation": "private void buildScript(final int start1, final int end1, final int start2, final int end2,\n            final EditScript<Character> script) {\n        final Snake middle = getMiddleSnake(start1, end1, start2, end2);\n\n        if (middle == null\n                || middle.getStart() == end1 && middle.getDiag() == end1 - end2\n                || middle.getEnd() == start1 && middle.getDiag() == start1 - start2) {\n\n            int i = start1;\n            int j = start2;\n            while (i < end1 || j < end2) {\n                if (i < end1 && j < end2 && left.charAt(i) == right.charAt(j)) {\n                    script.append(new KeepCommand<>(left.charAt(i)));\n                    ++i;\n                    ++j;\n                } else if (end1 - start1 > end2 - start2) {\n                    script.append(new DeleteCommand<>(left.charAt(i)));\n                    ++i;\n                } else {\n                    script.append(new InsertCommand<>(right.charAt(j)));\n                    ++j;\n                }\n            }\n\n        } else {\n\n            buildScript(start1, middle.getStart(),\n                        start2, middle.getStart() - middle.getDiag(),\n                        script);\n            for (int i = middle.getStart(); i < middle.getEnd(); ++i) {\n                script.append(new KeepCommand<>(left.charAt(i)));\n            }\n            buildScript(middle.getEnd(), end1,\n                        middle.getEnd() - middle.getDiag(), end2,\n                        script);\n        }\n    }",
+        "called_methods": [
+            "getMiddleSnake",
+            "getStart",
+            "getDiag",
+            "getEnd",
+            "charAt",
+            "append",
+            "buildScript"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "buildScript",
+        "javadoc": "/**\n     * Builds an edit script.\n     *\n     * @param start1  the begin of the first sequence to be compared\n     * @param end1  the end of the first sequence to be compared\n     * @param start2  the begin of the second sequence to be compared\n     * @param end2  the end of the second sequence to be compared\n     * @param script the edited script\n     */"
+    },
+    {
+        "signature": "private Snake buildSnake(final int start, final int diag, final int end1, final int end2)",
+        "implementation": "private Snake buildSnake(final int start, final int diag, final int end1, final int end2) {\n        int end = start;\n        while (end - diag < end2\n                && end < end1\n                && left.charAt(end) == right.charAt(end - diag)) {\n            ++end;\n        }\n        return new Snake(start, end, diag);\n    }",
+        "called_methods": [
+            "charAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "buildSnake",
+        "javadoc": "/**\n     * Builds a snake.\n     *\n     * @param start  the value of the start of the snake\n     * @param diag  the value of the diagonal of the snake\n     * @param end1  the value of the end of the first sequence to be compared\n     * @param end2  the value of the end of the second sequence to be compared\n     * @return The snake built\n     */"
+    },
+    {
+        "signature": "private Snake getMiddleSnake(final int start1, final int end1, final int start2, final int end2)",
+        "implementation": "private Snake getMiddleSnake(final int start1, final int end1, final int start2, final int end2) {\n        // Myers Algorithm\n        // Initializations\n        final int m = end1 - start1;\n        final int n = end2 - start2;\n        if (m == 0 || n == 0) {\n            return null;\n        }\n\n        final int delta  = m - n;\n        final int sum    = n + m;\n        final int offset = (sum % 2 == 0 ? sum : sum + 1) / 2;\n        vDown[1 + offset] = start1;\n        vUp[1 + offset]   = end1 + 1;\n\n        for (int d = 0; d <= offset; ++d) {\n            // Down\n            for (int k = -d; k <= d; k += 2) {\n                // First step\n\n                final int i = k + offset;\n                if (k == -d || k != d && vDown[i - 1] < vDown[i + 1]) {\n                    vDown[i] = vDown[i + 1];\n                } else {\n                    vDown[i] = vDown[i - 1] + 1;\n                }\n\n                int x = vDown[i];\n                int y = x - start1 + start2 - k;\n\n                while (x < end1 && y < end2 && left.charAt(x) == right.charAt(y)) {\n                    vDown[i] = ++x;\n                    ++y;\n                }\n                // Second step\n                if (delta % 2 != 0 && delta - d <= k && k <= delta + d && vUp[i - delta] <= vDown[i]) { // NOPMD\n                    return buildSnake(vUp[i - delta], k + start1 - start2, end1, end2);\n                }\n            }\n\n            // Up\n            for (int k = delta - d; k <= delta + d; k += 2) {\n                // First step\n                final int i = k + offset - delta;\n                if (k == delta - d\n                        || k != delta + d && vUp[i + 1] <= vUp[i - 1]) {\n                    vUp[i] = vUp[i + 1] - 1;\n                } else {\n                    vUp[i] = vUp[i - 1];\n                }\n\n                int x = vUp[i] - 1;\n                int y = x - start1 + start2 - k;\n                while (x >= start1 && y >= start2\n                        && left.charAt(x) == right.charAt(y)) {\n                    vUp[i] = x--;\n                    y--;\n                }\n                // Second step\n                if (delta % 2 == 0 && -d <= k && k <= d && vUp[i] <= vDown[i + delta]) { // NOPMD\n                    return buildSnake(vUp[i], k + start1 - start2, end1, end2);\n                }\n            }\n        }\n\n        // this should not happen\n        throw new IllegalStateException(\"Internal Error\");\n    }",
+        "called_methods": [
+            "charAt",
+            "buildSnake"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getMiddleSnake",
+        "javadoc": "/**\n     * Gets the middle snake corresponding to two subsequences of the\n     * main sequences.\n     * <p>\n     * The snake is found using the MYERS Algorithm (this algorithms has\n     * also been implemented in the GNU diff program). This algorithm is\n     * explained in Eugene Myers article:\n     * <a href=\"http://www.cs.arizona.edu/people/gene/PAPERS/diff.ps\">\n     * An O(ND) Difference Algorithm and Its Variations</a>.\n     * </p>\n     *\n     * @param start1  the begin of the first sequence to be compared\n     * @param end1  the end of the first sequence to be compared\n     * @param start2  the begin of the second sequence to be compared\n     * @param end2  the end of the second sequence to be compared\n     * @return The middle snake\n     */"
+    },
+    {
+        "signature": "public EditScript<Character> getScript()",
+        "implementation": "public EditScript<Character> getScript() {\n        final EditScript<Character> script = new EditScript<>();\n        buildScript(0, left.length(), 0, right.length(), script);\n        return script;\n    }",
+        "called_methods": [
+            "buildScript",
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getScript",
+        "javadoc": "/**\n     * Gets the {@link EditScript} object.\n     * <p>\n     * It is guaranteed that the objects embedded in the {@link InsertCommand\n     * insert commands} come from the second sequence and that the objects\n     * embedded in either the {@link DeleteCommand delete commands} or\n     * {@link KeepCommand keep commands} come from the first sequence. This can\n     * be important if subclassing is used for some elements in the first\n     * sequence and the {@code equals} method is specialized.\n     * </p>\n     *\n     * @return The edit script resulting from the comparison of the two\n     *         sequences\n     */"
+    }
+]

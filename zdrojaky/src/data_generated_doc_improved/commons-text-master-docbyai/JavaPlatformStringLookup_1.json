@@ -1,0 +1,110 @@
+[
+    {
+        "signature": "public static void main(final String[] args)",
+        "implementation": "public static void main(final String[] args) {\n        System.out.println(JavaPlatformStringLookup.class);\n        System.out.printf(\"%s = %s%n\", KEY_VERSION, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VERSION));\n        System.out.printf(\"%s = %s%n\", KEY_RUNTIME, JavaPlatformStringLookup.INSTANCE.lookup(KEY_RUNTIME));\n        System.out.printf(\"%s = %s%n\", KEY_VM, JavaPlatformStringLookup.INSTANCE.lookup(KEY_VM));\n        System.out.printf(\"%s = %s%n\", KEY_OS, JavaPlatformStringLookup.INSTANCE.lookup(KEY_OS));\n        System.out.printf(\"%s = %s%n\", KEY_HARDWARE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_HARDWARE));\n        System.out.printf(\"%s = %s%n\", KEY_LOCALE, JavaPlatformStringLookup.INSTANCE.lookup(KEY_LOCALE));\n    }",
+        "called_methods": [
+            "println",
+            "printf",
+            "lookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\JavaPlatformStringLookup.java",
+        "name": "main",
+        "javadoc": "/**\n * The main entry point of this application.\n *\n * This method prints out various platform-specific information to the console,\n * including the version, runtime, VM, OS, hardware, and locale.\n *\n * @param args Command-line arguments (not used in this implementation)\n */\n",
+        "improved_javadoc": "/**\n * The main entry point of this application.\n *\n * This method prints out various platform-specific information to the console,\n * including the version, runtime, VM, OS, hardware, and locale.\n *\n * @param args Command-line arguments (not used in this implementation)\n * @return Nothing (void), as this is a static main method\n */\n"
+    },
+    {
+        "signature": "String getHardware()",
+        "implementation": "String getHardware() {\n        return \"processors: \" + Runtime.getRuntime().availableProcessors() + \", architecture: \"\n            + getSystemProperty(\"os.arch\") + this.getSystemProperty(\"-\", \"sun.arch.data.model\")\n            + this.getSystemProperty(\", instruction sets: \", \"sun.cpu.isalist\");\n    }",
+        "called_methods": [
+            "getRuntime",
+            "availableProcessors",
+            "getSystemProperty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\JavaPlatformStringLookup.java",
+        "name": "getHardware",
+        "javadoc": "/**\n * Returns a string describing the hardware configuration of the system.\n *\n * @return A string containing information about the number of processors, architecture,\n *         and instruction sets available on the system.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves detailed information about the system's hardware configuration.\n *\n * @return A formatted string describing the system's processor count, architecture, \n *         and supported instruction set(s).\n */\n"
+    },
+    {
+        "signature": "String getLocale()",
+        "implementation": "String getLocale() {\n        return \"default locale: \" + Locale.getDefault() + \", platform encoding: \" + getSystemProperty(\"file.encoding\");\n    }",
+        "called_methods": [
+            "getDefault",
+            "getSystemProperty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\JavaPlatformStringLookup.java",
+        "name": "getLocale",
+        "javadoc": "/**\n * Returns a string describing the default locale and platform encoding.\n *\n * @return A string containing the default locale and platform encoding.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves a string that describes the default locale and platform encoding,\n * providing information about the current system's settings for internationalization.\n *\n * @return A string containing the default locale and platform encoding, \n *         formatted in a human-readable manner to facilitate understanding of the system's configuration.\n */\n"
+    },
+    {
+        "signature": "String getOperatingSystem()",
+        "implementation": "String getOperatingSystem() {\n        return getSystemProperty(\"os.name\") + \" \" + getSystemProperty(\"os.version\")\n            + getSystemProperty(\" \", \"sun.os.patch.level\") + \", architecture: \" + getSystemProperty(\"os.arch\")\n            + getSystemProperty(\"-\", \"sun.arch.data.model\");\n    }",
+        "called_methods": [
+            "getSystemProperty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\JavaPlatformStringLookup.java",
+        "name": "getOperatingSystem",
+        "javadoc": "/**\n * Returns a string describing the operating system and its version.\n *\n * @return a string in the format \"operating_system version, architecture: architecture\"\n */\n",
+        "improved_javadoc": "/**\n * Returns a string describing the operating system and its version,\n * including the underlying architecture.\n *\n * @return a string in the format \"operating_system version, architecture: architecture\"\n */\n"
+    },
+    {
+        "signature": "String getRuntime()",
+        "implementation": "String getRuntime() {\n        return getSystemProperty(\"java.runtime.name\") + \" (build \" + getSystemProperty(\"java.runtime.version\")\n            + \") from \" + getSystemProperty(\"java.vendor\");\n    }",
+        "called_methods": [
+            "getSystemProperty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\JavaPlatformStringLookup.java",
+        "name": "getRuntime",
+        "javadoc": "/**\n * Returns a string describing the runtime environment.\n *\n * This method returns a string in the format:\n * <code>runtime-name (build version) from vendor</code>\n *\n * @return a string describing the runtime environment\n */\n",
+        "improved_javadoc": "/**\n * Returns a string describing the runtime environment, including its name, build version, and vendor.\n *\n * The returned string is in the format: <code>runtime-name (build-version) from vendor</code>\n *\n * @return a string containing the runtime environment's details\n */\n"
+    },
+    {
+        "signature": "private String getSystemProperty(final String prefix, final String name)",
+        "implementation": "private String getSystemProperty(final String prefix, final String name) {\n        final String value = getSystemProperty(name);\n        if (StringUtils.isEmpty(value)) {\n            return StringUtils.EMPTY;\n        }\n        return prefix + value;\n    }",
+        "called_methods": [
+            "lookup",
+            "getSystemProperty",
+            "isEmpty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\JavaPlatformStringLookup.java",
+        "name": "getSystemProperty",
+        "javadoc": "/**\n * Returns a system property with the specified prefix and name.\n *\n * If the system property is not set, an empty string is returned.\n *\n * @param prefix The prefix to be prepended to the system property value\n * @param name   The name of the system property\n * @return      A string containing the prefixed system property value, or an empty string if the property is not set\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the value of a system property with the specified prefix and name.\n *\n * If the system property does not exist, this method returns an empty string.\n *\n * @param prefix The prefix to be prepended to the system property value\n * @param name   The name of the system property (e.g. \"java.home\")\n * @return      A string containing the prefixed system property value, or an empty string if the property is not set\n */\n"
+    },
+    {
+        "signature": "String getVirtualMachine()",
+        "implementation": "String getVirtualMachine() {\n        return getSystemProperty(\"java.vm.name\") + \" (build \" + getSystemProperty(\"java.vm.version\") + \", \"\n            + getSystemProperty(\"java.vm.info\") + \")\";\n    }",
+        "called_methods": [
+            "getSystemProperty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\JavaPlatformStringLookup.java",
+        "name": "getVirtualMachine",
+        "javadoc": "/**\n * Returns a string describing the virtual machine.\n *\n * This method returns a string in the format:\n * <code>VM Name (build VM Version, VM Info)</code>\n *\n * @return A string describing the virtual machine\n */\n",
+        "improved_javadoc": "/**\n * Returns a string describing the virtual machine, including its name, build version, and additional information.\n *\n * The returned string is in the format: <code>VM Name (build VM Version, VM Info)</code>\n *\n * @return A string containing detailed information about the virtual machine\n */\n"
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        switch (key) {\n        case KEY_VERSION:\n            return \"Java version \" + getSystemProperty(\"java.version\");\n        case KEY_RUNTIME:\n            return getRuntime();\n        case KEY_VM:\n            return getVirtualMachine();\n        case KEY_OS:\n            return getOperatingSystem();\n        case KEY_HARDWARE:\n            return getHardware();\n        case KEY_LOCALE:\n            return getLocale();\n        default:\n            throw new IllegalArgumentException(key);\n        }\n    }",
+        "called_methods": [
+            "getSystemProperty",
+            "getRuntime",
+            "getVirtualMachine",
+            "getOperatingSystem",
+            "getHardware",
+            "getLocale"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\JavaPlatformStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a system property by its key.\n *\n * @param key the key of the system property to look up\n * @return the value of the system property, or null if the key is null\n * @throws IllegalArgumentException if the key does not match any known system property\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the value associated with the specified system property.\n *\n * @param key the name of the system property to look up (cannot be null)\n * @return the value of the system property, or null if the key is not defined in the system properties\n * @throws NullPointerException if the key is null\n */\n"
+    }
+]

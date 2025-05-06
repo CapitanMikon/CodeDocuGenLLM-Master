@@ -1,0 +1,54 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n            if (!key.isEmpty()) {\n                try {\n                    return System.getProperty(key);\n                } catch (final SecurityException ignored) {\n                    // Noop: All lookup(String) will return null.\n                }\n            }\n            return null;\n        }",
+        "called_methods": [
+            "toString",
+            "get",
+            "containsKey",
+            "getString",
+            "isEmpty",
+            "getProperty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n         * {@inheritDoc} This implementation directly accesses system properties.\n         */"
+    },
+    {
+        "signature": "public static <V> StrLookup<V> mapLookup(final Map<String, V> map)",
+        "implementation": "public static <V> StrLookup<V> mapLookup(final Map<String, V> map) {\n        return new MapStrLookup<>(map);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "mapLookup",
+        "javadoc": "/**\n     * Returns a lookup which looks up values using a map.\n     * <p>\n     * If the map is null, then null will be returned from every lookup. The map result object is converted to a string\n     * using toString().\n     * </p>\n     *\n     * @param <V> the type of the values supported by the lookup\n     * @param map the map of keys to values, may be null\n     * @return a lookup using the map, not null\n     */"
+    },
+    {
+        "signature": "public static StrLookup<?> noneLookup()",
+        "implementation": "public static StrLookup<?> noneLookup() {\n        return NONE_LOOKUP;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "noneLookup",
+        "javadoc": "/**\n     * Returns a lookup which always returns null.\n     *\n     * @return a lookup that always returns null, not null\n     */"
+    },
+    {
+        "signature": "public static StrLookup<String> resourceBundleLookup(final ResourceBundle resourceBundle)",
+        "implementation": "public static StrLookup<String> resourceBundleLookup(final ResourceBundle resourceBundle) {\n        return new ResourceBundleLookup(resourceBundle);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "resourceBundleLookup",
+        "javadoc": "/**\n     * Returns a lookup which looks up values using a ResourceBundle.\n     * <p>\n     * If the ResourceBundle is null, then null will be returned from every lookup. The map result object is converted\n     * to a string using toString().\n     * </p>\n     *\n     * @param resourceBundle the map of keys to values, may be null\n     * @return a lookup using the map, not null\n     * @see StringLookupFactory#resourceBundleStringLookup(String)\n     */"
+    },
+    {
+        "signature": "public static StrLookup<String> systemPropertiesLookup()",
+        "implementation": "public static StrLookup<String> systemPropertiesLookup() {\n        return SYSTEM_PROPERTIES_LOOKUP;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "systemPropertiesLookup",
+        "javadoc": "/**\n     * Returns a new lookup which uses a copy of the current {@link System#getProperties() System properties}.\n     * <p>\n     * If a security manager blocked access to system properties, then null will be returned from every lookup.\n     * </p>\n     * <p>\n     * If a null key is used, this lookup will throw a NullPointerException.\n     * </p>\n     *\n     * @return a lookup using system properties, not null\n     */"
+    }
+]

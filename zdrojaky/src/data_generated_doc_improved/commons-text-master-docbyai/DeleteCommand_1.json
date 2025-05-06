@@ -1,0 +1,15 @@
+[
+    {
+        "signature": "public void accept(final CommandVisitor<T> visitor)",
+        "implementation": "public void accept(final CommandVisitor<T> visitor) {\n        visitor.visitDeleteCommand(getObject());\n    }",
+        "called_methods": [
+            "visitDeleteCommand",
+            "getObject"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\DeleteCommand.java",
+        "name": "accept",
+        "javadoc": "/**\n * Accepts a command visitor and notifies it about this delete command.\n *\n * @param visitor the command visitor to notify\n */\n",
+        "improved_javadoc": "/**\n * Notifies the given command visitor about this delete command, allowing it to perform any necessary actions in response.\n *\n * @param visitor the command visitor to notify; must not be null\n */\n"
+    }
+]

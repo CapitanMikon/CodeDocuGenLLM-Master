@@ -1,0 +1,129 @@
+[
+    {
+        "signature": "public int isMatch(final char[] buffer, final int pos)",
+        "implementation": "public int isMatch(final char[] buffer, final int pos) {\n        return isMatch(buffer, pos, 0, buffer.length);\n    }",
+        "called_methods": [
+            "binarySearch",
+            "isMatch"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "isMatch",
+        "javadoc": "/**\n     * Returns the number of matching characters, or zero if there is no match.\n     * <p>\n     * This method is called to check for a match.\n     * The parameter {@code pos} represents the current position to be\n     * checked in the string {@code buffer} (a character array which must\n     * not be changed).\n     * The API guarantees that {@code pos} is a valid index for {@code buffer}.\n     * </p>\n     * <p>\n     * The matching code may check one character or many.\n     * It may check characters preceding {@code pos} as well as those after.\n     * </p>\n     * <p>\n     * It must return zero for no match, or a positive number if a match was found.\n     * The number indicates the number of characters that matched.\n     * </p>\n     *\n     * @param buffer  the text content to match against, do not change\n     * @param pos  the starting position for the match, valid for buffer\n     * @return The number of matching characters, or zero if there is no match\n     */"
+    },
+    {
+        "signature": "public static StrMatcher charMatcher(final char ch)",
+        "implementation": "public static StrMatcher charMatcher(final char ch) {\n        return new CharMatcher(ch);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "charMatcher",
+        "javadoc": "/**\n     * Creates a matcher from a character.\n     *\n     * @param ch  the character to match, must not be null\n     * @return a new Matcher for the given char\n     */"
+    },
+    {
+        "signature": "public static StrMatcher charSetMatcher(final String chars)",
+        "implementation": "public static StrMatcher charSetMatcher(final String chars) {\n        if (chars == null || chars.isEmpty()) {\n            return NONE_MATCHER;\n        }\n        if (chars.length() == 1) {\n            return new CharMatcher(chars.charAt(0));\n        }\n        return new CharSetMatcher(chars.toCharArray());\n    }",
+        "called_methods": [
+            "isEmpty",
+            "length",
+            "charAt",
+            "toCharArray"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "charSetMatcher",
+        "javadoc": "/**\n     * Creates a matcher from a string representing a set of characters.\n     *\n     * @param chars  the characters to match, null or empty matches nothing\n     * @return a new Matcher for the given characters\n     */"
+    },
+    {
+        "signature": "public static StrMatcher commaMatcher()",
+        "implementation": "public static StrMatcher commaMatcher() {\n        return COMMA_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "commaMatcher",
+        "javadoc": "/**\n     * Returns a matcher which matches the comma character.\n     *\n     * @return a matcher for a comma\n     */"
+    },
+    {
+        "signature": "public static StrMatcher doubleQuoteMatcher()",
+        "implementation": "public static StrMatcher doubleQuoteMatcher() {\n        return DOUBLE_QUOTE_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "doubleQuoteMatcher",
+        "javadoc": "/**\n     * Returns a matcher which matches the double quote character.\n     *\n     * @return a matcher for a double quote\n     */"
+    },
+    {
+        "signature": "public static StrMatcher noneMatcher()",
+        "implementation": "public static StrMatcher noneMatcher() {\n        return NONE_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "noneMatcher",
+        "javadoc": "/**\n     * Matches no characters.\n     *\n     * @return a matcher that matches nothing\n     */"
+    },
+    {
+        "signature": "public static StrMatcher quoteMatcher()",
+        "implementation": "public static StrMatcher quoteMatcher() {\n        return QUOTE_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "quoteMatcher",
+        "javadoc": "/**\n     * Returns a matcher which matches the single or double quote character.\n     *\n     * @return a matcher for a single or double quote\n     */"
+    },
+    {
+        "signature": "public static StrMatcher singleQuoteMatcher()",
+        "implementation": "public static StrMatcher singleQuoteMatcher() {\n        return SINGLE_QUOTE_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "singleQuoteMatcher",
+        "javadoc": "/**\n     * Returns a matcher which matches the single quote character.\n     *\n     * @return a matcher for a single quote\n     */"
+    },
+    {
+        "signature": "public static StrMatcher spaceMatcher()",
+        "implementation": "public static StrMatcher spaceMatcher() {\n        return SPACE_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "spaceMatcher",
+        "javadoc": "/**\n     * Returns a matcher which matches the space character.\n     *\n     * @return a matcher for a space\n     */"
+    },
+    {
+        "signature": "public static StrMatcher splitMatcher()",
+        "implementation": "public static StrMatcher splitMatcher() {\n        return SPLIT_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "splitMatcher",
+        "javadoc": "/**\n     * Matches the same characters as StringTokenizer,\n     * namely space, tab, newline and form feed.\n     *\n     * @return The split matcher\n     */"
+    },
+    {
+        "signature": "public static StrMatcher stringMatcher(final String str)",
+        "implementation": "public static StrMatcher stringMatcher(final String str) {\n        if (str == null || str.isEmpty()) {\n            return NONE_MATCHER;\n        }\n        return new StringMatcher(str);\n    }",
+        "called_methods": [
+            "isEmpty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "stringMatcher",
+        "javadoc": "/**\n     * Creates a matcher from a string.\n     *\n     * @param str  the string to match, null or empty matches nothing\n     * @return a new Matcher for the given String\n     */"
+    },
+    {
+        "signature": "public static StrMatcher tabMatcher()",
+        "implementation": "public static StrMatcher tabMatcher() {\n        return TAB_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "tabMatcher",
+        "javadoc": "/**\n     * Returns a matcher which matches the tab character.\n     *\n     * @return a matcher for a tab\n     */"
+    },
+    {
+        "signature": "public static StrMatcher trimMatcher()",
+        "implementation": "public static StrMatcher trimMatcher() {\n        return TRIM_MATCHER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrMatcher.java",
+        "name": "trimMatcher",
+        "javadoc": "/**\n     * Matches the String trim() whitespace characters.\n     *\n     * @return The trim matcher\n     */"
+    }
+]

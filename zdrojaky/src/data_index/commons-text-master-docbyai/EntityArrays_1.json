@@ -1,0 +1,16 @@
+[
+    {
+        "signature": "public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map)",
+        "implementation": "public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map) {\n        return map.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));\n    }",
+        "called_methods": [
+            "entrySet",
+            "stream",
+            "collect",
+            "toMap"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\EntityArrays.java",
+        "name": "invert",
+        "javadoc": "/**\n     * Inverts an escape Map into an unescape Map.\n     *\n     * @param map Map&lt;String, String&gt; to be inverted\n     * @return Map&lt;String, String&gt; inverted array\n     */"
+    }
+]

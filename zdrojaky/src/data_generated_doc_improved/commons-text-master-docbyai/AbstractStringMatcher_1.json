@@ -1,0 +1,29 @@
+[
+    {
+        "signature": "public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd)",
+        "implementation": "public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {\n            return buffer.charAt(start) <= SPACE_INT ? 1 : 0;\n        }",
+        "called_methods": [
+            "isMatch",
+            "size",
+            "charAt",
+            "binarySearch"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\AbstractStringMatcher.java",
+        "name": "isMatch",
+        "javadoc": "/**\n * Checks if the character at the specified position in the given buffer matches a whitespace character.\n *\n * @param buffer the input buffer to check\n * @param start the index of the character to check within the buffer\n * @param bufferStart the starting index of the buffer (not used)\n * @param bufferEnd the ending index of the buffer (not used)\n * @return 1 if the character is a whitespace, 0 otherwise\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public int size()",
+        "implementation": "public int size() {\n            return 1;\n        }",
+        "called_methods": [
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\AbstractStringMatcher.java",
+        "name": "size",
+        "javadoc": "/**\n * Returns the number of elements in this collection.\n *\n * @return the number of elements in this collection\n */\n",
+        "improved_javadoc": "/**\n * Returns the number of elements in this collection, if it contains no elements then it returns 0.\n *\n * @return an integer containing the number of elements in this collection\n */\n"
+    }
+]

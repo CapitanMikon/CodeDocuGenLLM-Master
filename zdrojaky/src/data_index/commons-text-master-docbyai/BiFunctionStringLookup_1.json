@@ -1,0 +1,27 @@
+[
+    {
+        "signature": "static <U, T> BiFunctionStringLookup<U, T> on(final Map<String, T> map)",
+        "implementation": "static <U, T> BiFunctionStringLookup<U, T> on(final Map<String, T> map) {\n        return on((key, u) -> map.get(key));\n    }",
+        "called_methods": [
+            "on",
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\BiFunctionStringLookup.java",
+        "name": "on",
+        "javadoc": "/**\n     * Creates a new instance backed by a Map. Used by the default lookup.\n     *\n     * @param <T> the map's value type.\n     * @param map the map of keys to values, may be null.\n     * @return a new instance backed by the given map.\n     */"
+    },
+    {
+        "signature": "public String lookup(final String key, final P object)",
+        "implementation": "public String lookup(final String key, final P object) {\n        if (biFunction == null) {\n            return null;\n        }\n        final R obj;\n        try {\n            obj = biFunction.apply(key, object);\n        } catch (final SecurityException | NullPointerException | IllegalArgumentException e) {\n            // Squelched. All lookup(String) will return null.\n            // Could be a ConcurrentHashMap and a null key request\n            return null;\n        }\n        return Objects.toString(obj, null);\n    }",
+        "called_methods": [
+            "lookup",
+            "apply",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\BiFunctionStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n     * Looks up a String key by applying the function.\n     * <p>\n     * If the function is null, then null is returned. The function result object is converted to a string using\n     * toString().\n     * </p>\n     *\n     * @param key the key to be looked up, may be null.\n     * @return The function result as a string, may be null.\n     */"
+    }
+]

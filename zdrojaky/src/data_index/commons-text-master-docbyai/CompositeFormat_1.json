@@ -1,0 +1,54 @@
+[
+    {
+        "signature": "public StringBuffer format(final Object obj, final StringBuffer toAppendTo,\n            final FieldPosition pos)",
+        "implementation": "public StringBuffer format(final Object obj, final StringBuffer toAppendTo,\n            final FieldPosition pos) {\n        return formatter.format(obj, toAppendTo, pos);\n    }",
+        "called_methods": [
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "format",
+        "javadoc": "/**\n     * Formats the input.\n     *\n     * @param obj the object to format\n     * @param toAppendTo the {@link StringBuffer} to append to\n     * @param pos the FieldPosition to use (or ignore).\n     * @return {@code toAppendTo}\n     * @see Format#format(Object, StringBuffer, FieldPosition)\n     */"
+    },
+    {
+        "signature": "public Format getFormatter()",
+        "implementation": "public Format getFormatter() {\n        return this.formatter;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "getFormatter",
+        "javadoc": "/**\n     * Gets the parser Format implementation.\n     *\n     * @return formatter Format implementation\n     */"
+    },
+    {
+        "signature": "public Format getParser()",
+        "implementation": "public Format getParser() {\n        return this.parser;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "getParser",
+        "javadoc": "/**\n     * Gets the parser Format implementation.\n     *\n     * @return parser Format implementation\n     */"
+    },
+    {
+        "signature": "public Object parseObject(final String source, final ParsePosition pos)",
+        "implementation": "public Object parseObject(final String source, final ParsePosition pos) {\n        return parser.parseObject(source, pos);\n    }",
+        "called_methods": [
+            "parseObject"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "parseObject",
+        "javadoc": "/**\n     * Parses the input.\n     *\n     * @param source the String source\n     * @param pos the ParsePosition containing the position to parse from, will\n     *            be updated according to parsing success (index) or failure\n     *            (error index)\n     * @return The parsed Object\n     * @see Format#parseObject(String, ParsePosition)\n     */"
+    },
+    {
+        "signature": "public String reformat(final String input) throws ParseException",
+        "implementation": "public String reformat(final String input) throws ParseException {\n        return format(parseObject(input));\n    }",
+        "called_methods": [
+            "format",
+            "parseObject"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "reformat",
+        "javadoc": "/**\n     * Parses and then reformats a String.\n     *\n     * @param input String to reformat\n     * @return A reformatted String\n     * @throws ParseException thrown by parseObject(String) call\n     */"
+    }
+]

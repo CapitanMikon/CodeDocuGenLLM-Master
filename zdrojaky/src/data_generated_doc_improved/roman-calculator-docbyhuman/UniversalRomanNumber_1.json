@@ -1,0 +1,253 @@
+[
+    {
+        "signature": "public String getRomanLetters()",
+        "implementation": "public String getRomanLetters(){\n        return Character.toString(minusCharacter) + Character.toString(zeroCharacter) + alphabet;\n    }",
+        "called_methods": [
+            "toString"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "getRomanLetters",
+        "javadoc": "/**\n * Returns a string representation of Roman letters.\n *\n * This method concatenates the character representations of minus and zero\n * characters with the alphabet string to form a valid Roman letter sequence.\n *\n * @return A string containing the Roman letter sequence.\n */\n",
+        "improved_javadoc": "/**\n * Returns a string representation of Roman numerals, not letters.\n *\n * This method concatenates the character representations of minus and zero\n * characters with the alphabet string to form a valid Roman numeral sequence.\n *\n * @return A string containing the Roman numeral sequence.\n */\n"
+    },
+    {
+        "signature": "public int maximum()",
+        "implementation": "public int maximum(){\n        if (alphabet.length() % 2 == 1){\n            return MULTIPLY_CONST * indexToIntConversion(alphabet.length()-1) - 1;\n        }\n        return indexToIntConversion(alphabet.length()) - indexToIntConversion(alphabet.length()-2) - 1;\n    }",
+        "called_methods": [
+            "length",
+            "indexToIntConversion"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "maximum",
+        "javadoc": "/**\n * Calculates the maximum value based on the length of the alphabet.\n *\n * @return The maximum value if the length of the alphabet is odd, otherwise the difference between two consecutive values.\n */\n",
+        "improved_javadoc": "/**\n * Calculates the maximum value in an alphabet-based system. If the number of characters in the alphabet is odd,\n * returns the maximum possible value (e.g., 26 for English alphabet). Otherwise, returns the difference between two consecutive values.\n *\n * @return The maximum value if the length of the alphabet is odd; otherwise, the difference between two consecutive values.\n */\n"
+    },
+    {
+        "signature": "public int minimum()",
+        "implementation": "public int minimum(){\n        return maximum() * -1;\n    }",
+        "called_methods": [
+            "maximum"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "minimum",
+        "javadoc": "/**\n * Returns the negative of the maximum value.\n *\n * This method returns an integer representing the negative of the maximum value.\n * The result may be negative or positive, depending on the sign of the maximum value.\n *\n * @return the negative of the maximum value\n */\n",
+        "improved_javadoc": "/**\n * Returns the negation of the maximum integer value.\n *\n * This method returns an integer representing the negation of the maximum possible integer value, \n * which is the largest (positive or negative) integer that can be represented by the int data type.\n *\n * @return the negation of the maximum integer value\n */\n"
+    },
+    {
+        "signature": "public boolean setRomanNumber(final String numeral)",
+        "implementation": "public boolean setRomanNumber(final String numeral){\n        if(numeral.isEmpty()){\n            return false;\n        }\n\n        if(numeral.equals(Character.toString(minusCharacter) + Character.toString(zeroCharacter))){\n            return false;\n        }\n\n        if(!isValidAlphabetNumeral(numeral)){\n            return false;\n        }\n\n        if(numeral.charAt(0) == minusCharacter){\n            isNegative = true;\n            this.romanNumber = numeral.substring(1);\n        }else{\n            isNegative = false;\n            this.romanNumber = numeral;\n        }\n\n        return true;\n    }",
+        "called_methods": [
+            "isEmpty",
+            "equals",
+            "toString",
+            "isValidAlphabetNumeral",
+            "charAt",
+            "substring"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "setRomanNumber",
+        "javadoc": "/**\n * Sets a Roman numeral to the object.\n *\n * @param numeral The Roman numeral to be set.\n * @return True if the operation was successful, false otherwise.\n * @throws IllegalArgumentException If the input is not a valid Roman numeral.\n */\n",
+        "improved_javadoc": "/**\n * Sets a Roman numeral to the object, replacing any existing value.\n *\n * @param numeral The Roman numeral to be set (e.g. \"I\", \"V\", \"X\", etc.). \n *                Must conform to standard Roman numeral notation rules.\n * @return True if the operation was successful, false otherwise (e.g. due to invalid input).\n * @throws IllegalArgumentException If the input is not a valid Roman numeral according to standard rules.\n */\n"
+    },
+    {
+        "signature": "public int getValue()",
+        "implementation": "public int getValue(){\n        if(romanNumber == null){\n            return 0;\n        }\n\n        return isNegative ? romanToInt() * -1 : romanToInt();\n    }",
+        "called_methods": [
+            "romanToInt"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "getValue",
+        "javadoc": "/**\n * Returns the integer value of the Roman numeral.\n *\n * If the Roman numeral is not set, this method returns 0.\n *\n * @return The integer value of the Roman numeral. A negative value if the Roman numeral represents a negative number.\n */\n",
+        "improved_javadoc": "/**\n * Converts the given Roman numeral to its integer equivalent.\n *\n * If no Roman numeral is provided, this method returns 0.\n *\n * @param romanNumeral The Roman numeral to convert (may be null).\n * @return The integer value represented by the Roman numeral. A negative value if the Roman numeral represents a negative number.\n */\n"
+    },
+    {
+        "signature": "public String getRomanNumber()",
+        "implementation": "public String getRomanNumber(){\n        if(romanNumber == null){\n            return Character.toString(zeroCharacter);\n        }\n\n        return isNegative ? Character.toString(minusCharacter) + romanNumber : romanNumber;\n    }",
+        "called_methods": [
+            "toString"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "getRomanNumber",
+        "javadoc": "/**\n * Returns a Roman numeral representation of the number.\n *\n * If the number has not been set, returns \"0\".\n * If the number is negative, prefixes the Roman numeral with a minus sign.\n *\n * @return the Roman numeral representation of the number as a string\n */\n",
+        "improved_javadoc": "/**\n * Returns the Roman numeral representation of the given integer value.\n * \n * If the input value has not been set, returns \"0\".\n * If the input value is negative, prefixes the Roman numeral with a minus sign.\n *\n * @param value the integer value to be converted to a Roman numeral\n * @return the Roman numeral representation of the value as a string\n */\n"
+    },
+    {
+        "signature": "public boolean setValue(int value)",
+        "implementation": "public boolean setValue(int value){\n        if (value < minimum() || value > maximum()){\n            return false;\n        }\n\n        if(value == 0){\n            romanNumber = Character.toString(zeroCharacter);\n            return true;\n        }\n\n        romanNumber = intToRoman(value);\n        return true;\n    }",
+        "called_methods": [
+            "minimum",
+            "maximum",
+            "toString",
+            "intToRoman"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "setValue",
+        "javadoc": "/**\n * Sets the value of this Roman numeral representation.\n *\n * @param value The integer value to be represented as a Roman numeral.\n * @return True if the value is successfully set, false otherwise (if the value is out of range).\n */\n",
+        "improved_javadoc": "/**\n * Sets the value of this Roman numeral representation.\n *\n * @param value The integer value to be represented as a Roman numeral. This value must be between 1 and 3999, inclusive.\n * @return True if the value is successfully set, false otherwise (if the value is out of range).\n * @throws IllegalArgumentException If the provided value is less than 1 or greater than 3999.\n */\n"
+    },
+    {
+        "signature": "private void createLookUpTable()",
+        "implementation": "private void createLookUpTable(){\n        values = new ArrayList<>();\n        valuesInRoman = new ArrayList<>();\n\n        values.add(1);\n        valuesInRoman.add(Character.toString(alphabet.charAt(0)));\n\n        for (int i = 1; i < alphabet.length(); i++) {\n\n            if(i % 2 == 1){\n                 valuesInRoman.add(Character.toString(alphabet.charAt(i-1)) + Character.toString(alphabet.charAt(i)));\n                 int fours = romanLetterToIntByIndexFromLetters(alphabet, alphabet.charAt(i)) - romanLetterToIntByIndexFromLetters(alphabet, alphabet.charAt(i-1));\n                 values.add(fours);\n            }\n\n            if(i % 2 == 0){\n                valuesInRoman.add(Character.toString(alphabet.charAt(i-2)) + Character.toString(alphabet.charAt(i)));\n                int nines = romanLetterToIntByIndexFromLetters(alphabet, alphabet.charAt(i)) - romanLetterToIntByIndexFromLetters(alphabet, alphabet.charAt(i-2));\n                values.add(nines);\n            }\n\n            valuesInRoman.add(Character.toString(alphabet.charAt(i)));\n            values.add(romanLetterToIntByIndexFromLetters(alphabet, alphabet.charAt(i)));\n        }\n    }",
+        "called_methods": [
+            "add",
+            "toString",
+            "charAt",
+            "length",
+            "romanLetterToIntByIndexFromLetters"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "createLookUpTable",
+        "javadoc": "/**\n * Creates a lookup table of Roman numerals and their corresponding integer values.\n *\n * This method initializes two lists: {@code values} and {@code valuesInRoman}. The former stores the integer values of the Roman numerals,\n * while the latter stores the Roman numerals themselves. The lookup table is populated based on the provided alphabet string.\n */\n",
+        "improved_javadoc": "/**\n * Creates a lookup table of Roman numerals and their corresponding integer values.\n *\n * This method initializes two lists: {@code values} and {@code valuesInRoman}. The former stores the integer values of the Roman numerals,\n * while the latter stores the Roman numerals themselves. The lookup table is populated based on the provided alphabet string.\n *\n * @param alphabet a string representing the Roman numeral alphabet\n * @return an array containing two lists: the first list contains the integer values of the Roman numerals, and the second list contains the Roman numerals themselves\n */\n"
+    },
+    {
+        "signature": "private String intToRoman(final int value)",
+        "implementation": "private String intToRoman(final int value){\n\n        int currentNumber = value;\n        if(value < 0){\n            isNegative = true;\n            currentNumber *= -1;\n        }else{\n            isNegative = false;\n        }\n\n        StringBuilder sb = new StringBuilder();\n\n        for (int i = values.size() -1 ; i >= 0; i--) {\n            int times = currentNumber / values.get(i);\n            currentNumber %= values.get(i);\n            while(times >0){\n                sb.append(valuesInRoman.get(i));\n                times--;\n            }\n        }\n\n        return sb.toString();\n    }",
+        "called_methods": [
+            "size",
+            "get",
+            "append",
+            "toString"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "intToRoman",
+        "javadoc": "/**\n * Converts an integer to a Roman numeral representation.\n *\n * @param value the integer to be converted (must be non-negative)\n * @return the Roman numeral representation of the input value\n * @throws IllegalArgumentException if the input value is negative\n */\n",
+        "improved_javadoc": "/**\n * Converts an integer to a Roman numeral representation.\n *\n * This method takes a non-negative integer as input and returns its equivalent Roman numeral representation.\n * The Roman numerals are generated based on the standard rules of Roman numeral system, where each digit is represented by a unique combination of letters (I, V, X, L, C, D, M).\n *\n * @param value the integer to be converted (must be non-negative)\n * @return the Roman numeral representation of the input value\n * @throws IllegalArgumentException if the input value is negative\n */\n"
+    },
+    {
+        "signature": "private int romanToInt()",
+        "implementation": "private int romanToInt()\n    {\n        if(romanNumber.length() == 1){\n            return romanLetterToIntByIndexFromLetters(alphabet, romanNumber.charAt(0));\n        }\n\n        int result = 0;\n        char lastLetter =  romanNumber.charAt(romanNumber.length()-1);\n        result+=romanLetterToIntByIndexFromLetters(alphabet, lastLetter);\n        int secCounter =0;\n        for (int i = romanNumber.length()-2; i >= 0; i--) {\n\n            char curLetter = romanNumber.charAt(i);\n            int curNumber = romanLetterToIntByIndexFromLetters(alphabet, curLetter);\n            if( curNumber == romanLetterToIntByIndexFromLetters(alphabet, lastLetter))\n            {\n                result += curNumber;\n                secCounter++;\n            }\n            else if( curNumber > romanLetterToIntByIndexFromLetters(alphabet, lastLetter))\n            {\n                secCounter = 0;\n                result += curNumber;\n            }\n            else if( curNumber < romanLetterToIntByIndexFromLetters(alphabet, lastLetter))\n            {\n                secCounter = 0;\n                result += (romanLetterToIntByIndexFromLetters(alphabet, lastLetter)-curNumber)-romanLetterToIntByIndexFromLetters(alphabet, lastLetter);\n            }\n            lastLetter = curLetter;\n        }\n        return result;\n    }",
+        "called_methods": [
+            "length",
+            "romanLetterToIntByIndexFromLetters",
+            "charAt"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "romanToInt",
+        "javadoc": "/**\n * Converts a Roman numeral to an integer.\n *\n * This method iterates over the input Roman number from right to left,\n * adding or subtracting values based on the rules of Roman numerals.\n *\n * @return The integer equivalent of the input Roman numeral.\n */\n",
+        "improved_javadoc": "/**\n * Converts a Roman numeral to an integer.\n *\n * This method iterates over the input Roman number from right to left,\n * adding or subtracting values based on the rules of Roman numerals, where\n * a smaller numeral placed before a larger one means subtraction (e.g., IV = 4).\n *\n * @param romanNumeral The Roman numeral to be converted.\n * @return The integer equivalent of the input Roman numeral.\n */\n"
+    },
+    {
+        "signature": "private void setDefaultValues()",
+        "implementation": "private void setDefaultValues(){\n        minusCharacter = ROMAN_NUMERAL_ALPHABET.charAt(0);\n        zeroCharacter = ROMAN_NUMERAL_ALPHABET.charAt(1);\n        this.alphabet = ROMAN_NUMERAL_ALPHABET.subSequence(2, ROMAN_NUMERAL_ALPHABET.length()).toString();\n    }",
+        "called_methods": [
+            "charAt",
+            "subSequence",
+            "toString",
+            "length"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "setDefaultValues",
+        "javadoc": "/**\n * Sets default values for Roman numeral characters.\n */\n",
+        "improved_javadoc": "/**\n * Sets default values for Roman numeral characters, including their Unicode code points and corresponding integer representations.\n *\n * @param romanNumerals a map of Roman numerals to their integer values\n */\n"
+    },
+    {
+        "signature": "private boolean isValidAlphabet(final String alphabet)",
+        "implementation": "private boolean isValidAlphabet(final String alphabet){\n        if(alphabet.length() < 3){\n            return false;\n        }\n\n        HashSet<Character> uniqueLetters = new HashSet<>();\n        for (int i = 1; i < alphabet.length(); i++) {\n            Character currentChar = alphabet.charAt(i);\n            if(!uniqueLetters.contains(currentChar)){\n                uniqueLetters.add(currentChar);\n            }else{\n                return false;\n            }\n\n        }\n\n        for (int i = 1; i < alphabet.length(); i++) {\n            Character currentChar = alphabet.charAt(i);\n            if (!Character.isUpperCase(currentChar) || !Character.isLetter(currentChar)){\n                return false;\n            }\n        }\n\n\n        return true;\n    }",
+        "called_methods": [
+            "length",
+            "charAt",
+            "contains",
+            "add",
+            "isUpperCase",
+            "isLetter"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "isValidAlphabet",
+        "javadoc": "/**\n * Checks whether a given string represents a valid alphabet.\n *\n * A valid alphabet is defined as a string of at least 3 characters, where each character is an uppercase letter and all characters are unique.\n *\n * @param alphabet the input string to be validated\n * @return true if the input string is a valid alphabet, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Verifies whether a given string represents a valid alphabet.\n *\n * A valid alphabet is defined as a non-empty string of at least 3 characters, where each character is an uppercase letter (A-Z) and all characters are distinct.\n *\n * @param alphabet the input string to be validated\n * @return true if the input string is a valid alphabet, false otherwise\n */\n"
+    },
+    {
+        "signature": "private int indexToIntConversion(final int fromIndex)",
+        "implementation": "private int indexToIntConversion(final int fromIndex){\n        int index = fromIndex;\n\n        if(index % 2 == 1){\n            index = (index-1) / 2;\n            return (int) Math.pow(BASE_NUMBER, index) * 5;\n        }\n\n        index /=2;\n        return (int) Math.pow(BASE_NUMBER, index);\n    }",
+        "called_methods": [
+            "pow"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "indexToIntConversion",
+        "javadoc": "/**\n * Converts an integer index to a value based on the BASE_NUMBER.\n *\n * This method performs two different conversions depending on whether the input index is odd or even.\n * If the index is odd, it subtracts 1 from the index and then divides by 2. The result is then used as an exponent\n * in a calculation involving the BASE_NUMBER and 5.\n * If the index is even, it simply divides the index by 2 and uses the result as an exponent in a calculation involving the BASE_NUMBER.\n *\n * @param fromIndex the integer index to be converted\n * @return the converted value\n */\n",
+        "improved_javadoc": "/**\n * Converts an integer index to a value based on the BASE_NUMBER.\n *\n * This method performs two different conversions depending on whether the input index is odd or even.\n * If the index is odd, it subtracts 1 from the index and then divides by 2. The result is then used as an exponent\n * in a calculation involving the BASE_NUMBER and 5.\n * If the index is even, it simply divides the index by 2 and uses the result as an exponent in a calculation involving the BASE_NUMBER.\n *\n * @param fromIndex the integer index to be converted (must be non-negative)\n * @return the converted value\n * @throws ArithmeticException if the input index is negative\n */\n"
+    },
+    {
+        "signature": "public int romanLetterToIntByIndexFromLetters(final String alphabetLetters, final char character)",
+        "implementation": "public int romanLetterToIntByIndexFromLetters(final String alphabetLetters, final char character){\n        return indexToIntConversion(alphabetLetters.indexOf(character));\n    }",
+        "called_methods": [
+            "indexToIntConversion",
+            "indexOf"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "romanLetterToIntByIndexFromLetters",
+        "javadoc": "/**\n * Converts a Roman letter to an integer value based on its position in the alphabet.\n *\n * @param alphabetLetters The string containing all letters of the alphabet, used to determine the index of the character.\n * @param character        The Roman letter to be converted to an integer.\n * @return The integer value corresponding to the position of the character in the alphabet (A=1, B=2, ..., Z=26).\n * @throws StringIndexOutOfBoundsException If the character is not found in the alphabetLetters string.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "private boolean isValidAlphabetNumeral(final String inputNumeral)",
+        "implementation": "private boolean isValidAlphabetNumeral(final String inputNumeral){\n        String numeral = inputNumeral;\n\n        if(inputNumeral.charAt(0) == minusCharacter){\n            numeral = inputNumeral.substring(1);\n        }\n\n        if(!ContainsOnlyCharactersFromAlphabet(numeral)){\n            return false;\n        }\n\n        //check 4same\n        int counter = 1;\n        char currentChar = numeral.charAt(0);\n        for (int i = 1; i < numeral.length(); i++) {\n            if(numeral.charAt(i) == currentChar){\n                counter++;\n            }else{\n                counter = 0;\n            }\n\n            if(counter >= 4){\n                return false;\n            }\n        }\n\n        char currentGreatestCharacter = numeral.charAt(0);\n        for (int i = 1; i < numeral.length(); i++) {\n            int left = romanLetterToIntByIndexFromLetters(alphabet, currentGreatestCharacter);\n            int right = romanLetterToIntByIndexFromLetters(alphabet, numeral.charAt(i));\n\n            if (left > right || isValidPair(alphabet, currentGreatestCharacter, numeral.charAt(i))){\n                currentGreatestCharacter = numeral.charAt(i);\n            }else{\n                return false;\n            }\n\n            if(i > 1 && !isValidTriplet(alphabet, numeral.charAt(i-2), numeral.charAt(i-1), numeral.charAt(i))){\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "charAt",
+            "substring",
+            "ContainsOnlyCharactersFromAlphabet",
+            "length",
+            "romanLetterToIntByIndexFromLetters",
+            "isValidPair",
+            "isValidTriplet"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "isValidAlphabetNumeral",
+        "javadoc": "/**\n * Checks whether a given Roman numeral string is valid.\n *\n * A valid Roman numeral string must meet the following conditions:\n * <ul>\n *     <li>It must not start with a minus sign.</li>\n *     <li>It must only contain characters from the alphabet of Roman numerals.</li>\n *     <li>No character in the string can appear four or more times consecutively.</li>\n *     <li>The value of each numeral must be less than or equal to the value of the preceding numeral, unless it is a valid pair (e.g. IV, IX, XL, XC, CD, CM).</li>\n *     <li>No character in the string can appear three times consecutively with values that do not follow the rules for Roman numerals.</li>\n * </ul>\n *\n * @param inputNumeral The Roman numeral string to be validated.\n * @return True if the input string is a valid Roman numeral, false otherwise.\n */\n",
+        "improved_javadoc": "/**\n * Checks whether a given Roman numeral string is valid.\n *\n * A valid Roman numeral string must meet the following conditions:\n * <ul>\n *     <li>It must not start with a minus sign.</li>\n *     <li>It must only contain characters from the alphabet of Roman numerals (I, V, X, L, C, D, M).</li>\n *     <li>No character in the string can appear four or more times consecutively.</li>\n *     <li>The value of each numeral must be less than or equal to the value of the preceding numeral, unless it is a valid pair (e.g. IV, IX, XL, XC, CD, CM).</li>\n *     <li>No character in the string can appear three times consecutively with values that do not follow the rules for Roman numerals.</li>\n * </ul>\n *\n * @param inputNumeral The Roman numeral string to be validated.\n * @return True if the input string is a valid Roman numeral, false otherwise.\n */\n"
+    },
+    {
+        "signature": "private boolean isValidPair(final String alphabet, final char left, final char right)",
+        "implementation": "private boolean isValidPair(final String alphabet, final char left, final char right){\n        int leftIndex = alphabet.indexOf(left);\n        int rightIndex = alphabet.indexOf(right);\n\n        boolean isLeftEven = leftIndex % 2 == 0;\n        boolean isRightEven = rightIndex % 2 == 0;\n\n\n        if(!isLeftEven && !isRightEven && left == right)\n            return false;\n\n        if(isLeftEven && leftIndex <= rightIndex &&  rightIndex - leftIndex <= MAX_DELTA){\n            return true;\n        }\n\n        return false;\n    }",
+        "called_methods": [
+            "indexOf"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "isValidPair",
+        "javadoc": "/**\n * Checks whether a pair of characters is valid based on the provided alphabet.\n *\n * A pair is considered valid if either both characters are at even indices in the alphabet,\n * or if one character is at an even index and the other is within a certain distance (MAX_DELTA)\n * from it, regardless of their parity. If the two characters are equal but neither is at\n * an even index, the method returns false.\n *\n * @param alphabet the string representing the alphabet to check against\n * @param left     the first character in the pair\n * @param right    the second character in the pair\n * @return true if the pair is valid, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks whether a pair of characters is valid based on the provided alphabet.\n *\n * A pair is considered valid if both characters are at even indices in the alphabet,\n * or if one character is at an even index and the other is within a certain distance\n * (MAX_DELTA) from it, regardless of their parity. If the two characters are equal but\n * neither is at an even index, the method returns false.\n *\n * @param alphabet the string representing the alphabet to check against\n * @param left     the first character in the pair\n * @param right    the second character in the pair\n * @return true if the pair is valid, false otherwise\n */\n"
+    },
+    {
+        "signature": "private boolean isValidTriplet(final String alphabet,final char first, final char second, final char third)",
+        "implementation": "private boolean isValidTriplet(final String alphabet,final char first, final char second, final char third){\n        int leftIndex = alphabet.indexOf(first);\n        int middleIndex = alphabet.indexOf(second);\n        int rightIndex = alphabet.indexOf(third);\n\n        if(middleIndex < rightIndex &&  leftIndex == middleIndex){\n            return false;\n        }\n\n        if(leftIndex < middleIndex && middleIndex > rightIndex && middleIndex-rightIndex == MAX_DELTA_TRIPLET){\n            return false;\n        }\n\n        if(leftIndex % 2 == 1 && rightIndex % 2 == 1 && first == third){\n            return false;\n        }\n\n        if(leftIndex < middleIndex && middleIndex == rightIndex){\n            return false;\n        }\n\n        return true;\n    }",
+        "called_methods": [
+            "indexOf"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "isValidTriplet",
+        "javadoc": "/**\n * Checks whether a triplet of characters is valid based on certain conditions.\n *\n * @param alphabet The string representing the alphabet to check against.\n * @param first    The first character in the triplet.\n * @param second   The second character in the triplet.\n * @param third    The third character in the triplet.\n *\n * @return True if the triplet is valid, false otherwise.\n */\n",
+        "improved_javadoc": "/**\n * Verifies whether a triplet of characters conforms to specific rules and constraints.\n *\n * @param alphabet The string representing the allowed alphabet, where each character represents a unique symbol or digit.\n * @param first    The first character in the triplet, which must be within the specified alphabet.\n * @param second   The second character in the triplet, which must also be within the specified alphabet and not equal to the first character.\n * @param third    The third character in the triplet, which must be within the specified alphabet and not equal to either of the first two characters.\n *\n * @return True if the triplet is valid according to the defined rules, false otherwise.\n */\n"
+    },
+    {
+        "signature": "private boolean ContainsOnlyCharactersFromAlphabet(final String numeral)",
+        "implementation": "private boolean ContainsOnlyCharactersFromAlphabet(final String numeral){\n        for (int i = 0; i < numeral.length(); i++) {\n            if(alphabet.indexOf(numeral.charAt(i)) == -1){\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "length",
+            "indexOf",
+            "charAt"
+        ],
+        "repository": "roman-calculator-docbyhuman",
+        "source": "roman-calculator-docbyhuman\\UniversalRomanNumber.java",
+        "name": "ContainsOnlyCharactersFromAlphabet",
+        "javadoc": "/**\n * Checks whether a string contains only characters from the alphabet.\n *\n * @param numeral the input string to be checked\n * @return true if all characters in the string are from the alphabet, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether a given string consists entirely of alphabetic characters (a-z or A-Z).\n *\n * @param input the string to be evaluated for alphabetic character content\n * @return true if all characters in the string are alphabetic, false otherwise\n */\n"
+    }
+]

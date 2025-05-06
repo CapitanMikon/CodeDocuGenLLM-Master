@@ -1,0 +1,11 @@
+[
+    {
+        "signature": "public boolean translate(final int codePoint, final Writer writer) throws IOException",
+        "implementation": "public boolean translate(final int codePoint, final Writer writer) throws IOException {\n        // If true, it is a surrogate. Write nothing and say we've translated. Otherwise return false, and don't translate it.\n        return codePoint >= Character.MIN_SURROGATE && codePoint <= Character.MAX_SURROGATE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeUnpairedSurrogateRemover.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates the given Unicode code point to its corresponding character representation\n * in the specified writer. If the code point is a surrogate, this method returns true\n * without writing anything to the writer.\n *\n * @param codePoint the Unicode code point to translate\n * @param writer    the writer to write the translated character to\n * @return true if the code point was a surrogate, false otherwise\n * @throws IOException if an I/O error occurs while writing to the writer\n */\n"
+    }
+]

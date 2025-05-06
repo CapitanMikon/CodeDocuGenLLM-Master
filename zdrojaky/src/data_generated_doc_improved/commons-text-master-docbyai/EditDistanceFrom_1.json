@@ -1,0 +1,34 @@
+[
+    {
+        "signature": "public R apply(final CharSequence right)",
+        "implementation": "public R apply(final CharSequence right) {\n        return editDistance.apply(left, right);\n    }",
+        "called_methods": [
+            "apply"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\EditDistanceFrom.java",
+        "name": "apply",
+        "javadoc": "/**\n * Applies the edit distance function to the input {@code right} sequence.\n *\n * @param right the input sequence to compute the edit distance with\n * @return the result of applying the edit distance function\n */\n",
+        "improved_javadoc": "/**\n * Computes and returns the edit distance between this sequence and the provided {@code right} sequence.\n *\n * @param right the input sequence to compute the edit distance with\n * @return the minimum number of operations (insertions, deletions, substitutions) required to transform one sequence into another\n */\n"
+    },
+    {
+        "signature": "public EditDistance<R> getEditDistance()",
+        "implementation": "public EditDistance<R> getEditDistance() {\n        return editDistance;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\EditDistanceFrom.java",
+        "name": "getEditDistance",
+        "javadoc": "/**\n * Returns the calculated edit distance.\n *\n * @return The calculated edit distance.\n */\n",
+        "improved_javadoc": "/**\n * Calculates the edit distance between two strings using dynamic programming.\n *\n * This method uses the Levenshtein distance algorithm to determine the minimum number of single-character edits (insertions, deletions or substitutions) required to change one word into the other.\n *\n * @param s1 The first string.\n * @param s2 The second string.\n * @return The calculated edit distance between the two strings.\n */\n"
+    },
+    {
+        "signature": "public CharSequence getLeft()",
+        "implementation": "public CharSequence getLeft() {\n        return left;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\EditDistanceFrom.java",
+        "name": "getLeft",
+        "javadoc": "/**\n * Returns the left part of the sequence.\n *\n * @return the left part of the sequence\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the left part of the specified sequence, up to but not including the specified index.\n *\n * @param index the index up to which the left part should be retrieved\n * @return the left part of the sequence\n */\n"
+    }
+]

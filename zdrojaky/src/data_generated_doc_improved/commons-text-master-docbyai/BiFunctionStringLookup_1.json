@@ -1,0 +1,29 @@
+[
+    {
+        "signature": "static <U, T> BiFunctionStringLookup<U, T> on(final Map<String, T> map)",
+        "implementation": "static <U, T> BiFunctionStringLookup<U, T> on(final Map<String, T> map) {\n        return on((key, u) -> map.get(key));\n    }",
+        "called_methods": [
+            "on",
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\BiFunctionStringLookup.java",
+        "name": "on",
+        "javadoc": "/**\n * Creates a function that looks up values in the given map.\n *\n * @param map the map to look up values from\n * @return a function that takes a key and a value of type U, and returns the corresponding value of type T from the map\n */\n",
+        "improved_javadoc": "/**\n * Returns a function that looks up values in the given map.\n *\n * The returned function takes two parameters: a key of type K and a default value of type U. \n * It returns the corresponding value of type T from the map if it exists, otherwise it returns the provided default value.\n *\n * @param <K> the type of the keys in the map\n * @param <T> the type of the values returned by the function\n * @param <U> the type of the default value to return when a key is not found\n * @param map the map to look up values from\n * @return a function that takes a key and a default value, and returns the corresponding value from the map\n */\n"
+    },
+    {
+        "signature": "public String lookup(final String key, final P object)",
+        "implementation": "public String lookup(final String key, final P object) {\n        if (biFunction == null) {\n            return null;\n        }\n        final R obj;\n        try {\n            obj = biFunction.apply(key, object);\n        } catch (final SecurityException | NullPointerException | IllegalArgumentException e) {\n            // Squelched. All lookup(String) will return null.\n            // Could be a ConcurrentHashMap and a null key request\n            return null;\n        }\n        return Objects.toString(obj, null);\n    }",
+        "called_methods": [
+            "lookup",
+            "apply",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\BiFunctionStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up an object in this map using the provided key and object.\n *\n * @param key   the key to look up\n * @param object the object associated with the key\n * @return the value associated with the key, or null if no mapping of the key is found,\n *         or if a security exception, NullPointerException, or IllegalArgumentException occurs\n * @throws NullPointerException if the provided key or object is null\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the value associated with the specified key and object from this map.\n *\n * @param key   the key to look up in the map\n * @param object the object associated with the key, used for lookup purposes only\n * @return the value associated with the key if found; otherwise, null\n * @throws NullPointerException if the provided key or object is null\n */\n"
+    }
+]

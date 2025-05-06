@@ -1,0 +1,407 @@
+[
+    {
+        "signature": "public StringLookupFactory get()",
+        "implementation": "public StringLookupFactory get() {\n            return new StringLookupFactory(fences);\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "get",
+        "javadoc": "/**\n * Returns a new instance of StringLookupFactory.\n *\n * @return A new instance of StringLookupFactory.\n */\n",
+        "improved_javadoc": "/**\n * Creates and returns a new instance of StringLookupFactory, which can be used to create string-based lookups.\n *\n * @return A newly created instance of StringLookupFactory.\n */\n"
+    },
+    {
+        "signature": "public Builder setFences(final Path... fences)",
+        "implementation": "public Builder setFences(final Path... fences) {\n            this.fences = fences;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "setFences",
+        "javadoc": "/**\n * Sets the fences for the builder.\n *\n * @param fences an array of paths representing the fences to be used\n * @return this builder instance, allowing method chaining\n */\n",
+        "improved_javadoc": "/**\n * Configures the fence styles and patterns for the document or code block being built.\n *\n * @param fences an array of strings representing the fence styles (e.g. \"```\", \"~~~\") to be used in the builder\n * @return this builder instance, allowing method chaining\n */\n"
+    },
+    {
+        "signature": "private static void addLookup(final DefaultStringLookup lookup, final Map<String, StringLookup> map)",
+        "implementation": "private static void addLookup(final DefaultStringLookup lookup, final Map<String, StringLookup> map) {\n            map.put(toKey(lookup.getKey()), lookup.getStringLookup());\n            if (DefaultStringLookup.BASE64_DECODER.equals(lookup)) {\n                // \"base64\" is deprecated in favor of KEY_BASE64_DECODER.\n                map.put(toKey(\"base64\"), lookup.getStringLookup());\n            }\n        }",
+        "called_methods": [
+            "put",
+            "toKey",
+            "getKey",
+            "getStringLookup",
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "addLookup",
+        "javadoc": "/**\n * Adds a string lookup to the provided map, using the key from the lookup as the map's key.\n * If the added lookup is {@link DefaultStringLookup#BASE64_DECODER}, it also adds an alias \"base64\" with the same value.\n *\n * @param lookup  the string lookup to add\n * @param map     the map of lookups to update\n */\n",
+        "improved_javadoc": "/**\n * Adds a string lookup to the provided map, using the key from the lookup as the map's key.\n * If the added lookup is {@link DefaultStringLookup#BASE64_DECODER}, it also adds an alias \"base64\" with the same value.\n *\n * @param lookup  the string lookup to add\n * @param map     the map of lookups to update\n */\n"
+    },
+    {
+        "signature": "private static Map<String, StringLookup> createDefaultStringLookups()",
+        "implementation": "private static Map<String, StringLookup> createDefaultStringLookups() {\n            final Map<String, StringLookup> lookupMap = new HashMap<>();\n\n            addLookup(DefaultStringLookup.BASE64_DECODER, lookupMap);\n            addLookup(DefaultStringLookup.BASE64_ENCODER, lookupMap);\n            addLookup(DefaultStringLookup.CONST, lookupMap);\n            addLookup(DefaultStringLookup.DATE, lookupMap);\n            addLookup(DefaultStringLookup.ENVIRONMENT, lookupMap);\n            addLookup(DefaultStringLookup.FILE, lookupMap);\n            addLookup(DefaultStringLookup.JAVA, lookupMap);\n            addLookup(DefaultStringLookup.LOCAL_HOST, lookupMap);\n            addLookup(DefaultStringLookup.LOCAL_HOST, lookupMap);\n            addLookup(DefaultStringLookup.PROPERTIES, lookupMap);\n            addLookup(DefaultStringLookup.RESOURCE_BUNDLE, lookupMap);\n            addLookup(DefaultStringLookup.SYSTEM_PROPERTIES, lookupMap);\n            addLookup(DefaultStringLookup.URL_DECODER, lookupMap);\n            addLookup(DefaultStringLookup.URL_ENCODER, lookupMap);\n            addLookup(DefaultStringLookup.XML, lookupMap);\n            addLookup(DefaultStringLookup.XML_DECODER, lookupMap);\n            addLookup(DefaultStringLookup.XML_ENCODER, lookupMap);\n\n            return lookupMap;\n        }",
+        "called_methods": [
+            "addLookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "createDefaultStringLookups",
+        "javadoc": "/**\n * Creates a map of default string lookups.\n *\n * @return A map containing default string lookups keyed by their names.\n */\n",
+        "improved_javadoc": "/**\n * Returns a map of default string lookups, where each key corresponds to a named lookup and its associated value is the lookup's result.\n *\n * @return A non-null immutable map containing default string lookups keyed by their names.\n */\n"
+    },
+    {
+        "signature": "private static Map<String, StringLookup> parseStringLookups(final String str)",
+        "implementation": "private static Map<String, StringLookup> parseStringLookups(final String str) {\n            final Map<String, StringLookup> lookupMap = new HashMap<>();\n            try {\n                for (final String lookupName : str.split(\"[\\\\s,]+\")) {\n                    if (!lookupName.isEmpty()) {\n                        addLookup(DefaultStringLookup.valueOf(lookupName.toUpperCase()), lookupMap);\n                    }\n                }\n            } catch (final IllegalArgumentException exc) {\n                throw new IllegalArgumentException(\"Invalid default string lookups definition: \" + str, exc);\n            }\n            return lookupMap;\n        }",
+        "called_methods": [
+            "split",
+            "isEmpty",
+            "addLookup",
+            "valueOf",
+            "toUpperCase"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "parseStringLookups",
+        "javadoc": "/**\n * Parses a comma-separated list of string lookups and returns a map of lookup names to their corresponding StringLookup instances.\n *\n * @param str A comma-separated list of string lookups, where each lookup is specified by its name in uppercase (e.g. \"lookup1,lookup2,lookup3\").\n * @return A map of lookup names to their corresponding StringLookup instances.\n * @throws IllegalArgumentException If the input string contains invalid or unknown lookup names.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "Map<String, StringLookup> getDefaultStringLookups()",
+        "implementation": "Map<String, StringLookup> getDefaultStringLookups() {\n            return defaultStringLookups;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "getDefaultStringLookups",
+        "javadoc": "/**\n * Returns a map of default string lookups.\n *\n * @return A map where each key is a string and its corresponding value is a StringLookup instance.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves a map containing default string lookups, where each key is a string and its corresponding value is a StringLookup instance.\n *\n * @return A non-null Map where keys are strings and values are instances of StringLookup.\n */\n"
+    },
+    {
+        "signature": "public static Builder builder()",
+        "implementation": "public static Builder builder() {\n        return new Builder();\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "builder",
+        "javadoc": "/**\n * Returns a new instance of the {@link Builder} class.\n *\n * This method provides a convenient way to create a new builder object,\n * allowing for fluent configuration and construction of instances.\n *\n * @return A new instance of the Builder class\n */\n",
+        "improved_javadoc": "/**\n * Returns a new instance of the {@link Builder} class, which can be used to construct an instance of this class in a fluent manner.\n *\n * This method provides a convenient way to create a new builder object, allowing for configuration and construction of instances with a more readable API.\n *\n * @return A new instance of the Builder class\n */\n"
+    },
+    {
+        "signature": "public static void clear()",
+        "implementation": "public static void clear() {\n        ConstantStringLookup.clear();\n    }",
+        "called_methods": [
+            "clear"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "clear",
+        "javadoc": "/**\n * Clears the constant string lookup table.\n */\n",
+        "improved_javadoc": "/**\n * Clears the constant string lookup table, which is used to store frequently accessed strings in memory.\n * This operation can be useful when working with large amounts of data or when the application's memory usage needs to be optimized.\n *\n * @throws NullPointerException if the constant string lookup table has not been initialized\n */\n"
+    },
+    {
+        "signature": "static String toKey(final String key)",
+        "implementation": "static String toKey(final String key) {\n        return key.toLowerCase(Locale.ROOT);\n    }",
+        "called_methods": [
+            "toLowerCase"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "toKey",
+        "javadoc": "/**\n * Converts a given string to lowercase.\n *\n * @param key the input string to be converted\n * @return the lowercase version of the input string\n */\n",
+        "improved_javadoc": "/**\n * Converts a given string to its lowercase equivalent, ignoring any case distinctions.\n *\n * @param str the input string to be converted\n * @return the lowercase version of the input string\n */\n"
+    },
+    {
+        "signature": "static <K, V> Map<K, V> toMap(final Map<K, V> map)",
+        "implementation": "static <K, V> Map<K, V> toMap(final Map<K, V> map) {\n        return map == null ? Collections.emptyMap() : map;\n    }",
+        "called_methods": [
+            "emptyMap"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "toMap",
+        "javadoc": "/**\n * Converts a given {@code Map} instance to another one.\n *\n * If the input map is {@code null}, an empty map is returned. Otherwise,\n * the original map is returned as is.\n *\n * @param map the input map to be converted\n * @return the converted map, or an empty map if the input was {@code null}\n */\n",
+        "improved_javadoc": "/**\n * Converts a given Map instance to another one by creating a defensive copy.\n *\n * If the input map is null, this method returns an empty map. Otherwise,\n * it returns a new map containing all entries from the original map.\n *\n * @param map the input map to be converted\n * @return the converted map, or an empty map if the input was null\n */\n"
+    },
+    {
+        "signature": "public void addDefaultStringLookups(final Map<String, StringLookup> stringLookupMap)",
+        "implementation": "public void addDefaultStringLookups(final Map<String, StringLookup> stringLookupMap) {\n        if (stringLookupMap != null) {\n            stringLookupMap.putAll(DefaultStringLookupsHolder.INSTANCE.getDefaultStringLookups());\n        }\n    }",
+        "called_methods": [
+            "putAll",
+            "getDefaultStringLookups"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "addDefaultStringLookups",
+        "javadoc": "/**\n * Adds default string lookups to the provided map.\n *\n * @param stringLookupMap The map of string lookups to be populated with default values.\n */\n",
+        "improved_javadoc": "/**\n * Populates the specified map with default string lookups, including common keys and their corresponding values.\n *\n * @param stringLookupMap The map that will be populated with default string lookups.\n */\n"
+    },
+    {
+        "signature": "public StringLookup base64DecoderStringLookup()",
+        "implementation": "public StringLookup base64DecoderStringLookup() {\n        return StringLookupFactory.INSTANCE_BASE64_DECODER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "base64DecoderStringLookup",
+        "javadoc": "/**\n * Returns a string lookup instance for base64 decoder.\n *\n * @return A string lookup instance for base64 decoder.\n */\n",
+        "improved_javadoc": "/**\n * Returns a string lookup instance for Base64 decoding, which can be used to map encoded characters to their decoded equivalents.\n *\n * @return A string lookup instance that maps each Base64-encoded character to its corresponding decoded character.\n */\n"
+    },
+    {
+        "signature": "public StringLookup base64EncoderStringLookup()",
+        "implementation": "public StringLookup base64EncoderStringLookup() {\n        return StringLookupFactory.INSTANCE_BASE64_ENCODER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "base64EncoderStringLookup",
+        "javadoc": "/**\n * Returns a string lookup instance for base64 encoding.\n *\n * @return A string lookup instance for base64 encoding.\n */\n",
+        "improved_javadoc": "/**\n * Returns a string lookup instance for Base64 encoding, which can be used to encode and decode binary data as a text string.\n *\n * @return A string lookup instance that provides methods for Base64 encoding and decoding operations.\n */\n"
+    },
+    {
+        "signature": "public StringLookup base64StringLookup()",
+        "implementation": "public StringLookup base64StringLookup() {\n        return StringLookupFactory.INSTANCE_BASE64_DECODER;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "base64StringLookup",
+        "javadoc": "/**\n * Returns a string lookup instance for base64 decoding.\n *\n * @return A string lookup instance for base64 decoding.\n */\n",
+        "improved_javadoc": "/**\n * Returns a string lookup instance for base64 decoding, which can be used to decode strings encoded in Base64 format.\n *\n * @return A string lookup instance that provides methods for decoding Base64-encoded strings.\n */\n"
+    },
+    {
+        "signature": "public <R, U> BiStringLookup<U> biFunctionStringLookup(final BiFunction<String, U, R> biFunction)",
+        "implementation": "public <R, U> BiStringLookup<U> biFunctionStringLookup(final BiFunction<String, U, R> biFunction) {\n        return BiFunctionStringLookup.on(biFunction);\n    }",
+        "called_methods": [
+            "on"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "biFunctionStringLookup",
+        "javadoc": "/**\n * Creates a {@link BiStringLookup} instance from the provided {@link BiFunction}.\n *\n * @param <R> The result type of the bi-function.\n * @param <U> The second argument type of the bi-function.\n * @param biFunction A bi-function that takes a string and an object as arguments and returns a result.\n * @return A new instance of {@link BiStringLookup} based on the provided bi-function.\n */\n",
+        "improved_javadoc": "/**\n * Creates a {@link BiStringLookup} instance from the provided {@link BiFunction}.\n *\n * @param <R> The type of the result returned by the bi-function.\n * @param <U> The second argument type of the bi-function.\n * @param biFunction A non-null {@link BiFunction} that takes a string as its first argument and an object of type U as its second argument, returning a result of type R.\n * @return A new instance of {@link BiStringLookup} based on the provided bi-function.\n */\n"
+    },
+    {
+        "signature": "public StringLookup constantStringLookup()",
+        "implementation": "public StringLookup constantStringLookup() {\n        return ConstantStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "constantStringLookup",
+        "javadoc": "/**\n * Returns a singleton instance of {@link ConstantStringLookup}.\n *\n * @return A singleton instance of {@link ConstantStringLookup}\n */\n",
+        "improved_javadoc": "/**\n * Returns a singleton instance of the {@code ConstantStringLookup} class.\n * This method ensures that only one instance of the lookup is created,\n * and subsequent calls return the same instance.\n *\n * @return A singleton instance of the {@link ConstantStringLookup} class\n */\n"
+    },
+    {
+        "signature": "public StringLookup dateStringLookup()",
+        "implementation": "public StringLookup dateStringLookup() {\n        return DateStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "dateStringLookup",
+        "javadoc": "/**\n * Returns a singleton instance of {@link DateStringLookup}.\n *\n * @return A singleton instance of {@link DateStringLookup}\n */\n",
+        "improved_javadoc": "/**\n * Returns a single, shared instance of the {@link DateStringLookup} class.\n * \n * This method ensures that only one instance of {@link DateStringLookup} exists throughout the application,\n * and provides access to it. The instance is lazily initialized on first call.\n *\n * @return A singleton instance of {@link DateStringLookup}\n */\n"
+    },
+    {
+        "signature": "public StringLookup dnsStringLookup()",
+        "implementation": "public StringLookup dnsStringLookup() {\n        return DnsStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "dnsStringLookup",
+        "javadoc": "/**\n * Returns an instance of the DNS string lookup.\n *\n * @return The singleton instance of the DNS string lookup.\n */\n",
+        "improved_javadoc": "/**\n * Returns the singleton instance of the DNS string resolver, which can be used to perform DNS lookups.\n *\n * @return The singleton instance of the DNS string resolver.\n */\n"
+    },
+    {
+        "signature": "public StringLookup environmentVariableStringLookup()",
+        "implementation": "public StringLookup environmentVariableStringLookup() {\n        return StringLookupFactory.INSTANCE_ENVIRONMENT_VARIABLES;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "environmentVariableStringLookup",
+        "javadoc": "/**\n * Returns a string lookup instance that retrieves values from environment variables.\n *\n * @return A string lookup instance that uses environment variables to retrieve values.\n */\n",
+        "improved_javadoc": "/**\n * Returns a string lookup instance that retrieves values from environment variables.\n *\n * @param  none\n * @return A {@link StringLookup} instance that uses environment variables to retrieve values.\n */\n"
+    },
+    {
+        "signature": "public StringLookup fileStringLookup(final Path... fences)",
+        "implementation": "public StringLookup fileStringLookup(final Path... fences) {\n        return new FileStringLookup(fences);\n    }",
+        "called_methods": [
+            "fileStringLookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "fileStringLookup",
+        "javadoc": "/**\n * Creates a new instance of {@link FileStringLookup} with the specified paths.\n *\n * @param fences one or more paths to be used for string lookup\n * @return a new instance of {@link FileStringLookup}\n */\n",
+        "improved_javadoc": "/**\n * Creates a new instance of {@link FileStringLookup} with the specified paths.\n *\n * @param fences an array of one or more file system path strings to be used for string lookup\n * @return a newly created instance of {@link FileStringLookup}\n */\n"
+    },
+    {
+        "signature": "public <R> StringLookup functionStringLookup(final Function<String, R> function)",
+        "implementation": "public <R> StringLookup functionStringLookup(final Function<String, R> function) {\n        return FunctionStringLookup.on(function);\n    }",
+        "called_methods": [
+            "on"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "functionStringLookup",
+        "javadoc": "/**\n * Creates a string lookup from a given function.\n *\n * @param function The function to create a string lookup from. It must map strings to objects of type R.\n * @return A string lookup that can be used to look up values in the provided function.\n */\n",
+        "improved_javadoc": "/**\n * Creates a string lookup from a given function, mapping each input string to its corresponding output object of type R.\n *\n * @param <R> The type of objects returned by the function for each input string.\n * @param function The function to create a string lookup from. It must map strings to objects of type R.\n * @return A string lookup that can be used to look up values in the provided function, where each key is an input string and each value is its corresponding output object.\n */\n"
+    },
+    {
+        "signature": "public StringLookup interpolatorStringLookup(final StringLookup defaultStringLookup)",
+        "implementation": "public StringLookup interpolatorStringLookup(final StringLookup defaultStringLookup) {\n        return new InterpolatorStringLookup(defaultStringLookup);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "interpolatorStringLookup",
+        "javadoc": "/**\n * Creates a new instance of {@link InterpolatorStringLookup} with the given\n * default string lookup.\n *\n * @param defaultStringLookup The default string lookup to use for interpolation.\n * @return A new instance of {@link InterpolatorStringLookup}.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public StringLookup javaPlatformStringLookup()",
+        "implementation": "public StringLookup javaPlatformStringLookup() {\n        return JavaPlatformStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "javaPlatformStringLookup",
+        "javadoc": "/**\n * Returns a string lookup instance for the current Java platform.\n *\n * @return A singleton instance of {@link JavaPlatformStringLookup}.\n */\n",
+        "improved_javadoc": "/**\n * Returns a string lookup instance for the current Java platform, providing a singleton instance of \n * {@link JavaPlatformStringLookup} that can be used to resolve strings based on the current platform.\n *\n * @return A singleton instance of {@link JavaPlatformStringLookup}.\n */\n"
+    },
+    {
+        "signature": "public StringLookup localHostStringLookup()",
+        "implementation": "public StringLookup localHostStringLookup() {\n        return InetAddressStringLookup.LOCAL_HOST;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "localHostStringLookup",
+        "javadoc": "/**\n * Returns a string lookup for the local host.\n *\n * @return The string lookup for the local host.\n */\n",
+        "improved_javadoc": "/**\n * Returns the hostname or IP address of the local machine as a string.\n *\n * @return The hostname or IP address of the local machine.\n */\n"
+    },
+    {
+        "signature": "public StringLookup loopbackAddressStringLookup()",
+        "implementation": "public StringLookup loopbackAddressStringLookup() {\n        return InetAddressStringLookup.LOOPACK_ADDRESS;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "loopbackAddressStringLookup",
+        "javadoc": "/**\n * Returns a string representing the loopback address.\n *\n * @return A string representation of the loopback address.\n */\n",
+        "improved_javadoc": "/**\n * Returns a string representing the loopback address, which is typically \"localhost\" or the IP address of the local host.\n *\n * @return The string representation of the loopback address, such as \"localhost\" or \"127.0.0.1\".\n */\n"
+    },
+    {
+        "signature": "public <V> StringLookup mapStringLookup(final Map<String, V> map)",
+        "implementation": "public <V> StringLookup mapStringLookup(final Map<String, V> map) {\n        return FunctionStringLookup.on(map);\n    }",
+        "called_methods": [
+            "on"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "mapStringLookup",
+        "javadoc": "/**\n * Maps a {@link Map} to a {@link StringLookup}.\n *\n * @param map The input map.\n * @return A new {@link StringLookup} instance based on the provided map.\n */\n",
+        "improved_javadoc": "/**\n * Creates a new instance of {@link StringLookup} from the given {@link Map}, \n * allowing for efficient lookup and retrieval of string values by key.\n *\n * @param map The input map containing string keys and values to be mapped.\n * @return A new {@link StringLookup} instance populated with the provided map's data.\n */\n"
+    },
+    {
+        "signature": "public StringLookup nullStringLookup()",
+        "implementation": "public StringLookup nullStringLookup() {\n        return StringLookupFactory.INSTANCE_NULL;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "nullStringLookup",
+        "javadoc": "/**\n * Returns a default string lookup instance that returns null for any input.\n *\n * @return A default string lookup instance that returns null for any input.\n */\n",
+        "improved_javadoc": "/**\n * Returns an immutable, default {@link StringLookup} instance that always returns <code>null</code> for any input.\n *\n * @return An immutable, default {@link StringLookup} instance that always returns <code>null</code> for any input.\n */\n"
+    },
+    {
+        "signature": "public StringLookup propertiesStringLookup(final Path... fences)",
+        "implementation": "public StringLookup propertiesStringLookup(final Path... fences) {\n        return new PropertiesStringLookup(fences);\n    }",
+        "called_methods": [
+            "propertiesStringLookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "propertiesStringLookup",
+        "javadoc": "/**\n * Creates a string lookup instance that uses properties files for data.\n *\n * @param fences The paths to the properties files, which can be used as a fallback if the primary\n *               configuration is not found. Can be empty if no fallbacks are needed.\n * @return A new instance of PropertiesStringLookup.\n */\n",
+        "improved_javadoc": "/**\n * Creates a string lookup instance that uses properties files for data, providing a flexible and\n * configurable way to resolve strings in the application context. This method allows specifying one\n * or more fallback configuration files, which can be used if the primary configuration file is not\n * found.\n *\n * @param fences The paths to the properties files, which can be used as a fallback if the primary\n *               configuration is not found. Can be empty if no fallbacks are needed.\n * @return A new instance of PropertiesStringLookup, initialized with the specified configuration files.\n */\n"
+    },
+    {
+        "signature": "public StringLookup resourceBundleStringLookup(final String bundleName)",
+        "implementation": "public StringLookup resourceBundleStringLookup(final String bundleName) {\n        return new ResourceBundleStringLookup(bundleName);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "resourceBundleStringLookup",
+        "javadoc": "/**\n * Creates a {@link ResourceBundleStringLookup} instance for the given\n * <code>bundleName</code>.\n *\n * @param bundleName the name of the resource bundle to be used for string lookup.\n * @return a new instance of {@link ResourceBundleStringLookup}.\n */\n",
+        "improved_javadoc": "/**\n * Creates a {@link ResourceBundleStringLookup} instance for the specified\n * resource bundle, allowing for localized string lookups based on the given\n * <code>bundleName</code>.\n *\n * @param bundleName the name of the resource bundle to be used for string lookup.\n *                   This value must not be null and should correspond to a valid\n *                   resource bundle in the classpath.\n * @return a new instance of {@link ResourceBundleStringLookup} that can be used\n *         to perform localized string lookups.\n */\n"
+    },
+    {
+        "signature": "public StringLookup scriptStringLookup()",
+        "implementation": "public StringLookup scriptStringLookup() {\n        return ScriptStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "scriptStringLookup",
+        "javadoc": "/**\n * Returns an instance of the ScriptStringLookup.\n *\n * @return The singleton instance of ScriptStringLookup.\n */\n",
+        "improved_javadoc": "/**\n * Returns the singleton instance of ScriptStringLookup, which provides a lookup mechanism for script strings.\n *\n * @return The singleton instance of ScriptStringLookup.\n */\n"
+    },
+    {
+        "signature": "public StringLookup systemPropertyStringLookup()",
+        "implementation": "public StringLookup systemPropertyStringLookup() {\n        return StringLookupFactory.INSTANCE_SYSTEM_PROPERTIES;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "systemPropertyStringLookup",
+        "javadoc": "/**\n * Returns a {@link StringLookup} instance that looks up strings from system properties.\n *\n * @return A {@link StringLookup} instance that uses system properties for string lookup.\n */\n",
+        "improved_javadoc": "/**\n * Returns a {@link StringLookup} instance that retrieves strings from system properties, \n * allowing applications to access configuration and environment-specific data.\n *\n * @return A {@link StringLookup} instance that uses system properties for string lookup.\n */\n"
+    },
+    {
+        "signature": "public StringLookup urlDecoderStringLookup()",
+        "implementation": "public StringLookup urlDecoderStringLookup() {\n        return UrlDecoderStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "urlDecoderStringLookup",
+        "javadoc": "/**\n * Returns an instance of UrlDecoderStringLookup.\n *\n * @return a singleton instance of UrlDecoderStringLookup\n */\n",
+        "improved_javadoc": "/**\n * Returns a singleton instance of UrlDecoderStringLookup, providing a centralized lookup mechanism for URL-decoded string values.\n *\n * @return a singleton instance of UrlDecoderStringLookup\n */\n"
+    },
+    {
+        "signature": "public StringLookup urlEncoderStringLookup()",
+        "implementation": "public StringLookup urlEncoderStringLookup() {\n        return UrlEncoderStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "urlEncoderStringLookup",
+        "javadoc": "/**\n * Returns an instance of UrlEncoderStringLookup.\n *\n * @return a singleton instance of UrlEncoderStringLookup\n */\n",
+        "improved_javadoc": "/**\n * Returns a singleton instance of UrlEncoderStringLookup, which can be used to encode URLs and perform string lookups.\n *\n * @return a singleton instance of UrlEncoderStringLookup\n */\n"
+    },
+    {
+        "signature": "public StringLookup urlStringLookup()",
+        "implementation": "public StringLookup urlStringLookup() {\n        return UrlStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "urlStringLookup",
+        "javadoc": "/**\n * Returns an instance of UrlStringLookup.\n *\n * @return a singleton instance of UrlStringLookup\n */\n",
+        "improved_javadoc": "/**\n * Returns a singleton instance of UrlStringLookup, which can be used to look up URLs from string representations.\n *\n * @return a singleton instance of UrlStringLookup\n */\n"
+    },
+    {
+        "signature": "public StringLookup xmlDecoderStringLookup()",
+        "implementation": "public StringLookup xmlDecoderStringLookup() {\n        return XmlDecoderStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "xmlDecoderStringLookup",
+        "javadoc": "/**\n * Returns an instance of XmlDecoderStringLookup.\n *\n * @return An instance of XmlDecoderStringLookup\n */\n",
+        "improved_javadoc": "/**\n * Retrieves and returns a singleton instance of XmlDecoderStringLookup, \n * which can be used to decode XML strings into Java objects.\n *\n * @return A singleton instance of XmlDecoderStringLookup\n */\n"
+    },
+    {
+        "signature": "public StringLookup xmlEncoderStringLookup()",
+        "implementation": "public StringLookup xmlEncoderStringLookup() {\n        return XmlEncoderStringLookup.INSTANCE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "xmlEncoderStringLookup",
+        "javadoc": "/**\n * Returns an instance of XmlEncoderStringLookup.\n *\n * @return An instance of XmlEncoderStringLookup\n */\n",
+        "improved_javadoc": "/**\n * Retrieves and returns a singleton instance of XmlEncoderStringLookup, \n * which provides a lookup mechanism for encoding strings in XML format.\n *\n * @return A singleton instance of XmlEncoderStringLookup\n */\n"
+    },
+    {
+        "signature": "public StringLookup xmlStringLookup(final Map<String, Boolean> xPathFactoryFeatures, final Path... fences)",
+        "implementation": "public StringLookup xmlStringLookup(final Map<String, Boolean> xPathFactoryFeatures, final Path... fences) {\n        return new XmlStringLookup(xPathFactoryFeatures, fences);\n    }",
+        "called_methods": [
+            "xmlStringLookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\StringLookupFactory.java",
+        "name": "xmlStringLookup",
+        "javadoc": "/**\n * Creates a new instance of XmlStringLookup.\n *\n * @param xPathFactoryFeatures A map of XPath factory features to be used in the lookup.\n * @param fences One or more path objects that define the scope of the lookup.\n * @return A new instance of XmlStringLookup.\n */\n",
+        "improved_javadoc": "/**\n * Creates a new instance of XmlStringLookup, initializing it with the specified XPath factory features and scope boundaries defined by the provided fences.\n *\n * @param xPathFactoryFeatures A map of XPath factory features to be used in the lookup, such as namespace mappings or function libraries.\n * @param fences One or more path objects that define the scope of the lookup, including start and end points for the search.\n * @return A new instance of XmlStringLookup, ready for use in resolving XML string lookups within the specified scope.\n */\n"
+    }
+]

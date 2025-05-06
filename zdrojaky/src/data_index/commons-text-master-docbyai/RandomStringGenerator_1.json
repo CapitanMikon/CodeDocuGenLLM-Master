@@ -1,0 +1,110 @@
+[
+    {
+        "signature": "public RandomStringGenerator build()",
+        "implementation": "public RandomStringGenerator build() {\n            return get();\n        }",
+        "called_methods": [
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "build",
+        "javadoc": "/**\n         * Builds a new {@code RandomStringGenerator}.\n         *\n         * @return A new {@code RandomStringGenerator}\n         * @deprecated Use {@link #get()}.\n         */"
+    },
+    {
+        "signature": "public Builder filteredBy(final CharacterPredicate... predicates)",
+        "implementation": "public Builder filteredBy(final CharacterPredicate... predicates) {\n            if (ArrayUtils.isEmpty(predicates)) {\n                inclusivePredicates = null;\n                return this;\n            }\n            if (inclusivePredicates == null) {\n                inclusivePredicates = new HashSet<>();\n            } else {\n                inclusivePredicates.clear();\n            }\n            Collections.addAll(inclusivePredicates, predicates);\n            return this;\n        }",
+        "called_methods": [
+            "isEmpty",
+            "clear",
+            "addAll"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "filteredBy",
+        "javadoc": "/**\n         * Limits the characters in the generated string to those that match at\n         * least one of the predicates supplied.\n         *\n         * <p>\n         * Passing {@code null} or an empty array to this method will revert to the\n         * default behavior of allowing any character. Multiple calls to this\n         * method will replace the previously stored predicates.\n         * </p>\n         *\n         * @param predicates\n         *            the predicates, may be {@code null} or empty\n         * @return {@code this}, to allow method chaining\n         */"
+    },
+    {
+        "signature": "public RandomStringGenerator get()",
+        "implementation": "public RandomStringGenerator get() {\n            return new RandomStringGenerator(minimumCodePoint, maximumCodePoint, inclusivePredicates,\n                    random, characterList);\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "get",
+        "javadoc": "/**\n         * Builds a new {@code RandomStringGenerator}.\n         *\n         * @return A new {@code RandomStringGenerator}\n         * @since 1.12.0\n         */"
+    },
+    {
+        "signature": "public Builder selectFrom(final char... chars)",
+        "implementation": "public Builder selectFrom(final char... chars) {\n            characterList = new ArrayList<>();\n            if (chars != null) {\n                for (final char c : chars) {\n                    characterList.add(c);\n                }\n            }\n            return this;\n        }",
+        "called_methods": [
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "selectFrom",
+        "javadoc": "/**\n         * Limits the characters in the generated string to those who match at\n         * supplied list of Character.\n         *\n         * <p>\n         * Passing {@code null} or an empty array to this method will revert to the\n         * default behavior of allowing any character. Multiple calls to this\n         * method will replace the previously stored Character.\n         * </p>\n         *\n         * @param chars set of predefined Characters for random string generation\n         *            the Character can be, may be {@code null} or empty\n         * @return {@code this}, to allow method chaining\n         * @since 1.2\n         */"
+    },
+    {
+        "signature": "public Builder usingRandom(final TextRandomProvider random)",
+        "implementation": "public Builder usingRandom(final TextRandomProvider random) {\n            this.random = random;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "usingRandom",
+        "javadoc": "/**\n         * Overrides the default source of randomness.  It is highly\n         * recommended that a random number generator library like\n         * <a href=\"https://commons.apache.org/proper/commons-rng/\">Apache Commons RNG</a>\n         * be used to provide the random number generation.\n         *\n         * <p>\n         * When using Java 8 or later, {@link TextRandomProvider} is a\n         * functional interface and need not be explicitly implemented:\n         * </p>\n         * <pre>\n         * {@code\n         *     UniformRandomProvider rng = RandomSource.create(...);\n         *     RandomStringGenerator gen = RandomStringGenerator.builder()\n         *         .usingRandom(rng::nextInt)\n         *         // additional builder calls as needed\n         *         .build();\n         * }\n         * </pre>\n         *\n         * <p>\n         * Passing {@code null} to this method will revert to the default source of\n         * randomness.\n         * </p>\n         *\n         * @param random\n         *            the source of randomness, may be {@code null}\n         * @return {@code this}, to allow method chaining\n         */"
+    },
+    {
+        "signature": "public Builder withinRange(final int minimumCodePoint, final int maximumCodePoint)",
+        "implementation": "public Builder withinRange(final int minimumCodePoint, final int maximumCodePoint) {\n            Validate.isTrue(minimumCodePoint <= maximumCodePoint,\n                    \"Minimum code point %d is larger than maximum code point %d\", minimumCodePoint, maximumCodePoint);\n            Validate.isTrue(minimumCodePoint >= 0, \"Minimum code point %d is negative\", minimumCodePoint);\n            Validate.isTrue(maximumCodePoint <= Character.MAX_CODE_POINT,\n                    \"Value %d is larger than Character.MAX_CODE_POINT.\", maximumCodePoint);\n            this.minimumCodePoint = minimumCodePoint;\n            this.maximumCodePoint = maximumCodePoint;\n            return this;\n        }",
+        "called_methods": [
+            "isTrue",
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "withinRange",
+        "javadoc": "/**\n         * Sets the minimum and maximum code points allowed in the\n         * generated string.\n         *\n         * @param minimumCodePoint\n         *            the smallest code point allowed (inclusive)\n         * @param maximumCodePoint\n         *            the largest code point allowed (inclusive)\n         * @return {@code this}, to allow method chaining\n         * @throws IllegalArgumentException\n         *             if {@code maximumCodePoint >}\n         *             {@link Character#MAX_CODE_POINT}\n         * @throws IllegalArgumentException\n         *             if {@code minimumCodePoint < 0}\n         * @throws IllegalArgumentException\n         *             if {@code minimumCodePoint > maximumCodePoint}\n         */"
+    },
+    {
+        "signature": "public static Builder builder()",
+        "implementation": "public static Builder builder() {\n        return new Builder();\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "builder",
+        "javadoc": "/**\n     * Constructs a new builder.\n     * @return a new builder.\n     * @since 1.11.0\n     */"
+    },
+    {
+        "signature": "public String generate(final int minLengthInclusive, final int maxLengthInclusive)",
+        "implementation": "public String generate(final int minLengthInclusive, final int maxLengthInclusive) {\n        Validate.isTrue(minLengthInclusive >= 0, \"Minimum length %d is smaller than zero.\", minLengthInclusive);\n        Validate.isTrue(minLengthInclusive <= maxLengthInclusive,\n                \"Maximum length %d is smaller than minimum length %d.\", maxLengthInclusive, minLengthInclusive);\n        return generate(generateRandomNumber(minLengthInclusive, maxLengthInclusive));\n    }",
+        "called_methods": [
+            "isTrue",
+            "isEmpty",
+            "generateRandomNumber",
+            "getType",
+            "test",
+            "appendCodePoint",
+            "toString",
+            "generate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "generate",
+        "javadoc": "/**\n     * Generates a random string, containing between the minimum (inclusive) and the maximum (inclusive)\n     * number of code points.\n     *\n     * @param minLengthInclusive\n     *            the minimum (inclusive) number of code points to generate\n     * @param maxLengthInclusive\n     *            the maximum (inclusive) number of code points to generate\n     * @return The generated string\n     * @throws IllegalArgumentException\n     *             if {@code minLengthInclusive < 0}, or {@code maxLengthInclusive < minLengthInclusive}\n     * @see RandomStringGenerator#generate(int)\n     * @since 1.2\n     */"
+    },
+    {
+        "signature": "private int generateRandomNumber(final List<Character> characterList)",
+        "implementation": "private int generateRandomNumber(final List<Character> characterList) {\n        final int listSize = characterList.size();\n        if (random != null) {\n            return String.valueOf(characterList.get(random.nextInt(listSize))).codePointAt(0);\n        }\n        return String.valueOf(characterList.get(ThreadLocalRandom.current().nextInt(0, listSize))).codePointAt(0);\n    }",
+        "called_methods": [
+            "nextInt",
+            "current",
+            "size",
+            "valueOf",
+            "codePointAt",
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\RandomStringGenerator.java",
+        "name": "generateRandomNumber",
+        "javadoc": "/**\n     * Generates a random number within a range, using a {@link ThreadLocalRandom} instance\n     * or the user-supplied source of randomness.\n     *\n     * @param characterList predefined char list.\n     * @return The random number.\n     */"
+    }
+]

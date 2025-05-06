@@ -1,0 +1,20 @@
+[
+    {
+        "signature": "public CharSequence[] apply(final CharSequence text)",
+        "implementation": "public CharSequence[] apply(final CharSequence text) {\n        Validate.isTrue(StringUtils.isNotBlank(text), \"Invalid text\");\n        final Matcher matcher = PATTERN.matcher(text);\n        final List<String> tokens = new ArrayList<>();\n        while (matcher.find()) {\n            tokens.add(matcher.group(0));\n        }\n        return tokens.toArray(ArrayUtils.EMPTY_STRING_ARRAY);\n    }",
+        "called_methods": [
+            "isTrue",
+            "isNotBlank",
+            "matcher",
+            "find",
+            "add",
+            "group",
+            "toArray"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\RegexTokenizer.java",
+        "name": "apply",
+        "javadoc": "/**\n * Applies a regular expression pattern to the provided text and returns an array of matched tokens.\n *\n * @param text the input text to be processed\n * @return an array of matched tokens, or an empty array if no matches were found\n */\n",
+        "improved_javadoc": "/**\n * Applies a regular expression pattern to the provided text and returns an array of matched tokens.\n *\n * The regular expression pattern must be compiled beforehand using {@link Pattern#compile(String)}.\n * If the input text does not match the pattern, an empty array will be returned.\n *\n * @param text the input text to be processed\n * @return an array of matched tokens, or an empty array if no matches were found\n */\n"
+    }
+]

@@ -1,0 +1,117 @@
+[
+    {
+        "signature": "private int buffer(final int requestReadCount) throws IOException",
+        "implementation": "private int buffer(final int requestReadCount) throws IOException {\n        final int actualReadCount = buffer.readFrom(super.in, requestReadCount);\n        eos = actualReadCount == EOS;\n        return actualReadCount;\n    }",
+        "called_methods": [
+            "readFrom"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\io\\StringSubstitutorReader.java",
+        "name": "buffer",
+        "javadoc": "/**\n * Reads data from the input stream into a buffer.\n *\n * @param requestReadCount The number of bytes to read from the input stream.\n * @return The actual number of bytes read, or EOS if end-of-stream is reached.\n * @throws IOException If an I/O error occurs while reading from the input stream.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "private int bufferOrDrainOnEos(final int requestReadCount, final char[] target, final int targetIndex,\n        final int targetLength) throws IOException",
+        "implementation": "private int bufferOrDrainOnEos(final int requestReadCount, final char[] target, final int targetIndex,\n        final int targetLength) throws IOException {\n        final int actualReadCount = buffer(requestReadCount);\n        return drainOnEos(actualReadCount, target, targetIndex, targetLength);\n    }",
+        "called_methods": [
+            "buffer",
+            "drainOnEos"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\io\\StringSubstitutorReader.java",
+        "name": "bufferOrDrainOnEos",
+        "javadoc": "/**\n * Buffers or drains data on EOS (End Of Stream) condition.\n *\n * @param requestReadCount The number of bytes to read from the stream.\n * @param target           The character array where the drained data will be stored.\n * @param targetIndex      The index in the target array where the drained data should start being written.\n * @param targetLength     The maximum length of data that can be stored in the target array.\n *\n * @return The actual number of bytes read from the stream.\n *\n * @throws IOException If an I/O error occurs while reading from the stream.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "private int drain(final char[] target, final int targetIndex, final int targetLength)",
+        "implementation": "private int drain(final char[] target, final int targetIndex, final int targetLength) {\n        final int actualLen = Math.min(buffer.length(), targetLength);\n        final int drainCount = buffer.drainChars(0, actualLen, target, targetIndex);\n        toDrain -= drainCount;\n        if (buffer.isEmpty() || toDrain == 0) {\n            // nothing or everything drained.\n            toDrain = 0;\n        }\n        return drainCount;\n    }",
+        "called_methods": [
+            "min",
+            "length",
+            "drainChars",
+            "isEmpty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\io\\StringSubstitutorReader.java",
+        "name": "drain",
+        "javadoc": "/**\n * Drains characters from the buffer into the target array.\n *\n * @param target   the character array to drain into\n * @param targetIndex the index in the target array where draining should start\n * @param targetLength the maximum number of characters that can be drained into the target array\n * @return the actual number of characters drained from the buffer\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "private int drainOnEos(final int readCountOrEos, final char[] target, final int targetIndex,\n        final int targetLength)",
+        "implementation": "private int drainOnEos(final int readCountOrEos, final char[] target, final int targetIndex,\n        final int targetLength) {\n        if (readCountOrEos == EOS) {\n            // At EOS, drain.\n            if (buffer.isNotEmpty()) {\n                toDrain = buffer.size();\n                return drain(target, targetIndex, targetLength);\n            }\n            return EOS;\n        }\n        return readCountOrEos;\n    }",
+        "called_methods": [
+            "isNotEmpty",
+            "size",
+            "drain"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\io\\StringSubstitutorReader.java",
+        "name": "drainOnEos",
+        "javadoc": "/**\n * Drains data from the internal buffer into a target array when at end of stream (EOS) or \n * when a specified number of bytes have been read.\n *\n * @param readCountOrEos The number of bytes to drain, or EOS if at end of stream.\n * @param target         The target array to store drained data in.\n * @param targetIndex    The starting index in the target array where data should be stored.\n * @param targetLength   The maximum length of data that can be stored in the target array.\n *\n * @return The number of bytes actually drained, or EOS if at end of stream and no data is available.\n *\n * @throws IllegalArgumentException If the targetIndex or targetLength is invalid for the given target array.\n */\n",
+        "improved_javadoc": "/**\n * Drains data from the internal buffer into a target array when at end of stream (EOS) or \n * when a specified number of bytes have been read, up to the maximum capacity of the target array.\n *\n * @param readCountOrEos The number of bytes to drain, or EOS if at end of stream.\n * @param target         The target array to store drained data in.\n * @param targetIndex    The starting index in the target array where data should be stored.\n * @param targetLength   The maximum length of data that can be stored in the target array.\n *\n * @return The number of bytes actually drained, or EOS if at end of stream and no data is available.\n *\n * @throws IllegalArgumentException If the targetIndex or targetLength exceeds the bounds of the target array.\n */\n"
+    },
+    {
+        "signature": "private boolean isBufferMatchAt(final StringMatcher stringMatcher, final int pos)",
+        "implementation": "private boolean isBufferMatchAt(final StringMatcher stringMatcher, final int pos) {\n        return stringMatcher.isMatch(buffer, pos) == stringMatcher.size();\n    }",
+        "called_methods": [
+            "isMatch",
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\io\\StringSubstitutorReader.java",
+        "name": "isBufferMatchAt",
+        "javadoc": "/**\n * Checks if a buffer match occurs at the specified position.\n *\n * @param stringMatcher The matcher to use for matching.\n * @param pos           The position in the buffer to check for a match.\n * @return True if a match is found, false otherwise.\n */\n",
+        "improved_javadoc": "/**\n * Checks if a buffer match occurs at the specified position.\n *\n * @param stringMatcher The matcher object used to perform the matching operation.\n * @param pos           The position in the buffer where the match should be checked.\n * @return True if a match is found at the specified position, false otherwise.\n */\n"
+    },
+    {
+        "signature": "private boolean isDraining()",
+        "implementation": "private boolean isDraining() {\n        return toDrain > 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\io\\StringSubstitutorReader.java",
+        "name": "isDraining",
+        "javadoc": "/**\n * Checks if the system is currently draining.\n *\n * @return true if the system is draining, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether the system is currently in a state of resource drainage,\n * where resources are being temporarily reserved for maintenance or other purposes.\n *\n * @return true if the system is draining resources, false otherwise\n */\n"
+    },
+    {
+        "signature": "public int read(final char[] target, final int targetIndexIn, final int targetLengthIn) throws IOException",
+        "implementation": "public int read(final char[] target, final int targetIndexIn, final int targetLengthIn) throws IOException {\n        // The whole thing is inefficient because we must look for a balanced suffix to match the starting prefix\n        // Trying to substitute an incomplete expression can perform replacements when it should not.\n        // At a high level:\n        // - if draining, drain until empty or target length hit\n        // - copy to target until we find a variable start\n        // - buffer until a balanced suffix is read, then substitute.\n        if (eos && buffer.isEmpty()) {\n            return EOS;\n        }\n        if (targetLengthIn <= 0) {\n            // short-circuit: ask nothing, give nothing\n            return 0;\n        }\n        // drain check\n        int targetIndex = targetIndexIn;\n        int targetLength = targetLengthIn;\n        if (isDraining()) {\n            // drain as much as possible\n            final int drainCount = drain(target, targetIndex, Math.min(toDrain, targetLength));\n            if (drainCount == targetLength) {\n                // drained length requested, target is full, can only do more in the next invocation\n                return targetLength;\n            }\n            // drained less than requested, target not full.\n            targetIndex += drainCount;\n            targetLength -= drainCount;\n        }\n        // BUFFER from the underlying reader\n        final int minReadLenPrefix = prefixEscapeMatcher.size();\n        // READ enough to test for an [optionally escaped] variable start\n        int readCount = buffer(readCount(minReadLenPrefix, 0));\n        if (buffer.length() < minReadLenPrefix && targetLength < minReadLenPrefix) {\n            // read less than minReadLenPrefix, no variable possible\n            final int drainCount = drain(target, targetIndex, targetLength);\n            targetIndex += drainCount;\n            final int targetSize = targetIndex - targetIndexIn;\n            return eos && targetSize <= 0 ? EOS : targetSize;\n        }\n        if (eos) {\n            // EOS\n            stringSubstitutor.replaceIn(buffer);\n            toDrain = buffer.size();\n            final int drainCount = drain(target, targetIndex, targetLength);\n            targetIndex += drainCount;\n            final int targetSize = targetIndex - targetIndexIn;\n            return eos && targetSize <= 0 ? EOS : targetSize;\n        }\n        // PREFIX\n        // buffer and drain until we find a variable start, escaped or plain.\n        int balance = 0;\n        final StringMatcher prefixMatcher = stringSubstitutor.getVariablePrefixMatcher();\n        int pos = 0;\n        while (targetLength > 0) {\n            if (isBufferMatchAt(prefixMatcher, 0)) {\n                balance = 1;\n                pos = prefixMatcher.size();\n                break;\n            }\n            if (isBufferMatchAt(prefixEscapeMatcher, 0)) {\n                balance = 1;\n                pos = prefixEscapeMatcher.size();\n                break;\n            }\n            // drain first char\n            final int drainCount = drain(target, targetIndex, 1);\n            targetIndex += drainCount;\n            targetLength -= drainCount;\n            if (buffer.size() < minReadLenPrefix) {\n                readCount = bufferOrDrainOnEos(minReadLenPrefix, target, targetIndex, targetLength);\n                if (eos || isDraining()) {\n                    // if draining, readCount is a drain count\n                    if (readCount != EOS) {\n                        targetIndex += readCount;\n                        targetLength -= readCount;\n                    }\n                    final int actual = targetIndex - targetIndexIn;\n                    return actual > 0 ? actual : EOS;\n                }\n            }\n        }\n        // we found a variable start\n        if (targetLength <= 0) {\n            // no more room in target\n            return targetLengthIn;\n        }\n        // SUFFIX\n        // buffer more to find a balanced suffix\n        final StringMatcher suffixMatcher = stringSubstitutor.getVariableSuffixMatcher();\n        final int minReadLenSuffix = Math.max(minReadLenPrefix, suffixMatcher.size());\n        readCount = buffer(readCount(minReadLenSuffix, pos));\n        if (eos) {\n            // EOS\n            stringSubstitutor.replaceIn(buffer);\n            toDrain = buffer.size();\n            final int drainCount = drain(target, targetIndex, targetLength);\n            return targetIndex + drainCount - targetIndexIn;\n        }\n        // buffer and break out when we find the end or a balanced suffix\n        while (true) {\n            if (isBufferMatchAt(suffixMatcher, pos)) {\n                balance--;\n                pos++;\n                if (balance == 0) {\n                    break;\n                }\n            } else if (isBufferMatchAt(prefixMatcher, pos)) {\n                balance++;\n                pos += prefixMatcher.size();\n            } else if (isBufferMatchAt(prefixEscapeMatcher, pos)) {\n                balance++;\n                pos += prefixEscapeMatcher.size();\n            } else {\n                pos++;\n            }\n            readCount = buffer(readCount(minReadLenSuffix, pos));\n            if (readCount == EOS && pos >= buffer.size()) {\n                break;\n            }\n        }\n        // substitute\n        final int endPos = pos + 1;\n        final int leftover = Math.max(0, buffer.size() - pos);\n        stringSubstitutor.replaceIn(buffer, 0, Math.min(buffer.size(), endPos));\n        pos = buffer.size() - leftover;\n        final int drainLen = Math.min(targetLength, pos);\n        // only drain up to what we've substituted\n        toDrain = pos;\n        drain(target, targetIndex, drainLen);\n        return targetIndex - targetIndexIn + drainLen;\n    }",
+        "called_methods": [
+            "read",
+            "isEmpty",
+            "isDraining",
+            "drain",
+            "min",
+            "size",
+            "buffer",
+            "readCount",
+            "length",
+            "replaceIn",
+            "getVariablePrefixMatcher",
+            "isBufferMatchAt",
+            "bufferOrDrainOnEos",
+            "getVariableSuffixMatcher",
+            "max"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\io\\StringSubstitutorReader.java",
+        "name": "read",
+        "javadoc": "/**\n * Reads characters from the underlying reader into a target array.\n *\n * This method is designed to handle complex string substitution scenarios,\n * including prefix and suffix matching, variable replacement, and draining.\n *\n * @param target        The character array to read into.\n * @param targetIndexIn The starting index in the target array where reading should begin.\n * @param targetLengthIn The maximum number of characters to read from the underlying reader.\n * @return The actual number of characters read from the underlying reader and stored in the target array.\n * @throws IOException If an I/O error occurs while reading from the underlying reader.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "private int readCount(final int count, final int pos)",
+        "implementation": "private int readCount(final int count, final int pos) {\n        final int avail = buffer.size() - pos;\n        return avail >= count ? 0 : count - avail;\n    }",
+        "called_methods": [
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\io\\StringSubstitutorReader.java",
+        "name": "readCount",
+        "javadoc": "/**\n * Calculates the number of bytes that can be read from the buffer.\n *\n * @param count The total number of bytes to read.\n * @param pos   The current position in the buffer.\n * @return      The number of bytes that can be read, or 0 if all requested bytes are available.\n * @throws       IllegalArgumentException If count is negative.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    }
+]

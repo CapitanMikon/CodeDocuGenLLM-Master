@@ -1,0 +1,372 @@
+[
+    {
+        "signature": "public String apply(final double d)",
+        "implementation": "public String apply(final double d) {\n            if (Double.isFinite(d)) {\n                return applyFinite(d);\n            }\n            if (Double.isInfinite(d)) {\n                return d > 0.0 ? positiveInfinity : negativeInfinity;\n            }\n            return nan;\n        }",
+        "called_methods": [
+            "isFinite",
+            "applyFinite",
+            "isInfinite"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "apply",
+        "javadoc": "/**\n * Applies a value to this function.\n *\n * @param d the input value\n * @return the result of applying the value, or one of the special values {@link #positiveInfinity}, \n *         {@link #negativeInfinity} or {@link #nan} if the input is infinite or NaN\n */\n",
+        "improved_javadoc": "/**\n * Applies a value to this function.\n *\n * @param d the input value, which may be finite, positive infinity, negative infinity, or NaN (Not a Number)\n * @return the result of applying the value, or one of the special values {@link #positiveInfinity}, \n *         {@link #negativeInfinity} or {@link #nan} if the input is infinite or NaN\n */\n"
+    },
+    {
+        "signature": "private String applyFinite(final double d)",
+        "implementation": "private String applyFinite(final double d) {\n            final ParsedDecimal n = ParsedDecimal.from(d);\n\n            int roundExponent = Math.max(n.getExponent(), minDecimalExponent);\n            if (maxPrecision > 0) {\n                roundExponent = Math.max(n.getScientificExponent() - maxPrecision + 1, roundExponent);\n            }\n            n.round(roundExponent);\n\n            return applyFiniteInternal(n);\n        }",
+        "called_methods": [
+            "from",
+            "max",
+            "getExponent",
+            "getScientificExponent",
+            "round",
+            "applyFiniteInternal"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "applyFinite",
+        "javadoc": "/**\n * Applies finite rounding to a decimal value.\n *\n * @param d the decimal value to be rounded\n * @return the rounded decimal value as a string\n */\n",
+        "improved_javadoc": "/**\n * Rounds a given decimal value to a finite number of digits using standard rounding rules (e.g., half-even, round-to-nearest).\n *\n * @param d the decimal value to be rounded\n * @return the rounded decimal value as a string\n */\n"
+    },
+    {
+        "signature": "public char getDecimalSeparator()",
+        "implementation": "public char getDecimalSeparator() {\n            return decimalSeparator;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "getDecimalSeparator",
+        "javadoc": "/**\n * Returns the decimal separator used by this locale.\n *\n * @return the decimal separator\n */\n",
+        "improved_javadoc": "/**\n * Returns the symbol used in this locale to separate groups of digits on both sides of the radix character (e.g., ',' for 1,234.56).\n *\n * @return the decimal separator\n */\n"
+    },
+    {
+        "signature": "public char[] getDigits()",
+        "implementation": "public char[] getDigits() {\n            return digits;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "getDigits",
+        "javadoc": "/**\n * Returns an array of digits.\n *\n * @return An array of digits.\n */\n",
+        "improved_javadoc": "/**\n * Extracts and returns an array of digits from the input string, ignoring non-digit characters.\n *\n * @param str The input string containing digit characters to be extracted.\n * @return An array of integers representing the extracted digits.\n */\n"
+    },
+    {
+        "signature": "public char[] getExponentSeparatorChars()",
+        "implementation": "public char[] getExponentSeparatorChars() {\n            return exponentSeparatorChars;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "getExponentSeparatorChars",
+        "javadoc": "/**\n * Returns an array of characters representing the exponent separator.\n *\n * @return An array of characters used to separate the mantissa and the exponent in a floating-point number.\n */\n",
+        "improved_javadoc": "/**\n * Returns an array of Unicode characters representing the decimal point (.) and the exponent separator ('e' or 'E') \n * as defined by the locale's DecimalFormatSymbols instance. The returned array contains two elements: the first element \n * is the character used to separate the mantissa and the exponent, and the second element is the character used for \n * the decimal point.\n *\n * @return An array of length 2 containing the exponent separator and the decimal point characters.\n */\n"
+    },
+    {
+        "signature": "public char getGroupingSeparator()",
+        "implementation": "public char getGroupingSeparator() {\n            return groupingSeparator;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "getGroupingSeparator",
+        "javadoc": "/**\n * Returns the character used as a grouping separator.\n *\n * @return the grouping separator\n */\n",
+        "improved_javadoc": "/**\n * Returns the character used as a grouping separator, typically a comma (',') or a period ('.') in different locales.\n *\n * @return the grouping separator character\n */\n"
+    },
+    {
+        "signature": "public char getMinusSign()",
+        "implementation": "public char getMinusSign() {\n            return minusSign;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "getMinusSign",
+        "javadoc": "/**\n * Returns the character representing the minus sign.\n *\n * @return the character representing the minus sign\n */\n",
+        "improved_javadoc": "/**\n * Returns the Unicode character representing the minus sign (-).\n *\n * @return the Unicode character - (minus sign)\n */\n"
+    },
+    {
+        "signature": "public boolean isAlwaysIncludeExponent()",
+        "implementation": "public boolean isAlwaysIncludeExponent() {\n            return alwaysIncludeExponent;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "isAlwaysIncludeExponent",
+        "javadoc": "/**\n * Returns whether the exponent should be included in all cases.\n *\n * @return true if the exponent should be included, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether the exponent should always be included when formatting numbers.\n *\n * @param includeExponent true to always include the exponent, false otherwise\n * @return true if the exponent will be included in all cases, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isGroupThousands()",
+        "implementation": "public boolean isGroupThousands() {\n            return groupThousands;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "isGroupThousands",
+        "javadoc": "/**\n * Checks if the current group is a thousand.\n *\n * @return true if the current group is a thousand, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether the current group represents a thousand units.\n *\n * This method checks the current group against the value 1000. It returns {@code true} if the group matches this value and {@code false} otherwise.\n *\n * @return {@code true} if the current group is a thousand, {@code false} otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isIncludeFractionPlaceholder()",
+        "implementation": "public boolean isIncludeFractionPlaceholder() {\n            return fractionPlaceholder;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "isIncludeFractionPlaceholder",
+        "javadoc": "/**\n * Checks if a fraction placeholder should be included.\n *\n * @return true if a fraction placeholder should be included, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether to include a fraction placeholder in the output based on the given numerator and denominator values.\n *\n * @param numerator  The numerator value of the fraction.\n * @param denominator The denominator value of the fraction.\n * @return true if a fraction placeholder should be included, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isSignedZero()",
+        "implementation": "public boolean isSignedZero() {\n            return signedZero;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "isSignedZero",
+        "javadoc": "/**\n * Checks if the number is a signed zero.\n *\n * @return true if the number is a signed zero, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether the specified number represents a signed zero value,\n * which includes both positive and negative zero values.\n *\n * @param number the number to check for being a signed zero\n * @return true if the number is a signed zero, false otherwise\n */\n"
+    },
+    {
+        "signature": "private static String getDigitString(final DecimalFormatSymbols symbols)",
+        "implementation": "private static String getDigitString(final DecimalFormatSymbols symbols) {\n            final int zeroDelta = symbols.getZeroDigit() - DEFAULT_DECIMAL_DIGITS.charAt(0);\n\n            final char[] digitChars = new char[DEFAULT_DECIMAL_DIGITS.length()];\n            for (int i = 0; i < DEFAULT_DECIMAL_DIGITS.length(); ++i) {\n                digitChars[i] = (char) (DEFAULT_DECIMAL_DIGITS.charAt(i) + zeroDelta);\n            }\n\n            return String.valueOf(digitChars);\n        }",
+        "called_methods": [
+            "getZeroDigit",
+            "charAt",
+            "length",
+            "valueOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "getDigitString",
+        "javadoc": "/**\n * Returns a string of decimal digits based on the provided DecimalFormatSymbols.\n *\n * This method adjusts the digit characters in the default decimal digits string by the difference between the zero digit and the first character in the default decimal digits string.\n *\n * @param symbols the DecimalFormatSymbols to use for determining the decimal digits\n * @return a string of adjusted decimal digits\n */\n",
+        "improved_javadoc": "/**\n * Returns a string of decimal digits based on the provided DecimalFormatSymbols, \n * adjusting the digit characters by the difference between the zero digit and the first character in the default decimal digits string.\n *\n * This method ensures that the decimal digits are correctly formatted according to the specified symbols.\n *\n * @param symbols the DecimalFormatSymbols instance containing the locale-specific decimal digits\n * @return a string of adjusted decimal digits, or an empty string if the input is null\n */\n"
+    },
+    {
+        "signature": "public Builder allowSignedZero(final boolean signedZero)",
+        "implementation": "public Builder allowSignedZero(final boolean signedZero) {\n            this.signedZero = signedZero;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "allowSignedZero",
+        "javadoc": "/**\n * Sets whether to allow signed zero values.\n *\n * @param signedZero true if signed zero values should be allowed, false otherwise\n * @return the builder instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Configures the behavior of this builder to permit or reject signed zero values in numeric operations.\n *\n * @param allowSignedZero true if signed zero values should be accepted, false otherwise\n * @return this builder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public Builder alwaysIncludeExponent(final boolean alwaysIncludeExponent)",
+        "implementation": "public Builder alwaysIncludeExponent(final boolean alwaysIncludeExponent) {\n            this.alwaysIncludeExponent = alwaysIncludeExponent;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "alwaysIncludeExponent",
+        "javadoc": "/**\n * Sets whether to always include the exponent in scientific notation.\n *\n * @param alwaysIncludeExponent true if the exponent should be included, false otherwise\n * @return this Builder instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Configures the builder to always include the exponent when formatting numbers in scientific notation.\n *\n * @param alwaysIncludeExponent  {@code true} if the exponent should be included, {@code false} otherwise\n * @return this Builder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public DoubleFunction<String> build()",
+        "implementation": "public DoubleFunction<String> build() {\n            return get();\n        }",
+        "called_methods": [
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "build",
+        "javadoc": "/**\n * Returns a DoubleFunction that wraps the result of {@link #get()}.\n *\n * @return A DoubleFunction that returns the value obtained from {@link #get()}\n */\n",
+        "improved_javadoc": "/**\n * Returns a DoubleFunction that wraps the result of {@link #get()}, allowing for functional composition and chaining.\n *\n * @return A DoubleFunction instance that delegates to the result of {@link #get()}.\n */\n"
+    },
+    {
+        "signature": "public Builder decimalSeparator(final char decimalSeparator)",
+        "implementation": "public Builder decimalSeparator(final char decimalSeparator) {\n            this.decimalSeparator = decimalSeparator;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "decimalSeparator",
+        "javadoc": "/**\n * Sets the character used as a decimal separator.\n *\n * @param decimalSeparator the character to use as a decimal separator\n * @return this builder for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets the character used as a decimal separator.\n *\n * @param decimalSeparator the character to use as a decimal separator (e.g. '.' or ',')\n * @return this builder for method chaining, allowing further configuration of the number format\n */\n"
+    },
+    {
+        "signature": "public Builder digits(final String digits)",
+        "implementation": "public Builder digits(final String digits) {\n            Objects.requireNonNull(digits, \"digits\");\n            if (digits.length() != DEFAULT_DECIMAL_DIGITS.length()) {\n                throw new IllegalArgumentException(\"Digits string must contain exactly \" + DEFAULT_DECIMAL_DIGITS.length() + \" characters.\");\n            }\n\n            this.digits = digits;\n            return this;\n        }",
+        "called_methods": [
+            "requireNonNull",
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "digits",
+        "javadoc": "/**\n * Sets the decimal digits of this builder.\n *\n * @param digits a string containing exactly {@link #DEFAULT_DECIMAL_DIGITS.length()} characters, representing the decimal digits to be used in the generated number.\n * @return this builder instance, allowing for fluent configuration.\n */\n",
+        "improved_javadoc": "/**\n * Sets the decimal digits of this builder.\n *\n * @param digits a string containing exactly {@link #DEFAULT_DECIMAL_DIGITS.length()} characters, representing the decimal digits to be used in the generated number. The input string must not contain any non-digit characters and must match the length specified by {@link #DEFAULT_DECIMAL_DIGITS}.\n * @return this builder instance, allowing for fluent configuration.\n */\n"
+    },
+    {
+        "signature": "public Builder exponentSeparator(final String exponentSeparator)",
+        "implementation": "public Builder exponentSeparator(final String exponentSeparator) {\n            this.exponentSeparator = Objects.requireNonNull(exponentSeparator, \"exponentSeparator\");\n            return this;\n        }",
+        "called_methods": [
+            "requireNonNull"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "exponentSeparator",
+        "javadoc": "/**\n * Sets the separator to be used between the base and the exponent.\n *\n * @param exponentSeparator the separator to use\n * @return this builder for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets the separator to be used between the base and the exponent in scientific notation.\n *\n * @param exponentSeparator the separator to use (e.g. \"e\", \"E\")\n * @return this builder for method chaining, allowing further configuration of the scientific notation format\n */\n"
+    },
+    {
+        "signature": "public Builder formatSymbols(final DecimalFormatSymbols symbols)",
+        "implementation": "public Builder formatSymbols(final DecimalFormatSymbols symbols) {\n            Objects.requireNonNull(symbols, \"symbols\");\n\n            return digits(getDigitString(symbols)).decimalSeparator(symbols.getDecimalSeparator()).groupingSeparator(symbols.getGroupingSeparator())\n                    .minusSign(symbols.getMinusSign()).exponentSeparator(symbols.getExponentSeparator()).infinity(symbols.getInfinity()).nan(symbols.getNaN());\n        }",
+        "called_methods": [
+            "requireNonNull",
+            "digits",
+            "decimalSeparator",
+            "getDecimalSeparator",
+            "groupingSeparator",
+            "getGroupingSeparator",
+            "minusSign",
+            "getMinusSign",
+            "exponentSeparator",
+            "getExponentSeparator",
+            "infinity",
+            "getInfinity",
+            "nan",
+            "getNaN",
+            "getDigitString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "formatSymbols",
+        "javadoc": "/**\n * Formats this builder with the specified DecimalFormatSymbols.\n *\n * @param symbols the DecimalFormatSymbols to use for formatting\n * @return a new instance of this builder, formatted with the provided DecimalFormatSymbols\n */\n",
+        "improved_javadoc": "/**\n * Formats this builder with the specified DecimalFormatSymbols, \n * allowing for customization of decimal and grouping separators.\n *\n * @param symbols the DecimalFormatSymbols to use for formatting, \n *                specifying the decimal and grouping separator characters\n * @return a new instance of this builder, formatted with the provided DecimalFormatSymbols\n */\n"
+    },
+    {
+        "signature": "public DoubleFunction<String> get()",
+        "implementation": "public DoubleFunction<String> get() {\n            return factory.apply(this);\n        }",
+        "called_methods": [
+            "apply"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "get",
+        "javadoc": "/**\n * Returns a function that applies the factory to this instance.\n *\n * @return A function that takes no arguments and returns a string value.\n */\n",
+        "improved_javadoc": "/**\n * Returns a function that applies the factory to this instance, \n * resulting in a string value. The returned function does not take any arguments.\n *\n * @return A function with no parameters that returns a string value.\n */\n"
+    },
+    {
+        "signature": "public Builder groupingSeparator(final char groupingSeparator)",
+        "implementation": "public Builder groupingSeparator(final char groupingSeparator) {\n            this.groupingSeparator = groupingSeparator;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "groupingSeparator",
+        "javadoc": "/**\n * Sets the character used as a grouping separator.\n *\n * @param groupingSeparator the character to use as a grouping separator\n * @return this builder for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets the character used as a grouping separator, typically used in locales where thousands separators are not needed.\n *\n * @param groupingSeparator the character to use as a grouping separator (e.g. comma or dot)\n * @return this builder for method chaining\n */\n"
+    },
+    {
+        "signature": "public Builder groupThousands(final boolean groupThousands)",
+        "implementation": "public Builder groupThousands(final boolean groupThousands) {\n            this.groupThousands = groupThousands;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "groupThousands",
+        "javadoc": "/**\n * Specifies whether to group thousands.\n *\n * @param groupThousands true if thousands should be grouped, false otherwise\n * @return this builder for chaining\n */\n",
+        "improved_javadoc": "/**\n * Specifies whether to group thousands in the formatted number.\n *\n * @param groupThousands true if thousands should be grouped, false otherwise\n * @return this builder for method chaining, allowing further configuration of the formatter\n */\n"
+    },
+    {
+        "signature": "public Builder includeFractionPlaceholder(final boolean fractionPlaceholder)",
+        "implementation": "public Builder includeFractionPlaceholder(final boolean fractionPlaceholder) {\n            this.fractionPlaceholder = fractionPlaceholder;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "includeFractionPlaceholder",
+        "javadoc": "/**\n * Specifies whether a placeholder for fractions should be included.\n *\n * @param fractionPlaceholder true to include a placeholder for fractions, false otherwise\n * @return the builder instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Specifies whether a placeholder for fractions should be included in the output.\n *\n * @param fractionPlaceholder  {@code true} to include a placeholder for fractions, or {@code false} to exclude it\n * @return this builder instance for method chaining, allowing further configuration of the output\n */\n"
+    },
+    {
+        "signature": "public Builder infinity(final String infinity)",
+        "implementation": "public Builder infinity(final String infinity) {\n            this.infinity = Objects.requireNonNull(infinity, \"infinity\");\n            return this;\n        }",
+        "called_methods": [
+            "requireNonNull"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "infinity",
+        "javadoc": "/**\n * Sets the value for infinity.\n *\n * @param infinity the value to set\n * @return this builder instance\n */\n",
+        "improved_javadoc": "/**\n * Sets the value for infinity, which represents a mathematical concept of unbounded or endless quantity.\n *\n * @param infinity the value to set, representing a mathematical concept of unbounded or endless quantity\n * @return this builder instance, allowing method chaining for further configuration\n */\n"
+    },
+    {
+        "signature": "public Builder maxPrecision(final int maxPrecision)",
+        "implementation": "public Builder maxPrecision(final int maxPrecision) {\n            this.maxPrecision = maxPrecision;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "maxPrecision",
+        "javadoc": "/**\n * Sets the maximum precision for the builder.\n *\n * @param maxPrecision the maximum number of decimal places to be used\n *                     when building a {@code BigDecimal} value.\n *\n * @return this builder instance, allowing method chaining.\n */\n",
+        "improved_javadoc": "/**\n * Sets the maximum precision for the builder.\n *\n * @param maxPrecision the maximum number of digits after the decimal point to be used\n *                     when building a {@code BigDecimal} value. A higher value allows for more precise calculations,\n *                     but may also increase memory usage and computation time.\n *\n * @return this builder instance, allowing method chaining.\n */\n"
+    },
+    {
+        "signature": "public Builder minDecimalExponent(final int minDecimalExponent)",
+        "implementation": "public Builder minDecimalExponent(final int minDecimalExponent) {\n            this.minDecimalExponent = minDecimalExponent;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "minDecimalExponent",
+        "javadoc": "/**\n * Sets the minimum decimal exponent for a number.\n *\n * @param minDecimalExponent the minimum decimal exponent\n * @return this builder instance\n */\n",
+        "improved_javadoc": "/**\n * Sets the minimum decimal exponent for a number, which will be used to format numbers in scientific notation.\n *\n * @param minDecimalExponent the minimum decimal exponent (e.g., 1 for \"1.0E+01\" or -2 for \"1.00E-02\")\n * @return this builder instance\n */\n"
+    },
+    {
+        "signature": "public Builder minusSign(final char minusSign)",
+        "implementation": "public Builder minusSign(final char minusSign) {\n            this.minusSign = minusSign;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "minusSign",
+        "javadoc": "/**\n * Sets the character to be used as a minus sign.\n *\n * @param minusSign the character to use as a minus sign\n * @return this builder for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets the character to be used as a minus sign in numeric formatting.\n *\n * @param minusSign the character to use as a minus sign (e.g. '-', '\u2013', etc.)\n * @return this builder for method chaining, allowing further configuration of the formatter\n */\n"
+    },
+    {
+        "signature": "public Builder nan(final String nan)",
+        "implementation": "public Builder nan(final String nan) {\n            this.nan = Objects.requireNonNull(nan, \"nan\");\n            return this;\n        }",
+        "called_methods": [
+            "requireNonNull"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "nan",
+        "javadoc": "/**\n * Sets the Not a Number (NaN) value for the builder.\n *\n * @param nan the NaN value to be set\n * @return this builder instance\n */\n",
+        "improved_javadoc": "/**\n * Sets the Not a Number (NaN) value for the builder, indicating that a mathematical operation has encountered an invalid result.\n *\n * @param nan the NaN value to be set, which should be one of the standard IEEE 754 floating-point values representing \"Not a Number\"\n * @return this builder instance, allowing for method chaining\n */\n"
+    },
+    {
+        "signature": "public Builder plainFormatMaxDecimalExponent(final int plainFormatMaxDecimalExponent)",
+        "implementation": "public Builder plainFormatMaxDecimalExponent(final int plainFormatMaxDecimalExponent) {\n            this.plainFormatMaxDecimalExponent = plainFormatMaxDecimalExponent;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "plainFormatMaxDecimalExponent",
+        "javadoc": "/**\n * Sets the maximum decimal exponent for plain format.\n *\n * @param plainFormatMaxDecimalExponent the new value of the maximum decimal exponent\n * @return this builder instance to enable method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets the maximum decimal exponent for plain format.\n *\n * @param plainFormatMaxDecimalExponent the new value of the maximum decimal exponent, which must be greater than or equal to 0 and less than or equal to {@link #getPlainFormatMaxDecimalExponent()} (the current maximum decimal exponent)\n * @return this builder instance to enable method chaining\n */\n"
+    },
+    {
+        "signature": "public Builder plainFormatMinDecimalExponent(final int plainFormatMinDecimalExponent)",
+        "implementation": "public Builder plainFormatMinDecimalExponent(final int plainFormatMinDecimalExponent) {\n            this.plainFormatMinDecimalExponent = plainFormatMinDecimalExponent;\n            return this;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "plainFormatMinDecimalExponent",
+        "javadoc": "/**\n * Sets the minimum decimal exponent for plain format.\n *\n * @param plainFormatMinDecimalExponent the minimum decimal exponent\n * @return this builder instance\n */\n",
+        "improved_javadoc": "/**\n * Sets the minimum decimal exponent for plain format, which determines the minimum number of digits to the right of the decimal point.\n *\n * @param plainFormatMinDecimalExponent the minimum decimal exponent (e.g., 0 means no decimal point)\n * @return this builder instance, allowing method chaining\n */\n"
+    },
+    {
+        "signature": "public String applyFiniteInternal(final ParsedDecimal val)",
+        "implementation": "public String applyFiniteInternal(final ParsedDecimal val) {\n            return val.toScientificString(this);\n        }",
+        "called_methods": [
+            "toEngineeringString",
+            "getScientificExponent",
+            "toPlainString",
+            "toScientificString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "applyFiniteInternal",
+        "javadoc": "/**\n * Applies finite internal formatting to a parsed decimal value.\n *\n * @param val The parsed decimal value to be formatted.\n * @return A string representation of the parsed decimal value in scientific notation.\n */\n",
+        "improved_javadoc": "/**\n * Formats a parsed decimal value using fixed-point notation with a specified number of digits after the decimal point.\n *\n * @param val        The parsed decimal value to be formatted.\n * @return           A string representation of the parsed decimal value in fixed-point notation (e.g., \"1234.5678\").\n */\n"
+    },
+    {
+        "signature": "public Builder builder()",
+        "implementation": "public Builder builder() {\n        return new Builder(factory);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\numbers\\DoubleFormat.java",
+        "name": "builder",
+        "javadoc": "/**\n * Returns a new instance of {@link Builder} for creating instances of this class.\n *\n * @return A new instance of {@link Builder}.\n */\n",
+        "improved_javadoc": "/**\n * Returns a new instance of {@link Builder} for creating instances of this class.\n *\n * @return A new instance of {@link Builder} used to construct instances of this class.\n */\n"
+    }
+]

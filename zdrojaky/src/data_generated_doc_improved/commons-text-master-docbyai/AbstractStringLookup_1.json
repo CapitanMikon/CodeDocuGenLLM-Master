@@ -1,0 +1,38 @@
+[
+    {
+        "signature": "static String toLookupKey(final String left, final String separator, final String right)",
+        "implementation": "static String toLookupKey(final String left, final String separator, final String right) {\n        return left + separator + right;\n    }",
+        "called_methods": [
+            "toLookupKey"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\AbstractStringLookup.java",
+        "name": "toLookupKey",
+        "javadoc": "/**\n * Concatenates three strings with a specified separator in between.\n *\n * @param left  The first string to be concatenated.\n * @param separator  The separator used between the two strings.\n * @param right   The second string to be concatenated.\n * @return A new string containing the concatenation of the input parameters.\n */\n",
+        "improved_javadoc": "/**\n * Concatenates three strings with a specified separator in between, \n * returning a new string that contains the left and right strings separated by the provided separator.\n *\n * @param left  The first string to be concatenated (left-hand side of the separator).\n * @param separator  The separator used between the two strings.\n * @param right   The second string to be concatenated (right-hand side of the separator).\n * @return A new string containing the concatenation of the input parameters, or null if any of the input parameters are null.\n */\n"
+    },
+    {
+        "signature": "protected String substringAfter(final String value, final String str)",
+        "implementation": "protected String substringAfter(final String value, final String str) {\n        return StringUtils.substringAfter(value, str);\n    }",
+        "called_methods": [
+            "substringAfter"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\AbstractStringLookup.java",
+        "name": "substringAfter",
+        "javadoc": "/**\n * Returns the substring after the first occurrence of the specified delimiter.\n *\n * @param value the string to get a substring from\n * @param str   the delimiter to search for\n * @return the substring after the first occurrence of the delimiter, or an empty string if no delimiter is found\n */\n",
+        "improved_javadoc": "/**\n * Returns the substring after the first occurrence of the specified delimiter.\n *\n * This method splits the input {@code value} string at the first occurrence of the specified {@code str}\n * delimiter and returns the substring that follows it. If no delimiter is found in the input string,\n * an empty string is returned.\n *\n * @param value  the string to get a substring from\n * @param str    the delimiter to search for\n * @return       the substring after the first occurrence of the delimiter, or an empty string if no delimiter is found\n */\n"
+    },
+    {
+        "signature": "protected String substringAfterLast(final String value, final char ch)",
+        "implementation": "protected String substringAfterLast(final String value, final char ch) {\n        return StringUtils.substringAfterLast(value, ch);\n    }",
+        "called_methods": [
+            "substringAfterLast"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\AbstractStringLookup.java",
+        "name": "substringAfterLast",
+        "javadoc": "/**\n * Returns the substring after the last occurrence of the specified character.\n *\n * @param value the string to search in\n * @param ch the character to find\n * @return the substring after the last occurrence of the specified character,\n *         or an empty string if no such character is found\n */\n",
+        "improved_javadoc": "/**\n * Returns the substring that follows the last occurrence of the specified character in the given string.\n *\n * @param value the input string to search in\n * @param ch the target character to find\n * @return the substring after the last occurrence of the specified character, or an empty string if no such character is found\n */\n"
+    }
+]

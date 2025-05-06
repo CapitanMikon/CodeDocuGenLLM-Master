@@ -1,0 +1,38 @@
+[
+    {
+        "signature": "ResourceBundle getBundle(final String keyBundleName)",
+        "implementation": "ResourceBundle getBundle(final String keyBundleName) {\n        // The ResourceBundle class caches bundles, no need to cache here.\n        return ResourceBundle.getBundle(keyBundleName);\n    }",
+        "called_methods": [
+            "getBundle"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ResourceBundleStringLookup.java",
+        "name": "getBundle",
+        "javadoc": "/**\n * Retrieves a resource bundle with the specified name.\n *\n * @param keyBundleName  the name of the resource bundle\n * @return                the resource bundle with the specified name\n */\n"
+    },
+    {
+        "signature": "String getString(final String keyBundleName, final String bundleKey)",
+        "implementation": "String getString(final String keyBundleName, final String bundleKey) {\n        return getBundle(keyBundleName).getString(bundleKey);\n    }",
+        "called_methods": [
+            "getBundle",
+            "getString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ResourceBundleStringLookup.java",
+        "name": "getString",
+        "javadoc": "/**\n * Retrieves a string value from a bundle.\n *\n * @param keyBundleName  The name of the bundle to retrieve the string from.\n * @param bundleKey      The key of the string to retrieve.\n * @return               The string value associated with the specified key in the bundle, or null if not found.\n */\n"
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String[] keys = key.split(SPLIT_STR);\n        final int keyLen = keys.length;\n        final boolean anyBundle = bundleName == null;\n        if (anyBundle && keyLen != 2) {\n            throw IllegalArgumentExceptions\n                .format(\"Bad resource bundle key format [%s]; expected format is BundleName:KeyName.\", key);\n        }\n        if (bundleName != null && keyLen != 1) {\n            throw IllegalArgumentExceptions.format(\"Bad resource bundle key format [%s]; expected format is KeyName.\",\n                key);\n        }\n        final String keyBundleName = anyBundle ? keys[0] : bundleName;\n        final String bundleKey = anyBundle ? keys[1] : keys[0];\n        try {\n            return getString(keyBundleName, bundleKey);\n        } catch (final MissingResourceException e) {\n            // The key is missing, return null such that an interpolator can supply a default value.\n            return null;\n        } catch (final Exception e) {\n            // Should only be a ClassCastException\n            throw IllegalArgumentExceptions.format(e, \"Error looking up resource bundle [%s] and key [%s].\",\n                keyBundleName, bundleKey);\n        }\n    }",
+        "called_methods": [
+            "split",
+            "format",
+            "getString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ResourceBundleStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a resource in the current bundle or a specified bundle.\n *\n * @param key The key to look up. If {@code null}, returns {@code null}.\n *            Otherwise, if the bundle name is not set, it should be in the format \"BundleName:KeyName\".\n *            If the bundle name is set, it should be in the format \"KeyName\".\n * @return The resource associated with the key, or {@code null} if the key is missing.\n * @throws IllegalArgumentException If the key format is invalid.\n */\n"
+    }
+]

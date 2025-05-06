@@ -1,0 +1,35 @@
+[
+    {
+        "signature": "public static String toCamelCase(String str, final boolean capitalizeFirstLetter, final char... delimiters)",
+        "implementation": "public static String toCamelCase(String str, final boolean capitalizeFirstLetter, final char... delimiters) {\n        if (StringUtils.isEmpty(str)) {\n            return str;\n        }\n        str = str.toLowerCase();\n        final int strLen = str.length();\n        final int[] newCodePoints = new int[strLen];\n        int outOffset = 0;\n        final Set<Integer> delimiterSet = toDelimiterSet(delimiters);\n        boolean capitalizeNext = capitalizeFirstLetter;\n        for (int index = 0; index < strLen;) {\n            final int codePoint = str.codePointAt(index);\n\n            if (delimiterSet.contains(codePoint)) {\n                capitalizeNext = outOffset != 0;\n                index += Character.charCount(codePoint);\n            } else if (capitalizeNext || outOffset == 0 && capitalizeFirstLetter) {\n                final int titleCaseCodePoint = Character.toTitleCase(codePoint);\n                newCodePoints[outOffset++] = titleCaseCodePoint;\n                index += Character.charCount(titleCaseCodePoint);\n                capitalizeNext = false;\n            } else {\n                newCodePoints[outOffset++] = codePoint;\n                index += Character.charCount(codePoint);\n            }\n        }\n\n        return new String(newCodePoints, 0, outOffset);\n    }",
+        "called_methods": [
+            "isEmpty",
+            "toLowerCase",
+            "length",
+            "toDelimiterSet",
+            "codePointAt",
+            "contains",
+            "charCount",
+            "toTitleCase"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CaseUtils.java",
+        "name": "toCamelCase",
+        "javadoc": "/**\n * Converts a string to camel case.\n *\n * @param str the input string to convert\n * @param capitalizeFirstLetter whether to capitalize the first letter of the result\n * @param delimiters an array of characters that separate words in the input string\n * @return the converted string in camel case\n */\n",
+        "improved_javadoc": "/**\n * Converts a string to camel case, separating words based on specified delimiters.\n *\n * @param str the input string to convert\n * @param capitalizeFirstLetter whether to capitalize the first letter of the result (default: true)\n * @param delimiters an array of characters that separate words in the input string (e.g., spaces, hyphens, underscores)\n * @return the converted string in camel case (e.g., \"hello world\" becomes \"helloWorld\")\n */\n"
+    },
+    {
+        "signature": "private static Set<Integer> toDelimiterSet(final char[] delimiters)",
+        "implementation": "private static Set<Integer> toDelimiterSet(final char[] delimiters) {\n        final Set<Integer> delimiterHashSet = new HashSet<>();\n        delimiterHashSet.add(Character.codePointAt(new char[]{' '}, 0));\n        if (ArrayUtils.isEmpty(delimiters)) {\n            return delimiterHashSet;\n        }\n\n        for (int index = 0; index < delimiters.length; index++) {\n            delimiterHashSet.add(Character.codePointAt(delimiters, index));\n        }\n        return delimiterHashSet;\n    }",
+        "called_methods": [
+            "add",
+            "codePointAt",
+            "isEmpty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CaseUtils.java",
+        "name": "toDelimiterSet",
+        "javadoc": "/**\n * Converts an array of delimiter characters to a set of integer code points.\n *\n * @param delimiters the array of delimiter characters\n * @return a set containing the code points of all delimiters, including space (32)\n * @throws NullPointerException if the input array is null\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    }
+]

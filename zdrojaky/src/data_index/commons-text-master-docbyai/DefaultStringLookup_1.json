@@ -1,0 +1,20 @@
+[
+    {
+        "signature": "public String getKey()",
+        "implementation": "public String getKey() {\n        return key;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\DefaultStringLookup.java",
+        "name": "getKey",
+        "javadoc": "/**\n     * Gets the standard prefix for the lookup object of this kind.\n     *\n     * @return the prefix\n     */"
+    },
+    {
+        "signature": "public StringLookup getStringLookup()",
+        "implementation": "public StringLookup getStringLookup() {\n        return lookup;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\DefaultStringLookup.java",
+        "name": "getStringLookup",
+        "javadoc": "/**\n     * Gets the standard {@link StringLookup} instance of this kind.\n     *\n     * @return the associated {@link StringLookup} object\n     */"
+    }
+]

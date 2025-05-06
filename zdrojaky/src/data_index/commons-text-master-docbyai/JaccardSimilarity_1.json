@@ -1,0 +1,19 @@
+[
+    {
+        "signature": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right)",
+        "implementation": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"Input cannot be null\");\n        }\n        final int leftLength = left.length();\n        final int rightLength = right.length();\n        if (leftLength == 0 && rightLength == 0) {\n            return 1d;\n        }\n        if (leftLength == 0 || rightLength == 0) {\n            return 0d;\n        }\n        final Set<E> leftSet = new HashSet<>();\n        for (int i = 0; i < leftLength; i++) {\n            leftSet.add(left.at(i));\n        }\n        final Set<E> rightSet = new HashSet<>();\n        for (int i = 0; i < rightLength; i++) {\n            rightSet.add(right.at(i));\n        }\n        final Set<E> unionSet = new HashSet<>(leftSet);\n        unionSet.addAll(rightSet);\n        final int intersectionSize = leftSet.size() + rightSet.size() - unionSet.size();\n        return 1.0d * intersectionSize / unionSet.size();\n    }",
+        "called_methods": [
+            "apply",
+            "input",
+            "length",
+            "add",
+            "at",
+            "addAll",
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\JaccardSimilarity.java",
+        "name": "apply",
+        "javadoc": "/**\n     * Computes the Jaccard Similarity of two character sequences passed as input. Does the calculation by identifying the union (characters in at least one of\n     * the two sets) of the two sets and intersection (characters which are present in set one which are present in set two)\n     *\n     * @param <E>   The type of similarity score unit.\n     * @param left  first input sequence.\n     * @param right second input sequence.\n     * @return index.\n     * @since 1.13.0\n     */"
+    }
+]

@@ -1,0 +1,60 @@
+[
+    {
+        "signature": "public static NumericEntityEscaper above(final int codePoint)",
+        "implementation": "public static NumericEntityEscaper above(final int codePoint) {\n        return outsideOf(0, codePoint);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "above",
+        "javadoc": "/**\n * Returns a {@link NumericEntityEscaper} that escapes numeric character references\n * for Unicode code points greater than the specified value.\n *\n * @param codePoint the maximum Unicode code point to be escaped\n * @return a {@link NumericEntityEscaper} instance\n */\n",
+        "improved_javadoc": "/**\n * Returns a {@link NumericEntityEscaper} that escapes numeric character references \n * for Unicode code points greater than or equal to the specified value.\n *\n * @param maxCodePoint the maximum Unicode code point to be escaped (inclusive)\n * @return a {@link NumericEntityEscaper} instance\n */\n"
+    },
+    {
+        "signature": "public static NumericEntityEscaper below(final int codePoint)",
+        "implementation": "public static NumericEntityEscaper below(final int codePoint) {\n        return outsideOf(codePoint, Integer.MAX_VALUE);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "below",
+        "javadoc": "/**\n * Returns a {@link NumericEntityEscaper} that escapes numeric character references\n * with Unicode code points less than or equal to the specified value.\n *\n * @param codePoint the maximum Unicode code point for which numeric character\n *                  references should be escaped\n * @return a new instance of {@link NumericEntityEscaper}\n */\n",
+        "improved_javadoc": "/**\n * Returns a {@link NumericEntityEscaper} that escapes numeric character references \n * with Unicode code points less than or equal to the specified maximum value.\n *\n * @param maxCodePoint the maximum Unicode code point for which numeric character\n *                     references should be escaped\n * @return a new instance of {@link NumericEntityEscaper}\n */\n"
+    },
+    {
+        "signature": "public static NumericEntityEscaper between(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static NumericEntityEscaper between(final int codePointLow, final int codePointHigh) {\n        return new NumericEntityEscaper(codePointLow, codePointHigh, true);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "between",
+        "javadoc": "/**\n * Creates a {@link NumericEntityEscaper} that escapes numeric character references\n * in the range of specified Unicode code points.\n *\n * @param codePointLow The low end of the inclusive range of Unicode code points to escape.\n * @param codePointHigh The high end of the inclusive range of Unicode code points to escape.\n * @return A new instance of {@link NumericEntityEscaper} that escapes numeric character references\n *         in the specified range of Unicode code points.\n */\n",
+        "improved_javadoc": "/**\n * Creates a {@link NumericEntityEscaper} that escapes numeric character references \n * in the range of specified Unicode code points, inclusive from <code>codePointLow</code> to <code>codePointHigh</code>.\n *\n * @param codePointLow The low end (inclusive) of the range of Unicode code points to escape.\n * @param codePointHigh The high end (inclusive) of the range of Unicode code points to escape.\n * @return A new instance of {@link NumericEntityEscaper} that escapes numeric character references \n *         in the specified range of Unicode code points.\n */\n"
+    },
+    {
+        "signature": "public static NumericEntityEscaper outsideOf(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static NumericEntityEscaper outsideOf(final int codePointLow, final int codePointHigh) {\n        return new NumericEntityEscaper(codePointLow, codePointHigh, false);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "outsideOf",
+        "javadoc": "/**\n * Creates a {@link NumericEntityEscaper} instance that escapes numeric character references\n * for the specified Unicode code points.\n *\n * @param codePointLow  The low end of the range of Unicode code points to escape.\n * @param codePointHigh The high end of the range of Unicode code points to escape.\n * @return A new {@link NumericEntityEscaper} instance that escapes numeric character references\n *         for the specified Unicode code points.\n */\n",
+        "improved_javadoc": "/**\n * Creates a {@link NumericEntityEscaper} instance that escapes numeric character references \n * in the range of Unicode code points from <code>codePointLow</code> (inclusive) to \n * <code>codePointHigh</code> (inclusive).\n *\n * @param codePointLow  The low end of the inclusive range of Unicode code points to escape.\n * @param codePointHigh The high end of the inclusive range of Unicode code points to escape.\n * @return A new {@link NumericEntityEscaper} instance that escapes numeric character references \n *         for the specified Unicode code points.\n */\n"
+    },
+    {
+        "signature": "public boolean translate(final int codePoint, final Writer writer) throws IOException",
+        "implementation": "public boolean translate(final int codePoint, final Writer writer) throws IOException {\n        if (this.between != this.range.contains(codePoint)) {\n            return false;\n        }\n        writer.write(\"&#\");\n        writer.write(Integer.toString(codePoint, 10));\n        writer.write(';');\n        return true;\n    }",
+        "called_methods": [
+            "contains",
+            "write",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates a Unicode code point to an HTML entity and writes it to the specified writer.\n *\n * @param codePoint the Unicode code point to translate\n * @param writer the writer to write the translated HTML entity to\n * @return true if the translation was successful, false otherwise\n * @throws IOException if an I/O error occurs while writing to the writer\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    }
+]

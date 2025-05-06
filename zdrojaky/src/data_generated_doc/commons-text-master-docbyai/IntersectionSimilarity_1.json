@@ -1,0 +1,90 @@
+[
+    {
+        "signature": "private void add(final T object)",
+        "implementation": "private void add(final T object) {\n            map.computeIfAbsent(object, k -> new BagCount()).count++;\n        }",
+        "called_methods": [
+            "computeIfAbsent"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionSimilarity.java",
+        "name": "add",
+        "javadoc": "/**\n * Adds a new object to the collection and increments its count.\n *\n * @param object The object to be added. It must not be null.\n */\n"
+    },
+    {
+        "signature": "private Set<Entry<T, BagCount>> entrySet()",
+        "implementation": "private Set<Entry<T, BagCount>> entrySet() {\n            return map.entrySet();\n        }",
+        "called_methods": [
+            "entrySet"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionSimilarity.java",
+        "name": "entrySet",
+        "javadoc": "/**\n * Returns a set view of the mappings contained in this map.\n *\n * @return a set view of the mappings contained in this map\n */\n"
+    },
+    {
+        "signature": "private int getCount(final Object object)",
+        "implementation": "private int getCount(final Object object) {\n            return map.getOrDefault(object, BagCount.ZERO).count;\n        }",
+        "called_methods": [
+            "getOrDefault"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionSimilarity.java",
+        "name": "getCount",
+        "javadoc": "/**\n * Returns the count of the given object from the map.\n *\n * @param object the object to retrieve the count for\n * @return the count of the object in the map\n */\n"
+    },
+    {
+        "signature": "private int uniqueElementSize()",
+        "implementation": "private int uniqueElementSize() {\n            return map.size();\n        }",
+        "called_methods": [
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionSimilarity.java",
+        "name": "uniqueElementSize",
+        "javadoc": "/**\n * Returns the number of unique elements in the map.\n *\n * @return The size of the map, representing the number of unique elements.\n */\n"
+    },
+    {
+        "signature": "private int getIntersection(final TinyBag bagA, final TinyBag bagB)",
+        "implementation": "private int getIntersection(final TinyBag bagA, final TinyBag bagB) {\n        int intersection = 0;\n        for (final Entry<T, BagCount> entry : bagA.entrySet()) {\n            final T element = entry.getKey();\n            final int count = entry.getValue().count;\n            // The intersection of this entry in both bags is the minimum count\n            intersection += Math.min(count, bagB.getCount(element));\n        }\n        return intersection;\n    }",
+        "called_methods": [
+            "contains",
+            "entrySet",
+            "getKey",
+            "getValue",
+            "min",
+            "getCount"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionSimilarity.java",
+        "name": "getIntersection",
+        "javadoc": "/**\n * Calculates the intersection of two TinyBag instances.\n *\n * This method iterates over each entry in the first bag and calculates the minimum count of each element\n * that is present in both bags. The result is the total sum of these minimum counts.\n *\n * @param bagA the first TinyBag instance\n * @param bagB the second TinyBag instance\n * @return the intersection of the two bags, represented as an integer\n */\n"
+    },
+    {
+        "signature": "public IntersectionResult apply(final CharSequence left, final CharSequence right)",
+        "implementation": "public IntersectionResult apply(final CharSequence left, final CharSequence right) {\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"Input cannot be null\");\n        }\n\n        // Create the elements from the sequences\n        final Collection<T> objectsA = converter.apply(left);\n        final Collection<T> objectsB = converter.apply(right);\n        final int sizeA = objectsA.size();\n        final int sizeB = objectsB.size();\n\n        // Short-cut if either collection is empty\n        if (Math.min(sizeA, sizeB) == 0) {\n            // No intersection\n            return new IntersectionResult(sizeA, sizeB, 0);\n        }\n\n        // Intersection = count the number of shared elements\n        final int intersection;\n        if (objectsA instanceof Set && objectsB instanceof Set) {\n            // If a Set then the elements will only have a count of 1.\n            // Iterate over the smaller set.\n            intersection = sizeA < sizeB\n                    ? getIntersection((Set<T>) objectsA, (Set<T>) objectsB)\n                    : getIntersection((Set<T>) objectsB, (Set<T>) objectsA);\n        } else  {\n            // Create a bag for each collection\n            final TinyBag bagA = toBag(objectsA);\n            final TinyBag bagB = toBag(objectsB);\n            // Iterate over the smaller number of unique elements\n            intersection = bagA.uniqueElementSize() < bagB.uniqueElementSize()\n                    ? getIntersection(bagA, bagB)\n                    : getIntersection(bagB, bagA);\n        }\n\n        return new IntersectionResult(sizeA, sizeB, intersection);\n    }",
+        "called_methods": [
+            "apply",
+            "size",
+            "min",
+            "getIntersection",
+            "toBag",
+            "uniqueElementSize"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionSimilarity.java",
+        "name": "apply",
+        "javadoc": "/**\n * Applies this operation to two input sequences.\n *\n * @param left  the first sequence of elements\n * @param right the second sequence of elements\n * @return an IntersectionResult object containing information about the intersection\n * @throws IllegalArgumentException if either input is null\n */\n"
+    },
+    {
+        "signature": "private TinyBag toBag(final Collection<T> objects)",
+        "implementation": "private TinyBag toBag(final Collection<T> objects) {\n        final TinyBag bag = new TinyBag(objects.size());\n        objects.forEach(bag::add);\n        return bag;\n    }",
+        "called_methods": [
+            "size",
+            "forEach"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\IntersectionSimilarity.java",
+        "name": "toBag",
+        "javadoc": "/**\n * Converts a collection of objects into a TinyBag.\n *\n * @param objects the collection to be converted\n * @return a new TinyBag containing all elements from the input collection\n */\n"
+    }
+]

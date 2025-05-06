@@ -1,0 +1,258 @@
+[
+    {
+        "signature": "public Builder append(final String input)",
+        "implementation": "public Builder append(final String input) {\n            sb.append(input);\n            return this;\n        }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "append",
+        "javadoc": "/**\n * Appends a string to the builder's underlying StringBuilder.\n *\n * @param input The string to be appended.\n * @return This builder instance for chaining.\n */\n",
+        "improved_javadoc": "/**\n * Appends the specified string to the end of this sequence.\n *\n * @param input  the string to append\n * @return      this object, for method chaining\n */\n"
+    },
+    {
+        "signature": "public Builder escape(final String input)",
+        "implementation": "public Builder escape(final String input) {\n            sb.append(translator.translate(input));\n            return this;\n        }",
+        "called_methods": [
+            "append",
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escape",
+        "javadoc": "/**\n * Escapes a given string by translating it using the translator.\n *\n * @param input The string to be escaped.\n * @return This builder instance for chaining.\n */\n",
+        "improved_javadoc": "/**\n * Translates a given string into an escaped format using the configured translator.\n *\n * @param input The string to be translated and escaped.\n * @return This builder instance for method chaining, allowing further configuration or execution of the translation process.\n */\n"
+    },
+    {
+        "signature": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n\n            if (index != 0) {\n                throw new IllegalStateException(\"XsiUnescaper should never reach the [1] index\");\n            }\n\n            final String s = input.toString();\n\n            int segmentStart = 0;\n            int searchOffset = 0;\n            while (true) {\n                final int pos = s.indexOf(BACKSLASH, searchOffset);\n                if (pos == -1) {\n                    if (segmentStart < s.length()) {\n                        writer.write(s.substring(segmentStart));\n                    }\n                    break;\n                }\n                if (pos > segmentStart) {\n                    writer.write(s.substring(segmentStart, pos));\n                }\n                segmentStart = pos + 1;\n                searchOffset = pos + 2;\n            }\n\n            return Character.codePointCount(input, 0, input.length());\n        }",
+        "called_methods": [
+            "toString",
+            "indexOf",
+            "length",
+            "write",
+            "substring",
+            "codePointCount"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates a CharSequence into a sequence of Unicode code points.\n *\n * @param input the input CharSequence to translate\n * @param index the current index in the translation process (should always be 0)\n * @param writer the Writer to write the translated characters to\n * @return the number of Unicode code points in the input\n * @throws IOException if an I/O error occurs while writing to the Writer\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public static StringEscapeUtils.Builder builder(final CharSequenceTranslator translator)",
+        "implementation": "public static StringEscapeUtils.Builder builder(final CharSequenceTranslator translator) {\n        return new Builder(translator);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "builder",
+        "javadoc": "/**\n * Creates a new instance of {@link StringEscapeUtils.Builder}.\n *\n * @param translator the character sequence translator to use for escaping.\n * @return a new instance of {@link StringEscapeUtils.Builder}\n */\n",
+        "improved_javadoc": "/**\n * Creates a new instance of {@link StringEscapeUtils.Builder} with the specified character sequence translator.\n *\n * @param translator the character sequence translator to use for escaping, cannot be null.\n * @return a new instance of {@link StringEscapeUtils.Builder}.\n */\n"
+    },
+    {
+        "signature": "public static String escapeCsv(final String input)",
+        "implementation": "public static String escapeCsv(final String input) {\n        return ESCAPE_CSV.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeCsv",
+        "javadoc": "/**\n * Escapes a string to be used as a CSV value.\n *\n * @param input the string to be escaped\n * @return the escaped string\n */\n",
+        "improved_javadoc": "/**\n * Escapes a string to be used as a CSV (Comma Separated Values) value by wrapping it in double quotes and escaping any special characters.\n *\n * @param input the string to be escaped, which may contain commas, newlines, or other special characters that would otherwise be interpreted incorrectly in a CSV file\n * @return the escaped string, wrapped in double quotes and ready for use as a CSV value\n */\n"
+    },
+    {
+        "signature": "public static String escapeEcmaScript(final String input)",
+        "implementation": "public static String escapeEcmaScript(final String input) {\n        return ESCAPE_ECMASCRIPT.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeEcmaScript",
+        "javadoc": "/**\n * Escapes a given string to be used as an ECMAScript literal.\n *\n * @param input The string to be escaped.\n * @return The escaped string.\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in a given string so it can be safely used as an ECMAScript literal,\n * such as a JavaScript variable or property name. This method replaces special characters with their\n * corresponding escape sequences, allowing the input string to be parsed correctly by ECMAScript\n * engines.\n *\n * @param input The string to be escaped, which may contain special characters that need to be escaped.\n * @return The escaped string, where all special characters have been replaced with their escape sequences.\n */\n"
+    },
+    {
+        "signature": "public static String escapeHtml3(final String input)",
+        "implementation": "public static String escapeHtml3(final String input) {\n        return ESCAPE_HTML3.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeHtml3",
+        "javadoc": "/**\n * Escapes special characters in a given string according to HTML 3.2 specification.\n *\n * @param input the input string to be escaped\n * @return the escaped string\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in a given string according to the HTML 4.0 specification,\n * replacing special characters with their corresponding HTML entities.\n *\n * @param input the input string containing special characters to be escaped\n * @return the input string with all special characters replaced by their HTML entity equivalents\n */\n"
+    },
+    {
+        "signature": "public static String escapeHtml4(final String input)",
+        "implementation": "public static String escapeHtml4(final String input) {\n        return ESCAPE_HTML4.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeHtml4",
+        "javadoc": "/**\n * Escapes special characters in a given string according to HTML 4 specification.\n *\n * @param input the input string to be escaped\n * @return the escaped string\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in a given string according to the HTML 4 specification,\n * replacing them with their corresponding HTML entities (e.g., &lt; becomes &amp;lt;).\n *\n * @param input the input string containing special characters to be escaped\n * @return the input string with all special characters replaced by their HTML entity equivalents\n */\n"
+    },
+    {
+        "signature": "public static String escapeJava(final String input)",
+        "implementation": "public static String escapeJava(final String input) {\n        return ESCAPE_JAVA.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeJava",
+        "javadoc": "/**\n * Escapes special characters in a Java string.\n *\n * @param input the input string to be escaped\n * @return the escaped string\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in a Java string, such as double quotes and backslashes,\n * by replacing them with their corresponding escape sequences.\n *\n * @param input the input string to be escaped\n * @return the escaped string\n */\n"
+    },
+    {
+        "signature": "public static String escapeJson(final String input)",
+        "implementation": "public static String escapeJson(final String input) {\n        return ESCAPE_JSON.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeJson",
+        "javadoc": "/**\n * Escapes special characters in a JSON string.\n *\n * @param input the JSON string to be escaped\n * @return the escaped JSON string\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in a JSON string, such as double quotes and backslashes,\n * by replacing them with their corresponding escape sequences.\n *\n * @param input the JSON string to be escaped\n * @return the escaped JSON string\n */\n"
+    },
+    {
+        "signature": "public static String escapeXml10(final String input)",
+        "implementation": "public static String escapeXml10(final String input) {\n        return ESCAPE_XML10.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeXml10",
+        "javadoc": "/**\n * Escapes special characters in a given string according to XML 1.0 specification.\n *\n * @param input the input string to be escaped\n * @return the input string with special characters escaped\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in a given string according to the XML 1.0 specification (http://www.w3.org/TR/2008/REC-xml-20081126/#char).\n *\n * @param input the input string containing characters that may need escaping, such as '<', '>', '&', etc.\n * @return the input string with special characters replaced by their corresponding XML escape sequences, e.g. '&' becomes '&amp;'.\n */\n"
+    },
+    {
+        "signature": "public static String escapeXml11(final String input)",
+        "implementation": "public static String escapeXml11(final String input) {\n        return ESCAPE_XML11.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeXml11",
+        "javadoc": "/**\n * Escapes special characters in the given XML string according to the XML 1.1 specification.\n *\n * @param input the input string to be escaped\n * @return the escaped string\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in the given XML string according to the XML 1.1 specification,\n * replacing reserved characters with their corresponding entity references.\n *\n * @param input the input string containing XML data that may require escaping\n * @return the escaped string, where all special characters are replaced with their entity references\n */\n"
+    },
+    {
+        "signature": "public static String escapeXSI(final String input)",
+        "implementation": "public static String escapeXSI(final String input) {\n        return ESCAPE_XSI.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "escapeXSI",
+        "javadoc": "/**\n * Escapes a given string according to XSI (XML Schema Instance) escaping rules.\n *\n * @param input the input string to be escaped\n * @return the escaped string\n */\n",
+        "improved_javadoc": "/**\n * Escapes special characters in a given string according to XML Schema Instance (XSI)\n * escaping rules, which are defined by the W3C. This method replaces certain characters\n * with their corresponding escape sequences, allowing the input string to be safely used\n * within an XML document.\n *\n * @param input the input string to be escaped\n * @return the escaped string\n */\n"
+    },
+    {
+        "signature": "public static String unescapeCsv(final String input)",
+        "implementation": "public static String unescapeCsv(final String input) {\n        return UNESCAPE_CSV.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "unescapeCsv",
+        "javadoc": "/**\n * Unescapes a CSV string by replacing escaped characters with their original values.\n *\n * @param input the CSV string to be unescaped\n * @return the unescaped CSV string\n */\n",
+        "improved_javadoc": "/**\n * Unescapes a CSV (Comma Separated Values) string by replacing escaped characters \n * with their original values, as per RFC 4180. This method interprets backslash \n * escape sequences and replaces them with their corresponding special characters.\n *\n * @param input the CSV string to be unescaped\n * @return the unescaped CSV string\n */\n"
+    },
+    {
+        "signature": "public static String unescapeEcmaScript(final String input)",
+        "implementation": "public static String unescapeEcmaScript(final String input) {\n        return UNESCAPE_ECMASCRIPT.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "unescapeEcmaScript",
+        "javadoc": "/**\n * Unescapes ECMAScript strings.\n *\n * @param input The string to be unescaped, which may contain escaped characters.\n * @return The unescaped string.\n */\n",
+        "improved_javadoc": "/**\n * Unescapes ECMAScript strings by replacing escape sequences with their corresponding Unicode code points.\n *\n * @param input The string to be unescaped, which may contain escaped characters such as &#92;uXXXX or &#92;xXXXX.\n * @return The unescaped string where all escape sequences have been replaced with their corresponding Unicode code points.\n */\n"
+    },
+    {
+        "signature": "public static String unescapeHtml3(final String input)",
+        "implementation": "public static String unescapeHtml3(final String input) {\n        return UNESCAPE_HTML3.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "unescapeHtml3",
+        "javadoc": "/**\n * Unescapes HTML entities in a given string.\n *\n * @param input The input string containing HTML entities to be unescaped.\n * @return The input string with all HTML entities unescaped.\n */\n",
+        "improved_javadoc": "/**\n * Unescapes HTML entities in a given string, replacing character references (e.g. &lt;, &gt;, &amp;) and named entities (e.g. &#x1234;,\n * &#1234;) with their corresponding Unicode characters.\n *\n * @param input The input string containing HTML entities to be unescaped.\n * @return The input string with all HTML entities unescaped, represented as Unicode code points.\n */\n"
+    },
+    {
+        "signature": "public static String unescapeHtml4(final String input)",
+        "implementation": "public static String unescapeHtml4(final String input) {\n        return UNESCAPE_HTML4.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "unescapeHtml4",
+        "javadoc": "/**\n * Unescapes HTML 4 entities from a given string.\n *\n * @param input The input string containing HTML 4 entities to be unescaped.\n * @return The input string with all HTML 4 entities unescaped.\n */\n",
+        "improved_javadoc": "/**\n * Replaces all occurrences of HTML 4 character entities in the specified string\n * with their corresponding Unicode characters, effectively unescaping them.\n *\n * @param input The input string containing HTML 4 entities to be unescaped.\n * @return The input string with all HTML 4 entities replaced by their corresponding Unicode characters.\n */\n"
+    },
+    {
+        "signature": "public static String unescapeJava(final String input)",
+        "implementation": "public static String unescapeJava(final String input) {\n        return UNESCAPE_JAVA.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "unescapeJava",
+        "javadoc": "/**\n * Unescapes a Java string by replacing escaped characters with their actual values.\n *\n * @param input The Java string to be unescaped.\n * @return The unescaped Java string.\n */\n",
+        "improved_javadoc": "/**\n * Unescapes a Java string by replacing escaped Unicode characters (e.g. \\u0000, \\n, etc.) with their actual Unicode values.\n *\n * @param input The Java string to be unescaped, which may contain escaped Unicode characters.\n * @return The unescaped Java string where all escaped Unicode characters have been replaced with their actual Unicode values.\n */\n"
+    },
+    {
+        "signature": "public static String unescapeJson(final String input)",
+        "implementation": "public static String unescapeJson(final String input) {\n        return UNESCAPE_JSON.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "unescapeJson",
+        "javadoc": "/**\n * Unescapes a JSON string by replacing escaped characters with their actual values.\n *\n * @param input the JSON string to be unescaped\n * @return the unescaped JSON string\n */\n",
+        "improved_javadoc": "/**\n * Unescapes a JSON string by replacing escaped Unicode code points and special characters \n * (such as backslash, double quote, etc.) with their actual values.\n *\n * @param input the JSON string to be unescaped\n * @return the unescaped JSON string\n */\n"
+    },
+    {
+        "signature": "public static String unescapeXml(final String input)",
+        "implementation": "public static String unescapeXml(final String input) {\n        return UNESCAPE_XML.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "unescapeXml",
+        "javadoc": "/**\n * Unescapes XML entities in the given string.\n *\n * @param input the input string containing XML entities to be unescaped\n * @return the input string with all XML entities unescaped\n */\n",
+        "improved_javadoc": "/**\n * Replaces XML character entities (e.g., &lt;, &gt;, &amp;, &quot;) in the given string with their corresponding Unicode characters.\n *\n * @param input the input string containing XML entities to be unescaped\n * @return the input string with all XML entities replaced by their corresponding Unicode characters\n */\n"
+    },
+    {
+        "signature": "public static String unescapeXSI(final String input)",
+        "implementation": "public static String unescapeXSI(final String input) {\n        return UNESCAPE_XSI.translate(input);\n    }",
+        "called_methods": [
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StringEscapeUtils.java",
+        "name": "unescapeXSI",
+        "javadoc": "/**\n * Unescapes a given string that contains XSI (XML Schema Instance) escape sequences.\n *\n * @param input the input string to be unescaped\n * @return the unescaped string\n */\n",
+        "improved_javadoc": "/**\n * Unescapes a given string that contains XSI (XML Schema Instance) escape sequences, \n * replacing them with their corresponding characters. This method can be used to \n * process strings that have been serialized from an XML schema.\n *\n * @param input the input string containing XSI escape sequences\n * @return the unescaped string with XSI escape sequences replaced\n */\n"
+    }
+]
