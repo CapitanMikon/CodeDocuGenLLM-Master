@@ -1,0 +1,7 @@
+dokuBot/pythonInterpreter/*
+dokuBot/.idea/*
+.env
+**/__pycache__/*
+## /dokuBot/src/data_index/*
+## /dokuBot/src/data_generated_doc/*
+/dokuBot/src/tmp/*
