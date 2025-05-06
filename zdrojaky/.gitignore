@@ -1,0 +1,7 @@
+codeGen/pythonInterpreter/*
+codeGen/.idea/*
+.env
+**/__pycache__/*
+## /codeGen/src/data_index/*
+## /codeGen/src/data_generated_doc/*
+/codeGen/src/tmp/*
