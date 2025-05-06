@@ -1,0 +1,26 @@
+[
+    {
+        "signature": "public Map<String, StringLookup> getStringLookupMap()",
+        "implementation": "public Map<String, StringLookup> getStringLookupMap() {\n        return stringLookupMap;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\InterpolatorStringLookup.java",
+        "name": "getStringLookupMap",
+        "javadoc": "/**\n * Returns a map of string lookups.\n *\n * @return A map where each key is a string and its corresponding value is a StringLookup object.\n */\n"
+    },
+    {
+        "signature": "public String lookup(String key)",
+        "implementation": "public String lookup(String key) {\n        if (key == null) {\n            return null;\n        }\n\n        final int prefixPos = key.indexOf(PREFIX_SEPARATOR);\n        if (prefixPos >= 0) {\n            final String prefix = StringLookupFactory.toKey(key.substring(0, prefixPos));\n            final String name = key.substring(prefixPos + 1);\n            final StringLookup lookup = stringLookupMap.get(prefix);\n            String value = null;\n            if (lookup != null) {\n                value = lookup.lookup(name);\n            }\n\n            if (value != null) {\n                return value;\n            }\n            key = key.substring(prefixPos + 1);\n        }\n        if (defaultStringLookup != null) {\n            return defaultStringLookup.lookup(key);\n        }\n        return null;\n    }",
+        "called_methods": [
+            "indexOf",
+            "toKey",
+            "substring",
+            "get",
+            "lookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\InterpolatorStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a value associated with the specified key.\n *\n * If the key is prefixed with {@code PREFIX_SEPARATOR}, it will be split into two parts:\n * the prefix and the name. The lookup will then proceed as follows:\n * <ul>\n *   <li>Lookup in the map of string lookups for the given prefix.</li>\n *   <li>If a matching lookup is found, use it to look up the value associated with the name.</li>\n * </ul>\n *\n * If no prefix is present or if the lookup fails, the default string lookup will be used.\n *\n * @param key the key to look up\n * @return the value associated with the key, or null if not found\n */\n"
+    }
+]

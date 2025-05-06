@@ -1,0 +1,20 @@
+[
+    {
+        "signature": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n        // check if translation exists for the input at position index\n        if (prefixSet.get(input.charAt(index))) {\n            int max = longest;\n            if (index + longest > input.length()) {\n                max = input.length() - index;\n            }\n            // implement greedy algorithm by trying maximum match first\n            for (int i = max; i >= shortest; i--) {\n                final CharSequence subSeq = input.subSequence(index, index + i);\n                final String result = lookupMap.get(subSeq.toString());\n\n                if (result != null) {\n                    writer.write(result);\n                    return Character.codePointCount(subSeq, 0, subSeq.length());\n                }\n            }\n        }\n        return 0;\n    }",
+        "called_methods": [
+            "get",
+            "charAt",
+            "length",
+            "subSequence",
+            "toString",
+            "write",
+            "codePointCount"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\LookupTranslator.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates a character sequence at a specified index to its corresponding string representation.\n *\n * @param input   The character sequence to translate.\n * @param index   The position in the input sequence where translation should start.\n * @param writer  The writer to write the translated result to.\n * @return        The number of Unicode code points written to the writer, or 0 if no translation exists.\n * @throws IOException If an I/O error occurs while writing to the writer.\n */\n",
+        "improved_javadoc": "/**\n * Translates a character sequence at a specified index to its corresponding string representation.\n *\n * @param input   The character sequence to translate. This can be a String or any other CharSequence implementation.\n * @param index   The position in the input sequence where translation should start. This index is inclusive, meaning it points to the first code point of the substring to translate.\n * @param writer  The writer to write the translated result to. This must not be null and must support writing Unicode characters.\n * @return        The number of Unicode code points written to the writer, or 0 if no translation exists for the input at the specified index.\n * @throws IOException If an I/O error occurs while writing to the writer.\n */\n"
+    }
+]

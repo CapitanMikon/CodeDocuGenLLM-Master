@@ -1,0 +1,13 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        return StringEscapeUtils.unescapeXml(key);\n    }",
+        "called_methods": [
+            "unescapeXml"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\XmlDecoderStringLookup.java",
+        "name": "lookup",
+        "javadoc": ""
+    }
+]

@@ -1,0 +1,15 @@
+[
+    {
+        "signature": "public Integer apply(final CharSequence left, final CharSequence right)",
+        "implementation": "public Integer apply(final CharSequence left, final CharSequence right) {\n        // Quick return for invalid inputs\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"Inputs must not be null\");\n        }\n        return left.length() + right.length() - 2 * LongestCommonSubsequence.INSTANCE.apply(left, right);\n    }",
+        "called_methods": [
+            "length",
+            "apply"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LongestCommonSubsequenceDistance.java",
+        "name": "apply",
+        "javadoc": "/**\n * Calculates the sum of lengths of two input sequences minus twice the length of their longest common subsequence.\n *\n * @param left   The first input sequence.\n * @param right  The second input sequence.\n * @return       The result of the calculation.\n * @throws IllegalArgumentException if either input is null.\n */\n",
+        "improved_javadoc": "/**\n * Calculates the sum of lengths of two input sequences minus twice the length of their longest common subsequence.\n *\n * This method uses dynamic programming to efficiently compute the length of the longest common subsequence (LCS) between the two input sequences, and then returns the sum of the lengths of both sequences minus twice the length of the LCS. This is a measure of similarity between the two sequences, where higher values indicate greater dissimilarity.\n *\n * @param left   The first input sequence.\n * @param right  The second input sequence.\n * @return       The result of the calculation.\n * @throws IllegalArgumentException if either input is null.\n */\n"
+    }
+]

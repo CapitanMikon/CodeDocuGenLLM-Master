@@ -1,0 +1,67 @@
+[
+    {
+        "signature": "public boolean equals(final Object o)",
+        "implementation": "public boolean equals(final Object o) {\n        if (this == o) {\n            return true;\n        }\n        if (o == null || getClass() != o.getClass()) {\n            return false;\n        }\n        final LevenshteinResults result = (LevenshteinResults) o;\n        return Objects.equals(distance, result.distance) && Objects.equals(insertCount, result.insertCount)\n                && Objects.equals(deleteCount, result.deleteCount)\n                && Objects.equals(substituteCount, result.substituteCount);\n    }",
+        "called_methods": [
+            "getClass",
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "equals",
+        "javadoc": "/**\n * Compares this object with the specified object for equality.\n *\n * @param o the object to compare with\n * @return true if this object is equal to the specified object, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Compares this object with the specified LevenshteinResults object for equality based on their distance, \n * insert count, delete count, and substitute count values.\n *\n * @param o the LevenshteinResults object to compare with\n * @return true if this object is equal to the specified object, false otherwise\n */\n"
+    },
+    {
+        "signature": "public Integer getDeleteCount()",
+        "implementation": "public Integer getDeleteCount() {\n        return deleteCount;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "getDeleteCount",
+        "javadoc": "/**\n * Returns the count of deleted items.\n *\n * @return The number of items that have been deleted, or null if not available.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the total count of items that have been permanently removed from the system.\n *\n * @return The number of items that have been deleted, or null if not available (e.g., due to a database error).\n */\n"
+    },
+    {
+        "signature": "public Integer getDistance()",
+        "implementation": "public Integer getDistance() {\n        return distance;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "getDistance",
+        "javadoc": "/**\n * Returns the calculated distance.\n *\n * @return The calculated distance as an integer value, or null if no calculation has been performed.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the calculated distance from a previous geolocation calculation.\n *\n * @return The calculated distance in meters as an integer value, or null if no calculation has been performed.\n */\n"
+    },
+    {
+        "signature": "public Integer getInsertCount()",
+        "implementation": "public Integer getInsertCount() {\n        return insertCount;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "getInsertCount",
+        "javadoc": "/**\n * Returns the number of inserts performed.\n *\n * @return The count of inserts, or null if not available.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the total count of inserts that have been performed on this system.\n *\n * @return The count of inserts, or {@code null} if not available due to a lack of data or an error occurred while retrieving the count.\n */\n"
+    },
+    {
+        "signature": "public Integer getSubstituteCount()",
+        "implementation": "public Integer getSubstituteCount() {\n        return substituteCount;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "getSubstituteCount",
+        "javadoc": "/**\n * Returns the count of substitutes.\n *\n * @return The number of substitutes, or null if not available.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves and returns the count of substitutes.\n *\n * @return The total number of substitutes, or {@code null} if this information is not available.\n */\n"
+    },
+    {
+        "signature": "public int hashCode()",
+        "implementation": "public int hashCode() {\n        return Objects.hash(distance, insertCount, deleteCount, substituteCount);\n    }",
+        "called_methods": [
+            "hash"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "hashCode",
+        "javadoc": "/**\n * Returns a hash code value for this object.\n *\n * This implementation combines the hash codes of the distance, insert count,\n * delete count, and substitute count fields using {@link Objects#hash(Object...)}.\n *\n * @return a hash code value for this object\n */\n",
+        "improved_javadoc": "/**\n * Returns a hash code value for this object based on its distance, insert count,\n * delete count, and substitute count fields.\n *\n * This implementation uses {@link Objects#hash(Object...)} to combine the hash codes of these fields.\n *\n * @return a hash code value for this object\n */\n"
+    }
+]

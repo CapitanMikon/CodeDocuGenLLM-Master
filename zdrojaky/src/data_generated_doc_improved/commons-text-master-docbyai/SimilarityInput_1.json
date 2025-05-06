@@ -1,0 +1,17 @@
+[
+    {
+        "signature": "static <T> SimilarityInput<T> input(final Object input)",
+        "implementation": "static <T> SimilarityInput<T> input(final Object input) {\n        if (input instanceof SimilarityInput) {\n            return (SimilarityInput<T>) input;\n        }\n        if (input instanceof CharSequence) {\n            return (SimilarityInput<T>) input((CharSequence) input);\n        }\n        throw new IllegalArgumentException(Objects.requireNonNull(input, \"input\").getClass().getName());\n    }",
+        "called_methods": [
+            "input",
+            "requireNonNull",
+            "getClass",
+            "getName"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityInput.java",
+        "name": "input",
+        "javadoc": "/**\n * Creates a {@link SimilarityInput} instance from the provided input.\n *\n * If the input is already an instance of {@link SimilarityInput}, it will be returned as-is.\n * If the input is a {@link CharSequence}, it will be converted to a {@link SimilarityInput}.\n *\n * @param <T> the type parameter for the similarity input\n * @param input the input object to create a similarity input from\n * @return a new instance of {@link SimilarityInput} with the given type parameter\n * @throws IllegalArgumentException if the input is not an instance of {@link SimilarityInput} or {@link CharSequence}\n */\n",
+        "improved_javadoc": "/**\n * Creates a {@link SimilarityInput} instance from the provided input.\n *\n * If the input is already an instance of {@link SimilarityInput}, it will be returned as-is.\n * If the input is a {@link CharSequence}, it will be converted to a {@link SimilarityInput}.\n *\n * @param <T> the type parameter for the similarity input\n * @param input the input object to create a similarity input from, which can be either an instance of {@link SimilarityInput} or a {@link CharSequence}\n * @return a new instance of {@link SimilarityInput} with the given type parameter, or the original input if it is already a {@link SimilarityInput}\n * @throws IllegalArgumentException if the input is neither an instance of {@link SimilarityInput} nor a {@link CharSequence}, in which case its class name will be included in the exception message\n */\n"
+    }
+]

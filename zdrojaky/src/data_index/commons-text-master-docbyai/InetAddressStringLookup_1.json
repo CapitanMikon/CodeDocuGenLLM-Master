@@ -1,0 +1,27 @@
+[
+    {
+        "signature": "private InetAddress getInetAddress() throws UnknownHostException",
+        "implementation": "private InetAddress getInetAddress() throws UnknownHostException {\n        // Don't cache result, methods, like InetAddress::getLocalHost do their own cacheing.\n        return inetAddressSupplier.get();\n    }",
+        "called_methods": [
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\InetAddressStringLookup.java",
+        "name": "getInetAddress",
+        "javadoc": ""
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        try {\n            switch (key) {\n            case InetAddressKeys.KEY_NAME:\n                return getInetAddress().getHostName();\n            case InetAddressKeys.KEY_CANONICAL_NAME:\n                return getInetAddress().getCanonicalHostName();\n            case InetAddressKeys.KEY_ADDRESS:\n                return getInetAddress().getHostAddress();\n            default:\n                throw new IllegalArgumentException(key);\n            }\n        } catch (final UnknownHostException e) {\n            return null;\n        }\n    }",
+        "called_methods": [
+            "getInetAddress",
+            "getHostName",
+            "getCanonicalHostName",
+            "getHostAddress"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\InetAddressStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n     * Looks up the value of a local host key.\n     *\n     * @param key the key to be looked up, may be null.\n     * @return The value of the environment variable.\n     */"
+    }
+]

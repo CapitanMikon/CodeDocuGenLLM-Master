@@ -1,0 +1,88 @@
+[
+    {
+        "signature": "public int getDiag()",
+        "implementation": "public int getDiag() {\n            return diag;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getDiag",
+        "javadoc": "/**\n * Returns the diagnostic value.\n *\n * @return the diagnostic value\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the current diagnostic value, which represents a specific error or warning code.\n *\n * @return the current diagnostic value (a non-negative integer)\n */\n"
+    },
+    {
+        "signature": "public int getEnd()",
+        "implementation": "public int getEnd() {\n            return end;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getEnd",
+        "javadoc": "/**\n * Returns the end position of a range.\n *\n * @return The end position of the range.\n */\n",
+        "improved_javadoc": "/**\n * Returns the end position of a specified range, inclusive.\n *\n * @return The end position of the range (inclusive).\n */\n"
+    },
+    {
+        "signature": "public int getStart()",
+        "implementation": "public int getStart() {\n            return start;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getStart",
+        "javadoc": "/**\n * Returns the starting position.\n *\n * @return The starting position.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the starting position of an object or sequence, typically used as an offset or index.\n *\n * @return The starting position (e.g., index, offset) of the object or sequence.\n */\n"
+    },
+    {
+        "signature": "private void buildScript(final int start1, final int end1, final int start2, final int end2,\n            final EditScript<Character> script)",
+        "implementation": "private void buildScript(final int start1, final int end1, final int start2, final int end2,\n            final EditScript<Character> script) {\n        final Snake middle = getMiddleSnake(start1, end1, start2, end2);\n\n        if (middle == null\n                || middle.getStart() == end1 && middle.getDiag() == end1 - end2\n                || middle.getEnd() == start1 && middle.getDiag() == start1 - start2) {\n\n            int i = start1;\n            int j = start2;\n            while (i < end1 || j < end2) {\n                if (i < end1 && j < end2 && left.charAt(i) == right.charAt(j)) {\n                    script.append(new KeepCommand<>(left.charAt(i)));\n                    ++i;\n                    ++j;\n                } else if (end1 - start1 > end2 - start2) {\n                    script.append(new DeleteCommand<>(left.charAt(i)));\n                    ++i;\n                } else {\n                    script.append(new InsertCommand<>(right.charAt(j)));\n                    ++j;\n                }\n            }\n\n        } else {\n\n            buildScript(start1, middle.getStart(),\n                        start2, middle.getStart() - middle.getDiag(),\n                        script);\n            for (int i = middle.getStart(); i < middle.getEnd(); ++i) {\n                script.append(new KeepCommand<>(left.charAt(i)));\n            }\n            buildScript(middle.getEnd(), end1,\n                        middle.getEnd() - middle.getDiag(), end2,\n                        script);\n        }\n    }",
+        "called_methods": [
+            "getMiddleSnake",
+            "getStart",
+            "getDiag",
+            "getEnd",
+            "charAt",
+            "append",
+            "buildScript"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "buildScript",
+        "javadoc": "/**\n * Builds an edit script by comparing two sequences.\n *\n * This method uses dynamic programming to find the optimal sequence of operations\n * (insertions, deletions, and substitutions) that transform one sequence into another.\n *\n * @param start1 The starting index in the first sequence.\n * @param end1   The ending index in the first sequence.\n * @param start2 The starting index in the second sequence.\n * @param end2   The ending index in the second sequence.\n * @param script  The edit script to be built.\n */\n",
+        "improved_javadoc": "/**\n * Builds an edit script by comparing two sequences.\n *\n * This method uses dynamic programming to find the optimal sequence of operations\n * (insertions, deletions, and substitutions) that transform one sequence into another.\n *\n * @param start1 The starting index in the first sequence.\n * @param end1   The ending index in the first sequence.\n * @param start2 The starting index in the second sequence.\n * @param end2   The ending index in the second sequence.\n * @param script  The edit script to be built.\n */\n"
+    },
+    {
+        "signature": "private Snake buildSnake(final int start, final int diag, final int end1, final int end2)",
+        "implementation": "private Snake buildSnake(final int start, final int diag, final int end1, final int end2) {\n        int end = start;\n        while (end - diag < end2\n                && end < end1\n                && left.charAt(end) == right.charAt(end - diag)) {\n            ++end;\n        }\n        return new Snake(start, end, diag);\n    }",
+        "called_methods": [
+            "charAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "buildSnake",
+        "javadoc": "/**\n * Builds a snake by finding a sequence of matching characters in the input strings.\n *\n * @param start The starting index of the snake.\n * @param diag  The diagonal offset between the two input strings.\n * @param end1  The ending index of the first input string (inclusive).\n * @param end2  The ending index of the second input string (exclusive).\n *\n * @return A new Snake object representing the found sequence.\n */\n",
+        "improved_javadoc": "/**\n * Builds a snake by finding a sequence of matching characters in the input strings.\n *\n * @param start The starting index of the snake.\n * @param diag  The diagonal offset between the two input strings.\n * @param end1  The ending index of the first input string (inclusive).\n * @param end2  The ending index of the second input string (exclusive).\n *\n * @return A new Snake object representing the found sequence.\n */\n"
+    },
+    {
+        "signature": "private Snake getMiddleSnake(final int start1, final int end1, final int start2, final int end2)",
+        "implementation": "private Snake getMiddleSnake(final int start1, final int end1, final int start2, final int end2) {\n        // Myers Algorithm\n        // Initializations\n        final int m = end1 - start1;\n        final int n = end2 - start2;\n        if (m == 0 || n == 0) {\n            return null;\n        }\n\n        final int delta  = m - n;\n        final int sum    = n + m;\n        final int offset = (sum % 2 == 0 ? sum : sum + 1) / 2;\n        vDown[1 + offset] = start1;\n        vUp[1 + offset]   = end1 + 1;\n\n        for (int d = 0; d <= offset; ++d) {\n            // Down\n            for (int k = -d; k <= d; k += 2) {\n                // First step\n\n                final int i = k + offset;\n                if (k == -d || k != d && vDown[i - 1] < vDown[i + 1]) {\n                    vDown[i] = vDown[i + 1];\n                } else {\n                    vDown[i] = vDown[i - 1] + 1;\n                }\n\n                int x = vDown[i];\n                int y = x - start1 + start2 - k;\n\n                while (x < end1 && y < end2 && left.charAt(x) == right.charAt(y)) {\n                    vDown[i] = ++x;\n                    ++y;\n                }\n                // Second step\n                if (delta % 2 != 0 && delta - d <= k && k <= delta + d && vUp[i - delta] <= vDown[i]) { // NOPMD\n                    return buildSnake(vUp[i - delta], k + start1 - start2, end1, end2);\n                }\n            }\n\n            // Up\n            for (int k = delta - d; k <= delta + d; k += 2) {\n                // First step\n                final int i = k + offset - delta;\n                if (k == delta - d\n                        || k != delta + d && vUp[i + 1] <= vUp[i - 1]) {\n                    vUp[i] = vUp[i + 1] - 1;\n                } else {\n                    vUp[i] = vUp[i - 1];\n                }\n\n                int x = vUp[i] - 1;\n                int y = x - start1 + start2 - k;\n                while (x >= start1 && y >= start2\n                        && left.charAt(x) == right.charAt(y)) {\n                    vUp[i] = x--;\n                    y--;\n                }\n                // Second step\n                if (delta % 2 == 0 && -d <= k && k <= d && vUp[i] <= vDown[i + delta]) { // NOPMD\n                    return buildSnake(vUp[i], k + start1 - start2, end1, end2);\n                }\n            }\n        }\n\n        // this should not happen\n        throw new IllegalStateException(\"Internal Error\");\n    }",
+        "called_methods": [
+            "charAt",
+            "buildSnake"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getMiddleSnake",
+        "javadoc": "/**\n * Finds the middle snake between two sequences using Myers' algorithm.\n *\n * @param start1 The starting index of the first sequence.\n * @param end1   The ending index of the first sequence.\n * @param start2 The starting index of the second sequence.\n * @param end2   The ending index of the second sequence.\n *\n * @return A Snake object representing the middle snake between the two sequences, or null if there is no middle snake.\n *\n * @throws IllegalStateException If an internal error occurs during the computation.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public EditScript<Character> getScript()",
+        "implementation": "public EditScript<Character> getScript() {\n        final EditScript<Character> script = new EditScript<>();\n        buildScript(0, left.length(), 0, right.length(), script);\n        return script;\n    }",
+        "called_methods": [
+            "buildScript",
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\StringsComparator.java",
+        "name": "getScript",
+        "javadoc": "/**\n * Returns an edit script that represents the differences between this sequence and its reverse.\n *\n * @return An edit script where each operation is a character insertion or deletion.\n */\n",
+        "improved_javadoc": "/**\n * Returns an edit script that represents the differences between this sequence and its reverse.\n *\n * The edit script contains a series of operations (insertions or deletions) to transform one sequence into its reverse.\n * \n * @return An edit script where each operation is a character insertion or deletion.\n */\n"
+    }
+]

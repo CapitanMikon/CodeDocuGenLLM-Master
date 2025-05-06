@@ -1,0 +1,28 @@
+[
+    {
+        "signature": "String decode(final String key, final String enc) throws UnsupportedEncodingException",
+        "implementation": "String decode(final String key, final String enc) throws UnsupportedEncodingException {\n        return URLDecoder.decode(key, enc);\n    }",
+        "called_methods": [
+            "decode"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\UrlDecoderStringLookup.java",
+        "name": "decode",
+        "javadoc": "/**\n * Decodes a string using the specified encoding.\n *\n * @param key   The string to be decoded\n * @param enc   The name of the encoding used in the decoding process\n * @return      The decoded string\n * @throws UnsupportedEncodingException if the named encoding is not supported\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String enc = StandardCharsets.UTF_8.name();\n        try {\n            return decode(key, enc);\n        } catch (final UnsupportedEncodingException e) {\n            // Can't happen since UTF-8 is required by the Java specification.\n            throw IllegalArgumentExceptions.format(e, \"%s: source=%s, encoding=%s\", e, key, enc);\n        }\n    }",
+        "called_methods": [
+            "name",
+            "decode",
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\UrlDecoderStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a value using the provided key.\n *\n * @param key The key to look up. Must not be null.\n * @return The decoded value associated with the key, or null if the key is null.\n * @throws IllegalArgumentException If an error occurs while decoding the key.\n */\n",
+        "improved_javadoc": "/**\n * Looks up a value using the provided key. The key is first decoded from its encoded form\n * using the UTF-8 encoding scheme. If an error occurs during decoding, an {@link IllegalArgumentException}\n * is thrown with a formatted message indicating the source of the exception.\n *\n * @param key The key to look up. Must not be null.\n * @return The decoded value associated with the key, or null if the key is null.\n * @throws IllegalArgumentException If an error occurs while decoding the key.\n */\n"
+    }
+]

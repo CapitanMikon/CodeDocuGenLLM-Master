@@ -1,0 +1,21 @@
+[
+    {
+        "signature": "protected Path getPath(final String fileName)",
+        "implementation": "protected Path getPath(final String fileName) {\n        final Path path = Paths.get(fileName);\n        if (fences.isEmpty()) {\n            return path;\n        }\n        final Path pathAbs = path.normalize().toAbsolutePath();\n        final Optional<Path> first = fences.stream().filter(pathAbs::startsWith).findFirst();\n        if (first.isPresent()) {\n            return path;\n        }\n        throw IllegalArgumentExceptions.format(\"[%s] -> [%s] not in %s\", fileName, pathAbs, fences);\n    }",
+        "called_methods": [
+            "get",
+            "isEmpty",
+            "normalize",
+            "toAbsolutePath",
+            "stream",
+            "filter",
+            "findFirst",
+            "isPresent",
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\AbstractPathFencedLookup.java",
+        "name": "getPath",
+        "javadoc": "/**\n     * Gets a Path for the given file name checking that it resolves within our fences.\n     *\n     * @param fileName the file name to resolve.\n     * @return a fenced Path.\n     * @throws IllegalArgumentException if the file name is not without our fences.\n     */"
+    }
+]

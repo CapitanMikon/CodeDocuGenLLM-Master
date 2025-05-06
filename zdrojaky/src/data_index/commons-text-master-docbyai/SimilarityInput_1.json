@@ -1,0 +1,16 @@
+[
+    {
+        "signature": "static <T> SimilarityInput<T> input(final Object input)",
+        "implementation": "static <T> SimilarityInput<T> input(final Object input) {\n        if (input instanceof SimilarityInput) {\n            return (SimilarityInput<T>) input;\n        }\n        if (input instanceof CharSequence) {\n            return (SimilarityInput<T>) input((CharSequence) input);\n        }\n        throw new IllegalArgumentException(Objects.requireNonNull(input, \"input\").getClass().getName());\n    }",
+        "called_methods": [
+            "input",
+            "requireNonNull",
+            "getClass",
+            "getName"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityInput.java",
+        "name": "input",
+        "javadoc": "/**\n     * Creates a new input for a {@link CharSequence} or {@link SimilarityInput}.\n     *\n     * @param <T> The type of similarity score unit.\n     * @param input character sequence or similarity input.\n     * @return a new input.\n     * @throws IllegalArgumentException when the input type is neither {@link CharSequence} or {@link SimilarityInput}.\n     */"
+    }
+]

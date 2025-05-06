@@ -1,0 +1,26 @@
+[
+    {
+        "signature": "String decode(final String key, final String enc) throws UnsupportedEncodingException",
+        "implementation": "String decode(final String key, final String enc) throws UnsupportedEncodingException {\n        return URLDecoder.decode(key, enc);\n    }",
+        "called_methods": [
+            "decode"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\UrlDecoderStringLookup.java",
+        "name": "decode",
+        "javadoc": ""
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String enc = StandardCharsets.UTF_8.name();\n        try {\n            return decode(key, enc);\n        } catch (final UnsupportedEncodingException e) {\n            // Can't happen since UTF-8 is required by the Java specification.\n            throw IllegalArgumentExceptions.format(e, \"%s: source=%s, encoding=%s\", e, key, enc);\n        }\n    }",
+        "called_methods": [
+            "name",
+            "decode",
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\UrlDecoderStringLookup.java",
+        "name": "lookup",
+        "javadoc": ""
+    }
+]

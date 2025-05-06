@@ -1,0 +1,18 @@
+[
+    {
+        "signature": "public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,\n            final int precision, final CharSequence ellipsis)",
+        "implementation": "public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,\n            final int precision, final CharSequence ellipsis) {\n        return append(seq, formatter, flags, width, precision, ' ', ellipsis);\n    }",
+        "called_methods": [
+            "append",
+            "length",
+            "format",
+            "replace",
+            "toString",
+            "insert"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\FormattableUtils.java",
+        "name": "append",
+        "javadoc": "/**\n     * Handles the common {@link Formattable} operations of truncate-pad-append,\n     * padding width underflow with spaces.\n     *\n     * @param seq  the string to handle, not null\n     * @param formatter  the destination formatter, not null\n     * @param flags  the flags for formatting, see {@code Formattable}\n     * @param width  the width of the output, see {@code Formattable}\n     * @param precision  the precision of the output, see {@code Formattable}\n     * @param ellipsis  the ellipsis to use when precision dictates truncation, null or\n     *  empty causes a hard truncation\n     * @return The {@code formatter} instance, not null\n     * @throws IllegalArgumentException if {@code ellipsis.length() > precision},\n     *  given that {@code ellipsis} is not null and {@code precision >= 0}\n     */"
+    }
+]

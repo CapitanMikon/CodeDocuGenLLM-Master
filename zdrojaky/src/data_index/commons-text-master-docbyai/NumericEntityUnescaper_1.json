@@ -1,0 +1,31 @@
+[
+    {
+        "signature": "public boolean isSet(final OPTION option)",
+        "implementation": "public boolean isSet(final OPTION option) {\n        return options.contains(option);\n    }",
+        "called_methods": [
+            "contains"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityUnescaper.java",
+        "name": "isSet",
+        "javadoc": "/**\n     * Tests whether the passed in option is currently set.\n     *\n     * @param option to check state of\n     * @return whether the option is set\n     */"
+    },
+    {
+        "signature": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n        final int seqEnd = input.length();\n        // Uses -2 to ensure there is something after the &#\n        if (input.charAt(index) == '&' && index < seqEnd - 2 && input.charAt(index + 1) == '#') {\n            int start = index + 2;\n            boolean isHex = false;\n\n            final char firstChar = input.charAt(start);\n            if (firstChar == 'x' || firstChar == 'X') {\n                start++;\n                isHex = true;\n\n                // Check there's more than just an x after the &#\n                if (start == seqEnd) {\n                    return 0;\n                }\n            }\n\n            int end = start;\n            // Note that this supports character codes without a ; on the end\n            while (end < seqEnd && (input.charAt(end) >= '0' && input.charAt(end) <= '9'\n                                    || input.charAt(end) >= 'a' && input.charAt(end) <= 'f'\n                                    || input.charAt(end) >= 'A' && input.charAt(end) <= 'F')) {\n                end++;\n            }\n\n            final boolean semiNext = end != seqEnd && input.charAt(end) == ';';\n\n            if (!semiNext) {\n                if (isSet(OPTION.semiColonRequired)) {\n                    return 0;\n                }\n                if (isSet(OPTION.errorIfNoSemiColon)) {\n                    throw new IllegalArgumentException(\"Semi-colon required at end of numeric entity\");\n                }\n            }\n\n            final int entityValue;\n            try {\n                if (isHex) {\n                    entityValue = Integer.parseInt(input.subSequence(start, end).toString(), 16);\n                } else {\n                    entityValue = Integer.parseInt(input.subSequence(start, end).toString(), 10);\n                }\n            } catch (final NumberFormatException nfe) {\n                return 0;\n            }\n\n            if (entityValue > 0xFFFF) {\n                final char[] chrs = Character.toChars(entityValue);\n                writer.write(chrs[0]);\n                writer.write(chrs[1]);\n            } else {\n                writer.write(entityValue);\n            }\n\n            return 2 + end - start + (isHex ? 1 : 0) + (semiNext ? 1 : 0);\n        }\n        return 0;\n    }",
+        "called_methods": [
+            "length",
+            "charAt",
+            "isSet",
+            "parseInt",
+            "subSequence",
+            "toString",
+            "toChars",
+            "write"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityUnescaper.java",
+        "name": "translate",
+        "javadoc": "/**\n     * {@inheritDoc}\n     */"
+    }
+]

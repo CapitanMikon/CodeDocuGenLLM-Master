@@ -1,0 +1,30 @@
+[
+    {
+        "signature": "private String getClassName()",
+        "implementation": "private String getClassName() {\n        final Class<? extends SinglePassTranslator> clazz = this.getClass();\n        return clazz.isAnonymousClass() ?  clazz.getName() : clazz.getSimpleName();\n    }",
+        "called_methods": [
+            "getClass",
+            "isAnonymousClass",
+            "getName",
+            "getSimpleName"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\SinglePassTranslator.java",
+        "name": "getClassName",
+        "javadoc": "/**\n     * A utility method to be used in the {@link #translate(CharSequence, int, Writer)} method.\n     *\n     * @return The name of this or the extending class.\n     */"
+    },
+    {
+        "signature": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n        if (index != 0) {\n            throw new IllegalArgumentException(getClassName() + \".translate(final CharSequence input, final int \"\n                    + \"index, final Writer out) cannot handle a non-zero index.\");\n        }\n\n        translateWhole(input, writer);\n\n        return Character.codePointCount(input, index, input.length());\n    }",
+        "called_methods": [
+            "getClassName",
+            "translateWhole",
+            "codePointCount",
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\SinglePassTranslator.java",
+        "name": "translate",
+        "javadoc": "/**\n     * {@inheritDoc}\n     * @throws IllegalArgumentException if {@code index != 0}\n     */"
+    }
+]

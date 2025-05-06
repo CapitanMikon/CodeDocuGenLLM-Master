@@ -1,0 +1,26 @@
+[
+    {
+        "signature": "public Map<String, StringLookup> getStringLookupMap()",
+        "implementation": "public Map<String, StringLookup> getStringLookupMap() {\n        return stringLookupMap;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\InterpolatorStringLookup.java",
+        "name": "getStringLookupMap",
+        "javadoc": "/**\n     * Gets the lookup map.\n     *\n     * @return The lookup map.\n     */"
+    },
+    {
+        "signature": "public String lookup(String key)",
+        "implementation": "public String lookup(String key) {\n        if (key == null) {\n            return null;\n        }\n\n        final int prefixPos = key.indexOf(PREFIX_SEPARATOR);\n        if (prefixPos >= 0) {\n            final String prefix = StringLookupFactory.toKey(key.substring(0, prefixPos));\n            final String name = key.substring(prefixPos + 1);\n            final StringLookup lookup = stringLookupMap.get(prefix);\n            String value = null;\n            if (lookup != null) {\n                value = lookup.lookup(name);\n            }\n\n            if (value != null) {\n                return value;\n            }\n            key = key.substring(prefixPos + 1);\n        }\n        if (defaultStringLookup != null) {\n            return defaultStringLookup.lookup(key);\n        }\n        return null;\n    }",
+        "called_methods": [
+            "indexOf",
+            "toKey",
+            "substring",
+            "get",
+            "lookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\InterpolatorStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n     * Resolves the specified variable. This implementation will try to extract a variable prefix from the given\n     * variable name (the first colon (':') is used as prefix separator). It then passes the name of the variable with\n     * the prefix stripped to the lookup object registered for this prefix. If no prefix can be found or if the\n     * associated lookup object cannot resolve this variable, the default lookup object will be used.\n     *\n     * @param key the name of the variable whose value is to be looked up\n     * @return The value of this variable or <strong>null</strong> if it cannot be resolved\n     */"
+    }
+]

@@ -1,0 +1,43 @@
+[
+    {
+        "signature": "public void append(final KeepCommand<T> command)",
+        "implementation": "public void append(final KeepCommand<T> command) {\n        commands.add(command);\n        ++lcsLength;\n    }",
+        "called_methods": [
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditScript.java",
+        "name": "append",
+        "javadoc": "/**\n * Appends a new {@link KeepCommand} to the list of commands.\n *\n * @param command The command to be appended.\n */\n"
+    },
+    {
+        "signature": "public int getLCSLength()",
+        "implementation": "public int getLCSLength() {\n        return lcsLength;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditScript.java",
+        "name": "getLCSLength",
+        "javadoc": "/**\n * Returns the length of the longest common subsequence (LCS) between two sequences.\n *\n * @return The length of the LCS.\n */\n"
+    },
+    {
+        "signature": "public int getModifications()",
+        "implementation": "public int getModifications() {\n        return modifications;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditScript.java",
+        "name": "getModifications",
+        "javadoc": "/**\n * Returns the number of modifications.\n *\n * @return The total number of modifications.\n */\n"
+    },
+    {
+        "signature": "public void visit(final CommandVisitor<T> visitor)",
+        "implementation": "public void visit(final CommandVisitor<T> visitor) {\n        commands.forEach(command -> command.accept(visitor));\n    }",
+        "called_methods": [
+            "forEach",
+            "accept"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditScript.java",
+        "name": "visit",
+        "javadoc": "/**\n * Visits each command in this collection using the given visitor.\n *\n * @param visitor the visitor to use when visiting each command\n */\n"
+    }
+]

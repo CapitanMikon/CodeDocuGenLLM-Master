@@ -1,0 +1,59 @@
+[
+    {
+        "signature": "public StringBuffer format(final Object obj, final StringBuffer toAppendTo,\n            final FieldPosition pos)",
+        "implementation": "public StringBuffer format(final Object obj, final StringBuffer toAppendTo,\n            final FieldPosition pos) {\n        return formatter.format(obj, toAppendTo, pos);\n    }",
+        "called_methods": [
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "format",
+        "javadoc": "/**\n * Formats an object using a specified {@link Formatter} and appends the formatted\n * string to the given buffer.\n *\n * @param obj the object to be formatted\n * @param toAppendTo the StringBuffer to which the formatted string will be appended\n * @param pos the FieldPosition indicating where in the format specifier the field was found\n * @return the StringBuffer passed as a parameter to this method, with the formatted\n *         string appended to it.\n */\n",
+        "improved_javadoc": "/**\n * Formats an object using a specified {@link Formatter} and appends the formatted\n * string to the given buffer.\n *\n * @param obj the object to be formatted (can be any type of object)\n * @param toAppendTo the StringBuffer to which the formatted string will be appended\n * @param pos the FieldPosition indicating where in the format specifier the field was found\n * @return the StringBuffer passed as a parameter to this method, with the formatted\n *         string appended to it.\n */\n"
+    },
+    {
+        "signature": "public Format getFormatter()",
+        "implementation": "public Format getFormatter() {\n        return this.formatter;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "getFormatter",
+        "javadoc": "/**\n * Returns the current formatter instance.\n *\n * @return the current formatter instance\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the currently configured format object, which is used for formatting output.\n *\n * @return the current format object, or null if no format has been set\n */\n"
+    },
+    {
+        "signature": "public Format getParser()",
+        "implementation": "public Format getParser() {\n        return this.parser;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "getParser",
+        "javadoc": "/**\n * Returns the parser associated with this object.\n *\n * @return the parser\n */\n",
+        "improved_javadoc": "/**\n * Returns the parser associated with this object, which is used to format data according to specific rules and conventions.\n *\n * @return the parser instance associated with this object\n */\n"
+    },
+    {
+        "signature": "public Object parseObject(final String source, final ParsePosition pos)",
+        "implementation": "public Object parseObject(final String source, final ParsePosition pos) {\n        return parser.parseObject(source, pos);\n    }",
+        "called_methods": [
+            "parseObject"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "parseObject",
+        "javadoc": "/**\n * Parses an object from a given source string using the specified position.\n *\n * @param source The source string to be parsed.\n * @param pos The current parsing position.\n * @return The parsed object.\n */\n",
+        "improved_javadoc": "/**\n * Parses an object from a given source string using the specified position,\n * delegating the actual parsing to the underlying {@link Parser} instance.\n *\n * @param source The source string containing the data to be parsed.\n * @param pos The current parsing position, indicating where in the source string\n *            to start parsing. This position is updated by the parser as it\n *            consumes input from the source string.\n * @return The object parsed from the source string at the specified position,\n *         or null if no object can be parsed at that position.\n */\n"
+    },
+    {
+        "signature": "public String reformat(final String input) throws ParseException",
+        "implementation": "public String reformat(final String input) throws ParseException {\n        return format(parseObject(input));\n    }",
+        "called_methods": [
+            "format",
+            "parseObject"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CompositeFormat.java",
+        "name": "reformat",
+        "javadoc": "/**\n * Re-formats a string into a specific format.\n *\n * @param input The input string to be reformatted.\n * @return The re-formatted string.\n * @throws ParseException If there is an error parsing the input string.\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    }
+]

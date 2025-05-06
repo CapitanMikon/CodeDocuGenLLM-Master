@@ -1,0 +1,28 @@
+[
+    {
+        "signature": "String encode(final String key, final String enc) throws UnsupportedEncodingException",
+        "implementation": "String encode(final String key, final String enc) throws UnsupportedEncodingException {\n        return URLEncoder.encode(key, enc);\n    }",
+        "called_methods": [
+            "encode"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\UrlEncoderStringLookup.java",
+        "name": "encode",
+        "javadoc": "/**\n * Encodes a string using the specified character encoding.\n *\n * @param key   The string to be encoded\n * @param enc   The character encoding to use for the encoding process\n * @return      The encoded string\n * @throws UnsupportedEncodingException if the specified encoding is not supported\n */\n",
+        "improved_javadoc": "/**\n * Encodes a string using the specified character encoding.\n *\n * @param key   The input string to be encoded\n * @param enc   The name of the character encoding scheme (e.g. \"UTF-8\", \"ISO-8859-1\") to use for the encoding process\n * @return      The URL-encoded string, where spaces are replaced with \"+\" characters and special characters are escaped with their corresponding escape sequences\n * @throws UnsupportedEncodingException if the specified encoding is not supported by the underlying platform\n */\n"
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String enc = StandardCharsets.UTF_8.name();\n        try {\n            return encode(key, enc);\n        } catch (final UnsupportedEncodingException e) {\n            // Can't happen since UTF-8 is required by the Java specification.\n            throw IllegalArgumentExceptions.format(e, \"%s: source=%s, encoding=%s\", e, key, enc);\n        }\n    }",
+        "called_methods": [
+            "name",
+            "encode",
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\UrlEncoderStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a value using the provided key and returns it encoded in UTF-8.\n *\n * @param key the key to look up\n * @return the encoded value if found, or null if the key is null\n * @throws IllegalArgumentException if an error occurs during encoding\n */\n",
+        "improved_javadoc": "/**\n * Looks up a value using the provided key and returns it encoded in UTF-8.\n *\n * @param key the key to look up\n * @return the encoded value if found, or null if the key is null\n * @throws IllegalArgumentException if an error occurs during encoding\n */\n"
+    }
+]

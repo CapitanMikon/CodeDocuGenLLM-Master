@@ -1,0 +1,59 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n            if (!key.isEmpty()) {\n                try {\n                    return System.getProperty(key);\n                } catch (final SecurityException ignored) {\n                    // Noop: All lookup(String) will return null.\n                }\n            }\n            return null;\n        }",
+        "called_methods": [
+            "toString",
+            "get",
+            "containsKey",
+            "getString",
+            "isEmpty",
+            "getProperty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a system property by its key.\n *\n * @param key the key of the system property to look up\n * @return the value of the system property, or {@code null} if it does not exist,\n *         is empty, or an error occurs while accessing the property\n * @throws SecurityException if access to the property is denied due to security restrictions\n */\n",
+        "improved_javadoc": "/**\n * Looks up a system property by its key, handling empty keys and security exceptions.\n *\n * @param key the key of the system property to look up\n * @return the value of the system property, or {@code null} if it does not exist,\n *         is empty, or an error occurs while accessing the property\n * @throws SecurityException if access to the property is denied due to security restrictions\n */\n"
+    },
+    {
+        "signature": "public static <V> StrLookup<V> mapLookup(final Map<String, V> map)",
+        "implementation": "public static <V> StrLookup<V> mapLookup(final Map<String, V> map) {\n        return new MapStrLookup<>(map);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "mapLookup",
+        "javadoc": "/**\n * Creates a {@link StrLookup} instance that maps string keys to values from the provided map.\n *\n * @param map the map containing key-value pairs, where each key is a string and each value is of type V\n * @return a new instance of {@link MapStrLookup} initialized with the given map\n */\n",
+        "improved_javadoc": "/**\n * Creates a {@link StrLookup} instance that maps string keys to values from the provided map.\n *\n * @param <V> the type of value stored in the map, which will be used as the type parameter for the returned StrLookup instance\n * @param map the non-null map containing key-value pairs, where each key is a string and each value is of type V\n * @return a new instance of {@link MapStrLookup} initialized with the given map; never null\n */\n"
+    },
+    {
+        "signature": "public static StrLookup<?> noneLookup()",
+        "implementation": "public static StrLookup<?> noneLookup() {\n        return NONE_LOOKUP;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "noneLookup",
+        "javadoc": "/**\n * Returns a lookup that always returns an empty string.\n *\n * @return A lookup that always returns an empty string.\n */\n",
+        "improved_javadoc": "/**\n * Returns a constant lookup instance that always returns an empty string, regardless of the input key.\n *\n * @return A constant lookup instance that always returns an empty string.\n */\n"
+    },
+    {
+        "signature": "public static StrLookup<String> resourceBundleLookup(final ResourceBundle resourceBundle)",
+        "implementation": "public static StrLookup<String> resourceBundleLookup(final ResourceBundle resourceBundle) {\n        return new ResourceBundleLookup(resourceBundle);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "resourceBundleLookup",
+        "javadoc": "/**\n * Returns a lookup that retrieves strings from the specified <code>ResourceBundle</code>.\n *\n * @param resourceBundle the <code>ResourceBundle</code> to retrieve strings from\n * @return a lookup that retrieves strings from the specified <code>ResourceBundle</code>\n */\n",
+        "improved_javadoc": "/**\n * Returns a lookup that retrieves strings from the specified \n * <code>ResourceBundle</code>, using its keys as keys and returning the corresponding string values.\n *\n * @param resourceBundle the non-null <code>ResourceBundle</code> to retrieve strings from\n * @return a non-null lookup that retrieves strings from the specified <code>ResourceBundle</code>\n */\n"
+    },
+    {
+        "signature": "public static StrLookup<String> systemPropertiesLookup()",
+        "implementation": "public static StrLookup<String> systemPropertiesLookup() {\n        return SYSTEM_PROPERTIES_LOOKUP;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrLookup.java",
+        "name": "systemPropertiesLookup",
+        "javadoc": "/**\n * Returns a lookup that maps property names to their corresponding values\n * from the system properties.\n *\n * @return A lookup that maps property names to their corresponding values\n *         from the system properties.\n */\n",
+        "improved_javadoc": "/**\n * Returns a lookup that maps property names to their corresponding values \n * from the system properties. This lookup is a singleton instance and is \n * reused across multiple invocations.\n *\n * @return A singleton StrLookup instance that maps property names to their \n *         corresponding values from the system properties.\n */\n"
+    }
+]

@@ -1,0 +1,859 @@
+[
+    {
+        "signature": "public void close()",
+        "implementation": "public void close() {\n            // do nothing\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "close",
+        "javadoc": "/**\n * Closes this resource.\n *\n * This method does nothing and should be overridden by subclasses to perform any necessary cleanup or shutdown operations.\n */\n"
+    },
+    {
+        "signature": "public void mark(final int readAheadLimit)",
+        "implementation": "public void mark(final int readAheadLimit) {\n            mark = pos;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "mark",
+        "javadoc": "/**\n * Sets the mark at the current position.\n *\n * @param readAheadLimit The limit of characters that can be read ahead from the marked position.\n */\n"
+    },
+    {
+        "signature": "public boolean markSupported()",
+        "implementation": "public boolean markSupported() {\n            return true;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "markSupported",
+        "javadoc": "/**\n * Returns whether this stream supports marking.\n *\n * A stream that supports marking has a notion of a \"current position\" or\n * \"mark\", which can be saved and restored using the {@link #reset()} method.\n *\n * @return true if, and only if, this stream supports marking; false otherwise\n */\n"
+    },
+    {
+        "signature": "public int read(final char[] b, final int off, int len)",
+        "implementation": "public int read(final char[] b, final int off, int len) {\n            if (off < 0 || len < 0 || off > b.length || off + len > b.length || off + len < 0) {\n                throw new IndexOutOfBoundsException();\n            }\n            if (len == 0) {\n                return 0;\n            }\n            if (pos >= size()) {\n                return -1;\n            }\n            if (pos + len > size()) {\n                len = size() - pos;\n            }\n            StrBuilder.this.getChars(pos, pos + len, b, off);\n            pos += len;\n            return len;\n        }",
+        "called_methods": [
+            "ready",
+            "charAt",
+            "size",
+            "getChars"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "read",
+        "javadoc": "/**\n * Reads characters from this string into an array.\n *\n * @param b   the character array to read into\n * @param off the starting position in the array where data will be written\n * @param len the maximum number of characters to read; must not be negative\n * @return the actual number of characters read, or -1 if this string does not contain at least one more character\n * @throws IndexOutOfBoundsException if the specified range of the specified array overlaps a range that has already been read, or if the offset and length arguments are invalid\n */\n"
+    },
+    {
+        "signature": "public boolean ready()",
+        "implementation": "public boolean ready() {\n            return pos < size();\n        }",
+        "called_methods": [
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "ready",
+        "javadoc": "/**\n * Checks if the current position is within the bounds of the collection.\n *\n * @return true if the current position is valid, false otherwise\n */\n"
+    },
+    {
+        "signature": "public void reset()",
+        "implementation": "public void reset() {\n            pos = mark;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "reset",
+        "javadoc": "/**\n * Resets the current position to the last marked position.\n */\n"
+    },
+    {
+        "signature": "public long skip(long n)",
+        "implementation": "public long skip(long n) {\n            if (pos + n > size()) {\n                n = size() - pos;\n            }\n            if (n < 0) {\n                return 0;\n            }\n            pos = Math.addExact(pos, Math.toIntExact(n));\n            return n;\n        }",
+        "called_methods": [
+            "size",
+            "addExact",
+            "toIntExact"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "skip",
+        "javadoc": "/**\n * Skips over the specified number of elements in this list.\n *\n * @param n the number of elements to skip\n * @return the number of elements actually skipped\n */\n"
+    },
+    {
+        "signature": "public String getContent()",
+        "implementation": "public String getContent() {\n            final String str = super.getContent();\n            if (str == null) {\n                return StrBuilder.this.toString();\n            }\n            return str;\n        }",
+        "called_methods": [
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "getContent",
+        "javadoc": "/**\n * Returns the content of this object, or a string representation of this object\n * if the content is null.\n *\n * @return the content of this object, or a string representation of this object\n *         if the content is null\n */\n"
+    },
+    {
+        "signature": "protected List<String> tokenize(final char[] chars, final int offset, final int count)",
+        "implementation": "protected List<String> tokenize(final char[] chars, final int offset, final int count) {\n            if (chars == null) {\n                return super.tokenize(StrBuilder.this.buffer, 0, StrBuilder.this.size());\n            }\n            return super.tokenize(chars, offset, count);\n        }",
+        "called_methods": [
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "tokenize",
+        "javadoc": "/**\n * Tokenizes a character array into a list of strings.\n *\n * @param chars The character array to tokenize.\n * @param offset The starting index in the character array.\n * @param count The number of characters to process.\n * @return A list of strings representing the tokens in the character array.\n * @throws NullPointerException If the character array is null and no default buffer is available.\n */\n"
+    },
+    {
+        "signature": "public void flush()",
+        "implementation": "public void flush() {\n            // do nothing\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "flush",
+        "javadoc": "/**\n * Flushes any pending output.\n *\n * This method does not perform any actual flushing, as it simply does nothing.\n */\n"
+    },
+    {
+        "signature": "public void write(final String str, final int off, final int len)",
+        "implementation": "public void write(final String str, final int off, final int len) {\n            StrBuilder.this.append(str, off, len);\n        }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "write",
+        "javadoc": "/**\n * Appends a substring of the given string to this builder's current buffer.\n *\n * @param str  the string from which the substring is taken\n * @param off  the starting index in the string (inclusive)\n * @param len  the number of characters to append (may be zero or negative)\n */\n"
+    },
+    {
+        "signature": "public StrBuilder append(final StringBuilder str, final int startIndex, final int length)",
+        "implementation": "public StrBuilder append(final StringBuilder str, final int startIndex, final int length) {\n        if (str == null) {\n            return appendNull();\n        }\n        if (startIndex < 0 || startIndex > str.length()) {\n            throw new StringIndexOutOfBoundsException(\"startIndex must be valid\");\n        }\n        if (length < 0 || startIndex + length > str.length()) {\n            throw new StringIndexOutOfBoundsException(\"length must be valid\");\n        }\n        if (length > 0) {\n            final int len = length();\n            ensureCapacity(len + length);\n            str.getChars(startIndex, startIndex + length, buffer, len);\n            size += length;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacity",
+            "length",
+            "appendNull",
+            "arraycopy",
+            "hasArray",
+            "remaining",
+            "array",
+            "arrayOffset",
+            "position",
+            "append",
+            "toString",
+            "valueOf",
+            "getChars",
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "append",
+        "javadoc": "/**\n * Appends a substring of characters from the specified StringBuilder to this StrBuilder.\n *\n * @param str   the StringBuilder from which to append characters\n * @param startIndex  the starting index in the StringBuilder (inclusive)\n * @param length     the number of characters to append\n * @return this StrBuilder instance, for method chaining\n * @throws StringIndexOutOfBoundsException if startIndex or length is invalid\n */\n"
+    },
+    {
+        "signature": "* fine, because it isn't inherited by subclasses, so each subclass must vouch for itself whether its use of 'array' is safe.\n         */\n        if (array != null && array.length > 0)",
+        "implementation": "public <T> StrBuilder appendAll(@SuppressWarnings(\"unchecked\") final T... array) {\n        /*\n         * @SuppressWarnings used to hide warning about vararg usage. We cannot use @SafeVarargs, since this method is not final. Using @SuppressWarnings is\n         * fine, because it isn't inherited by subclasses, so each subclass must vouch for itself whether its use of 'array' is safe.\n         */\n        if (array != null && array.length > 0) {\n            for (final Object element : array) {\n                append(element);\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "forEach",
+            "hasNext",
+            "append",
+            "next"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendAll",
+        "javadoc": "/**\n * Appends all elements of the given array to the builder.\n *\n * @param array The array containing elements to be appended. May contain null or empty arrays, in which case no elements will be appended.\n * @return This StrBuilder instance for method chaining.\n */\n"
+    },
+    {
+        "signature": "public StrBuilder appendFixedWidthPadLeft(final Object obj, final int width, final char padChar)",
+        "implementation": "public StrBuilder appendFixedWidthPadLeft(final Object obj, final int width, final char padChar) {\n        if (width > 0) {\n            ensureCapacity(size + width);\n            String str = Objects.toString(obj, getNullText());\n            if (str == null) {\n                str = StringUtils.EMPTY;\n            }\n            final int strLen = str.length();\n            if (strLen >= width) {\n                str.getChars(strLen - width, strLen, buffer, size);\n            } else {\n                final int padLen = width - strLen;\n                final int toIndex = size + padLen;\n                Arrays.fill(buffer, size, toIndex, padChar);\n                str.getChars(0, strLen, buffer, toIndex);\n            }\n            size += width;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "appendFixedWidthPadLeft",
+            "valueOf",
+            "ensureCapacity",
+            "toString",
+            "getNullText",
+            "length",
+            "getChars",
+            "fill"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendFixedWidthPadLeft",
+        "javadoc": "/**\n * Appends a fixed-width left-padded string representation of the specified object to this builder.\n *\n * @param obj  the object to be converted into a string, or null in which case an empty string is used\n * @param width  the minimum number of characters to use for padding; must be greater than zero\n * @param padChar  the character to use for padding\n *\n * @return this builder\n *\n * @throws NullPointerException if obj is null and getNullText() returns null\n */\n"
+    },
+    {
+        "signature": "public StrBuilder appendFixedWidthPadRight(final Object obj, final int width, final char padChar)",
+        "implementation": "public StrBuilder appendFixedWidthPadRight(final Object obj, final int width, final char padChar) {\n        if (width > 0) {\n            ensureCapacity(size + width);\n            String str = Objects.toString(obj, getNullText());\n            if (str == null) {\n                str = StringUtils.EMPTY;\n            }\n            final int strLen = str.length();\n            if (strLen >= width) {\n                str.getChars(0, width, buffer, size);\n            } else {\n                str.getChars(0, strLen, buffer, size);\n                final int fromIndex = size + strLen;\n                Arrays.fill(buffer, fromIndex, fromIndex + width - strLen, padChar);\n            }\n            size += width;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "appendFixedWidthPadRight",
+            "valueOf",
+            "ensureCapacity",
+            "toString",
+            "getNullText",
+            "length",
+            "getChars",
+            "fill"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendFixedWidthPadRight",
+        "javadoc": "/**\n * Appends a fixed-width padded string to the end of this StrBuilder.\n *\n * @param obj  the object to be converted and appended, or null if an empty string should be used\n * @param width  the minimum number of characters in the resulting string\n * @param padChar  the character to use for padding (if necessary)\n *\n * @return this StrBuilder instance\n */\n"
+    },
+    {
+        "signature": "public StrBuilder appendln(final StringBuilder str, final int startIndex, final int length)",
+        "implementation": "public StrBuilder appendln(final StringBuilder str, final int startIndex, final int length) {\n        return append(str, startIndex, length).appendNewLine();\n    }",
+        "called_methods": [
+            "append",
+            "appendNewLine"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendln",
+        "javadoc": "/**\n * Appends a substring of another string builder to this string builder,\n * followed by a newline character.\n *\n * @param str the string builder from which to append\n * @param startIndex the starting index in the string builder (inclusive)\n * @param length the number of characters to append\n * @return this string builder with the appended substring and newline\n */\n"
+    },
+    {
+        "signature": "public StrBuilder appendNewLine()",
+        "implementation": "public StrBuilder appendNewLine() {\n        if (newLine == null) {\n            append(System.lineSeparator());\n            return this;\n        }\n        return append(newLine);\n    }",
+        "called_methods": [
+            "append",
+            "lineSeparator"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendNewLine",
+        "javadoc": "/**\n * Appends a new line to the current builder.\n *\n * If no newline character has been set, it appends the system's default\n * newline separator. Otherwise, it appends the previously set newline\n * character.\n *\n * @return this StrBuilder instance for method chaining.\n */\n"
+    },
+    {
+        "signature": "public StrBuilder appendNull()",
+        "implementation": "public StrBuilder appendNull() {\n        if (nullText == null) {\n            return this;\n        }\n        return append(nullText);\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendNull",
+        "javadoc": "/**\n * Appends a string representing \"null\" to the builder.\n *\n * If {@code nullText} has not been set, this method returns the current\n * instance without modifying it. Otherwise, it appends the value of\n * {@code nullText} to the builder.\n *\n * @return the current instance (if {@code nullText} is unset) or a new\n *         instance with the \"null\" string appended.\n */\n"
+    },
+    {
+        "signature": "public StrBuilder appendPadding(final int length, final char padChar)",
+        "implementation": "public StrBuilder appendPadding(final int length, final char padChar) {\n        if (length >= 0) {\n            ensureCapacity(size + length);\n            for (int i = 0; i < length; i++) {\n                buffer[size++] = padChar;\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacity"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendPadding",
+        "javadoc": "/**\n * Appends padding characters to the end of the string builder.\n *\n * @param length  The number of padding characters to append. Must be non-negative.\n * @param padChar The character used for padding.\n *\n * @return This string builder object, allowing for chaining of operations.\n */\n"
+    },
+    {
+        "signature": "public StrBuilder appendSeparator(final String standard, final String defaultIfEmpty)",
+        "implementation": "public StrBuilder appendSeparator(final String standard, final String defaultIfEmpty) {\n        final String str = isEmpty() ? defaultIfEmpty : standard;\n        if (str != null) {\n            append(str);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "isNotEmpty",
+            "append",
+            "appendSeparator",
+            "isEmpty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendSeparator",
+        "javadoc": "/**\n * Appends a separator to the StrBuilder.\n *\n * If the StrBuilder is empty, the default separator will be used. Otherwise,\n * the standard separator will be appended.\n *\n * @param standard  the standard separator to use if the StrBuilder is not empty\n * @param defaultIfEmpty  the default separator to use if the StrBuilder is empty\n * @return this StrBuilder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public void appendTo(final Appendable appendable) throws IOException",
+        "implementation": "public void appendTo(final Appendable appendable) throws IOException {\n        if (appendable instanceof Writer) {\n            ((Writer) appendable).write(buffer, 0, size);\n        } else if (appendable instanceof StringBuilder) {\n            ((StringBuilder) appendable).append(buffer, 0, size);\n        } else if (appendable instanceof StringBuffer) {\n            ((StringBuffer) appendable).append(buffer, 0, size);\n        } else if (appendable instanceof CharBuffer) {\n            ((CharBuffer) appendable).put(buffer, 0, size);\n        } else {\n            appendable.append(this);\n        }\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendTo",
+        "javadoc": "/**\n * Appends this buffer's content to the specified {@code Appendable}.\n *\n * @param appendable the target {@link Appendable} to which the buffer's content will be appended.\n * @throws IOException if an I/O error occurs while writing to the target {@code Appendable}.\n */\n"
+    },
+    {
+        "signature": "public StrBuilder appendWithSeparators(final Object[] array, final String separator)",
+        "implementation": "public StrBuilder appendWithSeparators(final Object[] array, final String separator) {\n        if (array != null && array.length > 0) {\n            final String sep = Objects.toString(separator, StringUtils.EMPTY);\n            append(array[0]);\n            for (int i = 1; i < array.length; i++) {\n                append(sep);\n                append(array[i]);\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "appendWithSeparators",
+            "iterator",
+            "toString",
+            "hasNext",
+            "append",
+            "next"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "appendWithSeparators",
+        "javadoc": "/**\n * Appends all elements of the specified array with the provided separator.\n *\n * @param array  the array to be appended, must not be null and have at least one element\n * @param separator  the separator to use between elements, defaults to an empty string if null\n * @return this StrBuilder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public Reader asReader()",
+        "implementation": "public Reader asReader() {\n        return new StrBuilderReader();\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "asReader",
+        "javadoc": "/**\n * Returns a {@link Reader} that reads from this string builder.\n *\n * @return A reader that reads from this string builder.\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer asTokenizer()",
+        "implementation": "public StrTokenizer asTokenizer() {\n        return new StrBuilderTokenizer();\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "asTokenizer",
+        "javadoc": "/**\n * Returns a tokenizer for this string.\n *\n * @return A StrBuilderTokenizer instance, which can be used to tokenize\n *         the contents of this string.\n */\n"
+    },
+    {
+        "signature": "public Writer asWriter()",
+        "implementation": "public Writer asWriter() {\n        return new StrBuilderWriter();\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "asWriter",
+        "javadoc": "/**\n * Returns a {@link java.io.Writer} that writes to this builder.\n *\n * @return A writer that writes to this builder.\n */\n"
+    },
+    {
+        "signature": "public String build()",
+        "implementation": "public String build() {\n        return toString();\n    }",
+        "called_methods": [
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "build",
+        "javadoc": "/**\n * Builds and returns a string representation of this object.\n *\n * @return A string representation of this object.\n */\n"
+    },
+    {
+        "signature": "public int capacity()",
+        "implementation": "public int capacity() {\n        return buffer.length;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "capacity",
+        "javadoc": "/**\n * Returns the current capacity of this buffer.\n *\n * The capacity is the number of elements that can be stored in the buffer\n * without needing to reallocate memory.\n *\n * @return the current capacity of this buffer\n */\n"
+    },
+    {
+        "signature": "public char charAt(final int index)",
+        "implementation": "public char charAt(final int index) {\n        if (index < 0 || index >= length()) {\n            throw new StringIndexOutOfBoundsException(index);\n        }\n        return buffer[index];\n    }",
+        "called_methods": [
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "charAt",
+        "javadoc": "/**\n * Returns the character at the specified index in the string.\n *\n * @param index the index of the character to be returned\n * @return the character at the specified index\n * @throws StringIndexOutOfBoundsException if the index is less than 0 or greater than or equal to the length of the string\n */\n"
+    },
+    {
+        "signature": "public StrBuilder clear()",
+        "implementation": "public StrBuilder clear() {\n        size = 0;\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "clear",
+        "javadoc": "/**\n * Clears the contents of the string builder.\n *\n * This method resets the internal state of the string builder to its initial\n * condition, effectively clearing any previously appended characters. The\n * resulting string builder is empty and ready for new content.\n *\n * @return this instance, allowing for method chaining.\n */\n"
+    },
+    {
+        "signature": "public boolean contains(final StrMatcher matcher)",
+        "implementation": "public boolean contains(final StrMatcher matcher) {\n        return indexOf(matcher, 0) >= 0;\n    }",
+        "called_methods": [
+            "indexOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "contains",
+        "javadoc": "/**\n * Checks if a string matches the given {@link StrMatcher}.\n *\n * @param matcher the matcher to use for matching\n * @return true if the string matches the matcher, false otherwise\n */\n"
+    },
+    {
+        "signature": "public StrBuilder delete(final int startIndex, int endIndex)",
+        "implementation": "public StrBuilder delete(final int startIndex, int endIndex) {\n        endIndex = validateRange(startIndex, endIndex);\n        final int len = endIndex - startIndex;\n        if (len > 0) {\n            deleteImpl(startIndex, endIndex, len);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "validateRange",
+            "deleteImpl"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "delete",
+        "javadoc": "/**\n * Deletes characters in the specified range from the StrBuilder.\n *\n * @param startIndex the starting index of the range (inclusive)\n * @param endIndex   the ending index of the range (exclusive)\n * @return this StrBuilder instance, allowing for method chaining\n */\n"
+    },
+    {
+        "signature": "public StrBuilder deleteAll(final StrMatcher matcher)",
+        "implementation": "public StrBuilder deleteAll(final StrMatcher matcher) {\n        return replace(matcher, null, 0, size, -1);\n    }",
+        "called_methods": [
+            "deleteImpl",
+            "length",
+            "indexOf",
+            "replace"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "deleteAll",
+        "javadoc": "/**\n * Deletes all occurrences of a specified pattern from this string builder.\n *\n * @param matcher the pattern to match\n * @return this string builder with the matched text deleted\n */\n"
+    },
+    {
+        "signature": "public StrBuilder deleteCharAt(final int index)",
+        "implementation": "public StrBuilder deleteCharAt(final int index) {\n        if (index < 0 || index >= size) {\n            throw new StringIndexOutOfBoundsException(index);\n        }\n        deleteImpl(index, index + 1, 1);\n        return this;\n    }",
+        "called_methods": [
+            "deleteImpl"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "deleteCharAt",
+        "javadoc": "/**\n * Deletes a character at the specified position in the string.\n *\n * @param index the position of the character to be deleted (0-based index)\n * @throws StringIndexOutOfBoundsException if the index is out of range\n * @return this StrBuilder object, allowing for chaining of operations\n */\n"
+    },
+    {
+        "signature": "public StrBuilder deleteFirst(final StrMatcher matcher)",
+        "implementation": "public StrBuilder deleteFirst(final StrMatcher matcher) {\n        return replace(matcher, null, 0, size, 1);\n    }",
+        "called_methods": [
+            "deleteImpl",
+            "length",
+            "indexOf",
+            "replace"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "deleteFirst",
+        "javadoc": "/**\n * Deletes the first occurrence of a string that matches the given matcher.\n *\n * @param matcher the matcher to use for finding the string to delete\n * @return this StrBuilder object\n */\n"
+    },
+    {
+        "signature": "private void deleteImpl(final int startIndex, final int endIndex, final int len)",
+        "implementation": "private void deleteImpl(final int startIndex, final int endIndex, final int len) {\n        System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);\n        size -= len;\n    }",
+        "called_methods": [
+            "arraycopy"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "deleteImpl",
+        "javadoc": "/**\n * Deletes a portion of the buffer.\n *\n * This method shifts all elements after the deletion point to fill the gap,\n * effectively reducing the size of the buffer by the number of deleted elements.\n *\n * @param startIndex The starting index of the range to delete (inclusive).\n * @param endIndex   The ending index of the range to delete (exclusive).\n * @param len        The length of the range to delete.\n */\n"
+    },
+    {
+        "signature": "public boolean endsWith(final String str)",
+        "implementation": "public boolean endsWith(final String str) {\n        if (str == null) {\n            return false;\n        }\n        final int len = str.length();\n        if (len == 0) {\n            return true;\n        }\n        if (len > size) {\n            return false;\n        }\n        int pos = size - len;\n        for (int i = 0; i < len; i++, pos++) {\n            if (buffer[pos] != str.charAt(i)) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "length",
+            "charAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "endsWith",
+        "javadoc": "/**\n * Checks if this buffer ends with the specified string.\n *\n * @param str the string to check against\n * @return {@code true} if this buffer ends with the specified string, otherwise {@code false}\n * @throws NullPointerException if the input string is null\n */\n"
+    },
+    {
+        "signature": "public StrBuilder ensureCapacity(final int capacity)",
+        "implementation": "public StrBuilder ensureCapacity(final int capacity) {\n        if (capacity > buffer.length) {\n            final char[] old = buffer;\n            buffer = new char[capacity * 2];\n            System.arraycopy(old, 0, buffer, 0, size);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "arraycopy"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "ensureCapacity",
+        "javadoc": "/**\n * Ensures that the internal character buffer has enough capacity to hold at least the specified number of characters.\n *\n * @param capacity the minimum required capacity of the buffer\n * @return this StrBuilder instance, allowing for method chaining\n */\n"
+    },
+    {
+        "signature": "public boolean equals(final StrBuilder other)",
+        "implementation": "public boolean equals(final StrBuilder other) {\n        if (this == other) {\n            return true;\n        }\n        if (other == null) {\n            return false;\n        }\n        if (this.size != other.size) {\n            return false;\n        }\n        final char[] thisBuf = this.buffer;\n        final char[] otherBuf = other.buffer;\n        for (int i = size - 1; i >= 0; i--) {\n            if (thisBuf[i] != otherBuf[i]) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "equals",
+        "javadoc": "/**\n * Compares this StrBuilder with another StrBuilder.\n *\n * @param other the StrBuilder to compare with, may be null\n * @return true if this StrBuilder is equal to the specified object, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean equalsIgnoreCase(final StrBuilder other)",
+        "implementation": "public boolean equalsIgnoreCase(final StrBuilder other) {\n        if (this == other) {\n            return true;\n        }\n        if (this.size != other.size) {\n            return false;\n        }\n        final char[] thisBuf = this.buffer;\n        final char[] otherBuf = other.buffer;\n        for (int i = size - 1; i >= 0; i--) {\n            final char c1 = thisBuf[i];\n            final char c2 = otherBuf[i];\n            if (c1 != c2 && Character.toUpperCase(c1) != Character.toUpperCase(c2)) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "toUpperCase"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "equalsIgnoreCase",
+        "javadoc": "/**\n * Compares this string with the specified StrBuilder object to determine \n * whether they represent equal sequences of characters, ignoring case differences.\n *\n * @param other the StrBuilder object to compare with this string\n * @return true if the strings are equal; false otherwise\n */\n"
+    },
+    {
+        "signature": "public String get()",
+        "implementation": "public String get() {\n        return toString();\n    }",
+        "called_methods": [
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "get",
+        "javadoc": "/**\n * Returns a string representation of this object.\n *\n * @return  a string representation of this object\n */\n"
+    },
+    {
+        "signature": "public void getChars(final int startIndex, final int endIndex, final char[] destination, final int destinationIndex)",
+        "implementation": "public void getChars(final int startIndex, final int endIndex, final char[] destination, final int destinationIndex) {\n        if (startIndex < 0) {\n            throw new StringIndexOutOfBoundsException(startIndex);\n        }\n        if (endIndex < 0 || endIndex > length()) {\n            throw new StringIndexOutOfBoundsException(endIndex);\n        }\n        if (startIndex > endIndex) {\n            throw new StringIndexOutOfBoundsException(\"end < start\");\n        }\n        System.arraycopy(buffer, startIndex, destination, destinationIndex, endIndex - startIndex);\n    }",
+        "called_methods": [
+            "length",
+            "arraycopy"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "getChars",
+        "javadoc": "/**\n * Copies characters from this string into the given array.\n *\n * The substring begins at the specified {@code startIndex} and extends to the character at index {@code endIndex}.\n * If {@code destinationIndex} is negative, or if it is greater than or equal to the length of the {@code destination}\n * array, an exception is thrown.\n *\n * @param startIndex the starting position in the string\n * @param endIndex the ending position in the string\n * @param destination the character array to copy into\n * @param destinationIndex the index at which to start copying in the destination array\n */\n"
+    },
+    {
+        "signature": "public String getNewLineText()",
+        "implementation": "public String getNewLineText() {\n        return newLine;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "getNewLineText",
+        "javadoc": "/**\n * Returns the text of a new line.\n *\n * @return The text of a new line.\n */\n"
+    },
+    {
+        "signature": "public String getNullText()",
+        "implementation": "public String getNullText() {\n        return nullText;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "getNullText",
+        "javadoc": "/**\n * Returns the text to be displayed when a field has no value.\n *\n * @return the null text\n */\n"
+    },
+    {
+        "signature": "public int hashCode()",
+        "implementation": "public int hashCode() {\n        final char[] buf = buffer;\n        int hash = 0;\n        for (int i = size - 1; i >= 0; i--) {\n            hash = 31 * hash + buf[i];\n        }\n        return hash;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "hashCode",
+        "javadoc": "/**\n * Returns a hash code value for the object.\n *\n * This method is used to compute a hash code value for the object's buffer.\n * The hash code value is based on the contents of the buffer, and it may change\n * if the buffer changes. It is not necessary to call this method directly;\n * unless you need to use the hash code value of an instance as a key in a hash map,\n * you should simply rely on the fact that instances of this class are equal if and only if their buffers are equal.\n *\n * @return  a hash code value for the object\n */\n"
+    },
+    {
+        "signature": "public int indexOf(final StrMatcher matcher, int startIndex)",
+        "implementation": "public int indexOf(final StrMatcher matcher, int startIndex) {\n        startIndex = Math.max(startIndex, 0);\n        if (matcher == null || startIndex >= size) {\n            return -1;\n        }\n        final int len = size;\n        final char[] buf = buffer;\n        for (int i = startIndex; i < len; i++) {\n            if (matcher.isMatch(buf, i, startIndex, len) > 0) {\n                return i;\n            }\n        }\n        return -1;\n    }",
+        "called_methods": [
+            "indexOf",
+            "max",
+            "length",
+            "charAt",
+            "isMatch"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "indexOf",
+        "javadoc": "/**\n * Finds the index of the first occurrence of a match in the buffer.\n *\n * @param matcher the StrMatcher to use for matching\n * @param startIndex the starting index to search from (inclusive)\n * @return the index of the first match, or -1 if no match is found\n * @throws NullPointerException if matcher is null\n */\n"
+    },
+    {
+        "signature": "public StrBuilder insert(final int index, String str)",
+        "implementation": "public StrBuilder insert(final int index, String str) {\n        validateIndex(index);\n        if (str == null) {\n            str = nullText;\n        }\n        if (str != null) {\n            final int strLen = str.length();\n            if (strLen > 0) {\n                final int newSize = size + strLen;\n                ensureCapacity(newSize);\n                System.arraycopy(buffer, index, buffer, index + strLen, size - index);\n                size = newSize;\n                str.getChars(0, strLen, buffer, index);\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "validateIndex",
+            "ensureCapacity",
+            "arraycopy",
+            "insert",
+            "valueOf",
+            "toString",
+            "length",
+            "getChars"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "insert",
+        "javadoc": "/**\n * Inserts a string at the specified position in the StrBuilder.\n *\n * @param index  the position to insert the string at (0-based)\n * @param str    the string to be inserted, or null for the default null text\n * @return this StrBuilder instance\n */\n"
+    },
+    {
+        "signature": "public boolean isEmpty()",
+        "implementation": "public boolean isEmpty() {\n        return size == 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "isEmpty",
+        "javadoc": "/**\n * Checks if this collection is empty.\n *\n * @return true if this collection contains no elements, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isNotEmpty()",
+        "implementation": "public boolean isNotEmpty() {\n        return size > 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "isNotEmpty",
+        "javadoc": "/**\n * Checks if this collection is not empty.\n *\n * @return true if the collection has at least one element, false otherwise\n */\n"
+    },
+    {
+        "signature": "public int lastIndexOf(final StrMatcher matcher, int startIndex)",
+        "implementation": "public int lastIndexOf(final StrMatcher matcher, int startIndex) {\n        startIndex = startIndex >= size ? size - 1 : startIndex;\n        if (matcher == null || startIndex < 0) {\n            return -1;\n        }\n        final char[] buf = buffer;\n        final int endIndex = startIndex + 1;\n        for (int i = startIndex; i >= 0; i--) {\n            if (matcher.isMatch(buf, i, 0, endIndex) > 0) {\n                return i;\n            }\n        }\n        return -1;\n    }",
+        "called_methods": [
+            "lastIndexOf",
+            "length",
+            "charAt",
+            "isMatch"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "lastIndexOf",
+        "javadoc": "/**\n * Finds the index of the last occurrence of a match to the specified matcher.\n *\n * @param matcher the matcher to use for matching\n * @param startIndex the starting index from which to search backwards (inclusive)\n * @return the index of the last match, or -1 if no match is found\n * @throws NullPointerException if the matcher is null\n */\n"
+    },
+    {
+        "signature": "public String leftString(final int length)",
+        "implementation": "public String leftString(final int length) {\n        if (length <= 0) {\n            return StringUtils.EMPTY;\n        }\n        if (length >= size) {\n            return new String(buffer, 0, size);\n        }\n        return new String(buffer, 0, length);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "leftString",
+        "javadoc": "/**\n * Returns the leftmost characters of this string buffer.\n *\n * @param length the number of characters to return\n * @return a substring of this sequence that starts at the beginning and has {@code length} characters\n * @throws IllegalArgumentException if {@code length} is less than 0\n */\n"
+    },
+    {
+        "signature": "public int length()",
+        "implementation": "public int length() {\n        return size;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "length",
+        "javadoc": "/**\n * Returns the number of elements in this list.\n *\n * @return the number of elements in this list\n */\n"
+    },
+    {
+        "signature": "public String midString(int index, final int length)",
+        "implementation": "public String midString(int index, final int length) {\n        if (index < 0) {\n            index = 0;\n        }\n        if (length <= 0 || index >= size) {\n            return StringUtils.EMPTY;\n        }\n        if (size <= index + length) {\n            return new String(buffer, index, size - index);\n        }\n        return new String(buffer, index, length);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "midString",
+        "javadoc": "/**\n * Returns a substring of this string from the specified {@code index} to the end,\n * or up to a maximum of {@code length} characters.\n *\n * If the {@code index} is negative, it is treated as 0. If the {@code length}\n * is less than or equal to 0, an empty string is returned. If the {@code index}\n * plus {@code length} exceeds the size of this string, a substring from\n * {@code index} to the end of the string is returned.\n *\n * @param index the starting index of the substring (inclusive)\n * @param length the maximum length of the substring\n * @return a substring of this string\n */\n"
+    },
+    {
+        "signature": "public StrBuilder minimizeCapacity()",
+        "implementation": "public StrBuilder minimizeCapacity() {\n        if (buffer.length > length()) {\n            final char[] old = buffer;\n            buffer = new char[length()];\n            System.arraycopy(old, 0, buffer, 0, size);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "length",
+            "arraycopy"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "minimizeCapacity",
+        "javadoc": "/**\n * Minimizes the capacity of the StrBuilder to its current length.\n *\n * If the current buffer has a larger capacity than the current length,\n * a new buffer with the optimal size is created and the contents are copied over.\n *\n * @return this instance, allowing for method chaining.\n */\n"
+    },
+    {
+        "signature": "public int readFrom(final Readable readable) throws IOException",
+        "implementation": "public int readFrom(final Readable readable) throws IOException {\n        final int oldSize = size;\n        if (readable instanceof Reader) {\n            final Reader r = (Reader) readable;\n            ensureCapacity(size + 1);\n            int read;\n            while ((read = r.read(buffer, size, buffer.length - size)) != -1) {\n                size += read;\n                ensureCapacity(size + 1);\n            }\n        } else if (readable instanceof CharBuffer) {\n            final CharBuffer cb = (CharBuffer) readable;\n            final int remaining = cb.remaining();\n            ensureCapacity(size + remaining);\n            cb.get(buffer, size, remaining);\n            size += remaining;\n        } else {\n            while (true) {\n                ensureCapacity(size + 1);\n                final CharBuffer buf = CharBuffer.wrap(buffer, size, buffer.length - size);\n                final int read = readable.read(buf);\n                if (read == -1) {\n                    break;\n                }\n                size += read;\n            }\n        }\n        return size - oldSize;\n    }",
+        "called_methods": [
+            "ensureCapacity",
+            "read",
+            "remaining",
+            "get",
+            "wrap"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "readFrom",
+        "javadoc": "/**\n * Reads characters from a {@link Readable} into this buffer.\n *\n * @param readable the source of characters to be read\n * @return the number of characters read, or 0 if no characters were read\n * @throws IOException if an I/O error occurs while reading from the source\n */\n"
+    },
+    {
+        "signature": "public StrBuilder replace(final StrMatcher matcher, final String replaceStr, final int startIndex, int endIndex, final int replaceCount)",
+        "implementation": "public StrBuilder replace(final StrMatcher matcher, final String replaceStr, final int startIndex, int endIndex, final int replaceCount) {\n        endIndex = validateRange(startIndex, endIndex);\n        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);\n    }",
+        "called_methods": [
+            "validateRange",
+            "length",
+            "replaceImpl"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "replace",
+        "javadoc": "/**\n * Replaces occurrences of a specified pattern in this string builder with a replacement string.\n *\n * @param matcher  the pattern to match\n * @param replaceStr  the replacement string\n * @param startIndex  the starting index (inclusive) where replacements should begin\n * @param endIndex    the ending index (exclusive) where replacements should end\n * @param replaceCount  the maximum number of replacements to make\n *\n * @return a new string builder with the replacements made\n */\n"
+    },
+    {
+        "signature": "public StrBuilder replaceAll(final StrMatcher matcher, final String replaceStr)",
+        "implementation": "public StrBuilder replaceAll(final StrMatcher matcher, final String replaceStr) {\n        return replace(matcher, replaceStr, 0, size, -1);\n    }",
+        "called_methods": [
+            "length",
+            "indexOf",
+            "replaceImpl",
+            "replace"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "replaceAll",
+        "javadoc": "/**\n * Replaces all occurrences of a specified pattern in this string builder with a given replacement string.\n *\n * @param matcher the pattern to be replaced\n * @param replaceStr the replacement string\n * @return this string builder object\n */\n"
+    },
+    {
+        "signature": "public StrBuilder replaceFirst(final StrMatcher matcher, final String replaceStr)",
+        "implementation": "public StrBuilder replaceFirst(final StrMatcher matcher, final String replaceStr) {\n        return replace(matcher, replaceStr, 0, size, 1);\n    }",
+        "called_methods": [
+            "length",
+            "indexOf",
+            "replaceImpl",
+            "replace"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "replaceFirst",
+        "javadoc": "/**\n * Replaces the first occurrence of a pattern in this string builder with a specified replacement.\n *\n * @param matcher the pattern to match\n * @param replaceStr the replacement string\n * @return this string builder with the replacement made\n */\n"
+    },
+    {
+        "signature": "private StrBuilder replaceImpl(final StrMatcher matcher, final String replaceStr, final int from, int to, int replaceCount)",
+        "implementation": "private StrBuilder replaceImpl(final StrMatcher matcher, final String replaceStr, final int from, int to, int replaceCount) {\n        if (matcher == null || size == 0) {\n            return this;\n        }\n        final int replaceLen = replaceStr == null ? 0 : replaceStr.length();\n        for (int i = from; i < to && replaceCount != 0; i++) {\n            final char[] buf = buffer;\n            final int removeLen = matcher.isMatch(buf, i, from, to);\n            if (removeLen > 0) {\n                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);\n                to = to - removeLen + replaceLen;\n                i = i + replaceLen - 1;\n                if (replaceCount > 0) {\n                    replaceCount--;\n                }\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacity",
+            "arraycopy",
+            "getChars",
+            "length",
+            "isMatch",
+            "replaceImpl"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "replaceImpl",
+        "javadoc": "/**\n * Replaces occurrences of a pattern in the string with a replacement string.\n *\n * This method is used internally by {@link StrBuilder} to perform replacements.\n * It iterates over the string, finding matches of the specified pattern and replacing them\n * with the provided replacement string. The replacement operation is performed up to the specified\n * number of times.\n *\n * @param matcher  the pattern to match\n * @param replaceStr  the replacement string\n * @param from      the starting index for searching matches (inclusive)\n * @param to        the ending index for searching matches (exclusive)\n * @param replaceCount  the maximum number of replacements to perform\n *\n * @return this StrBuilder instance, allowing method chaining\n */\n"
+    },
+    {
+        "signature": "public StrBuilder reverse()",
+        "implementation": "public StrBuilder reverse() {\n        if (size == 0) {\n            return this;\n        }\n\n        final int half = size / 2;\n        final char[] buf = buffer;\n        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++, rightIdx--) {\n            final char swap = buf[leftIdx];\n            buf[leftIdx] = buf[rightIdx];\n            buf[rightIdx] = swap;\n        }\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "reverse",
+        "javadoc": "/**\n * Reverses the contents of this StrBuilder.\n *\n * If the StrBuilder is empty, returns itself without modification.\n *\n * @return this StrBuilder\n */\n"
+    },
+    {
+        "signature": "public String rightString(final int length)",
+        "implementation": "public String rightString(final int length) {\n        if (length <= 0) {\n            return StringUtils.EMPTY;\n        }\n        if (length >= size) {\n            return new String(buffer, 0, size);\n        }\n        return new String(buffer, size - length, length);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "rightString",
+        "javadoc": "/**\n * Returns a substring of the current buffer from the end up to the specified length.\n *\n * @param length the desired length of the returned string\n * @return a substring of the current buffer with the specified length, or an empty string if the length is invalid\n */\n"
+    },
+    {
+        "signature": "public StrBuilder setCharAt(final int index, final char ch)",
+        "implementation": "public StrBuilder setCharAt(final int index, final char ch) {\n        if (index < 0 || index >= length()) {\n            throw new StringIndexOutOfBoundsException(index);\n        }\n        buffer[index] = ch;\n        return this;\n    }",
+        "called_methods": [
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "setCharAt",
+        "javadoc": "/**\n * Sets the character at the specified index in the StrBuilder.\n *\n * @param index  the index of the character to be set (must be non-negative and not greater than or equal to the current length)\n * @param ch     the character to be set at the specified index\n * @return      this StrBuilder object for method chaining\n * @throws StringIndexOutOfBoundsException if the index is out of range\n */\n"
+    },
+    {
+        "signature": "public StrBuilder setLength(final int length)",
+        "implementation": "public StrBuilder setLength(final int length) {\n        if (length < 0) {\n            throw new StringIndexOutOfBoundsException(length);\n        }\n        if (length < size) {\n            size = length;\n        } else if (length > size) {\n            ensureCapacity(length);\n            Arrays.fill(buffer, size, length, CharUtils.NUL);\n            size = length;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacity",
+            "fill"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "setLength",
+        "javadoc": "/**\n * Sets the length of this string builder.\n *\n * @param length the new length of the string builder\n * @return this string builder\n * @throws StringIndexOutOfBoundsException if the specified length is negative\n */\n"
+    },
+    {
+        "signature": "public StrBuilder setNewLineText(final String newLine)",
+        "implementation": "public StrBuilder setNewLineText(final String newLine) {\n        this.newLine = newLine;\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "setNewLineText",
+        "javadoc": "/**\n * Sets the text to be used for a new line.\n *\n * @param newLine The text to use for a new line. This value will be used when\n *                {@link StrBuilder#appendNewLine()} is called.\n * @return This instance, allowing method chaining.\n */\n"
+    },
+    {
+        "signature": "public StrBuilder setNullText(String nullText)",
+        "implementation": "public StrBuilder setNullText(String nullText) {\n        if (nullText != null && nullText.isEmpty()) {\n            nullText = null;\n        }\n        this.nullText = nullText;\n        return this;\n    }",
+        "called_methods": [
+            "isEmpty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "setNullText",
+        "javadoc": "/**\n * Sets the text to be displayed when a field is null.\n *\n * @param nullText the text to display when a field is null, or null if no special text should be displayed\n * @return this StrBuilder instance for chaining\n */\n"
+    },
+    {
+        "signature": "public int size()",
+        "implementation": "public int size() {\n        return size;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "size",
+        "javadoc": "/**\n * Returns the number of elements in this collection.\n *\n * @return the number of elements in this collection\n */\n"
+    },
+    {
+        "signature": "public boolean startsWith(final String str)",
+        "implementation": "public boolean startsWith(final String str) {\n        if (str == null) {\n            return false;\n        }\n        final int len = str.length();\n        if (len == 0) {\n            return true;\n        }\n        if (len > size) {\n            return false;\n        }\n        for (int i = 0; i < len; i++) {\n            if (buffer[i] != str.charAt(i)) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "length",
+            "charAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "startsWith",
+        "javadoc": "/**\n * Checks if this string starts with the specified prefix.\n *\n * @param str the prefix to check against\n * @return true if this string starts with the specified prefix, false otherwise\n */\n"
+    },
+    {
+        "signature": "public CharSequence subSequence(final int startIndex, final int endIndex)",
+        "implementation": "public CharSequence subSequence(final int startIndex, final int endIndex) {\n        if (startIndex < 0) {\n            throw new StringIndexOutOfBoundsException(startIndex);\n        }\n        if (endIndex > size) {\n            throw new StringIndexOutOfBoundsException(endIndex);\n        }\n        if (startIndex > endIndex) {\n            throw new StringIndexOutOfBoundsException(endIndex - startIndex);\n        }\n        return substring(startIndex, endIndex);\n    }",
+        "called_methods": [
+            "substring"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "subSequence",
+        "javadoc": "/**\n * Returns a new character sequence that is a subsequence of this sequence.\n * The subsequence begins at the specified {@code startIndex} and ends at\n * the specified {@code endIndex}.\n *\n * @param startIndex the starting index (inclusive) of the subsequence\n * @param endIndex   the ending index (exclusive) of the subsequence\n * @return a new character sequence that is a subsequence of this sequence\n * @throws StringIndexOutOfBoundsException if the start or end index is out of range\n */\n"
+    },
+    {
+        "signature": "public String substring(final int startIndex, int endIndex)",
+        "implementation": "public String substring(final int startIndex, int endIndex) {\n        endIndex = validateRange(startIndex, endIndex);\n        return new String(buffer, startIndex, endIndex - startIndex);\n    }",
+        "called_methods": [
+            "substring",
+            "validateRange"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "substring",
+        "javadoc": "/**\n * Returns a new string that is a substring of this sequence.\n * The substring begins at the specified {@code startIndex} and extends to the character\n * at index {@code endIndex - 1}.\n *\n * @param startIndex the starting index of the substring\n * @param endIndex   the ending index of the substring (exclusive)\n * @return the specified substring\n * @throws StringIndexOutOfBoundsException if the specified range is invalid\n */\n"
+    },
+    {
+        "signature": "public char[] toCharArray(final int startIndex, int endIndex)",
+        "implementation": "public char[] toCharArray(final int startIndex, int endIndex) {\n        endIndex = validateRange(startIndex, endIndex);\n        final int len = endIndex - startIndex;\n        if (len == 0) {\n            return ArrayUtils.EMPTY_CHAR_ARRAY;\n        }\n        final char[] chars = new char[len];\n        System.arraycopy(buffer, startIndex, chars, 0, len);\n        return chars;\n    }",
+        "called_methods": [
+            "copyOf",
+            "validateRange",
+            "arraycopy"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "toCharArray",
+        "javadoc": "/**\n * Converts a portion of the buffer to a character array.\n *\n * @param startIndex the starting index in the buffer (inclusive)\n * @param endIndex   the ending index in the buffer (exclusive)\n * @return a character array containing the characters from the specified range\n */\n"
+    },
+    {
+        "signature": "public StringBuffer toStringBuffer()",
+        "implementation": "public StringBuffer toStringBuffer() {\n        return new StringBuffer(size).append(buffer, 0, size);\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "toStringBuffer",
+        "javadoc": "/**\n * Converts this character buffer into a string buffer.\n *\n * @return A string buffer containing the characters in this buffer.\n */\n"
+    },
+    {
+        "signature": "public StringBuilder toStringBuilder()",
+        "implementation": "public StringBuilder toStringBuilder() {\n        return new StringBuilder(size).append(buffer, 0, size);\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "toStringBuilder",
+        "javadoc": "/**\n * Returns a {@link StringBuilder} containing the characters of this buffer.\n *\n * @return A new {@code StringBuilder} instance populated with the characters\n *         from this buffer.\n */\n"
+    },
+    {
+        "signature": "public StrBuilder trim()",
+        "implementation": "public StrBuilder trim() {\n        if (size == 0) {\n            return this;\n        }\n        int len = size;\n        final char[] buf = buffer;\n        int pos = 0;\n        while (pos < len && buf[pos] <= ' ') {\n            pos++;\n        }\n        while (pos < len && buf[len - 1] <= ' ') {\n            len--;\n        }\n        if (len < size) {\n            delete(len, size);\n        }\n        if (pos > 0) {\n            delete(0, pos);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "delete"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "trim",
+        "javadoc": "/**\n * Trims whitespace from the beginning and end of the string.\n *\n * If the string is empty, returns the original string without modification.\n *\n * @return This StrBuilder object, with leading and trailing whitespace removed.\n */\n"
+    },
+    {
+        "signature": "protected void validateIndex(final int index)",
+        "implementation": "protected void validateIndex(final int index) {\n        if (index < 0 || index > size) {\n            throw new StringIndexOutOfBoundsException(index);\n        }\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "validateIndex",
+        "javadoc": "/**\n * Validates the given index to ensure it falls within the valid range for this collection.\n *\n * @param index the index to validate\n * @throws StringIndexOutOfBoundsException if the index is out of bounds (less than 0 or greater than size)\n */\n"
+    },
+    {
+        "signature": "protected int validateRange(final int startIndex, int endIndex)",
+        "implementation": "protected int validateRange(final int startIndex, int endIndex) {\n        if (startIndex < 0) {\n            throw new StringIndexOutOfBoundsException(startIndex);\n        }\n        if (endIndex > size) {\n            endIndex = size;\n        }\n        if (startIndex > endIndex) {\n            throw new StringIndexOutOfBoundsException(\"end < start\");\n        }\n        return endIndex;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrBuilder.java",
+        "name": "validateRange",
+        "javadoc": "/**\n * Validates the range of indices and returns the end index.\n *\n * @param startIndex The starting index of the range. Must be non-negative.\n * @param endIndex   The ending index of the range. If greater than the size of the string, it will be capped at the size.\n * @return The validated end index of the range.\n * @throws StringIndexOutOfBoundsException if the start index is negative or if the end index is less than the start index.\n */\n"
+    }
+]

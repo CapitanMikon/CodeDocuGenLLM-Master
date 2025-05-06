@@ -1,0 +1,527 @@
+[
+    {
+        "signature": "private static StrTokenizer getCSVClone()",
+        "implementation": "private static StrTokenizer getCSVClone() {\n        return (StrTokenizer) CSV_TOKENIZER_PROTOTYPE.clone();\n    }",
+        "called_methods": [
+            "clone"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getCSVClone",
+        "javadoc": "/**\n * Returns a clone of the CSV tokenizer prototype.\n *\n * @return A cloned instance of the CSV tokenizer prototype.\n */\n",
+        "improved_javadoc": "/**\n * Returns a clone of the CSV tokenizer prototype.\n *\n * @return A cloned instance of the CSV tokenizer prototype.\n */\n"
+    },
+    {
+        "signature": "public static StrTokenizer getCSVInstance(final String input)",
+        "implementation": "public static StrTokenizer getCSVInstance(final String input) {\n        final StrTokenizer tok = getCSVClone();\n        tok.reset(input);\n        return tok;\n    }",
+        "called_methods": [
+            "getCSVClone",
+            "reset"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getCSVInstance",
+        "javadoc": "/**\n * Returns a new instance of CSV tokenizer.\n *\n * @param input the string to be tokenized\n * @return a new instance of CSV tokenizer\n */\n",
+        "improved_javadoc": "/**\n * Returns a new instance of CSV tokenizer.\n *\n * @param input the string to be tokenized, which can be <code>null</code> if no input is provided\n * @return a new instance of CSV tokenizer, initialized with the given input string\n */\n"
+    },
+    {
+        "signature": "private static StrTokenizer getTSVClone()",
+        "implementation": "private static StrTokenizer getTSVClone() {\n        return (StrTokenizer) TSV_TOKENIZER_PROTOTYPE.clone();\n    }",
+        "called_methods": [
+            "clone"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getTSVClone",
+        "javadoc": "/**\n * Returns a clone of the TSV tokenizer prototype.\n *\n * @return A new instance of the TSV tokenizer, cloned from the prototype.\n */\n",
+        "improved_javadoc": "/**\n * Returns a clone of the TSV tokenizer prototype.\n *\n * @return A new instance of the TSV tokenizer, cloned from the prototype.\n */\n"
+    },
+    {
+        "signature": "public static StrTokenizer getTSVInstance(final String input)",
+        "implementation": "public static StrTokenizer getTSVInstance(final String input) {\n        final StrTokenizer tok = getTSVClone();\n        tok.reset(input);\n        return tok;\n    }",
+        "called_methods": [
+            "getTSVClone",
+            "reset"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getTSVInstance",
+        "javadoc": "/**\n * Returns a new instance of TSV tokenizer.\n *\n * @param input The input string to be tokenized. This method will reset the\n *              tokenizer with the provided input.\n *\n * @return A new StrTokenizer instance, initialized with the given input.\n */\n",
+        "improved_javadoc": "/**\n * Returns a new instance of TSV tokenizer.\n *\n * @param input The input string to be tokenized. This method will reset the\n *              tokenizer with the provided input.\n *\n * @return A new StrTokenizer instance, initialized with the given input.\n */\n"
+    },
+    {
+        "signature": "public void add(final String obj)",
+        "implementation": "public void add(final String obj) {\n        throw new UnsupportedOperationException(\"add() is unsupported\");\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "add",
+        "javadoc": "/**\n * Adds an object to this collection.\n *\n * @param obj the object to be added\n * @throws UnsupportedOperationException if adding objects is not supported by this collection\n */\n",
+        "improved_javadoc": "/**\n * Adds an object to this collection.\n *\n * @param obj the object to be added, which must be a {@code String}\n * @throws UnsupportedOperationException if adding objects is not supported by this collection\n */\n"
+    },
+    {
+        "signature": "private void addToken(final List<String> list, String tok)",
+        "implementation": "private void addToken(final List<String> list, String tok) {\n        if (tok == null || tok.isEmpty()) {\n            if (isIgnoreEmptyTokens()) {\n                return;\n            }\n            if (isEmptyTokenAsNull()) {\n                tok = null;\n            }\n        }\n        list.add(tok);\n    }",
+        "called_methods": [
+            "isEmpty",
+            "isIgnoreEmptyTokens",
+            "isEmptyTokenAsNull",
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "addToken",
+        "javadoc": "/**\n * Adds a token to the specified list.\n *\n * If the token is empty and {@link #isIgnoreEmptyTokens()} returns true, \n * this method does nothing. Otherwise, if {@link #isEmptyTokenAsNull()} returns true,\n * an empty string is replaced with null in the list.\n *\n * @param list  the list to add the token to\n * @param tok   the token to be added\n */\n",
+        "improved_javadoc": "/**\n * Adds a token to the specified list.\n *\n * If the token is empty and {@link #isIgnoreEmptyTokens()} returns true, \n * this method does nothing. Otherwise, if {@link #isEmptyTokenAsNull()} returns true,\n * an empty string is replaced with null in the list.\n *\n * @param list  the list to add the token to\n * @param tok   the token to be added\n */\n"
+    },
+    {
+        "signature": "private void checkTokenized()",
+        "implementation": "private void checkTokenized() {\n        if (tokens == null) {\n            if (chars == null) {\n                // still call tokenize as subclass may do some work\n                final List<String> split = tokenize(null, 0, 0);\n                tokens = split.toArray(ArrayUtils.EMPTY_STRING_ARRAY);\n            } else {\n                final List<String> split = tokenize(chars, 0, chars.length);\n                tokens = split.toArray(ArrayUtils.EMPTY_STRING_ARRAY);\n            }\n        }\n    }",
+        "called_methods": [
+            "tokenize",
+            "toArray"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "checkTokenized",
+        "javadoc": "/**\n * Checks if tokenization has been performed and performs it if necessary.\n * If no tokens have been set yet, this method will tokenize the input data\n * (either from a character array or null) and store the result in the 'tokens' field.\n *\n * @throws NullPointerException if the input data is not properly initialized\n */\n",
+        "improved_javadoc": "/**\n * Checks if tokenization has been performed and performs it if necessary.\n * If no tokens have been set yet, this method will tokenize the input data\n * (either from a character array or null) and store the result in the 'tokens' field.\n *\n * @throws NullPointerException if the input data is not properly initialized\n */\n"
+    },
+    {
+        "signature": "public Object clone()",
+        "implementation": "public Object clone() {\n        try {\n            return cloneReset();\n        } catch (final CloneNotSupportedException ex) {\n            return null;\n        }\n    }",
+        "called_methods": [
+            "cloneReset"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "clone",
+        "javadoc": "/**\n * Creates and returns a copy of this object.\n *\n * @return  a new instance of the same class as this object\n */\n",
+        "improved_javadoc": "/**\n * Creates and returns a copy of this object.\n *\n * @return  a new instance of the same class as this object\n */\n"
+    },
+    {
+        "signature": "Object cloneReset() throws CloneNotSupportedException",
+        "implementation": "Object cloneReset() throws CloneNotSupportedException {\n        // this method exists to enable 100% test coverage\n        final StrTokenizer cloned = (StrTokenizer) super.clone();\n        if (cloned.chars != null) {\n            cloned.chars = cloned.chars.clone();\n        }\n        cloned.reset();\n        return cloned;\n    }",
+        "called_methods": [
+            "clone",
+            "reset"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "cloneReset",
+        "javadoc": "/**\n * Creates and returns a copy of this object, enabling 100% test coverage.\n *\n * @return A clone of the current StrTokenizer object\n * @throws CloneNotSupportedException if the object's class does not support the Cloneable interface\n */\n",
+        "improved_javadoc": "/**\n * Creates and returns a copy of this object, enabling 100% test coverage.\n *\n * @return A clone of the current StrTokenizer object\n * @throws CloneNotSupportedException if the object's class does not support the Cloneable interface\n */\n"
+    },
+    {
+        "signature": "public String getContent()",
+        "implementation": "public String getContent() {\n        if (chars == null) {\n            return null;\n        }\n        return new String(chars);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getContent",
+        "javadoc": "/**\n * Returns the content of this object as a string.\n *\n * @return the content, or <code>null</code> if no content is available\n */\n",
+        "improved_javadoc": "/**\n * Returns the content of this object as a string, or <code>null</code> if no character array is available.\n *\n * @return the content as a string, or <code>null</code> if no content is available\n */\n"
+    },
+    {
+        "signature": "public StrMatcher getDelimiterMatcher()",
+        "implementation": "public StrMatcher getDelimiterMatcher() {\n        return this.delimMatcher;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getDelimiterMatcher",
+        "javadoc": "/**\n * Returns a matcher for delimiters.\n *\n * @return A matcher that matches delimiters.\n */\n",
+        "improved_javadoc": "/**\n * Returns a matcher for delimiters, which can be used to match and extract delimiter characters from input strings.\n *\n * @return A matcher that matches delimiters, or null if no delimiter has been configured.\n */\n"
+    },
+    {
+        "signature": "public StrMatcher getIgnoredMatcher()",
+        "implementation": "public StrMatcher getIgnoredMatcher() {\n        return ignoredMatcher;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getIgnoredMatcher",
+        "javadoc": "/**\n * Returns the matcher used to match ignored strings.\n *\n * @return the matcher used to match ignored strings\n */\n",
+        "improved_javadoc": "/**\n * Returns the matcher used to match ignored strings, which are excluded from being processed by this object.\n *\n * @return the matcher used to match ignored strings\n */\n"
+    },
+    {
+        "signature": "public StrMatcher getQuoteMatcher()",
+        "implementation": "public StrMatcher getQuoteMatcher() {\n        return quoteMatcher;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getQuoteMatcher",
+        "javadoc": "/**\n * Returns the quote matcher.\n *\n * @return the quote matcher\n */\n",
+        "improved_javadoc": "/**\n * Returns the quote matcher, which is used to match quotes in a string.\n *\n * @return the quote matcher instance associated with this object\n */\n"
+    },
+    {
+        "signature": "public String[] getTokenArray()",
+        "implementation": "public String[] getTokenArray() {\n        checkTokenized();\n        return tokens.clone();\n    }",
+        "called_methods": [
+            "checkTokenized",
+            "clone"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getTokenArray",
+        "javadoc": "/**\n * Returns an array of tokens.\n *\n * This method clones the internal token array to ensure thread-safety and\n * prevent external modifications.\n *\n * @return An array of tokens.\n */\n",
+        "improved_javadoc": "/**\n * Returns an array of tokens, cloning the internal token array to ensure thread-safety and prevent external modifications.\n *\n * @return An array of tokens. Never returns null.\n */\n"
+    },
+    {
+        "signature": "public List<String> getTokenList()",
+        "implementation": "public List<String> getTokenList() {\n        checkTokenized();\n        final List<String> list = new ArrayList<>(tokens.length);\n        Collections.addAll(list, tokens);\n\n        return list;\n    }",
+        "called_methods": [
+            "checkTokenized",
+            "addAll"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getTokenList",
+        "javadoc": "/**\n * Returns a list of tokens.\n *\n * @return A list of strings representing the tokens.\n */\n",
+        "improved_javadoc": "/**\n * Returns a copy of the token list.\n *\n * @return A list of strings representing the tokens. The returned list is a defensive copy to prevent external modifications.\n */\n"
+    },
+    {
+        "signature": "public StrMatcher getTrimmerMatcher()",
+        "implementation": "public StrMatcher getTrimmerMatcher() {\n        return trimmerMatcher;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "getTrimmerMatcher",
+        "javadoc": "/**\n * Returns a matcher for trimming strings.\n *\n * @return A matcher that can be used to trim strings.\n */\n",
+        "improved_javadoc": "/**\n * Returns a matcher for trimming strings, which can be used to match and replace strings with leading or trailing whitespace characters.\n *\n * @return A matcher that can be used to trim strings by matching and replacing any leading or trailing whitespace characters.\n */\n"
+    },
+    {
+        "signature": "public boolean hasNext()",
+        "implementation": "public boolean hasNext() {\n        checkTokenized();\n        return tokenPos < tokens.length;\n    }",
+        "called_methods": [
+            "checkTokenized"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "hasNext",
+        "javadoc": "/**\n * Checks if there are more elements to process.\n *\n * @return true if there are more elements, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks if there are more elements to process.\n *\n * This method first checks if tokenization has been performed and performs it\n * if necessary. If tokenization is successful, this method returns true if the\n * current position in the tokens array is less than its length, indicating that\n * there are still more elements to process. Otherwise, it returns false.\n *\n * @return true if there are more elements, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean hasPrevious()",
+        "implementation": "public boolean hasPrevious() {\n        checkTokenized();\n        return tokenPos > 0;\n    }",
+        "called_methods": [
+            "checkTokenized"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "hasPrevious",
+        "javadoc": "/**\n * Checks if there are previous tokens.\n *\n * @return true if there are previous tokens, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks if there are previous tokens.\n *\n * @return true if there are previous tokens, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isEmptyTokenAsNull()",
+        "implementation": "public boolean isEmptyTokenAsNull() {\n        return this.emptyAsNull;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "isEmptyTokenAsNull",
+        "javadoc": "/**\n * Checks if an empty token should be treated as null.\n *\n * @return true if an empty token is considered null, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether an empty token should be treated as a null value.\n *\n * @return true if an empty token is considered equivalent to null, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isIgnoreEmptyTokens()",
+        "implementation": "public boolean isIgnoreEmptyTokens() {\n        return ignoreEmptyTokens;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "isIgnoreEmptyTokens",
+        "javadoc": "/**\n * Returns whether empty tokens should be ignored.\n *\n * @return true if empty tokens are to be ignored, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether empty tokens should be ignored during processing.\n *\n * @return true if empty tokens are to be ignored, false otherwise\n */\n"
+    },
+    {
+        "signature": "private boolean isQuote(final char[] srcChars,\n                            final int pos,\n                            final int len,\n                            final int quoteStart,\n                            final int quoteLen)",
+        "implementation": "private boolean isQuote(final char[] srcChars,\n                            final int pos,\n                            final int len,\n                            final int quoteStart,\n                            final int quoteLen) {\n        for (int i = 0; i < quoteLen; i++) {\n            if (pos + i >= len || srcChars[pos + i] != srcChars[quoteStart + i]) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "isQuote",
+        "javadoc": "/**\n * Checks whether a substring of characters in the source array matches a quoted string.\n *\n * @param srcChars  the character array to search in\n * @param pos       the starting position in the character array\n * @param len       the length of the character array\n * @param quoteStart the starting position of the quoted string within the character array\n * @param quoteLen   the length of the quoted string\n *\n * @return true if the substring matches the quoted string, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks whether a substring of characters in the source array matches a quoted string.\n *\n * This method compares the specified substring within the character array with the provided quoted string.\n * It returns {@code true} if all characters in the substring match the corresponding characters in the quoted string,\n * and {@code false} otherwise.\n *\n * @param srcChars  the character array to search in\n * @param pos       the starting position in the character array\n * @param len       the length of the character array\n * @param quoteStart the starting position of the quoted string within the character array\n * @param quoteLen   the length of the quoted string\n *\n * @return {@code true} if the substring matches the quoted string, {@code false} otherwise\n */\n"
+    },
+    {
+        "signature": "public String next()",
+        "implementation": "public String next() {\n        if (hasNext()) {\n            return tokens[tokenPos++];\n        }\n        throw new NoSuchElementException();\n    }",
+        "called_methods": [
+            "hasNext"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "next",
+        "javadoc": "/**\n * Returns the next token from the iterator.\n *\n * @return the next token, or null if there are no more tokens\n * @throws NoSuchElementException if there are no more tokens\n */\n",
+        "improved_javadoc": "/**\n * Returns the next token from the iterator, advancing the position to the next element.\n *\n * @return the next token as a string, or null if there are no more tokens\n * @throws NoSuchElementException if there are no more tokens\n */\n"
+    },
+    {
+        "signature": "public int nextIndex()",
+        "implementation": "public int nextIndex() {\n        return tokenPos;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "nextIndex",
+        "javadoc": "/**\n * Returns the index of the next character to be processed.\n *\n * @return The index of the next character to be processed.\n */\n",
+        "improved_javadoc": "/**\n * Returns the index of the next character in the input stream that should be processed by the parser.\n *\n * @return The index of the next character to be processed, or -1 if there are no more characters.\n */\n"
+    },
+    {
+        "signature": "public String nextToken()",
+        "implementation": "public String nextToken() {\n        if (hasNext()) {\n            return tokens[tokenPos++];\n        }\n        return null;\n    }",
+        "called_methods": [
+            "hasNext"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "nextToken",
+        "javadoc": "/**\n * Retrieves the next token from the input stream.\n *\n * @return The next token, or <code>null</code> if there are no more tokens available.\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the next token from the input stream, advancing the position to the next available token.\n *\n * @return The next token in the sequence, or <code>null</code> if there are no more tokens available.\n */\n"
+    },
+    {
+        "signature": "public String previous()",
+        "implementation": "public String previous() {\n        if (hasPrevious()) {\n            return tokens[--tokenPos];\n        }\n        throw new NoSuchElementException();\n    }",
+        "called_methods": [
+            "hasPrevious"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "previous",
+        "javadoc": "/**\n * Returns the previous token from the iterator.\n *\n * @return The previous token, or null if there are no more tokens.\n * @throws NoSuchElementException If there is no previous token.\n */\n",
+        "improved_javadoc": "/**\n * Returns the previous token from the iterator.\n *\n * @return The previous token, or null if there are no more tokens.\n * @throws NoSuchElementException If there is no previous token.\n */\n"
+    },
+    {
+        "signature": "public int previousIndex()",
+        "implementation": "public int previousIndex() {\n        return tokenPos - 1;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "previousIndex",
+        "javadoc": "/**\n * Returns the index of the previous character.\n *\n * This method returns the index of the character preceding the current\n * character, which is at {@link #tokenPos()}.\n *\n * @return The index of the previous character.\n */\n",
+        "improved_javadoc": "/**\n * Returns the index of the character preceding the current character.\n *\n * This method returns the index of the character that comes before the character at the current position,\n * which is determined by {@link #tokenPos()}. The returned index can be used to access the previous character in a string or other sequence.\n *\n * @return The index of the previous character, or -1 if there is no previous character (i.e., the current position is 0).\n */\n"
+    },
+    {
+        "signature": "public String previousToken()",
+        "implementation": "public String previousToken() {\n        if (hasPrevious()) {\n            return tokens[--tokenPos];\n        }\n        return null;\n    }",
+        "called_methods": [
+            "hasPrevious"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "previousToken",
+        "javadoc": "/**\n * Returns the previous token from the input stream.\n *\n * @return The previous token, or <code>null</code> if there are no more tokens.\n */\n",
+        "improved_javadoc": "/**\n * Returns the previous token from the input stream, moving back one position in the sequence of tokens.\n *\n * @return The previous token, or <code>null</code> if there are no more tokens.\n */\n"
+    },
+    {
+        "signature": "private int readNextToken(final char[] srcChars,\n                              int start,\n                              final int len,\n                              final StrBuilder workArea,\n                              final List<String> tokenList)",
+        "implementation": "private int readNextToken(final char[] srcChars,\n                              int start,\n                              final int len,\n                              final StrBuilder workArea,\n                              final List<String> tokenList) {\n        // skip all leading whitespace, unless it is the\n        // field delimiter or the quote character\n        while (start < len) {\n            final int removeLen = Math.max(\n                    getIgnoredMatcher().isMatch(srcChars, start, start, len),\n                    getTrimmerMatcher().isMatch(srcChars, start, start, len));\n            if (removeLen == 0\n                    || getDelimiterMatcher().isMatch(srcChars, start, start, len) > 0\n                    || getQuoteMatcher().isMatch(srcChars, start, start, len) > 0) {\n                break;\n            }\n            start += removeLen;\n        }\n\n        // handle reaching end\n        if (start >= len) {\n            addToken(tokenList, StringUtils.EMPTY);\n            return -1;\n        }\n\n        // handle empty token\n        final int delimLen = getDelimiterMatcher().isMatch(srcChars, start, start, len);\n        if (delimLen > 0) {\n            addToken(tokenList, StringUtils.EMPTY);\n            return start + delimLen;\n        }\n\n        // handle found token\n        final int quoteLen = getQuoteMatcher().isMatch(srcChars, start, start, len);\n        if (quoteLen > 0) {\n            return readWithQuotes(srcChars, start + quoteLen, len, workArea, tokenList, start, quoteLen);\n        }\n        return readWithQuotes(srcChars, start, len, workArea, tokenList, 0, 0);\n    }",
+        "called_methods": [
+            "max",
+            "getIgnoredMatcher",
+            "isMatch",
+            "getTrimmerMatcher",
+            "getDelimiterMatcher",
+            "getQuoteMatcher",
+            "addToken",
+            "readWithQuotes"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "readNextToken",
+        "javadoc": "/**\n * Reads the next token from the input character array.\n *\n * This method skips leading whitespace and handles tokens enclosed in quotes or separated by a delimiter.\n * It uses the provided {@link StrBuilder} to build the token and adds it to the {@link List} of tokens.\n *\n * @param srcChars  The input character array containing the data to be parsed.\n * @param start     The starting index of the current position in the input array.\n * @param len       The length of the input array.\n * @param workArea  A buffer used for building the token.\n * @param tokenList A list of tokens being built from the input data.\n *\n * @return The index at which the next token starts, or -1 if the end of the input has been reached.\n * @throws Exception If an error occurs during parsing (not explicitly documented as a possible exception).\n */\n",
+        "improved_javadoc": "/**\n * Reads the next token from the input character array.\n *\n * This method skips leading whitespace and handles tokens enclosed in quotes or separated by a delimiter.\n * It uses the provided {@link StrBuilder} to build the token and adds it to the {@link List} of tokens.\n *\n * @param srcChars  The input character array containing the data to be parsed.\n * @param start     The starting index of the current position in the input array.\n * @param len       The length of the input array.\n * @param workArea  A buffer used for building the token.\n * @param tokenList A list of tokens being built from the input data.\n *\n * @return The index at which the next token starts, or -1 if the end of the input has been reached.\n * @throws Exception If an error occurs during parsing (not explicitly documented as a possible exception).\n */\n"
+    },
+    {
+        "signature": "private int readWithQuotes(final char[] srcChars, final int start, final int len, final StrBuilder workArea,\n                               final List<String> tokenList, final int quoteStart, final int quoteLen)",
+        "implementation": "private int readWithQuotes(final char[] srcChars, final int start, final int len, final StrBuilder workArea,\n                               final List<String> tokenList, final int quoteStart, final int quoteLen) {\n        // Loop until we've found the end of the quoted\n        // string or the end of the input\n        workArea.clear();\n        int pos = start;\n        boolean quoting = quoteLen > 0;\n        int trimStart = 0;\n\n        while (pos < len) {\n            // quoting mode can occur several times throughout a string\n            // we must switch between quoting and non-quoting until we\n            // encounter a non-quoted delimiter, or end of string\n            if (quoting) {\n                // In quoting mode\n\n                // If we've found a quote character, see if it's\n                // followed by a second quote.  If so, then we need\n                // to actually put the quote character into the token\n                // rather than end the token.\n                if (isQuote(srcChars, pos, len, quoteStart, quoteLen)) {\n                    if (isQuote(srcChars, pos + quoteLen, len, quoteStart, quoteLen)) {\n                        // matched pair of quotes, thus an escaped quote\n                        workArea.append(srcChars, pos, quoteLen);\n                        pos += quoteLen * 2;\n                        trimStart = workArea.size();\n                        continue;\n                    }\n\n                    // end of quoting\n                    quoting = false;\n                    pos += quoteLen;\n                    continue;\n                }\n\n            } else {\n                // Not in quoting mode\n\n                // check for delimiter, and thus end of token\n                final int delimLen = getDelimiterMatcher().isMatch(srcChars, pos, start, len);\n                if (delimLen > 0) {\n                    // return condition when end of token found\n                    addToken(tokenList, workArea.substring(0, trimStart));\n                    return pos + delimLen;\n                }\n\n                // check for quote, and thus back into quoting mode\n                if (quoteLen > 0 && isQuote(srcChars, pos, len, quoteStart, quoteLen)) {\n                    quoting = true;\n                    pos += quoteLen;\n                    continue;\n                }\n\n                // check for ignored (outside quotes), and ignore\n                final int ignoredLen = getIgnoredMatcher().isMatch(srcChars, pos, start, len);\n                if (ignoredLen > 0) {\n                    pos += ignoredLen;\n                    continue;\n                }\n\n                // check for trimmed character\n                // don't yet know if its at the end, so copy to workArea\n                // use trimStart to keep track of trim at the end\n                final int trimmedLen = getTrimmerMatcher().isMatch(srcChars, pos, start, len);\n                if (trimmedLen > 0) {\n                    workArea.append(srcChars, pos, trimmedLen);\n                    pos += trimmedLen;\n                    continue;\n                }\n\n            }\n            // copy regular character from inside quotes\n            workArea.append(srcChars[pos++]);\n            trimStart = workArea.size();\n        }\n\n        // return condition when end of string found\n        addToken(tokenList, workArea.substring(0, trimStart));\n        return -1;\n    }",
+        "called_methods": [
+            "clear",
+            "isQuote",
+            "append",
+            "size",
+            "getDelimiterMatcher",
+            "isMatch",
+            "addToken",
+            "substring",
+            "getIgnoredMatcher",
+            "getTrimmerMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "readWithQuotes",
+        "javadoc": "/**\n * Reads a token from the input source with quotes.\n *\n * This method reads a token from the input source and adds it to the token list.\n * It handles quoted strings by switching between quoting and non-quoting modes.\n * If a quote character is found, it checks if it's followed by another quote,\n * indicating an escaped quote. The method also handles delimiters, ignored characters,\n * and trimmed characters.\n *\n * @param srcChars the input source\n * @param start the starting position of the token in the input source\n * @param len the length of the token in the input source\n * @param workArea a temporary buffer to store the token\n * @param tokenList the list of tokens being built\n * @param quoteStart the starting position of the quote character in the input source\n * @param quoteLen the length of the quote character in the input source\n *\n * @return the ending position of the token in the input source, or -1 if the end of the string is reached\n */\n",
+        "improved_javadoc": "/**\n * Reads a token from the input source with quotes.\n *\n * This method reads a token from the input source and adds it to the token list.\n * It handles quoted strings by switching between quoting and non-quoting modes.\n * If a quote character is found, it checks if it's followed by another quote,\n * indicating an escaped quote. The method also handles delimiters, ignored characters,\n * and trimmed characters.\n *\n * @param srcChars the input source\n * @param start the starting position of the token in the input source\n * @param len the length of the token in the input source\n * @param workArea a temporary buffer to store the token\n * @param tokenList the list of tokens being built\n * @param quoteStart the starting position of the quote character in the input source\n * @param quoteLen the length of the quote character in the input source\n *\n * @return the ending position of the token in the input source, or -1 if the end of the string is reached\n */\n"
+    },
+    {
+        "signature": "public void remove()",
+        "implementation": "public void remove() {\n        throw new UnsupportedOperationException(\"remove() is unsupported\");\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "remove",
+        "javadoc": "/**\n * Removes this element from the collection.\n *\n * This operation is not supported and will always throw an\n * {@link UnsupportedOperationException}.\n */\n",
+        "improved_javadoc": "/**\n * Removes this element from the collection, if supported by the underlying data structure.\n *\n * @throws UnsupportedOperationException if removal of elements is not supported by the collection.\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer reset(final String input)",
+        "implementation": "public StrTokenizer reset(final String input) {\n        reset();\n        if (input != null) {\n            this.chars = input.toCharArray();\n        } else {\n            this.chars = null;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "reset",
+            "clone",
+            "toCharArray"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "reset",
+        "javadoc": "/**\n * Resets the tokenizer with a new input string.\n *\n * @param input The input string to tokenize. May be <code>null</code> to reset without changing the current state.\n * @return This tokenizer instance, allowing for chaining of calls.\n */\n",
+        "improved_javadoc": "/**\n * Resets the tokenizer with a new input string.\n *\n * @param input The input string to tokenize. May be <code>null</code> to reset without changing the current state.\n * @return This tokenizer instance, allowing for chaining of calls.\n */\n"
+    },
+    {
+        "signature": "public void set(final String obj)",
+        "implementation": "public void set(final String obj) {\n        throw new UnsupportedOperationException(\"set() is unsupported\");\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "set",
+        "javadoc": "/**\n * Sets the object.\n *\n * This operation is currently unsupported and will always throw an\n * {@link UnsupportedOperationException}.\n *\n * @param obj the object to be set\n */\n",
+        "improved_javadoc": "/**\n * Sets the object.\n *\n * This operation is currently unsupported and will always throw an {@link UnsupportedOperationException}.\n *\n * @param obj the object to be set, which must not be null\n * @throws UnsupportedOperationException if this operation is attempted\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setDelimiterChar(final char delim)",
+        "implementation": "public StrTokenizer setDelimiterChar(final char delim) {\n        return setDelimiterMatcher(StrMatcher.charMatcher(delim));\n    }",
+        "called_methods": [
+            "setDelimiterMatcher",
+            "charMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setDelimiterChar",
+        "javadoc": "/**\n * Sets the delimiter character used by this tokenizer.\n *\n * @param delim the new delimiter character\n * @return this tokenizer instance (for chaining)\n */\n",
+        "improved_javadoc": "/**\n * Sets the delimiter character used by this tokenizer.\n *\n * This method sets a custom delimiter matcher that matches only the specified character.\n * If no match is found, the default behavior of the tokenizer will be restored.\n *\n * @param delim the new delimiter character\n * @return this tokenizer instance (for chaining)\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setDelimiterMatcher(final StrMatcher delim)",
+        "implementation": "public StrTokenizer setDelimiterMatcher(final StrMatcher delim) {\n        if (delim == null) {\n            this.delimMatcher = StrMatcher.noneMatcher();\n        } else {\n            this.delimMatcher = delim;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "noneMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setDelimiterMatcher",
+        "javadoc": "/**\n * Sets a custom delimiter matcher.\n *\n * @param delim the custom delimiter matcher to use, or null to reset to default behavior\n * @return this tokenizer instance for chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets a custom delimiter matcher.\n *\n * @param delim the custom delimiter matcher to use, or null to reset to default behavior\n * @return this tokenizer instance for chaining\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setDelimiterString(final String delim)",
+        "implementation": "public StrTokenizer setDelimiterString(final String delim) {\n        return setDelimiterMatcher(StrMatcher.stringMatcher(delim));\n    }",
+        "called_methods": [
+            "setDelimiterMatcher",
+            "stringMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setDelimiterString",
+        "javadoc": "/**\n * Sets the delimiter string used for tokenization.\n *\n * @param delim the new delimiter string\n * @return this tokenizer object, allowing for chaining of operations\n */\n",
+        "improved_javadoc": "/**\n * Sets the delimiter string used for tokenization.\n *\n * This method sets a custom delimiter matcher by creating a new matcher from the given delimiter string.\n * If the input string is empty, it returns a default matcher (NONE_MATCHER).\n * Otherwise, creates a new matcher from the character array representation of the string.\n *\n * @param delim the new delimiter string\n * @return this tokenizer object, allowing for chaining of operations\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setEmptyTokenAsNull(final boolean emptyAsNull)",
+        "implementation": "public StrTokenizer setEmptyTokenAsNull(final boolean emptyAsNull) {\n        this.emptyAsNull = emptyAsNull;\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setEmptyTokenAsNull",
+        "javadoc": "/**\n * Sets whether an empty token should be treated as null.\n *\n * @param emptyAsNull true if an empty token should be treated as null, false otherwise\n * @return this tokenizer for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets whether an empty token should be treated as null.\n *\n * @param emptyAsNull true if an empty token should be treated as null, false otherwise\n * @return this tokenizer for method chaining\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setIgnoredChar(final char ignored)",
+        "implementation": "public StrTokenizer setIgnoredChar(final char ignored) {\n        return setIgnoredMatcher(StrMatcher.charMatcher(ignored));\n    }",
+        "called_methods": [
+            "setIgnoredMatcher",
+            "charMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setIgnoredChar",
+        "javadoc": "/**\n * Sets a character to be ignored by this tokenizer.\n *\n * @param ignored The character to ignore. This value is passed to the\n *                {@link StrMatcher#charMatcher(char)} method to create a matcher.\n * @return This tokenizer instance, allowing method chaining.\n */\n",
+        "improved_javadoc": "/**\n * Sets a character to be ignored by this tokenizer.\n *\n * @param ignored The character to ignore. This value is passed to the\n *                {@link StrMatcher#charMatcher(char)} method to create a matcher.\n * @return This tokenizer instance, allowing method chaining.\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setIgnoredMatcher(final StrMatcher ignored)",
+        "implementation": "public StrTokenizer setIgnoredMatcher(final StrMatcher ignored) {\n        if (ignored != null) {\n            this.ignoredMatcher = ignored;\n        }\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setIgnoredMatcher",
+        "javadoc": "/**\n * Sets a matcher that will be used to ignore certain tokens.\n *\n * @param ignored the matcher to use for ignoring tokens, or null if no matcher should be used\n * @return this tokenizer instance (for chaining)\n */\n",
+        "improved_javadoc": "/**\n * Sets a matcher that will be used to ignore certain tokens.\n *\n * @param ignored the matcher to use for ignoring tokens, or null if no matcher should be used\n * @return this tokenizer instance (for chaining)\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setIgnoreEmptyTokens(final boolean ignoreEmptyTokens)",
+        "implementation": "public StrTokenizer setIgnoreEmptyTokens(final boolean ignoreEmptyTokens) {\n        this.ignoreEmptyTokens = ignoreEmptyTokens;\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setIgnoreEmptyTokens",
+        "javadoc": "/**\n * Sets whether to ignore empty tokens or not.\n *\n * @param ignoreEmptyTokens true if empty tokens should be ignored, false otherwise\n * @return this tokenizer instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets whether to ignore empty tokens or not.\n *\n * @param ignoreEmptyTokens true if empty tokens should be ignored, false otherwise\n * @return this tokenizer instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setQuoteChar(final char quote)",
+        "implementation": "public StrTokenizer setQuoteChar(final char quote) {\n        return setQuoteMatcher(StrMatcher.charMatcher(quote));\n    }",
+        "called_methods": [
+            "setQuoteMatcher",
+            "charMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setQuoteChar",
+        "javadoc": "/**\n * Sets the character used to enclose quoted strings.\n *\n * @param quote the character to use as a quote\n * @return this tokenizer object\n */\n",
+        "improved_javadoc": "/**\n * Sets the character used to enclose quoted strings by setting a custom matcher that matches the specified character.\n *\n * @param quote the character to use as a quote\n * @return this tokenizer object\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setQuoteMatcher(final StrMatcher quote)",
+        "implementation": "public StrTokenizer setQuoteMatcher(final StrMatcher quote) {\n        if (quote != null) {\n            this.quoteMatcher = quote;\n        }\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setQuoteMatcher",
+        "javadoc": "/**\n * Sets a custom matcher to match quotes.\n *\n * @param quote the custom matcher to use, or {@code null} to reset to default behavior\n * @return this tokenizer instance (for chaining)\n */\n",
+        "improved_javadoc": "/**\n * Sets a custom matcher to match quotes, overriding the default behavior.\n *\n * @param quote the custom matcher to use, or {@code null} to reset to the default behavior\n * @return this tokenizer instance (for chaining)\n */\n"
+    },
+    {
+        "signature": "public StrTokenizer setTrimmerMatcher(final StrMatcher trimmer)",
+        "implementation": "public StrTokenizer setTrimmerMatcher(final StrMatcher trimmer) {\n        if (trimmer != null) {\n            this.trimmerMatcher = trimmer;\n        }\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "setTrimmerMatcher",
+        "javadoc": "/**\n * Sets a custom trimmer matcher for tokenization.\n *\n * @param trimmer the custom trimmer matcher to use, or {@code null} to reset\n *                to default behavior. If not {@code null}, it will be stored as\n *                the new trimmer matcher.\n * @return this tokenizer instance for method chaining.\n */\n",
+        "improved_javadoc": "/**\n * Sets a custom trimmer matcher for tokenization.\n *\n * @param trimmer the custom {@link StrMatcher} to use, or {@code null} to reset\n *                to default behavior. If not {@code null}, it will be stored as\n *                the new trimmer matcher.\n * @return this tokenizer instance for method chaining.\n */\n"
+    },
+    {
+        "signature": "public int size()",
+        "implementation": "public int size() {\n        checkTokenized();\n        return tokens.length;\n    }",
+        "called_methods": [
+            "checkTokenized"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "size",
+        "javadoc": "/**\n * Returns the number of tokens in the tokenized input.\n *\n * @return The number of tokens in the tokenized input.\n */\n",
+        "improved_javadoc": "/**\n * Returns the number of tokens in the tokenized input, or 0 if no tokenization has been performed.\n *\n * @return The number of tokens in the tokenized input. If no tokenization has been performed, this method will first perform tokenization and store the result in the 'tokens' field.\n */\n"
+    },
+    {
+        "signature": "protected List<String> tokenize(final char[] srcChars, final int offset, final int count)",
+        "implementation": "protected List<String> tokenize(final char[] srcChars, final int offset, final int count) {\n        if (srcChars == null || count == 0) {\n            return Collections.emptyList();\n        }\n        final StrBuilder buf = new StrBuilder();\n        final List<String> tokenList = new ArrayList<>();\n        int pos = offset;\n\n        // loop around the entire buffer\n        while (pos >= 0 && pos < count) {\n            // find next token\n            pos = readNextToken(srcChars, pos, count, buf, tokenList);\n\n            // handle case where end of string is a delimiter\n            if (pos >= count) {\n                addToken(tokenList, StringUtils.EMPTY);\n            }\n        }\n        return tokenList;\n    }",
+        "called_methods": [
+            "emptyList",
+            "readNextToken",
+            "addToken"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\StrTokenizer.java",
+        "name": "tokenize",
+        "javadoc": "/**\n * Tokenizes the input character array into a list of strings.\n *\n * @param srcChars  The input character array to tokenize.\n * @param offset    The starting position in the input array to begin tokenization.\n * @param count     The number of characters in the input array to process.\n * @return          A list of tokens extracted from the input array.\n */\n",
+        "improved_javadoc": "/**\n * Tokenizes the input character array into a list of strings.\n *\n * This method iterates over the input character array, using the {@link #readNextToken(char[], int, int, StrBuilder, List)} \n * and {@link #addToken(List, String)} methods to extract tokens. It handles cases where the end of the string is a delimiter.\n *\n * @param srcChars  The input character array to tokenize.\n * @param offset    The starting position in the input array to begin tokenization.\n * @param count     The number of characters in the input array to process.\n * @return          A list of tokens extracted from the input array.\n */\n"
+    }
+]

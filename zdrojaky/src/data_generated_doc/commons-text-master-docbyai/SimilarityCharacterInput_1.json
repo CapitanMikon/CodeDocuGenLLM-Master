@@ -1,0 +1,48 @@
+[
+    {
+        "signature": "public Character at(final int index)",
+        "implementation": "public Character at(final int index) {\n        // Character.valueOf caches character <= 127.\n        return Character.valueOf(cs.charAt(index));\n    }",
+        "called_methods": [
+            "valueOf",
+            "charAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityCharacterInput.java",
+        "name": "at",
+        "javadoc": "/**\n * Returns the character at the specified index in this string.\n *\n * @param index the index of the character to be returned\n * @return the character at the specified index\n */\n"
+    },
+    {
+        "signature": "public boolean equals(final Object obj)",
+        "implementation": "public boolean equals(final Object obj) {\n        if (this == obj) {\n            return true;\n        }\n        if (obj == null) {\n            return false;\n        }\n        if (getClass() != obj.getClass()) {\n            return false;\n        }\n        final SimilarityCharacterInput other = (SimilarityCharacterInput) obj;\n        return Objects.equals(cs, other.cs);\n    }",
+        "called_methods": [
+            "getClass",
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityCharacterInput.java",
+        "name": "equals",
+        "javadoc": "/**\n * Indicates whether some other object is \"equal to\" this one.\n *\n * @param obj the reference object with which to compare.\n * @return true if this object is the same as the obj argument; false otherwise.\n */\n"
+    },
+    {
+        "signature": "public int hashCode()",
+        "implementation": "public int hashCode() {\n        return Objects.hash(cs);\n    }",
+        "called_methods": [
+            "hash"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityCharacterInput.java",
+        "name": "hashCode",
+        "javadoc": "/**\n * Returns a hash code value for the object.\n *\n * This implementation uses the {@link Objects#hash(Object...)} method to compute\n * a hash code based on the contents of the <code>cs</code> field.\n *\n * @return  a hash code value for this object\n */\n"
+    },
+    {
+        "signature": "public int length()",
+        "implementation": "public int length() {\n        return cs.length();\n    }",
+        "called_methods": [
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\SimilarityCharacterInput.java",
+        "name": "length",
+        "javadoc": "/**\n * Returns the number of characters in this string.\n *\n * @return The length of the character sequence represented by this object.\n */\n"
+    }
+]

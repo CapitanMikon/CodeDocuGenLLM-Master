@@ -1,0 +1,53 @@
+[
+    {
+        "signature": "static void clear()",
+        "implementation": "static void clear() {\n        CONSTANT_CACHE.clear();\n    }",
+        "called_methods": [
+            "clear"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ConstantStringLookup.java",
+        "name": "clear",
+        "javadoc": "/**\n     * Clears the shared cache with the so far resolved constants.\n     */"
+    },
+    {
+        "signature": "protected Class<?> fetchClass(final String className) throws ClassNotFoundException",
+        "implementation": "protected Class<?> fetchClass(final String className) throws ClassNotFoundException {\n        return ClassUtils.getClass(className);\n    }",
+        "called_methods": [
+            "getClass"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ConstantStringLookup.java",
+        "name": "fetchClass",
+        "javadoc": "/**\n     * Loads the class with the specified name. If an application has special needs regarding the class loaders to be\n     * used, it can hook in here. This implementation delegates to the {@code getClass()} method of Commons Lang's\n     * <code><a href=\"https://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html\">\n     * ClassUtils</a></code>.\n     *\n     * @param className the name of the class to be loaded\n     * @return The corresponding class object\n     * @throws ClassNotFoundException if the class cannot be loaded\n     */"
+    },
+    {
+        "signature": "public synchronized String lookup(final String key)",
+        "implementation": "public synchronized String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        String result;\n        result = CONSTANT_CACHE.get(key);\n        if (result != null) {\n            return result;\n        }\n        final int fieldPos = key.lastIndexOf(FIELD_SEPARATOR);\n        if (fieldPos < 0) {\n            return null;\n        }\n        try {\n            final Object value = resolveField(key.substring(0, fieldPos), key.substring(fieldPos + 1));\n            if (value != null) {\n                final String string = Objects.toString(value, null);\n                CONSTANT_CACHE.put(key, string);\n                result = string;\n            }\n        } catch (final Exception ex) {\n            // TODO it would be nice to log\n            return null;\n        }\n        return result;\n    }",
+        "called_methods": [
+            "get",
+            "lastIndexOf",
+            "resolveField",
+            "substring",
+            "toString",
+            "put"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ConstantStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n     * Tries to resolve the specified variable. The passed in variable name is interpreted as the name of a <b>static\n     * final</b> member field of a class. If the value has already been obtained, it can be retrieved from an internal\n     * cache. Otherwise this method will invoke the {@code resolveField()} method and pass in the name of the class and\n     * the field.\n     *\n     * @param key the name of the variable to be resolved\n     * @return The value of this variable or <strong>null</strong> if it cannot be resolved\n     */"
+    },
+    {
+        "signature": "protected Object resolveField(final String className, final String fieldName) throws ReflectiveOperationException",
+        "implementation": "protected Object resolveField(final String className, final String fieldName) throws ReflectiveOperationException {\n        final Class<?> clazz = fetchClass(className);\n        if (clazz == null) {\n            return null;\n        }\n        return clazz.getField(fieldName).get(null);\n    }",
+        "called_methods": [
+            "fetchClass",
+            "getField",
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\ConstantStringLookup.java",
+        "name": "resolveField",
+        "javadoc": "/**\n     * Determines the value of the specified constant member field of a class. This implementation will call\n     * {@code fetchClass()} to obtain the {@link Class} object for the target class. Then it will use\n     * reflection to obtain the field's value. For this to work the field must be accessible.\n     *\n     * @param className the name of the class\n     * @param fieldName the name of the member field of that class to read\n     * @return The field's value\n     * @throws ReflectiveOperationException if an error occurs\n     */"
+    }
+]

@@ -1,0 +1,61 @@
+[
+    {
+        "signature": "public boolean equals(final Object o)",
+        "implementation": "public boolean equals(final Object o) {\n        if (this == o) {\n            return true;\n        }\n        if (o == null || getClass() != o.getClass()) {\n            return false;\n        }\n        final LevenshteinResults result = (LevenshteinResults) o;\n        return Objects.equals(distance, result.distance) && Objects.equals(insertCount, result.insertCount)\n                && Objects.equals(deleteCount, result.deleteCount)\n                && Objects.equals(substituteCount, result.substituteCount);\n    }",
+        "called_methods": [
+            "getClass",
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "equals",
+        "javadoc": ""
+    },
+    {
+        "signature": "public Integer getDeleteCount()",
+        "implementation": "public Integer getDeleteCount() {\n        return deleteCount;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "getDeleteCount",
+        "javadoc": "/**\n     * Gets the number of character deletion needed to change one character sequence to other.\n     *\n     * @return delete character count\n     */"
+    },
+    {
+        "signature": "public Integer getDistance()",
+        "implementation": "public Integer getDistance() {\n        return distance;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "getDistance",
+        "javadoc": "/**\n     * Gets the distance between two character sequences.\n     *\n     * @return distance between two character sequence\n     */"
+    },
+    {
+        "signature": "public Integer getInsertCount()",
+        "implementation": "public Integer getInsertCount() {\n        return insertCount;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "getInsertCount",
+        "javadoc": "/**\n     * Gets the number of insertion needed to change one character sequence into another.\n     *\n     * @return insert character count\n     */"
+    },
+    {
+        "signature": "public Integer getSubstituteCount()",
+        "implementation": "public Integer getSubstituteCount() {\n        return substituteCount;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "getSubstituteCount",
+        "javadoc": "/**\n     * Gets the number of character substitution needed to change one character sequence into another.\n     *\n     * @return substitute character count\n     */"
+    },
+    {
+        "signature": "public int hashCode()",
+        "implementation": "public int hashCode() {\n        return Objects.hash(distance, insertCount, deleteCount, substituteCount);\n    }",
+        "called_methods": [
+            "hash"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LevenshteinResults.java",
+        "name": "hashCode",
+        "javadoc": ""
+    }
+]

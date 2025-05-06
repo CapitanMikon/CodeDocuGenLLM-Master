@@ -1,0 +1,15 @@
+[
+    {
+        "signature": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right)",
+        "implementation": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {\n        return 1.0 - JaccardSimilarity.INSTANCE.apply(left, right).doubleValue();\n    }",
+        "called_methods": [
+            "apply",
+            "input",
+            "doubleValue"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\JaccardDistance.java",
+        "name": "apply",
+        "javadoc": "/**\n * Calculates the similarity between two sets of elements.\n *\n * This method applies the Jaccard Similarity formula to the input sets and returns a value between 0.0 (completely dissimilar) and 1.0 (identical).\n *\n * @param left The first set of elements.\n * @param right The second set of elements.\n * @return A double value representing the similarity between the two sets, where higher values indicate greater similarity.\n */\n"
+    }
+]

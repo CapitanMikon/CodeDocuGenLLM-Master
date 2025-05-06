@@ -1,0 +1,29 @@
+[
+    {
+        "signature": "static <U, T> BiFunctionStringLookup<U, T> on(final Map<String, T> map)",
+        "implementation": "static <U, T> BiFunctionStringLookup<U, T> on(final Map<String, T> map) {\n        return on((key, u) -> map.get(key));\n    }",
+        "called_methods": [
+            "on",
+            "get"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\BiFunctionStringLookup.java",
+        "name": "on",
+        "javadoc": "/**\n * Creates a function that looks up values in the given map.\n *\n * @param map the map to look up values from\n * @return a function that takes a key and a value of type U, and returns the corresponding value of type T from the map\n */\n",
+        "improved_javadoc": "/**\n * Creates a function that looks up values in the provided map.\n *\n * @param map the map to look up values from, where keys are of type String and values are of type T\n * @return a function that takes a key (of type String) and a value of type U, and returns the corresponding value of type T from the map\n */\n"
+    },
+    {
+        "signature": "public String lookup(final String key, final P object)",
+        "implementation": "public String lookup(final String key, final P object) {\n        if (biFunction == null) {\n            return null;\n        }\n        final R obj;\n        try {\n            obj = biFunction.apply(key, object);\n        } catch (final SecurityException | NullPointerException | IllegalArgumentException e) {\n            // Squelched. All lookup(String) will return null.\n            // Could be a ConcurrentHashMap and a null key request\n            return null;\n        }\n        return Objects.toString(obj, null);\n    }",
+        "called_methods": [
+            "lookup",
+            "apply",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\BiFunctionStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up an object in this map using the provided key and object.\n *\n * @param key   the key to look up\n * @param object the object associated with the key\n * @return the value associated with the key, or null if no mapping of the key is found,\n *         or if a security exception, NullPointerException, or IllegalArgumentException occurs\n * @throws NullPointerException if the provided key or object is null\n */\n",
+        "improved_javadoc": "/**\n * Performs a functional-style lookup of an object in this map using the provided key and object.\n *\n * @param key   the key to look up\n * @param object the object associated with the key\n * @return      the value associated with the key, or null if no mapping of the key is found,\n *              or if a security exception, NullPointerException, or IllegalArgumentException occurs\n * @throws NullPointerException if the provided key or object is null\n */\n"
+    }
+]

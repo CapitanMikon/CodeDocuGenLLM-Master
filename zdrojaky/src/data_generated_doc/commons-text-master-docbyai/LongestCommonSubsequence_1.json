@@ -1,0 +1,93 @@
+[
+    {
+        "signature": "private static int[] algorithmB(final CharSequence left, final CharSequence right)",
+        "implementation": "private static int[] algorithmB(final CharSequence left, final CharSequence right) {\n        final int m = left.length();\n        final int n = right.length();\n        // Creating an array for storing two rows of DP table\n        final int[][] dpRows = new int[2][1 + n];\n        for (int i = 1; i <= m; i++) {\n            // K(0, j) <- K(1, j) [j = 0...n], as per the paper:\n            // Since we have references in Java, we can swap references instead of literal copying.\n            // We could also use a \"binary index\" using modulus operator, but directly swapping the\n            // two rows helps readability and keeps the code consistent with the algorithm description\n            // in the paper.\n            final int[] temp = dpRows[0];\n            dpRows[0] = dpRows[1];\n            dpRows[1] = temp;\n\n            for (int j = 1; j <= n; j++) {\n                if (left.charAt(i - 1) == right.charAt(j - 1)) {\n                    dpRows[1][j] = dpRows[0][j - 1] + 1;\n                } else {\n                    dpRows[1][j] = Math.max(dpRows[1][j - 1], dpRows[0][j]);\n                }\n            }\n        }\n        // LL(j) <- K(1, j) [j=0...n], as per the paper:\n        // We don't need literal copying of the array, we can just return the reference\n        return dpRows[1];\n    }",
+        "called_methods": [
+            "length",
+            "charAt",
+            "max"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LongestCommonSubsequence.java",
+        "name": "algorithmB",
+        "javadoc": "/**\n * Computes the longest common subsequence (LCS) between two input sequences using dynamic programming.\n *\n * @param left  the first input sequence\n * @param right the second input sequence\n * @return an array representing the LCS, where the value at index j is the length of the LCS up to that point\n */\n"
+    },
+    {
+        "signature": "private static String algorithmC(final CharSequence left, final CharSequence right)",
+        "implementation": "private static String algorithmC(final CharSequence left, final CharSequence right) {\n        final int m = left.length();\n        final int n = right.length();\n        final StringBuilder out = new StringBuilder();\n        if (m == 1) { // Handle trivial cases, as per the paper\n            final char leftCh = left.charAt(0);\n            for (int j = 0; j < n; j++) {\n                if (leftCh == right.charAt(j)) {\n                    out.append(leftCh);\n                    break;\n                }\n            }\n        } else if (n > 0 && m > 1) {\n            final int mid = m / 2; // Find the middle point\n            final CharSequence leftFirstPart = left.subSequence(0, mid);\n            final CharSequence leftSecondPart = left.subSequence(mid, m);\n            // Step 3 of the algorithm: two calls to Algorithm B\n            final int[] l1 = algorithmB(leftFirstPart, right);\n            final int[] l2 = algorithmB(reverse(leftSecondPart), reverse(right));\n            // Find k, as per the Step 4 of the algorithm\n            int k = 0;\n            int t = 0;\n            for (int j = 0; j <= n; j++) {\n                final int s = l1[j] + l2[n - j];\n                if (t < s) {\n                    t = s;\n                    k = j;\n                }\n            }\n            // Step 5: solve simpler problems, recursively\n            out.append(algorithmC(leftFirstPart, right.subSequence(0, k)));\n            out.append(algorithmC(leftSecondPart, right.subSequence(k, n)));\n        }\n\n        return out.toString();\n    }",
+        "called_methods": [
+            "length",
+            "charAt",
+            "append",
+            "subSequence",
+            "algorithmB",
+            "reverse",
+            "algorithmC",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LongestCommonSubsequence.java",
+        "name": "algorithmC",
+        "javadoc": "/**\n * This method implements a string matching algorithm.\n *\n * The algorithm is based on the paper and handles trivial cases first. It then splits the input strings into two parts,\n * applies Algorithm B to each part, and combines the results to find the maximum number of matches.\n *\n * @param left  the first input string\n * @param right the second input string\n * @return a string representing the result of the algorithm\n */\n"
+    },
+    {
+        "signature": "private static String reverse(final CharSequence s)",
+        "implementation": "private static String reverse(final CharSequence s) {\n        return new StringBuilder(s).reverse().toString();\n    }",
+        "called_methods": [
+            "reverse",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LongestCommonSubsequence.java",
+        "name": "reverse",
+        "javadoc": "/**\n * Reverses the input character sequence.\n *\n * @param s the input character sequence to be reversed\n * @return a new string that is the reverse of the input sequence\n */\n"
+    },
+    {
+        "signature": "public Integer apply(final CharSequence left, final CharSequence right)",
+        "implementation": "public Integer apply(final CharSequence left, final CharSequence right) {\n        // Quick return for invalid inputs\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"Inputs must not be null\");\n        }\n        // Find lengths of two strings\n        final int leftSz = left.length();\n        final int rightSz = right.length();\n        // Check if we can avoid calling algorithmB which involves heap space allocation\n        if (leftSz == 0 || rightSz == 0) {\n            return 0;\n        }\n        // Check if we can save even more space\n        if (leftSz < rightSz) {\n            return algorithmB(right, left)[leftSz];\n        }\n        return algorithmB(left, right)[rightSz];\n    }",
+        "called_methods": [
+            "length",
+            "algorithmB"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LongestCommonSubsequence.java",
+        "name": "apply",
+        "javadoc": "/**\n * Applies a string comparison operation to two input strings.\n *\n * This method is designed to efficiently compare two strings by avoiding unnecessary heap space allocation\n * when possible. It uses algorithmB to perform the actual comparison, but with some optimizations to reduce memory usage.\n *\n * @param left  The first input string to be compared.\n * @param right The second input string to be compared.\n * @return      The result of the comparison operation (0 if inputs are equal).\n * @throws      IllegalArgumentException If either input is null.\n */\n"
+    },
+    {
+        "signature": "public CharSequence logestCommonSubsequence(final CharSequence left, final CharSequence right)",
+        "implementation": "public CharSequence logestCommonSubsequence(final CharSequence left, final CharSequence right) {\n        return longestCommonSubsequence(left, right);\n    }",
+        "called_methods": [
+            "longestCommonSubsequence"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LongestCommonSubsequence.java",
+        "name": "logestCommonSubsequence",
+        "javadoc": "/**\n * Returns the longest common subsequence of two character sequences.\n *\n * @param left  the first character sequence\n * @param right the second character sequence\n * @return the longest common subsequence of {@code left} and {@code right}\n */\n"
+    },
+    {
+        "signature": "public CharSequence longestCommonSubsequence(final CharSequence left, final CharSequence right)",
+        "implementation": "public CharSequence longestCommonSubsequence(final CharSequence left, final CharSequence right) {\n        // Quick return\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"Inputs must not be null\");\n        }\n        // Find lengths of two strings\n        final int leftSz = left.length();\n        final int rightSz = right.length();\n\n        // Check if we can avoid calling algorithmC which involves heap space allocation\n        if (leftSz == 0 || rightSz == 0) {\n            return \"\";\n        }\n\n        // Check if we can save even more space\n        if (leftSz < rightSz) {\n            return algorithmC(right, left);\n        }\n        return algorithmC(left, right);\n    }",
+        "called_methods": [
+            "length",
+            "algorithmC"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LongestCommonSubsequence.java",
+        "name": "longestCommonSubsequence",
+        "javadoc": "/**\n * Finds the longest common subsequence between two input sequences.\n *\n * @param left  The first sequence to compare.\n * @param right The second sequence to compare.\n * @return The longest common subsequence between {@code left} and {@code right}.\n * @throws IllegalArgumentException if either of the input sequences is null.\n */\n"
+    },
+    {
+        "signature": "public int[][] longestCommonSubstringLengthArray(final CharSequence left, final CharSequence right)",
+        "implementation": "public int[][] longestCommonSubstringLengthArray(final CharSequence left, final CharSequence right) {\n        final int[][] lcsLengthArray = new int[left.length() + 1][right.length() + 1];\n        for (int i = 0; i < left.length(); i++) {\n            for (int j = 0; j < right.length(); j++) {\n                if (i == 0) {\n                    lcsLengthArray[i][j] = 0;\n                }\n                if (j == 0) {\n                    lcsLengthArray[i][j] = 0;\n                }\n                if (left.charAt(i) == right.charAt(j)) {\n                    lcsLengthArray[i + 1][j + 1] = lcsLengthArray[i][j] + 1;\n                } else {\n                    lcsLengthArray[i + 1][j + 1] = Math.max(lcsLengthArray[i + 1][j], lcsLengthArray[i][j + 1]);\n                }\n            }\n        }\n        return lcsLengthArray;\n    }",
+        "called_methods": [
+            "length",
+            "charAt",
+            "max"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\LongestCommonSubsequence.java",
+        "name": "longestCommonSubstringLengthArray",
+        "javadoc": "/**\n * Returns a 2D array where each cell [i][j] represents the length of the longest common substring \n * between the characters at index i in the left CharSequence and j in the right CharSequence.\n *\n * @param left   The first CharSequence to compare.\n * @param right  The second CharSequence to compare.\n * @return A 2D array representing the lengths of the longest common substrings.\n */\n"
+    }
+]

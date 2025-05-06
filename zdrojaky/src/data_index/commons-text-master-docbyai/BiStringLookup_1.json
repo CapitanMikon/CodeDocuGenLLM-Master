@@ -1,0 +1,13 @@
+[
+    {
+        "signature": "default String lookup(final String key, final U object)",
+        "implementation": "default String lookup(final String key, final U object) {\n        return lookup(key);\n    }",
+        "called_methods": [
+            "lookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\BiStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n     * Looks up a String key to provide a String value.\n     * <p>\n     * The internal implementation may use any mechanism to return the value. The simplest implementation is to use a\n     * Map. However, virtually any implementation is possible.\n     * </p>\n     * <p>\n     * For example, it would be possible to implement a lookup that used the key as a primary key, and looked up the\n     * value on demand from the database Or, a numeric based implementation could be created that treats the key as an\n     * integer, increments the value and return the result as a string - converting 1 to 2, 15 to 16 etc.\n     * </p>\n     * <p>\n     * This method always returns a String, regardless of the underlying data, by converting it as necessary. For\n     * example:\n     * </p>\n     *\n     * <pre>\n     * Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();\n     * map.put(\"number\", Integer.valueOf(2));\n     * assertEquals(\"2\", StringLookupFactory.biFunctionStringLookup(map).lookup(\"number\", \"A context object\"));\n     * </pre>\n     *\n     * @param key the key to look up, may be null.\n     * @param object ignored by default.\n     * @return The matching value, null if no match.\n     */"
+    }
+]

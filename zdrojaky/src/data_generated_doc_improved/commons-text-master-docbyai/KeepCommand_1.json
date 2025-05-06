@@ -1,0 +1,15 @@
+[
+    {
+        "signature": "public void accept(final CommandVisitor<T> visitor)",
+        "implementation": "public void accept(final CommandVisitor<T> visitor) {\n        visitor.visitKeepCommand(getObject());\n    }",
+        "called_methods": [
+            "visitKeepCommand",
+            "getObject"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\KeepCommand.java",
+        "name": "accept",
+        "javadoc": "/**\n * Accepts a command visitor and notifies it to visit this keep command.\n *\n * @param visitor the command visitor to be notified\n */\n",
+        "improved_javadoc": "/**\n * Accepts a command visitor and notifies it to visit this keep command.\n *\n * @param visitor the command visitor to be notified\n */\n"
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "signature": "private String formatDate(final long dateMillis, final String format)",
+        "implementation": "private String formatDate(final long dateMillis, final String format) {\n        FastDateFormat dateFormat = null;\n        if (format != null) {\n            try {\n                dateFormat = FastDateFormat.getInstance(format);\n            } catch (final Exception ex) {\n                throw IllegalArgumentExceptions.format(ex, \"Invalid date format: [%s]\", format);\n            }\n        }\n        if (dateFormat == null) {\n            dateFormat = FastDateFormat.getInstance();\n        }\n        return dateFormat.format(new Date(dateMillis));\n    }",
+        "called_methods": [
+            "getInstance",
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\DateStringLookup.java",
+        "name": "formatDate",
+        "javadoc": "/**\n     * Formats the given {@code date} long with the given {@code format}.\n     *\n     * @param dateMillis the date to format\n     * @param format the format string for {@link SimpleDateFormat}.\n     * @return The formatted date\n     */"
+    },
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        return formatDate(System.currentTimeMillis(), key);\n    }",
+        "called_methods": [
+            "formatDate",
+            "currentTimeMillis"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\DateStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n     * Formats the current date with the format given in the key in a format compatible with\n     * {@link java.text.SimpleDateFormat}.\n     *\n     * @param key the format to use. If null, the default {@link DateFormat} will be used.\n     * @return The value of the environment variable.\n     */"
+    }
+]

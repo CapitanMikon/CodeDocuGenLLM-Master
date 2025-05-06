@@ -1,0 +1,41 @@
+[
+    {
+        "signature": "private boolean isOctalDigit(final char ch)",
+        "implementation": "private boolean isOctalDigit(final char ch) {\n        return ch >= '0' && ch <= '7';\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\OctalUnescaper.java",
+        "name": "isOctalDigit",
+        "javadoc": "/**\n * Checks if a character is an octal digit.\n *\n * @param ch The character to check.\n * @return True if the character is an octal digit, false otherwise.\n */\n",
+        "improved_javadoc": "/**\n * Checks if a character is an octal digit (0-7).\n *\n * @param ch The character to check.\n * @return True if the character is an octal digit, false otherwise.\n */\n"
+    },
+    {
+        "signature": "private boolean isZeroToThree(final char ch)",
+        "implementation": "private boolean isZeroToThree(final char ch) {\n        return ch >= '0' && ch <= '3';\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\OctalUnescaper.java",
+        "name": "isZeroToThree",
+        "javadoc": "/**\n * Checks if a given character is between 0 and 3 (inclusive).\n *\n * @param ch The character to check.\n * @return True if the character is between 0 and 3, false otherwise.\n */\n",
+        "improved_javadoc": "/**\n * Checks if a given character represents a digit between 0 and 3 (inclusive).\n *\n * @param ch The character to check, which must be a single Unicode code point.\n * @return True if the character represents a digit between 0 and 3, false otherwise.\n */\n"
+    },
+    {
+        "signature": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n        final int remaining = input.length() - index - 1; // how many characters left, ignoring the first \\\n        final StringBuilder builder = new StringBuilder();\n        if (input.charAt(index) == '\\\\' && remaining > 0 && isOctalDigit(input.charAt(index + 1))) {\n            final int next = index + 1;\n            final int next2 = index + 2;\n            final int next3 = index + 3;\n\n            // we know this is good as we checked it in the if block above\n            builder.append(input.charAt(next));\n\n            if (remaining > 1 && isOctalDigit(input.charAt(next2))) {\n                builder.append(input.charAt(next2));\n                if (remaining > 2 && isZeroToThree(input.charAt(next)) && isOctalDigit(input.charAt(next3))) {\n                    builder.append(input.charAt(next3));\n                }\n            }\n\n            writer.write(Integer.parseInt(builder.toString(), 8));\n            return 1 + builder.length();\n        }\n        return 0;\n    }",
+        "called_methods": [
+            "length",
+            "charAt",
+            "isOctalDigit",
+            "append",
+            "isZeroToThree",
+            "write",
+            "parseInt",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\OctalUnescaper.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates a sequence of characters from an input CharSequence to a Writer.\n *\n * This method interprets escape sequences in the input, where each escape sequence is represented by a backslash (\\)\n * followed by one or more octal digits. The first character after the backslash is always included in the translation,\n * and any subsequent octal digits are also included if they represent a valid Unicode code point.\n *\n * @param input  the input CharSequence to translate\n * @param index  the starting position of the escape sequence within the input\n * @param writer the Writer to write the translated characters to\n * @return the number of characters written to the Writer, or 0 if no translation occurred\n * @throws IOException if an I/O error occurs while writing to the Writer\n */\n",
+        "improved_javadoc": "/**\n * Translates a sequence of characters from an input CharSequence to a Writer.\n *\n * This method interprets escape sequences in the input, where each escape sequence is represented by a backslash (\\)\n * followed by one or more octal digits. The first character after the backslash is always included in the translation,\n * and any subsequent octal digits are also included if they represent a valid Unicode code point.\n *\n * @param input  the input CharSequence to translate\n * @param index  the starting position of the escape sequence within the input\n * @param writer the Writer to write the translated characters to\n * @return the number of characters written to the Writer, or 0 if no translation occurred\n * @throws IOException if an I/O error occurs while writing to the Writer\n */\n"
+    }
+]

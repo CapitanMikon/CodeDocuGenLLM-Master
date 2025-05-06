@@ -1,0 +1,17 @@
+[
+    {
+        "signature": "public <E> Integer apply(final SimilarityInput<E> left, final SimilarityInput<E> right)",
+        "implementation": "public <E> Integer apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"SimilarityInput must not be null\");\n        }\n        if (left.length() != right.length()) {\n            throw new IllegalArgumentException(\"SimilarityInput must have the same length\");\n        }\n        int distance = 0;\n        for (int i = 0; i < left.length(); i++) {\n            if (!left.at(i).equals(right.at(i))) {\n                distance++;\n            }\n        }\n        return distance;\n    }",
+        "called_methods": [
+            "apply",
+            "input",
+            "length",
+            "at",
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\HammingDistance.java",
+        "name": "apply",
+        "javadoc": "/**\n     * Computes the Hamming Distance between two strings with the same length.\n     *\n     * <p>\n     * The distance starts with zero, and for each occurrence of a different character in either String, it increments the distance by 1, and finally return its\n     * value.\n     * </p>\n     * <p>\n     * Since the Hamming Distance can only be calculated between strings of equal length, input of different lengths will throw IllegalArgumentException\n     * </p>\n     *\n     * <pre>\n     * distance.apply(\"\", \"\")               = 0\n     * distance.apply(\"pappa\", \"pappa\")     = 0\n     * distance.apply(\"1011101\", \"1011111\") = 1\n     * distance.apply(\"ATCG\", \"ACCC\")       = 2\n     * distance.apply(\"karolin\", \"kerstin\"  = 3\n     * </pre>\n     *\n     * @param <E> The type of similarity score unit.\n     * @param left  the first input, must not be null.\n     * @param right the second input, must not be null.\n     * @return distance.\n     * @throws IllegalArgumentException if either input is {@code null} or if they do not have the same length.\n     * @since 1.13.0\n     */"
+    }
+]

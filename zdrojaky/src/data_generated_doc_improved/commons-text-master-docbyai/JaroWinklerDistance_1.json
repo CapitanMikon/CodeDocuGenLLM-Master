@@ -1,0 +1,27 @@
+[
+    {
+        "signature": "protected static int[] matches(final CharSequence first, final CharSequence second)",
+        "implementation": "protected static int[] matches(final CharSequence first, final CharSequence second) {\n        return JaroWinklerSimilarity.matches(first, second);\n    }",
+        "called_methods": [
+            "matches"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\JaroWinklerDistance.java",
+        "name": "matches",
+        "javadoc": "/**\n * Calculates the similarity between two character sequences using the Jaro-Winkler distance metric.\n *\n * @param first  the first character sequence to compare\n * @param second the second character sequence to compare\n * @return an array containing the similarity score and the number of matches\n */\n",
+        "improved_javadoc": "/**\n * Calculates the similarity between two character sequences using the Jaro-Winkler distance metric.\n *\n * This method uses the {@link JaroWinklerSimilarity} class to compute the similarity score and number of matches\n * between the two input character sequences. The returned array contains two integers:\n * - The first element is the similarity score, which represents a measure of how similar the two sequences are.\n * - The second element is the number of matches found in the comparison, indicating the number of positions where\n *   the characters at corresponding indices in the two sequences are equal.\n *\n * @param first  the first character sequence to compare (not null)\n * @param second the second character sequence to compare (not null)\n * @return an array containing the similarity score and the number of matches\n */\n"
+    },
+    {
+        "signature": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right)",
+        "implementation": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"CharSequences must not be null\");\n        }\n        return 1 - JaroWinklerSimilarity.INSTANCE.apply(left, right);\n    }",
+        "called_methods": [
+            "apply",
+            "input"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\JaroWinklerDistance.java",
+        "name": "apply",
+        "javadoc": "/**\n * Calculates a similarity score between two SimilarityInput objects.\n *\n * @param left  The first SimilarityInput object to compare.\n * @param right The second SimilarityInput object to compare.\n * @return A value between 0 and 1 representing the similarity between the two input sequences.\n *         Higher values indicate greater similarity.\n * @throws IllegalArgumentException If either of the input sequences is null.\n */\n",
+        "improved_javadoc": "/**\n * Calculates a similarity score between two SimilarityInput objects.\n *\n * @param left  The first SimilarityInput object to compare.\n * @param right The second SimilarityInput object to compare.\n * @return A value between 0 and 1 representing the similarity between the two input sequences.\n *         Higher values indicate greater similarity.\n * @throws IllegalArgumentException If either of the input sequences is null.\n */\n"
+    }
+]

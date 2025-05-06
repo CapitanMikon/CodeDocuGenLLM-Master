@@ -1,0 +1,15 @@
+[
+    {
+        "signature": "public Double apply(final CharSequence left, final CharSequence right)",
+        "implementation": "public Double apply(final CharSequence left, final CharSequence right) {\n        final CharSequence[] leftTokens = RegexTokenizer.INSTANCE.apply(left);\n        final CharSequence[] rightTokens = RegexTokenizer.INSTANCE.apply(right);\n\n        final Map<CharSequence, Integer> leftVector = Counter.of(leftTokens);\n        final Map<CharSequence, Integer> rightVector = Counter.of(rightTokens);\n        final double similarity = CosineSimilarity.INSTANCE.cosineSimilarity(leftVector, rightVector);\n        return 1.0 - similarity;\n    }",
+        "called_methods": [
+            "apply",
+            "of",
+            "cosineSimilarity"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\CosineDistance.java",
+        "name": "apply",
+        "javadoc": "/**\n * Calculates the dissimilarity between two sequences of tokens.\n *\n * @param left   The first sequence of tokens.\n * @param right  The second sequence of tokens.\n * @return       A value between 0 and 1 representing the dissimilarity, where 0 means identical and 1 means completely different.\n * @throws NullPointerException if either {@code left} or {@code right} is null.\n */\n"
+    }
+]

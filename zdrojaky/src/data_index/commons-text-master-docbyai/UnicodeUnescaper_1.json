@@ -1,0 +1,18 @@
+[
+    {
+        "signature": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n        if (input.charAt(index) == '\\\\' && index + 1 < input.length() && input.charAt(index + 1) == 'u') {\n            // consume optional additional 'u' chars\n            int i = 2;\n            while (index + i < input.length() && input.charAt(index + i) == 'u') {\n                i++;\n            }\n\n            if (index + i < input.length() && input.charAt(index + i) == '+') {\n                i++;\n            }\n\n            if (index + i + 4 <= input.length()) {\n                // Get 4 hex digits\n                final CharSequence unicode = input.subSequence(index + i, index + i + 4);\n\n                try {\n                    final int value = Integer.parseInt(unicode.toString(), 16);\n                    writer.write((char) value);\n                } catch (final NumberFormatException nfe) {\n                    throw new IllegalArgumentException(\"Unable to parse unicode value: \" + unicode, nfe);\n                }\n                return i + 4;\n            }\n            throw new IllegalArgumentException(\"Less than 4 hex digits in unicode value: '\"\n                    + input.subSequence(index, input.length())\n                    + \"' due to end of CharSequence\");\n        }\n        return 0;\n    }",
+        "called_methods": [
+            "charAt",
+            "length",
+            "subSequence",
+            "parseInt",
+            "toString",
+            "write"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\UnicodeUnescaper.java",
+        "name": "translate",
+        "javadoc": "/**\n     * {@inheritDoc}\n     */"
+    }
+]

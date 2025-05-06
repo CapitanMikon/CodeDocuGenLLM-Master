@@ -1,0 +1,12 @@
+[
+    {
+        "signature": "protected T getObject()",
+        "implementation": "protected T getObject() {\n        return object;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditCommand.java",
+        "name": "getObject",
+        "javadoc": "/**\n * Returns the object stored in this instance.\n *\n * @return the object\n */\n",
+        "improved_javadoc": "/**\n * Retrieves the object currently stored in this instance, returning it as a result of the method call.\n *\n * @return the object stored in this instance\n */\n"
+    }
+]

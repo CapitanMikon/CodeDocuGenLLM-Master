@@ -1,0 +1,19 @@
+[
+    {
+        "signature": "public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,\n            final int precision, final CharSequence ellipsis)",
+        "implementation": "public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,\n            final int precision, final CharSequence ellipsis) {\n        return append(seq, formatter, flags, width, precision, ' ', ellipsis);\n    }",
+        "called_methods": [
+            "append",
+            "length",
+            "format",
+            "replace",
+            "toString",
+            "insert"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\FormattableUtils.java",
+        "name": "append",
+        "javadoc": "/**\n * Appends a CharSequence to the specified Formatter with the given flags, width, \n * precision and ellipsis character.\n *\n * @param seq   the CharSequence to be appended\n * @param formatter  the Formatter to append to\n * @param flags     the format flags\n * @param width     the minimum field width\n * @param precision the number of digits after the decimal point for floating-point numbers\n * @param ellipsis  the character used as an ellipsis when truncating a string\n *\n * @return the Formatter object itself to enable method chaining\n */\n",
+        "improved_javadoc": "/**\n * Appends a {@link CharSequence} to the specified {@link Formatter} with the given\n * format flags, minimum field width, number of digits after the decimal point,\n * and character used as an ellipsis when truncating a string.\n *\n * @param seq   the {@link CharSequence} to be appended\n * @param formatter  the {@link Formatter} to append to\n * @param flags     the format flags (e.g. {@code FORMAT_FLAG_LEFT_JUSTIFY})\n * @param width     the minimum field width\n * @param precision the number of digits after the decimal point for floating-point numbers\n * @param ellipsis  the character used as an ellipsis when truncating a string\n *\n * @return the {@link Formatter} object itself to enable method chaining\n */\n"
+    }
+]

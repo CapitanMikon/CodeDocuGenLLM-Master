@@ -1,0 +1,14 @@
+[
+    {
+        "signature": "default String lookup(final String key, final U object)",
+        "implementation": "default String lookup(final String key, final U object) {\n        return lookup(key);\n    }",
+        "called_methods": [
+            "lookup"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\BiStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Performs a lookup operation on the given object using the specified key.\n *\n * @param key   the key to perform the lookup with\n * @param object the object to perform the lookup on\n * @return      the result of the lookup operation, or null if not found\n */\n",
+        "improved_javadoc": "/**\n * Performs a lookup operation on the given object using the specified key.\n *\n * This method delegates to another lookup method with only the key as an argument. It does not perform any actual lookup\n * and will return null if the other lookup method returns null.\n *\n * @param key   the key to perform the lookup with\n * @param object the object to perform the lookup on (this parameter is ignored)\n * @return      the result of the lookup operation, or null if not found\n */\n"
+    }
+]

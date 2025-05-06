@@ -1,0 +1,1082 @@
+[
+    {
+        "signature": "public void close()",
+        "implementation": "public void close() {\n            // do nothing\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "close",
+        "javadoc": "/**\n * Closes this connection.\n *\n * This method does nothing and should be overridden by subclasses to perform any necessary cleanup or shutdown operations.\n */\n",
+        "improved_javadoc": "/**\n * Closes this connection, releasing any system resources associated with it.\n *\n * This method does not perform any specific actions and is intended to be overridden by subclasses to implement custom cleanup or shutdown logic.\n */\n"
+    },
+    {
+        "signature": "public void mark(final int readAheadLimit)",
+        "implementation": "public void mark(final int readAheadLimit) {\n            mark = pos;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "mark",
+        "javadoc": "/**\n * Sets a mark at the current position, which can be used later to reset the reader's position.\n *\n * @param readAheadLimit The limit of characters that can be read ahead from the marked position.\n */\n",
+        "improved_javadoc": "/**\n * Sets a mark at the current reader position, allowing the reader to later reset its position to this point.\n *\n * @param readAheadLimit The maximum number of characters that can be read from the marked position without moving the mark.\n * @throws IllegalArgumentException if the specified read-ahead limit is less than 0.\n */\n"
+    },
+    {
+        "signature": "public boolean markSupported()",
+        "implementation": "public boolean markSupported() {\n            return true;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "markSupported",
+        "javadoc": "/**\n * Returns whether this stream supports marking.\n *\n * A stream that supports marking has a notion of a \"current position\" or\n * \"mark\", which can be saved and restored using the {@link #reset()} method.\n *\n * @return true if, and only if, this stream supports marking; false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Returns whether this stream supports marking.\n *\n * A stream that supports marking has a notion of a \"current position\" or\n * \"mark\", which can be saved and restored using the {@link #reset()} method.\n *\n * @return true if, and only if, this stream supports marking; false otherwise\n */\n"
+    },
+    {
+        "signature": "public int read(final char[] b, final int off, int len)",
+        "implementation": "public int read(final char[] b, final int off, int len) {\n            if (off < 0 || len < 0 || off > b.length || off + len > b.length || off + len < 0) {\n                throw new IndexOutOfBoundsException();\n            }\n            if (len == 0) {\n                return 0;\n            }\n            if (pos >= size()) {\n                return -1;\n            }\n            if (pos + len > size()) {\n                len = size() - pos;\n            }\n            TextStringBuilder.this.getChars(pos, pos + len, b, off);\n            pos += len;\n            return len;\n        }",
+        "called_methods": [
+            "ready",
+            "charAt",
+            "size",
+            "getChars"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "read",
+        "javadoc": "/**\n * Reads characters from this text string builder into an array.\n *\n * @param b   the character array to read into\n * @param off the offset in the array where data will be written\n * @param len the maximum number of characters to read; must not be negative\n * @return the actual number of characters read, or -1 if the end of the text string builder is reached before reading any characters\n * @throws IndexOutOfBoundsException if the specified range of the given array overlaps a range that has already been read, or if the offset and length arguments are invalid\n */\n",
+        "improved_javadoc": "/**\n * Reads characters from this text string builder into an array.\n *\n * The specified range of the given array will be overwritten by the characters read from this text string builder.\n * If there are more characters available in this text string builder than requested, they will be stored in the given array.\n *\n * @param b   the character array to read into\n * @param off the offset in the array where data will be written\n * @param len the maximum number of characters to read; must not be negative\n * @return the actual number of characters read, or -1 if the end of the text string builder is reached before reading any characters\n * @throws IndexOutOfBoundsException if the specified range of the given array overlaps a range that has already been read, or if the offset and length arguments are invalid\n */\n"
+    },
+    {
+        "signature": "public boolean ready()",
+        "implementation": "public boolean ready() {\n            return pos < size();\n        }",
+        "called_methods": [
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "ready",
+        "javadoc": "/**\n * Checks if the current position is within the bounds of the collection.\n *\n * @return true if the current position is valid, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Returns the number of elements in this collection.\n *\n * @return the number of elements in this collection\n */\n"
+    },
+    {
+        "signature": "public void reset()",
+        "implementation": "public void reset() {\n            pos = mark;\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "reset",
+        "javadoc": "/**\n * Resets the current position to the last marked position.\n */\n",
+        "improved_javadoc": "/**\n * Resets the current position to the last marked position, effectively restoring it to its previous state before any subsequent operations were performed.\n *\n * @throws IllegalStateException if this method is called when there are no marks set (i.e., {@link #mark()} has not been called previously)\n */\n"
+    },
+    {
+        "signature": "public long skip(long n)",
+        "implementation": "public long skip(long n) {\n            if (pos + n > size()) {\n                n = size() - pos;\n            }\n            if (n < 0) {\n                return 0;\n            }\n            pos = Math.addExact(pos, Math.toIntExact(n));\n            return n;\n        }",
+        "called_methods": [
+            "size",
+            "addExact",
+            "toIntExact"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "skip",
+        "javadoc": "/**\n * Skips over the specified number of elements in this list.\n *\n * @param n the number of elements to skip\n * @return the number of elements actually skipped\n */\n",
+        "improved_javadoc": "/**\n * Skips over the specified number of elements in this list.\n *\n * @param n the number of elements to skip (non-negative), or a negative value to move backwards\n * @return the number of elements actually skipped, which may be less than the requested amount if the end of the list is reached\n */\n"
+    },
+    {
+        "signature": "public String getContent()",
+        "implementation": "public String getContent() {\n            final String str = super.getContent();\n            if (str == null) {\n                return TextStringBuilder.this.toString();\n            }\n            return str;\n        }",
+        "called_methods": [
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "getContent",
+        "javadoc": "/**\n * Returns the content of this object, or a string representation of this object\n * if the content is null.\n *\n * @return the content of this object, or a string representation of this object\n *         if the content is null\n */\n",
+        "improved_javadoc": "/**\n * Returns the content of this object. If the content is null, a string representation \n * of this object will be returned instead.\n *\n * @return the content of this object, or its string representation if the content is null\n */\n"
+    },
+    {
+        "signature": "protected List<String> tokenize(final char[] chars, final int offset, final int count)",
+        "implementation": "protected List<String> tokenize(final char[] chars, final int offset, final int count) {\n            if (chars == null) {\n                return super.tokenize(getBuffer(), 0, TextStringBuilder.this.size());\n            }\n            return super.tokenize(chars, offset, count);\n        }",
+        "called_methods": [
+            "getBuffer",
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "tokenize",
+        "javadoc": "/**\n * Tokenizes a character array into a list of strings.\n *\n * @param chars The character array to tokenize.\n * @param offset The starting index in the character array.\n * @param count The number of characters to tokenize.\n * @return A list of strings representing the tokenized characters.\n */\n",
+        "improved_javadoc": "/**\n * Tokenizes a character array into a list of strings.\n *\n * @param chars The character array to tokenize.\n * @param offset The starting index in the character array.\n * @param count The number of characters to tokenize.\n * @return A list of strings representing the tokenized characters.\n */\n"
+    },
+    {
+        "signature": "public void flush()",
+        "implementation": "public void flush() {\n            // do nothing\n        }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "flush",
+        "javadoc": "/**\n * Flushes any pending output.\n *\n * This method does not perform any actual flushing, as it simply does nothing.\n */\n",
+        "improved_javadoc": "/**\n * Flushes any pending output to the underlying stream or writer.\n *\n * This method performs a no-op operation and has no effect on the state of the underlying output stream or writer.\n *\n * @throws IOException if an I/O error occurs while flushing the output (this is not expected, as this method does nothing)\n */\n"
+    },
+    {
+        "signature": "public void write(final String str, final int off, final int len)",
+        "implementation": "public void write(final String str, final int off, final int len) {\n            TextStringBuilder.this.append(str, off, len);\n        }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "write",
+        "javadoc": "/**\n * Appends a substring of the given string to this text builder.\n *\n * @param str  the string from which the substring is taken\n * @param off  the starting offset in the string (inclusive)\n * @param len  the length of the substring\n */\n",
+        "improved_javadoc": "/**\n * Appends a substring of characters from the specified string to this text builder.\n *\n * @param str  the string from which the substring is taken\n * @param off  the starting offset in the string (inclusive)\n * @param len  the length of the substring\n */\n"
+    },
+    {
+        "signature": "private static int createPositiveCapacity(final int minCapacity)",
+        "implementation": "private static int createPositiveCapacity(final int minCapacity) {\n        if (minCapacity < 0) {\n            // overflow\n            throw new OutOfMemoryError(\"Unable to allocate array size: \" + Integer.toUnsignedString(minCapacity));\n        }\n        // This is called when we require buffer expansion to a very big array.\n        // Use the conservative maximum buffer size if possible, otherwise the biggest required.\n        //\n        // Note: In this situation JDK 1.8 java.util.ArrayList returns Integer.MAX_VALUE.\n        // This excludes some VMs that can exceed MAX_BUFFER_SIZE but not allocate a full\n        // Integer.MAX_VALUE length array.\n        // The result is that we may have to allocate an array of this size more than once if\n        // the capacity must be expanded again.\n        return Math.max(minCapacity, MAX_BUFFER_SIZE);\n    }",
+        "called_methods": [
+            "toUnsignedString",
+            "max"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "createPositiveCapacity",
+        "javadoc": "/**\n * Calculates a positive capacity based on the minimum required capacity.\n *\n * @param minCapacity the minimum required capacity; may not be negative\n * @return the calculated capacity, which is either the maximum of the minimum capacity and the maximum buffer size,\n *         or Integer.MAX_VALUE if the minimum capacity exceeds the maximum buffer size\n * @throws OutOfMemoryError if the minimum capacity is negative (indicating an overflow)\n */\n",
+        "improved_javadoc": "/**\n * Calculates a positive capacity based on the minimum required capacity.\n *\n * @param minCapacity the minimum required capacity; may not be negative\n * @return the calculated capacity, which is either the maximum of the minimum capacity and the maximum buffer size,\n *         or Integer.MAX_VALUE if the minimum capacity exceeds the maximum buffer size\n * @throws OutOfMemoryError if the minimum capacity is negative (indicating an overflow)\n */\n"
+    },
+    {
+        "signature": "public static TextStringBuilder wrap(final char[] initialBuffer, final int length)",
+        "implementation": "public static TextStringBuilder wrap(final char[] initialBuffer, final int length) {\n        return new TextStringBuilder(initialBuffer, length);\n    }",
+        "called_methods": [
+            "requireNonNull"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "wrap",
+        "javadoc": "/**\n * Creates a new instance of TextStringBuilder with the specified initial buffer and length.\n *\n * @param initialBuffer The character array to use as the initial buffer for this text string builder.\n * @param length The length of the initial buffer.\n * @return A new instance of TextStringBuilder.\n */\n",
+        "improved_javadoc": "/**\n * Creates a new instance of TextStringBuilder with the specified initial buffer and length.\n *\n * @param initialBuffer The character array to use as the initial buffer for this text string builder. \n *                      This array will be used to store characters before it is automatically resized if necessary.\n * @param length The length of the initial buffer, which determines the maximum number of characters that can be stored in the buffer without resizing.\n * @return A new instance of TextStringBuilder with the specified initial buffer and length.\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder append(final TextStringBuilder str, final int startIndex, final int length)",
+        "implementation": "public TextStringBuilder append(final TextStringBuilder str, final int startIndex, final int length) {\n        if (str == null) {\n            return appendNull();\n        }\n        if (startIndex < 0 || startIndex > str.length()) {\n            throw new StringIndexOutOfBoundsException(\"startIndex must be valid\");\n        }\n        if (length < 0 || startIndex + length > str.length()) {\n            throw new StringIndexOutOfBoundsException(\"length must be valid\");\n        }\n        if (length > 0) {\n            final int len = length();\n            ensureCapacityInternal(len + length);\n            str.getChars(startIndex, startIndex + length, buffer, len);\n            size += length;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacityInternal",
+            "appendTrue",
+            "appendFalse",
+            "length",
+            "appendNull",
+            "arraycopy",
+            "append",
+            "hasArray",
+            "remaining",
+            "array",
+            "arrayOffset",
+            "position",
+            "toString",
+            "valueOf",
+            "getChars",
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "append",
+        "javadoc": "/**\n * Appends a substring of another TextStringBuilder to the end of this string.\n *\n * @param str  the text string builder from which the substring is taken\n * @param startIndex  the starting index in the source string (inclusive)\n * @param length  the number of characters to append\n * @return this TextStringBuilder object\n * @throws StringIndexOutOfBoundsException if the start index or length is invalid\n */\n",
+        "improved_javadoc": "/**\n * Appends a substring of another TextStringBuilder to the end of this string.\n *\n * @param str  the text string builder from which the substring is taken\n * @param startIndex  the starting index in the source string (inclusive)\n * @param length  the number of characters to append\n * @return this TextStringBuilder object\n * @throws StringIndexOutOfBoundsException if the start index or length is invalid\n */\n"
+    },
+    {
+        "signature": "* vouch for itself whether its use of 'array' is safe.\n         */\n        if (array != null && array.length > 0)",
+        "implementation": "public <T> TextStringBuilder appendAll(@SuppressWarnings(\"unchecked\") final T... array) {\n        /*\n         * @SuppressWarnings used to hide warning about vararg usage. We cannot use @SafeVarargs, since this method is\n         * not final. Using @SuppressWarnings is fine, because it isn't inherited by subclasses, so each subclass must\n         * vouch for itself whether its use of 'array' is safe.\n         */\n        if (array != null && array.length > 0) {\n            for (final Object element : array) {\n                append(element);\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "forEach",
+            "forEachRemaining",
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendAll",
+        "javadoc": "/**\n * Appends all elements of the given array to this text string builder.\n *\n * @param array The array containing elements to be appended. May contain null or empty arrays, in which case no\n *              elements will be appended.\n * @return This text string builder instance for method chaining.\n */\n",
+        "improved_javadoc": "/**\n * Appends all elements of the given array to this text string builder.\n *\n * @param array The array containing elements to be appended. May contain null or empty arrays, in which case no\n *              elements will be appended.\n * @return This text string builder instance for method chaining.\n * @throws NullPointerException if any element in the array is null and does not have a {@link #append(Object)} method\n */\n"
+    },
+    {
+        "signature": "private void appendFalse(int index)",
+        "implementation": "private void appendFalse(int index) {\n        buffer[index++] = 'f';\n        buffer[index++] = 'a';\n        buffer[index++] = 'l';\n        buffer[index++] = 's';\n        buffer[index] = 'e';\n        size += FALSE_STRING_SIZE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendFalse",
+        "javadoc": "/**\n * Appends the string \"false\" to the buffer at the specified index.\n *\n * @param index The starting index in the buffer where the string should be appended.\n */\n",
+        "improved_javadoc": "/**\n * Appends the string \"false\" to the buffer at the specified index.\n *\n * @param index The starting index in the buffer where the string should be appended.\n *              It is assumed that there is sufficient space available in the buffer to accommodate the entire string.\n * @return This method does not return any value, it modifies the internal state of the object.\n * @throws IndexOutOfBoundsException if the specified index is out of range (i.e., less than 0 or greater than or equal to the current size of the buffer).\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder appendFixedWidthPadLeft(final Object obj, final int width, final char padChar)",
+        "implementation": "public TextStringBuilder appendFixedWidthPadLeft(final Object obj, final int width, final char padChar) {\n        if (width > 0) {\n            ensureCapacityInternal(size + width);\n            String str = Objects.toString(obj, getNullText());\n            if (str == null) {\n                str = StringUtils.EMPTY;\n            }\n            final int strLen = str.length();\n            if (strLen >= width) {\n                str.getChars(strLen - width, strLen, buffer, size);\n            } else {\n                final int padLen = width - strLen;\n                final int toIndex = size + padLen;\n                Arrays.fill(buffer, size, toIndex, padChar);\n                str.getChars(0, strLen, buffer, toIndex);\n            }\n            size += width;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "appendFixedWidthPadLeft",
+            "valueOf",
+            "ensureCapacityInternal",
+            "toString",
+            "getNullText",
+            "length",
+            "getChars",
+            "fill"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendFixedWidthPadLeft",
+        "javadoc": "/**\n * Appends a fixed-width left-padded string representation of the specified object to this text builder.\n *\n * @param obj  the object to be converted into a string, or {@code null} if the object is {@code null}\n * @param width  the minimum number of characters in the resulting string; must be greater than zero\n * @param padChar  the character used for padding; must not be {@code null}\n *\n * @return this text builder\n */\n",
+        "improved_javadoc": "/**\n * Appends a fixed-width left-padded string representation of the specified object to this text builder.\n *\n * @param obj  the object to be converted into a string, or {@code null} if the object is {@code null}\n * @param width  the minimum number of characters in the resulting string; must be greater than zero\n * @param padChar  the character used for padding; must not be {@code null}\n *\n * @return this text builder\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder appendFixedWidthPadRight(final Object obj, final int width, final char padChar)",
+        "implementation": "public TextStringBuilder appendFixedWidthPadRight(final Object obj, final int width, final char padChar) {\n        if (width > 0) {\n            ensureCapacityInternal(size + width);\n            String str = Objects.toString(obj, getNullText());\n            if (str == null) {\n                str = StringUtils.EMPTY;\n            }\n            final int strLen = str.length();\n            if (strLen >= width) {\n                str.getChars(0, width, buffer, size);\n            } else {\n                str.getChars(0, strLen, buffer, size);\n                final int fromIndex = size + strLen;\n                Arrays.fill(buffer, fromIndex, fromIndex + width - strLen, padChar);\n            }\n            size += width;\n        }\n        return this;\n    }",
+        "called_methods": [
+            "appendFixedWidthPadRight",
+            "valueOf",
+            "ensureCapacityInternal",
+            "toString",
+            "getNullText",
+            "length",
+            "getChars",
+            "fill"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendFixedWidthPadRight",
+        "javadoc": "/**\n * Appends a fixed-width padded string to the end of this text builder.\n *\n * @param obj  the object to be converted and appended, or null if an empty string should be used\n * @param width  the minimum number of characters in the resulting string\n * @param padChar  the character to use for padding (if necessary)\n *\n * @return this text builder instance\n */\n",
+        "improved_javadoc": "/**\n * Appends a fixed-width padded string to the end of this text builder.\n *\n * If the object to be appended is null, an empty string will be used instead. The resulting string will have at least\n * {@code width} characters. If necessary, the string will be padded with the specified character on the right side.\n *\n * @param obj  the object to be converted and appended, or null if an empty string should be used\n * @param width  the minimum number of characters in the resulting string\n * @param padChar  the character to use for padding (if necessary)\n *\n * @return this text builder instance\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder appendln(final TextStringBuilder str, final int startIndex, final int length)",
+        "implementation": "public TextStringBuilder appendln(final TextStringBuilder str, final int startIndex, final int length) {\n        return append(str, startIndex, length).appendNewLine();\n    }",
+        "called_methods": [
+            "append",
+            "appendNewLine"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendln",
+        "javadoc": "/**\n * Appends a substring of another text string builder to this one.\n *\n * @param str  the text string builder from which to append\n * @param startIndex  the starting index in the source string (inclusive)\n * @param length  the number of characters to append\n * @return this text string builder with the appended substring and newline character\n */\n",
+        "improved_javadoc": "/**\n * Appends a substring of characters from the specified text string builder to this one,\n * followed by a newline character.\n *\n * @param str  the text string builder from which to append\n * @param startIndex  the starting index in the source string (inclusive)\n * @param length  the number of characters to append\n * @return this text string builder with the appended substring and newline character\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder appendNewLine()",
+        "implementation": "public TextStringBuilder appendNewLine() {\n        if (newLine == null) {\n            append(System.lineSeparator());\n            return this;\n        }\n        return append(newLine);\n    }",
+        "called_methods": [
+            "append",
+            "lineSeparator"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendNewLine",
+        "javadoc": "/**\n * Appends a new line to the text string builder.\n *\n * If no newline character has been set, it appends the system's default\n * newline separator. Otherwise, it appends the previously set newline character.\n *\n * @return this TextStringBuilder instance for method chaining.\n */\n",
+        "improved_javadoc": "/**\n * Appends a new line to the text string builder. If no newline character has been set, \n * it appends the system's default newline separator. Otherwise, it appends the previously \n * set newline character.\n *\n * @return this TextStringBuilder instance for method chaining.\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder appendNull()",
+        "implementation": "public TextStringBuilder appendNull() {\n        if (nullText == null) {\n            return this;\n        }\n        return append(nullText);\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendNull",
+        "javadoc": "/**\n * Appends a null text to the string builder.\n *\n * If {@code nullText} has not been set, this method returns the current\n * instance without modifying it. Otherwise, it appends the value of\n * {@code nullText} to the end of the string builder.\n *\n * @return This string builder instance or a new one if {@code nullText}\n *         is appended.\n */\n",
+        "improved_javadoc": "/**\n * Appends a null text to the string builder, using the value of {@code nullText} if set.\n *\n * If {@code nullText} has not been set, this method returns the current instance without modifying it. Otherwise,\n * it appends the value of {@code nullText} to the end of the string builder.\n *\n * @return This string builder instance or a new one if {@code nullText} is appended.\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder appendPadding(final int length, final char padChar)",
+        "implementation": "public TextStringBuilder appendPadding(final int length, final char padChar) {\n        if (length >= 0) {\n            ensureCapacityInternal(size + length);\n            for (int i = 0; i < length; i++) {\n                buffer[size++] = padChar;\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacityInternal"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendPadding",
+        "javadoc": "/**\n * Appends the specified number of occurrences of a character to the end of this string builder.\n *\n * @param length   the number of characters to append\n * @param padChar  the character to append\n * @return this TextStringBuilder object\n */\n",
+        "improved_javadoc": "/**\n * Appends the specified number of occurrences of a character to the end of this string builder.\n *\n * @param length   the minimum number of characters to append (may be truncated if buffer capacity is exceeded)\n * @param padChar  the character to append\n * @return this TextStringBuilder object\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder appendSeparator(final String standard, final String defaultIfEmpty)",
+        "implementation": "public TextStringBuilder appendSeparator(final String standard, final String defaultIfEmpty) {\n        final String str = isEmpty() ? defaultIfEmpty : standard;\n        if (str != null) {\n            append(str);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "isNotEmpty",
+            "append",
+            "isEmpty",
+            "appendSeparator"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendSeparator",
+        "javadoc": "/**\n * Appends a separator to the text builder.\n *\n * If the current text is empty, the {@code defaultIfEmpty} value will be used as the separator.\n * Otherwise, the {@code standard} separator will be appended.\n *\n * @param standard  the standard separator to use if the current text is not empty\n * @param defaultIfEmpty  the separator to use if the current text is empty\n * @return this TextStringBuilder instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Appends a separator to the text builder.\n *\n * If the current text is empty, the {@code defaultIfEmpty} value will be used as the separator.\n * Otherwise, the {@code standard} separator will be appended.\n *\n * @param standard  the standard separator to use if the current text is not empty\n * @param defaultIfEmpty  the separator to use if the current text is empty\n * @return this TextStringBuilder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public void appendTo(final Appendable appendable) throws IOException",
+        "implementation": "public void appendTo(final Appendable appendable) throws IOException {\n        if (appendable instanceof Writer) {\n            ((Writer) appendable).write(buffer, 0, size);\n        } else if (appendable instanceof StringBuilder) {\n            ((StringBuilder) appendable).append(buffer, 0, size);\n        } else if (appendable instanceof StringBuffer) {\n            ((StringBuffer) appendable).append(buffer, 0, size);\n        } else if (appendable instanceof CharBuffer) {\n            ((CharBuffer) appendable).put(buffer, 0, size);\n        } else {\n            appendable.append(this);\n        }\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendTo",
+        "javadoc": "/**\n * Appends this buffer's content to the specified {@code Appendable}.\n *\n * @param appendable the target {@link Appendable} to which the buffer's content will be appended.\n * @throws IOException if an I/O error occurs while writing to the target {@code Appendable}.\n */\n",
+        "improved_javadoc": "/**\n * Appends this buffer's content to the specified {@code Appendable}.\n *\n * @param appendable the target {@link Appendable} to which the buffer's content will be appended.\n * @throws IOException if an I/O error occurs while writing to the target {@code Appendable}.\n */\n"
+    },
+    {
+        "signature": "private void appendTrue(int index)",
+        "implementation": "private void appendTrue(int index) {\n        buffer[index++] = 't';\n        buffer[index++] = 'r';\n        buffer[index++] = 'u';\n        buffer[index] = 'e';\n        size += TRUE_STRING_SIZE;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendTrue",
+        "javadoc": "/**\n * Appends the string \"true\" to the buffer at the specified index.\n *\n * @param index The index in the buffer where the string should be appended.\n */\n",
+        "improved_javadoc": "/**\n * Appends the string \"true\" to the buffer at the specified index, incrementing the size of the buffer by {@link #TRUE_STRING_SIZE}.\n *\n * @param index The index in the buffer where the string should be appended.\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder appendWithSeparators(final Object[] array, final String separator)",
+        "implementation": "public TextStringBuilder appendWithSeparators(final Object[] array, final String separator) {\n        if (array != null && array.length > 0) {\n            final String sep = Objects.toString(separator, StringUtils.EMPTY);\n            append(array[0]);\n            for (int i = 1; i < array.length; i++) {\n                append(sep);\n                append(array[i]);\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "appendWithSeparators",
+            "iterator",
+            "toString",
+            "hasNext",
+            "append",
+            "next"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "appendWithSeparators",
+        "javadoc": "/**\n * Appends elements of an array to this text string builder, separated by a specified separator.\n *\n * @param array  the array of objects to be appended\n * @param separator  the separator to use between elements (defaults to an empty string if null)\n * @return this TextStringBuilder instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Appends elements of an array to this text string builder, separated by a specified separator.\n *\n * @param array  the array of objects to be appended\n * @param separator  the separator to use between elements (defaults to an empty string if null)\n * @return this TextStringBuilder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public Reader asReader()",
+        "implementation": "public Reader asReader() {\n        return new TextStringBuilderReader();\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "asReader",
+        "javadoc": "/**\n * Returns a {@link Reader} that reads from this text string builder.\n *\n * @return A reader that reads from this text string builder.\n */\n",
+        "improved_javadoc": "/**\n * Returns a {@link Reader} that reads from this text string builder, allowing for sequential access to its contents.\n *\n * @return A reader that reads from this text string builder, providing a way to read characters and lines from it.\n */\n"
+    },
+    {
+        "signature": "public StringTokenizer asTokenizer()",
+        "implementation": "public StringTokenizer asTokenizer() {\n        return new TextStringBuilderTokenizer();\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "asTokenizer",
+        "javadoc": "/**\n * Returns a {@link StringTokenizer} instance for this text.\n *\n * @return A new {@link StringTokenizer} instance, which can be used to tokenize\n *         the text into individual tokens.\n */\n",
+        "improved_javadoc": "/**\n * Returns a {@link StringTokenizer} instance for this text, using a \n * {@link TextStringBuilderTokenizer} to tokenize the text into individual tokens.\n *\n * @return A new {@link StringTokenizer} instance that can be used to tokenize the text.\n */\n"
+    },
+    {
+        "signature": "public Writer asWriter()",
+        "implementation": "public Writer asWriter() {\n        return new TextStringBuilderWriter();\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "asWriter",
+        "javadoc": "/**\n * Returns a {@link Writer} that writes to this builder.\n *\n * @return A writer that writes to this builder.\n */\n",
+        "improved_javadoc": "/**\n * Returns a {@link Writer} instance that writes to this text string builder, allowing for efficient and thread-safe writing of characters to the underlying buffer.\n *\n * @return A writer instance that writes to this text string builder.\n */\n"
+    },
+    {
+        "signature": "public String build()",
+        "implementation": "public String build() {\n        return toString();\n    }",
+        "called_methods": [
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "build",
+        "javadoc": "/**\n * Builds and returns a string representation of this object.\n *\n * @return A string representation of this object.\n */\n",
+        "improved_javadoc": "/**\n * Returns a string representation of this object, which may include its class name, hash code, and other relevant details.\n *\n * @return A string representation of this object.\n */\n"
+    },
+    {
+        "signature": "public int capacity()",
+        "implementation": "public int capacity() {\n        return buffer.length;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "capacity",
+        "javadoc": "/**\n * Returns the current capacity of this buffer.\n *\n * The capacity is the number of elements that can be stored in the buffer\n * without needing to reallocate memory.\n *\n * @return the current capacity of this buffer\n */\n",
+        "improved_javadoc": "/**\n * Returns the current capacity of this buffer, which represents the number of elements that can be stored in the buffer without needing to reallocate memory.\n *\n * @return the current capacity of this buffer\n */\n"
+    },
+    {
+        "signature": "public char charAt(final int index)",
+        "implementation": "public char charAt(final int index) {\n        validateIndex(index);\n        return buffer[index];\n    }",
+        "called_methods": [
+            "validateIndex"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "charAt",
+        "javadoc": "/**\n * Returns the character at the specified index in the buffer.\n *\n * @param index the index of the character to be returned\n * @return the character at the specified index\n * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= length())\n */\n",
+        "improved_javadoc": "/**\n * Returns the character at the specified index in the buffer.\n *\n * @param index the index of the character to be returned\n * @return the character at the specified index\n * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= length())\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder clear()",
+        "implementation": "public TextStringBuilder clear() {\n        size = 0;\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "clear",
+        "javadoc": "/**\n * Clears the text builder, resetting its internal state to empty.\n *\n * @return This text builder instance for chaining convenience.\n */\n",
+        "improved_javadoc": "/**\n * Resets the text builder's internal state by clearing all characters and setting its length to zero.\n *\n * @return This text builder instance for chaining convenience, allowing method calls to be concatenated.\n */\n"
+    },
+    {
+        "signature": "public boolean contains(final StringMatcher matcher)",
+        "implementation": "public boolean contains(final StringMatcher matcher) {\n        return indexOf(matcher, 0) >= 0;\n    }",
+        "called_methods": [
+            "indexOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "contains",
+        "javadoc": "/**\n * Checks if a string matches the given {@link StringMatcher}.\n *\n * @param matcher the string matcher to check against\n * @return true if the string matches the matcher, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks if a substring of this buffer matches the given {@link StringMatcher} starting from the beginning.\n *\n * @param matcher the string matcher to check against\n * @return true if the buffer contains a match for the matcher, false otherwise\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder delete(final int startIndex, final int endIndex)",
+        "implementation": "public TextStringBuilder delete(final int startIndex, final int endIndex) {\n        final int actualEndIndex = validateRange(startIndex, endIndex);\n        final int len = actualEndIndex - startIndex;\n        if (len > 0) {\n            deleteImpl(startIndex, actualEndIndex, len);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "validateRange",
+            "deleteImpl"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "delete",
+        "javadoc": "/**\n * Deletes a range of characters from the text.\n *\n * @param startIndex The starting index of the range to be deleted (inclusive).\n * @param endIndex   The ending index of the range to be deleted (exclusive).\n * @return This TextStringBuilder instance for method chaining.\n */\n",
+        "improved_javadoc": "/**\n * Deletes a range of characters from the text.\n *\n * @param startIndex The starting index of the range to be deleted (inclusive).\n * @param endIndex   The ending index of the range to be deleted (exclusive).\n * @return This TextStringBuilder instance for method chaining.\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder deleteAll(final StringMatcher matcher)",
+        "implementation": "public TextStringBuilder deleteAll(final StringMatcher matcher) {\n        return replace(matcher, null, 0, size, -1);\n    }",
+        "called_methods": [
+            "deleteImpl",
+            "length",
+            "indexOf",
+            "replace"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "deleteAll",
+        "javadoc": "/**\n * Deletes all occurrences of a specified pattern from this text string builder.\n *\n * @param matcher the pattern to match and delete\n * @return this text string builder with the matched patterns deleted\n */\n",
+        "improved_javadoc": "/**\n * Deletes all occurrences of a specified pattern from this text string builder.\n *\n * This method uses the provided {@code StringMatcher} to identify and remove\n * all matches in the buffer. The replacement strategy is set to null, indicating\n * that no replacement characters should be inserted at the deletion points. The\n * range of indices to search for matches spans the entire buffer, from the start\n * index 0 to the end index {@code size}. Finally, the length of each match is\n * set to -1, which means that all matched text will be deleted.\n *\n * @param matcher the pattern to match and delete\n * @return this text string builder with the matched patterns deleted\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder deleteCharAt(final int index)",
+        "implementation": "public TextStringBuilder deleteCharAt(final int index) {\n        validateIndex(index);\n        deleteImpl(index, index + 1, 1);\n        return this;\n    }",
+        "called_methods": [
+            "validateIndex",
+            "deleteImpl"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "deleteCharAt",
+        "javadoc": "/**\n * Deletes a character at the specified index.\n *\n * @param index the index of the character to be deleted (0-based)\n * @return this TextStringBuilder instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Deletes a character at the specified index.\n *\n * @param index the index of the character to be deleted (0-based)\n * @return this TextStringBuilder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder deleteFirst(final StringMatcher matcher)",
+        "implementation": "public TextStringBuilder deleteFirst(final StringMatcher matcher) {\n        return replace(matcher, null, 0, size, 1);\n    }",
+        "called_methods": [
+            "deleteImpl",
+            "length",
+            "indexOf",
+            "replace"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "deleteFirst",
+        "javadoc": "/**\n * Deletes the first occurrence of a specified pattern from this text string builder.\n *\n * @param matcher the pattern to match and delete\n * @return this text string builder with the matched pattern deleted\n */\n",
+        "improved_javadoc": "/**\n * Deletes the first occurrence of a specified pattern from this text string builder.\n *\n * @param matcher the pattern to match and delete\n * @return this text string builder with the matched pattern deleted\n */\n"
+    },
+    {
+        "signature": "private void deleteImpl(final int startIndex, final int endIndex, final int len)",
+        "implementation": "private void deleteImpl(final int startIndex, final int endIndex, final int len) {\n        System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);\n        size -= len;\n    }",
+        "called_methods": [
+            "arraycopy"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "deleteImpl",
+        "javadoc": "/**\n * Deletes a portion of the buffer.\n *\n * This method shifts all elements after the deletion point to fill the gap,\n * effectively reducing the size of the buffer by the number of deleted elements.\n *\n * @param startIndex The starting index of the range to delete (inclusive).\n * @param endIndex   The ending index of the range to delete (exclusive).\n * @param len        The length of the range to delete.\n */\n",
+        "improved_javadoc": "/**\n * Deletes a portion of the buffer by shifting all elements after the deletion point to fill the gap,\n * effectively reducing the size of the buffer by the number of deleted elements.\n *\n * @param startIndex The starting index (inclusive) of the range to delete from the buffer.\n * @param endIndex   The ending index (exclusive) of the range to delete from the buffer.\n * @param len        The length of the range to delete from the buffer.\n */\n"
+    },
+    {
+        "signature": "public char drainChar(final int index)",
+        "implementation": "public char drainChar(final int index) {\n        validateIndex(index);\n        final char c = buffer[index];\n        deleteCharAt(index);\n        return c;\n    }",
+        "called_methods": [
+            "validateIndex",
+            "deleteCharAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "drainChar",
+        "javadoc": "/**\n * Retrieves and removes a character at the specified index from the buffer.\n *\n * @param index the index of the character to be retrieved\n * @return the character at the specified index\n * @throws IndexOutOfBoundsException if the index is out of range\n */\n",
+        "improved_javadoc": "/**\n * Retrieves and removes a character at the specified index from the buffer.\n *\n * @param index the 0-based index of the character to be retrieved\n * @return the character at the specified index\n * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to size\n */\n"
+    },
+    {
+        "signature": "public int drainChars(final int startIndex, final int endIndex, final char[] target, final int targetIndex)",
+        "implementation": "public int drainChars(final int startIndex, final int endIndex, final char[] target, final int targetIndex) {\n        final int length = endIndex - startIndex;\n        if (isEmpty() || length == 0 || target.length == 0) {\n            return 0;\n        }\n        final int actualLen = Math.min(Math.min(size, length), target.length - targetIndex);\n        getChars(startIndex, actualLen, target, targetIndex);\n        delete(startIndex, actualLen);\n        return actualLen;\n    }",
+        "called_methods": [
+            "isEmpty",
+            "min",
+            "getChars",
+            "delete"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "drainChars",
+        "javadoc": "/**\n * Drains characters from this character sequence into a specified array.\n *\n * @param startIndex the starting index in this character sequence to drain from\n * @param endIndex the ending index in this character sequence to drain up to (exclusive)\n * @param target the array to store the drained characters\n * @param targetIndex the index in the target array where draining should start\n * @return the number of characters actually drained into the target array\n * @throws StringIndexOutOfBoundsException if the specified range exceeds the bounds of this character sequence\n */\n",
+        "improved_javadoc": "/**\n * Drains characters from this character sequence into a specified array.\n *\n * @param startIndex the starting index in this character sequence to drain from\n * @param endIndex   the ending index in this character sequence to drain up to (exclusive)\n * @param target     the array to store the drained characters\n * @param targetIndex the index in the target array where draining should start\n * @return the number of characters actually drained into the target array\n * @throws StringIndexOutOfBoundsException if the specified range exceeds the bounds of this character sequence\n */\n"
+    },
+    {
+        "signature": "public boolean endsWith(final String str)",
+        "implementation": "public boolean endsWith(final String str) {\n        if (str == null) {\n            return false;\n        }\n        final int len = str.length();\n        if (len == 0) {\n            return true;\n        }\n        if (len > size) {\n            return false;\n        }\n        int pos = size - len;\n        for (int i = 0; i < len; i++, pos++) {\n            if (buffer[pos] != str.charAt(i)) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "length",
+            "charAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "endsWith",
+        "javadoc": "/**\n * Checks if this buffer ends with the specified string.\n *\n * @param str the string to check against\n * @return {@code true} if this buffer ends with the specified string, otherwise {@code false}\n * @throws NullPointerException if the input string is null\n */\n",
+        "improved_javadoc": "/**\n * Checks if this buffer ends with the specified string.\n *\n * @param str the input string to check against\n * @return {@code true} if this buffer ends with the specified string, otherwise {@code false}\n * @throws NullPointerException if the input string is null\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder ensureCapacity(final int capacity)",
+        "implementation": "public TextStringBuilder ensureCapacity(final int capacity) {\n        if (capacity > 0) {\n            ensureCapacityInternal(capacity);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacityInternal"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "ensureCapacity",
+        "javadoc": "/**\n * Ensures that the internal buffer has at least the specified capacity.\n *\n * @param capacity the minimum capacity to be ensured\n * @return this TextStringBuilder instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Ensures that the internal buffer has at least the specified capacity.\n *\n * @param capacity the minimum capacity to be ensured\n * @return this TextStringBuilder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "private void ensureCapacityInternal(final int capacity)",
+        "implementation": "private void ensureCapacityInternal(final int capacity) {\n        // Check for overflow of the current buffer.\n        // Assumes capacity is an unsigned integer up to Integer.MAX_VALUE * 2\n        // (the largest possible addition of two maximum length arrays).\n        if (capacity - buffer.length > 0) {\n            resizeBuffer(capacity);\n        }\n    }",
+        "called_methods": [
+            "resizeBuffer"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "ensureCapacityInternal",
+        "javadoc": "/**\n * Ensures that the internal buffer has sufficient capacity to hold the specified number of elements.\n *\n * @param capacity the minimum capacity required by the buffer\n */\n",
+        "improved_javadoc": "/**\n * Ensures that the internal buffer has sufficient capacity to hold the specified number of elements.\n *\n * This method checks if the current buffer size is less than the required capacity and, if so, resizes the buffer using {@link #resizeBuffer(int)} to ensure it can accommodate at least the specified number of elements.\n *\n * @param capacity the minimum capacity required by the buffer\n */\n"
+    },
+    {
+        "signature": "public boolean equals(final TextStringBuilder other)",
+        "implementation": "public boolean equals(final TextStringBuilder other) {\n        if (this == other) {\n            return true;\n        }\n        if (other == null) {\n            return false;\n        }\n        if (this.size != other.size) {\n            return false;\n        }\n        // Be aware not to use Arrays.equals(buffer, other.buffer) for equals() method\n        // as length of the buffers may be different (TEXT-211)\n        final char[] thisBuf = this.buffer;\n        final char[] otherBuf = other.buffer;\n        for (int i = size - 1; i >= 0; i--) {\n            if (thisBuf[i] != otherBuf[i]) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "equals",
+        "javadoc": "/**\n * Compares this TextStringBuilder with another.\n *\n * @param other the TextStringBuilder to compare with, may be null\n * @return true if this TextStringBuilder is equal to the specified object, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Compares this TextStringBuilder with another.\n *\n * @param other the TextStringBuilder to compare with, may be null\n * @return true if this TextStringBuilder is equal to the specified object, false otherwise\n * @throws NullPointerException if the specified object is null\n */\n"
+    },
+    {
+        "signature": "public boolean equalsIgnoreCase(final TextStringBuilder other)",
+        "implementation": "public boolean equalsIgnoreCase(final TextStringBuilder other) {\n        if (this == other) {\n            return true;\n        }\n        if (this.size != other.size) {\n            return false;\n        }\n        final char[] thisBuf = this.buffer;\n        final char[] otherBuf = other.buffer;\n        for (int i = size - 1; i >= 0; i--) {\n            final char c1 = thisBuf[i];\n            final char c2 = otherBuf[i];\n            if (c1 != c2 && Character.toUpperCase(c1) != Character.toUpperCase(c2)) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "toUpperCase"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "equalsIgnoreCase",
+        "javadoc": "/**\n * Compares this text string builder to another, ignoring case differences.\n *\n * @param other the TextStringBuilder to compare with\n * @return true if the two strings are equal, ignoring case; false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Compares this text string builder to another, ignoring case differences.\n *\n * @param other the TextStringBuilder to compare with, may be null\n * @return true if the two strings are equal, ignoring case; false otherwise\n */\n"
+    },
+    {
+        "signature": "public String get()",
+        "implementation": "public String get() {\n        return toString();\n    }",
+        "called_methods": [
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "get",
+        "javadoc": "/**\n * Returns a string representation of this object.\n *\n * @return  a string representation of this object\n */\n",
+        "improved_javadoc": "/**\n * Returns a string representation of this object, which is equivalent to calling {@link #toString()}.\n *\n * @return  a string representation of this object\n */\n"
+    },
+    {
+        "signature": "char[] getBuffer()",
+        "implementation": "char[] getBuffer() {\n        return buffer;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "getBuffer",
+        "javadoc": "/**\n * Returns the character array used as a buffer.\n *\n * @return The character array used as a buffer.\n */\n",
+        "improved_javadoc": "/**\n * Returns the character array used as a buffer, which can be modified by the user to store custom data.\n *\n * @return The character array used as a buffer. This array may have been previously initialized with default values or populated with data from a previous operation.\n */\n"
+    },
+    {
+        "signature": "public void getChars(final int startIndex, final int endIndex, final char[] target, final int targetIndex)",
+        "implementation": "public void getChars(final int startIndex, final int endIndex, final char[] target, final int targetIndex) {\n        if (startIndex < 0) {\n            throw new StringIndexOutOfBoundsException(startIndex);\n        }\n        if (endIndex < 0 || endIndex > length()) {\n            throw new StringIndexOutOfBoundsException(endIndex);\n        }\n        if (startIndex > endIndex) {\n            throw new StringIndexOutOfBoundsException(\"end < start\");\n        }\n        System.arraycopy(buffer, startIndex, target, targetIndex, endIndex - startIndex);\n    }",
+        "called_methods": [
+            "length",
+            "arraycopy"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "getChars",
+        "javadoc": "/**\n * Copies characters from this string into the given array.\n *\n * @param startIndex the starting index (inclusive) of the substring to copy\n * @param endIndex   the ending index (exclusive) of the substring to copy\n * @param target     the character array to copy into\n * @param targetIndex the starting index in the target array where copying begins\n */\n",
+        "improved_javadoc": "/**\n * Copies characters from this string into the given array.\n *\n * @param startIndex the starting index (inclusive) of the substring to copy\n * @param endIndex   the ending index (exclusive) of the substring to copy\n * @param target     the character array to copy into\n * @param targetIndex the starting index in the target array where copying begins\n * \n * @throws StringIndexOutOfBoundsException if the start or end index is out of range, or if start > end.\n */\n"
+    },
+    {
+        "signature": "public String getNewLineText()",
+        "implementation": "public String getNewLineText() {\n        return newLine;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "getNewLineText",
+        "javadoc": "/**\n * Returns the text of a new line.\n *\n * @return The text of a new line.\n */\n",
+        "improved_javadoc": "/**\n * Returns the text representing a new line, which is typically used for \n * separating logical sections of text in a document or output stream. This \n * value can be customized by setting the {@link #setNewLine(String)} method.\n *\n * @return The text representing a new line.\n */\n"
+    },
+    {
+        "signature": "public String getNullText()",
+        "implementation": "public String getNullText() {\n        return nullText;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "getNullText",
+        "javadoc": "/**\n * Returns the text to be displayed when a field has no value.\n *\n * @return the null text\n */\n",
+        "improved_javadoc": "/**\n * Returns the text that will be displayed in place of a missing or null field value.\n *\n * @return the text to display when a field has no value, or {@code null} if not set\n */\n"
+    },
+    {
+        "signature": "public int hashCode()",
+        "implementation": "public int hashCode() {\n        // no allocation\n        final char[] buf = buffer;\n        int result = 0;\n        for (int i = 0; i < size; i++) {\n            result = 31 * result + buf[i];\n        }\n        return result;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "hashCode",
+        "javadoc": "/**\n * Returns a hash code value for the object.\n *\n * This implementation uses a variant of the \"distributive\" hash function\n * that is designed to produce a good distribution of hash values across\n * the entire range of possible values. The hash code is computed as\n * follows:\n *\n * <ul>\n *   <li>Initializes the result to 0.</li>\n *   <li>Iterates over each character in the buffer, multiplying the\n *       current result by 31 and adding the value of the current character.\n *   </li>\n * </ul>\n *\n * @return a hash code value for this object.\n */\n",
+        "improved_javadoc": "/**\n * Returns a hash code value for this object.\n *\n * This method uses a variant of the \"distributive\" hash function to produce\n * a good distribution of hash values across the entire range of possible values.\n * The hash code is computed by iterating over each character in the buffer,\n * multiplying the current result by 31, and adding the value of the current character.\n *\n * @return a hash code value for this object.\n */\n"
+    },
+    {
+        "signature": "public int indexOf(final StringMatcher matcher, int startIndex)",
+        "implementation": "public int indexOf(final StringMatcher matcher, int startIndex) {\n        startIndex = Math.max(0, startIndex);\n        if (matcher == null || startIndex >= size) {\n            return StringUtils.INDEX_NOT_FOUND;\n        }\n        final int len = size;\n        final char[] buf = buffer;\n        for (int i = startIndex; i < len; i++) {\n            if (matcher.isMatch(buf, i, startIndex, len) > 0) {\n                return i;\n            }\n        }\n        return StringUtils.INDEX_NOT_FOUND;\n    }",
+        "called_methods": [
+            "indexOf",
+            "max",
+            "length",
+            "charAt",
+            "isMatch"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "indexOf",
+        "javadoc": "/**\n * Finds the index of the first occurrence of a match in the buffer.\n *\n * @param matcher the string matcher to use for matching\n * @param startIndex the starting index to search from (inclusive)\n * @return the index of the first match, or {@link StringUtils#INDEX_NOT_FOUND} if no match is found\n * @throws NullPointerException if the matcher is null\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public TextStringBuilder insert(final int index, String str)",
+        "implementation": "public TextStringBuilder insert(final int index, String str) {\n        validateIndex(index);\n        if (str == null) {\n            str = nullText;\n        }\n        if (str != null) {\n            final int strLen = str.length();\n            if (strLen > 0) {\n                final int newSize = size + strLen;\n                ensureCapacityInternal(newSize);\n                System.arraycopy(buffer, index, buffer, index + strLen, size - index);\n                size = newSize;\n                str.getChars(0, strLen, buffer, index);\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "validateIndex",
+            "ensureCapacityInternal",
+            "arraycopy",
+            "appendTrue",
+            "appendFalse",
+            "insert",
+            "valueOf",
+            "toString",
+            "length",
+            "getChars"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "insert",
+        "javadoc": "/**\n * Inserts a string at the specified index in this text builder.\n *\n * @param index the index at which to insert the string\n * @param str   the string to be inserted, or null if the default null text should be used instead\n * @return this text builder for chaining\n */\n",
+        "improved_javadoc": "/**\n * Inserts a string at the specified index in this text builder.\n *\n * @param index the index (0-based) at which to insert the string\n * @param str   the string to be inserted, or null if the default null text should be used instead\n * @return this text builder for chaining\n */\n"
+    },
+    {
+        "signature": "public boolean isEmpty()",
+        "implementation": "public boolean isEmpty() {\n        return size == 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "isEmpty",
+        "javadoc": "/**\n * Checks if this collection is empty.\n *\n * @return true if this collection contains no elements, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether this collection contains any elements.\n *\n * @return true if this collection is empty, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isNotEmpty()",
+        "implementation": "public boolean isNotEmpty() {\n        return size != 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "isNotEmpty",
+        "javadoc": "/**\n * Checks if this collection is not empty.\n *\n * @return true if this collection has at least one element, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks if this collection contains at least one element.\n *\n * @return true if this collection has at least one element, false otherwise\n */\n"
+    },
+    {
+        "signature": "public boolean isReallocated()",
+        "implementation": "public boolean isReallocated() {\n        return reallocations > 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "isReallocated",
+        "javadoc": "/**\n * Checks if memory has been reallocated.\n *\n * @return true if memory has been reallocated, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Determines whether memory has been dynamically re-allocated since the last garbage collection cycle.\n *\n * @return true if memory has been re-allocated, false otherwise\n */\n"
+    },
+    {
+        "signature": "public int lastIndexOf(final StringMatcher matcher, int startIndex)",
+        "implementation": "public int lastIndexOf(final StringMatcher matcher, int startIndex) {\n        startIndex = startIndex >= size ? size - 1 : startIndex;\n        if (matcher == null || startIndex < 0) {\n            return StringUtils.INDEX_NOT_FOUND;\n        }\n        final char[] buf = buffer;\n        final int endIndex = startIndex + 1;\n        for (int i = startIndex; i >= 0; i--) {\n            if (matcher.isMatch(buf, i, 0, endIndex) > 0) {\n                return i;\n            }\n        }\n        return StringUtils.INDEX_NOT_FOUND;\n    }",
+        "called_methods": [
+            "lastIndexOf",
+            "length",
+            "charAt",
+            "isMatch"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "lastIndexOf",
+        "javadoc": "/**\n * Finds the last index of a match in the buffer.\n *\n * @param matcher the string matcher to use for matching\n * @param startIndex the starting index to search from (inclusive)\n * @return the last index of a match, or {@link StringUtils#INDEX_NOT_FOUND} if no match is found\n * @throws NullPointerException if the matcher is null\n */\n",
+        "improved_javadoc": "/**\n * Finds the last index of a match in the buffer.\n *\n * @param matcher the string matcher to use for matching\n * @param startIndex the starting index to search from (inclusive)\n * @return the last index of a match, or {@link StringUtils#INDEX_NOT_FOUND} if no match is found\n * @throws NullPointerException if the matcher is null\n */\n"
+    },
+    {
+        "signature": "public String leftString(final int length)",
+        "implementation": "public String leftString(final int length) {\n        if (length <= 0) {\n            return StringUtils.EMPTY;\n        }\n        if (length >= size) {\n            return new String(buffer, 0, size);\n        }\n        return new String(buffer, 0, length);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "leftString",
+        "javadoc": "/**\n * Returns the leftmost characters of this string buffer.\n *\n * @param length the number of characters to return\n * @return a substring of this sequence that starts at the beginning and has {@code length} characters\n * @throws IllegalArgumentException if {@code length} is less than 0\n */\n",
+        "improved_javadoc": "/**\n * Returns a substring of this string buffer that starts at the beginning and has the specified number of characters.\n *\n * @param length the number of characters to return (must be non-negative)\n * @return a substring of this sequence, or an empty string if {@code length} is 0\n */\n"
+    },
+    {
+        "signature": "public int length()",
+        "implementation": "public int length() {\n        return size;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "length",
+        "javadoc": "/**\n * Returns the number of elements in this list.\n *\n * @return the number of elements in this list\n */\n",
+        "improved_javadoc": "/**\n * Returns the number of elements in this list, also known as its cardinality or size.\n *\n * @return the number of elements in this list (non-negative)\n */\n"
+    },
+    {
+        "signature": "public String midString(int index, final int length)",
+        "implementation": "public String midString(int index, final int length) {\n        if (index < 0) {\n            index = 0;\n        }\n        if (length <= 0 || index >= size) {\n            return StringUtils.EMPTY;\n        }\n        if (size <= index + length) {\n            return new String(buffer, index, size - index);\n        }\n        return new String(buffer, index, length);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "midString",
+        "javadoc": "/**\n * Returns a substring of this string from the specified {@code index} to the end,\n * or up to a maximum of {@code length} characters.\n *\n * If the {@code index} is negative, it is treated as 0. If the {@code length}\n * is less than or equal to 0, an empty string is returned. If the {@code index}\n * plus {@code length} exceeds the size of this string, a substring from\n * {@code index} to the end of the string is returned.\n *\n * @param index the starting index of the substring (inclusive)\n * @param length the maximum length of the substring\n * @return a substring of this string\n */\n",
+        "improved_javadoc": "/**\n * Returns a substring of this string from the specified {@code index} to the end,\n * or up to a maximum of {@code length} characters.\n *\n * If the {@code index} is negative, it is treated as 0. If the {@code length}\n * is less than or equal to 0, an empty string is returned. If the {@code index}\n * plus {@code length} exceeds the size of this string, a substring from\n * {@code index} to the end of the string is returned.\n *\n * @param index the starting index of the substring (inclusive)\n * @param length the maximum length of the substring; if 0 or less, an empty string is returned\n * @return a substring of this string, never null\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder minimizeCapacity()",
+        "implementation": "public TextStringBuilder minimizeCapacity() {\n        if (buffer.length > size) {\n            reallocate(size);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "reallocate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "minimizeCapacity",
+        "javadoc": "/**\n * Minimizes the capacity of the text string builder to its current size.\n *\n * If the buffer's length exceeds the current size, it will be reallocated\n * to match the size. This method is useful for reducing memory usage when\n * the text string builder's size has been reduced.\n *\n * @return this TextStringBuilder instance, allowing for method chaining.\n */\n",
+        "improved_javadoc": "/**\n * Minimizes the capacity of the text string builder to its current size.\n *\n * If the buffer's length exceeds the current size, it will be reallocated\n * to match the size. This method is useful for reducing memory usage when\n * the text string builder's size has been reduced.\n *\n * @return this TextStringBuilder instance, allowing for method chaining.\n */\n"
+    },
+    {
+        "signature": "public int readFrom(final Reader reader, final int count) throws IOException",
+        "implementation": "public int readFrom(final Reader reader, final int count) throws IOException {\n        if (count <= 0) {\n            return 0;\n        }\n        final int oldSize = size;\n        ensureCapacityInternal(size + count);\n        int target = count;\n        int readCount = reader.read(buffer, size, target);\n        if (readCount == EOS) {\n            return EOS;\n        }\n        do {\n            target -= readCount;\n            size += readCount;\n            readCount = reader.read(buffer, size, target);\n        } while (target > 0 && readCount != EOS);\n        return size - oldSize;\n    }",
+        "called_methods": [
+            "remaining",
+            "ensureCapacityInternal",
+            "get",
+            "readFrom",
+            "wrap",
+            "read"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "readFrom",
+        "javadoc": "/**\n * Reads data from the specified Reader into this buffer.\n *\n * @param reader   the Reader to read from\n * @param count    the number of bytes to read; must be non-negative\n * @return        the actual number of bytes read, or EOS if there is no more input\n * @throws IOException if an I/O error occurs while reading\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "private void reallocate(final int newLength)",
+        "implementation": "private void reallocate(final int newLength) {\n        this.buffer = Arrays.copyOf(buffer, newLength);\n        this.reallocations++;\n    }",
+        "called_methods": [
+            "copyOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "reallocate",
+        "javadoc": "/**\n * Reallocates the internal buffer to a specified length.\n *\n * @param newLength The new length of the buffer.\n */\n",
+        "improved_javadoc": "/**\n * Reallocates the internal buffer to a specified length by creating a copy of the existing buffer with the updated size.\n *\n * @param newLength The new length of the buffer, which must be greater than or equal to the current length. If the new length is less than the current length, this method will throw an {@link ArrayIndexOutOfBoundsException}.\n * @throws ArrayIndexOutOfBoundsException if the new length is less than the current length.\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder replace(final StringMatcher matcher, final String replaceStr, final int startIndex,\n        int endIndex, final int replaceCount)",
+        "implementation": "public TextStringBuilder replace(final StringMatcher matcher, final String replaceStr, final int startIndex,\n        int endIndex, final int replaceCount) {\n        endIndex = validateRange(startIndex, endIndex);\n        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);\n    }",
+        "called_methods": [
+            "validateRange",
+            "length",
+            "replaceImpl"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "replace",
+        "javadoc": "/**\n * Replaces occurrences of a specified pattern in this text with a replacement string.\n *\n * @param matcher  The pattern to match and replace.\n * @param replaceStr  The string to use as a replacement.\n * @param startIndex  The starting index (inclusive) where replacements should begin.\n * @param endIndex    The ending index (exclusive) where replacements should end.\n * @param replaceCount  The maximum number of occurrences to replace.\n *\n * @return A new TextStringBuilder with the replacements made.\n *\n * @throws IllegalArgumentException if the range specified by startIndex and endIndex is invalid.\n */\n",
+        "improved_javadoc": "/**\n * Replaces occurrences of a specified pattern in this text with a replacement string.\n *\n * @param matcher  The pattern to match and replace.\n * @param replaceStr  The string to use as a replacement.\n * @param startIndex  The starting index (inclusive) where replacements should begin.\n * @param endIndex    The ending index (exclusive) where replacements should end.\n * @param replaceCount  The maximum number of occurrences to replace.\n *\n * @return A new TextStringBuilder with the replacements made.\n *\n * @throws IllegalArgumentException if the range specified by startIndex and endIndex is invalid.\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder replaceAll(final StringMatcher matcher, final String replaceStr)",
+        "implementation": "public TextStringBuilder replaceAll(final StringMatcher matcher, final String replaceStr) {\n        return replace(matcher, replaceStr, 0, size, -1);\n    }",
+        "called_methods": [
+            "length",
+            "indexOf",
+            "replaceImpl",
+            "replace"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "replaceAll",
+        "javadoc": "/**\n * Replaces all occurrences of a specified pattern in this text with a replacement string.\n *\n * @param matcher the pattern to match\n * @param replaceStr the replacement string\n * @return this TextStringBuilder object\n */\n",
+        "improved_javadoc": "/**\n * Replaces all occurrences of a specified pattern in this text with a replacement string.\n *\n * @param matcher the pattern to match\n * @param replaceStr the replacement string\n * @return this TextStringBuilder object\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder replaceFirst(final StringMatcher matcher, final String replaceStr)",
+        "implementation": "public TextStringBuilder replaceFirst(final StringMatcher matcher, final String replaceStr) {\n        return replace(matcher, replaceStr, 0, size, 1);\n    }",
+        "called_methods": [
+            "length",
+            "indexOf",
+            "replaceImpl",
+            "replace"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "replaceFirst",
+        "javadoc": "/**\n * Replaces the first occurrence of a pattern in this text with a replacement string.\n *\n * @param matcher The pattern to match and replace.\n * @param replaceStr The string to use as a replacement for the matched pattern.\n * @return A new TextStringBuilder instance containing the modified text.\n */\n",
+        "improved_javadoc": "/**\n * Replaces the first occurrence of a pattern in this text with a replacement string.\n *\n * @param matcher The pattern to match and replace.\n * @param replaceStr The string to use as a replacement for the matched pattern.\n * @return A new TextStringBuilder instance containing the modified text.\n */\n"
+    },
+    {
+        "signature": "private TextStringBuilder replaceImpl(final StringMatcher matcher, final String replaceStr, final int from, int to,\n        int replaceCount)",
+        "implementation": "private TextStringBuilder replaceImpl(final StringMatcher matcher, final String replaceStr, final int from, int to,\n        int replaceCount) {\n        if (matcher == null || size == 0) {\n            return this;\n        }\n        final int replaceLen = replaceStr == null ? 0 : replaceStr.length();\n        for (int i = from; i < to && replaceCount != 0; i++) {\n            final char[] buf = buffer;\n            final int removeLen = matcher.isMatch(buf, i, from, to);\n            if (removeLen > 0) {\n                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);\n                to = to - removeLen + replaceLen;\n                i = i + replaceLen - 1;\n                if (replaceCount > 0) {\n                    replaceCount--;\n                }\n            }\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacityInternal",
+            "arraycopy",
+            "getChars",
+            "length",
+            "isMatch",
+            "replaceImpl"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "replaceImpl",
+        "javadoc": "/**\n * Replaces occurrences of a pattern in the text with a replacement string.\n *\n * @param matcher the pattern to match, must not be null\n * @param replaceStr the replacement string, may be null\n * @param from the starting index (inclusive) of the search range\n * @param to the ending index (exclusive) of the search range\n * @param replaceCount the maximum number of replacements to make\n *\n * @return this TextStringBuilder instance\n */\n",
+        "improved_javadoc": "/**\n * Replaces occurrences of a pattern in the text with a replacement string.\n *\n * The search range is defined by the {@code from} and {@code to} indices, where {@code from} is inclusive and {@code to}\n * is exclusive. The maximum number of replacements to make is specified by the {@code replaceCount} parameter.\n *\n * If the pattern matches at a given position in the text, the matched characters are removed and replaced with the\n * replacement string. The indices of the search range are then adjusted accordingly.\n *\n * @param matcher the pattern to match, must not be null\n * @param replaceStr the replacement string, may be null\n * @param from the starting index (inclusive) of the search range\n * @param to the ending index (exclusive) of the search range\n * @param replaceCount the maximum number of replacements to make\n *\n * @return this TextStringBuilder instance\n */\n"
+    },
+    {
+        "signature": "private void resizeBuffer(final int minCapacity)",
+        "implementation": "private void resizeBuffer(final int minCapacity) {\n        // Overflow-conscious code treats the min and new capacity as unsigned.\n        final int oldCapacity = buffer.length;\n        int newCapacity = oldCapacity * 2;\n        if (Integer.compareUnsigned(newCapacity, minCapacity) < 0) {\n            newCapacity = minCapacity;\n        }\n        if (Integer.compareUnsigned(newCapacity, MAX_BUFFER_SIZE) > 0) {\n            newCapacity = createPositiveCapacity(minCapacity);\n        }\n        reallocate(newCapacity);\n    }",
+        "called_methods": [
+            "compareUnsigned",
+            "createPositiveCapacity",
+            "reallocate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "resizeBuffer",
+        "javadoc": "/**\n * Resizes the buffer to accommodate at least the specified minimum capacity.\n *\n * This method is used to dynamically resize the internal buffer to ensure it can hold at least the specified number of elements.\n * It takes into account both overflow and underflow conditions, ensuring that the new capacity is sufficient but not excessive.\n *\n * @param minCapacity The minimum capacity required for the buffer\n */\n",
+        "improved_javadoc": "/**\n * Resizes the buffer to accommodate at least the specified minimum capacity.\n *\n * This method is used to dynamically resize the internal buffer to ensure it can hold at least the specified number of elements.\n * It takes into account both overflow and underflow conditions, ensuring that the new capacity is sufficient but not excessive.\n *\n * @param minCapacity The minimum capacity required for the buffer\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder reverse()",
+        "implementation": "public TextStringBuilder reverse() {\n        if (size == 0) {\n            return this;\n        }\n\n        final int half = size / 2;\n        final char[] buf = buffer;\n        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++, rightIdx--) {\n            final char swap = buf[leftIdx];\n            buf[leftIdx] = buf[rightIdx];\n            buf[rightIdx] = swap;\n        }\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "reverse",
+        "javadoc": "/**\n * Reverses the order of characters in the text string.\n *\n * If the text string is empty, returns the original instance without modification.\n *\n * @return This TextStringBuilder instance with the characters reversed.\n */\n",
+        "improved_javadoc": "/**\n * Reverses the order of characters in the text string.\n *\n * If the input string is empty, returns the original instance without modification.\n *\n * @return This TextStringBuilder instance with the characters reversed.\n */\n"
+    },
+    {
+        "signature": "public String rightString(final int length)",
+        "implementation": "public String rightString(final int length) {\n        if (length <= 0) {\n            return StringUtils.EMPTY;\n        }\n        if (length >= size) {\n            return new String(buffer, 0, size);\n        }\n        return new String(buffer, size - length, length);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "rightString",
+        "javadoc": "/**\n * Returns a substring of the current buffer from the end up to the specified length.\n *\n * @param length the desired length of the returned string\n * @return a substring of the current buffer with the specified length, or an empty string if the length is invalid\n */\n",
+        "improved_javadoc": "/**\n * Returns a substring of the current buffer from the end up to the specified length.\n *\n * @param length the desired length of the returned string (must be greater than 0 and less than or equal to the size of the buffer)\n * @return a substring of the current buffer with the specified length, or an empty string if the length is invalid\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder set(final CharSequence str)",
+        "implementation": "public TextStringBuilder set(final CharSequence str) {\n        clear();\n        append(str);\n        return this;\n    }",
+        "called_methods": [
+            "clear",
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "set",
+        "javadoc": "/**\n * Sets the text of this builder to the specified character sequence.\n *\n * @param str the character sequence to be appended\n * @return this builder, for chaining convenience\n */\n",
+        "improved_javadoc": "/**\n * Sets the text of this builder to the specified character sequence.\n *\n * Clears the constant cache and appends all characters from the given character sequence to this buffer, \n * effectively resetting the current state of the builder. This method allows for chaining convenience by returning\n * a reference to this builder.\n *\n * @param str the character sequence to be appended\n * @return this builder, for chaining convenience\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder setCharAt(final int index, final char ch)",
+        "implementation": "public TextStringBuilder setCharAt(final int index, final char ch) {\n        validateIndex(index);\n        buffer[index] = ch;\n        return this;\n    }",
+        "called_methods": [
+            "validateIndex"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "setCharAt",
+        "javadoc": "/**\n * Sets a character at the specified index.\n *\n * @param index  the index of the character to be set\n * @param ch     the character to be set\n * @return       this TextStringBuilder instance for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets a character at the specified index.\n *\n * @param index  the index of the character to be set (must not be negative and must not exceed the current size of the TextStringBuilder)\n * @param ch     the character to be set\n * @return       this TextStringBuilder instance for method chaining\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder setLength(final int length)",
+        "implementation": "public TextStringBuilder setLength(final int length) {\n        if (length < 0) {\n            throw new StringIndexOutOfBoundsException(length);\n        }\n        if (length < size) {\n            size = length;\n        } else if (length > size) {\n            ensureCapacityInternal(length);\n            final int oldEnd = size;\n            size = length;\n            Arrays.fill(buffer, oldEnd, length, '\\0');\n        }\n        return this;\n    }",
+        "called_methods": [
+            "ensureCapacityInternal",
+            "fill"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "setLength",
+        "javadoc": "/**\n * Sets the length of this text string builder.\n *\n * @param length the new length of the text string builder\n * @return this text string builder\n * @throws StringIndexOutOfBoundsException if the specified length is negative\n */\n",
+        "improved_javadoc": "/**\n * Sets the length of this text string builder to the specified value.\n *\n * If the new length is less than the current size, it simply sets the size to the new value.\n * If the new length is greater than the current size, it ensures that the internal buffer has sufficient capacity and then fills the additional elements with null characters.\n *\n * @param length the new length of the text string builder\n * @return this text string builder\n * @throws StringIndexOutOfBoundsException if the specified length is negative\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder setNewLineText(final String newLine)",
+        "implementation": "public TextStringBuilder setNewLineText(final String newLine) {\n        this.newLine = newLine;\n        return this;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "setNewLineText",
+        "javadoc": "/**\n * Sets a custom newline text for the builder.\n *\n * @param newLine the custom newline text to be used\n * @return this TextStringBuilder instance, allowing for method chaining\n */\n",
+        "improved_javadoc": "/**\n * Sets a custom newline text for the builder.\n *\n * @param newLine the custom newline character or string to be used, which will be appended at the end of each line in the TextStringBuilder\n * @return this TextStringBuilder instance, allowing for method chaining\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder setNullText(String nullText)",
+        "implementation": "public TextStringBuilder setNullText(String nullText) {\n        if (nullText != null && nullText.isEmpty()) {\n            nullText = null;\n        }\n        this.nullText = nullText;\n        return this;\n    }",
+        "called_methods": [
+            "isEmpty"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "setNullText",
+        "javadoc": "/**\n * Sets the text to be used when a field is empty or null.\n *\n * @param nullText the text to use for empty fields, may be {@code null}\n * @return this TextStringBuilder instance\n */\n",
+        "improved_javadoc": "/**\n * Sets the text to be used when a field is empty or null.\n *\n * @param nullText the text to use for empty fields, may be {@code null}\n * @return this TextStringBuilder instance\n */\n"
+    },
+    {
+        "signature": "public int size()",
+        "implementation": "public int size() {\n        return size;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "size",
+        "javadoc": "/**\n * Returns the number of elements in this collection.\n *\n * @return the number of elements in this collection\n */\n",
+        "improved_javadoc": "/**\n * Returns the number of elements in this collection, which may be modified concurrently by other threads.\n *\n * @return the current number of elements in this collection\n */\n"
+    },
+    {
+        "signature": "public boolean startsWith(final String str)",
+        "implementation": "public boolean startsWith(final String str) {\n        if (str == null) {\n            return false;\n        }\n        final int len = str.length();\n        if (len == 0) {\n            return true;\n        }\n        if (len > size) {\n            return false;\n        }\n        for (int i = 0; i < len; i++) {\n            if (buffer[i] != str.charAt(i)) {\n                return false;\n            }\n        }\n        return true;\n    }",
+        "called_methods": [
+            "length",
+            "charAt"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "startsWith",
+        "javadoc": "/**\n * Checks if this string starts with the specified prefix.\n *\n * @param str the prefix to check against\n * @return true if this string starts with the specified prefix, false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Checks if this string starts with the specified prefix.\n *\n * @param str the prefix to check against, not null\n * @return true if this string starts with the specified prefix, false otherwise\n * @throws NullPointerException if the prefix is null\n */\n"
+    },
+    {
+        "signature": "public CharSequence subSequence(final int startIndex, final int endIndex)",
+        "implementation": "public CharSequence subSequence(final int startIndex, final int endIndex) {\n        if (startIndex < 0) {\n            throw new StringIndexOutOfBoundsException(startIndex);\n        }\n        if (endIndex > size) {\n            throw new StringIndexOutOfBoundsException(endIndex);\n        }\n        if (startIndex > endIndex) {\n            throw new StringIndexOutOfBoundsException(endIndex - startIndex);\n        }\n        return substring(startIndex, endIndex);\n    }",
+        "called_methods": [
+            "substring"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "subSequence",
+        "javadoc": "/**\n * Returns a new character sequence that is a subsequence of this sequence.\n * The subsequence begins at the specified {@code startIndex} and ends at\n * the specified {@code endIndex}.\n *\n * @param startIndex the starting index (inclusive) of the subsequence\n * @param endIndex   the ending index (exclusive) of the subsequence\n * @return a new character sequence that is a subsequence of this sequence\n * @throws StringIndexOutOfBoundsException if the start or end index is out of range\n */\n",
+        "improved_javadoc": "/**\n * Returns a new character sequence that is a subsequence of this sequence.\n * The subsequence begins at the specified {@code startIndex} and ends at\n * the specified {@code endIndex}.\n *\n * @param startIndex the starting index (inclusive) of the subsequence\n * @param endIndex   the ending index (exclusive) of the subsequence\n * @return a new character sequence that is a subsequence of this sequence\n * @throws StringIndexOutOfBoundsException if the start or end index is out of range\n */\n"
+    },
+    {
+        "signature": "public String substring(final int startIndex, int endIndex)",
+        "implementation": "public String substring(final int startIndex, int endIndex) {\n        endIndex = validateRange(startIndex, endIndex);\n        return new String(buffer, startIndex, endIndex - startIndex);\n    }",
+        "called_methods": [
+            "substring",
+            "validateRange"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "substring",
+        "javadoc": "/**\n * Returns a new string that is a substring of this sequence.\n * The substring begins at the specified {@code startIndex} and extends to the character\n * at index {@code endIndex - 1}.\n *\n * @param startIndex the starting index of the substring\n * @param endIndex   the ending index of the substring (exclusive)\n * @return the specified substring\n * @throws StringIndexOutOfBoundsException if the specified range is invalid\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "public char[] toCharArray(final int startIndex, int endIndex)",
+        "implementation": "public char[] toCharArray(final int startIndex, int endIndex) {\n        endIndex = validateRange(startIndex, endIndex);\n        final int len = endIndex - startIndex;\n        return len == 0 ? ArrayUtils.EMPTY_CHAR_ARRAY : Arrays.copyOfRange(buffer, startIndex, endIndex);\n    }",
+        "called_methods": [
+            "copyOf",
+            "validateRange",
+            "copyOfRange"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "toCharArray",
+        "javadoc": "/**\n * Converts a range of characters from the buffer to a character array.\n *\n * @param startIndex the starting index (inclusive) in the buffer\n * @param endIndex   the ending index (exclusive) in the buffer\n * @return a character array containing the specified range of characters\n */\n",
+        "improved_javadoc": "/**\n * Converts a range of characters from the buffer to a character array.\n *\n * @param startIndex the starting index (inclusive) in the buffer\n * @param endIndex   the ending index (exclusive) in the buffer\n * @return a character array containing the specified range of characters\n */\n"
+    },
+    {
+        "signature": "public StringBuffer toStringBuffer()",
+        "implementation": "public StringBuffer toStringBuffer() {\n        return new StringBuffer(size).append(buffer, 0, size);\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "toStringBuffer",
+        "javadoc": "/**\n * Converts this character buffer into a string buffer.\n *\n * @return A string buffer containing the characters in this buffer.\n */\n",
+        "improved_javadoc": "/**\n * Converts this character buffer into a string buffer, copying its contents into a new {@link StringBuffer} instance.\n *\n * @return A string buffer containing the characters in this buffer, with the same length and capacity as this buffer.\n */\n"
+    },
+    {
+        "signature": "public StringBuilder toStringBuilder()",
+        "implementation": "public StringBuilder toStringBuilder() {\n        return new StringBuilder(size).append(buffer, 0, size);\n    }",
+        "called_methods": [
+            "append"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "toStringBuilder",
+        "javadoc": "/**\n * Returns a {@link StringBuilder} containing the characters of this buffer.\n *\n * @return A new {@code StringBuilder} instance populated with the characters\n *         from this buffer.\n */\n",
+        "improved_javadoc": "/**\n * Returns a {@link StringBuilder} containing the characters of this buffer.\n *\n * @return A new {@code StringBuilder} instance populated with the characters\n *         from this buffer.\n */\n"
+    },
+    {
+        "signature": "public TextStringBuilder trim()",
+        "implementation": "public TextStringBuilder trim() {\n        if (size == 0) {\n            return this;\n        }\n        int len = size;\n        final char[] buf = buffer;\n        int pos = 0;\n        while (pos < len && buf[pos] <= SPACE) {\n            pos++;\n        }\n        while (pos < len && buf[len - 1] <= SPACE) {\n            len--;\n        }\n        if (len < size) {\n            delete(len, size);\n        }\n        if (pos > 0) {\n            delete(0, pos);\n        }\n        return this;\n    }",
+        "called_methods": [
+            "delete"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "trim",
+        "javadoc": "/**\n * Trims leading and trailing whitespace from the text.\n *\n * If the string is empty, returns the original instance without modification.\n *\n * @return This TextStringBuilder instance with leading and trailing whitespace removed.\n */\n",
+        "improved_javadoc": "/**\n * Trims leading and trailing whitespace from the text.\n *\n * If the string is empty or only contains whitespace, returns the original instance without modification.\n *\n * @return This TextStringBuilder instance with leading and trailing whitespace removed.\n */\n"
+    },
+    {
+        "signature": "protected void validateIndex(final int index)",
+        "implementation": "protected void validateIndex(final int index) {\n        if (index < 0 || index >= size) {\n            throw new StringIndexOutOfBoundsException(index);\n        }\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "validateIndex",
+        "javadoc": "/**\n * Validates the given index to ensure it falls within the bounds of the collection.\n *\n * @param index the index to be validated\n * @throws StringIndexOutOfBoundsException if the index is out of range\n */\n",
+        "improved_javadoc": "/**\n * Validates the given index to ensure it falls within the bounds of the collection.\n *\n * @param index the index to be validated, which must be a non-negative integer less than the size of the collection\n * @return no return value; if the index is out of range, a StringIndexOutOfBoundsException is thrown\n * @throws StringIndexOutOfBoundsException if the index is less than 0 or greater than or equal to the size of the collection\n */\n"
+    },
+    {
+        "signature": "protected int validateRange(final int startIndex, int endIndex)",
+        "implementation": "protected int validateRange(final int startIndex, int endIndex) {\n        if (startIndex < 0) {\n            throw new StringIndexOutOfBoundsException(startIndex);\n        }\n        if (endIndex > size) {\n            endIndex = size;\n        }\n        if (startIndex > endIndex) {\n            throw new StringIndexOutOfBoundsException(\"end < start\");\n        }\n        return endIndex;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\TextStringBuilder.java",
+        "name": "validateRange",
+        "javadoc": "/**\n * Validates the range of indices and returns the end index.\n *\n * @param startIndex The starting index of the range. Must be non-negative.\n * @param endIndex   The ending index of the range. If greater than the size of the string, it will be capped at the size.\n * @return The validated end index of the range.\n * @throws StringIndexOutOfBoundsException if the start index is negative or if the end index is less than the start index.\n */\n",
+        "improved_javadoc": "/**\n * Validates the range of indices and returns the end index.\n *\n * @param startIndex The starting index of the range. Must be non-negative.\n * @param endIndex   The ending index of the range. If greater than the size of the string, it will be capped at the size.\n * @return The validated end index of the range.\n * @throws StringIndexOutOfBoundsException if the start index is negative or if the end index is less than the start index.\n */\n"
+    }
+]

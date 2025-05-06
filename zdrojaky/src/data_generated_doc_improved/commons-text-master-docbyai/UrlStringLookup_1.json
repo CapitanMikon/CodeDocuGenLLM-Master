@@ -1,0 +1,20 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        if (key == null) {\n            return null;\n        }\n        final String[] keys = key.split(SPLIT_STR);\n        final int keyLen = keys.length;\n        if (keyLen < 2) {\n            throw IllegalArgumentExceptions.format(\"Bad URL key format [%s]; expected format is DocumentPath:Key.\",\n                key);\n        }\n        final String charsetName = keys[0];\n        final String urlStr = StringUtils.substringAfter(key, SPLIT_CH);\n        try {\n            final URL url = new URL(urlStr);\n            final int size = 8192;\n            final StringWriter writer = new StringWriter(size);\n            final char[] buffer = new char[size];\n            try (BufferedInputStream bis = new BufferedInputStream(url.openStream());\n                InputStreamReader reader = new InputStreamReader(bis, charsetName)) {\n                int n;\n                while (-1 != (n = reader.read(buffer))) {\n                    writer.write(buffer, 0, n);\n                }\n            }\n            return writer.toString();\n        } catch (final Exception e) {\n            throw IllegalArgumentExceptions.format(e, \"Error looking up URL [%s] with Charset [%s].\", urlStr,\n                charsetName);\n        }\n    }",
+        "called_methods": [
+            "split",
+            "format",
+            "substringAfter",
+            "openStream",
+            "read",
+            "write",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\UrlStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Looks up a URL based on the provided key.\n *\n * The key is expected to be in the format \"DocumentPath:Key\".\n * If the key is null, this method returns null.\n *\n * @param key the key to look up (e.g. \"path/to/resource:resourceName\")\n * @return the contents of the URL as a string\n * @throws IllegalArgumentException if the key is not in the correct format\n */\n",
+        "improved_javadoc": "/**\n * Looks up a URL based on the provided key.\n *\n * The key is expected to be in the format \"DocumentPath:Key\".\n * If the key is null, this method returns null.\n *\n * @param key the key to look up (e.g. \"path/to/resource:resourceName\")\n * @return the contents of the URL as a string\n * @throws IllegalArgumentException if the key is not in the correct format\n */\n"
+    }
+]

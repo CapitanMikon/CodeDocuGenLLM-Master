@@ -1,0 +1,54 @@
+[
+    {
+        "signature": "public static JavaUnicodeEscaper above(final int codePoint)",
+        "implementation": "public static JavaUnicodeEscaper above(final int codePoint) {\n        return outsideOf(0, codePoint);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "above",
+        "javadoc": "/**\n * Returns a Unicode escaper that escapes all characters with code points greater than the specified value.\n *\n * @param codePoint the maximum code point to escape\n * @return a Unicode escaper that escapes all characters with code points greater than the specified value\n */\n"
+    },
+    {
+        "signature": "public static JavaUnicodeEscaper below(final int codePoint)",
+        "implementation": "public static JavaUnicodeEscaper below(final int codePoint) {\n        return outsideOf(codePoint, Integer.MAX_VALUE);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "below",
+        "javadoc": "/**\n * Returns a Unicode escaper that will escape all characters with code points\n * less than or equal to the specified value.\n *\n * @param codePoint the maximum code point to be escaped (inclusive)\n * @return a new Unicode escaper instance\n */\n"
+    },
+    {
+        "signature": "public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {\n        return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "between",
+        "javadoc": "/**\n * Creates a Unicode escaper that escapes all Unicode characters in the range \n * [codePointLow, codePointHigh].\n *\n * @param codePointLow The low end of the Unicode character range (inclusive).\n * @param codePointHigh The high end of the Unicode character range (inclusive).\n * @return A new instance of JavaUnicodeEscaper.\n */\n"
+    },
+    {
+        "signature": "public static JavaUnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static JavaUnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {\n        return new JavaUnicodeEscaper(codePointLow, codePointHigh, false);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "outsideOf",
+        "javadoc": "/**\n * Creates a new instance of {@link JavaUnicodeEscaper} that escapes Unicode characters\n * in the range [codePointLow, codePointHigh).\n *\n * @param codePointLow the low end of the Unicode character range (inclusive)\n * @param codePointHigh the high end of the Unicode character range (exclusive)\n * @return a new instance of {@link JavaUnicodeEscaper}\n */\n"
+    },
+    {
+        "signature": "protected String toUtf16Escape(final int codePoint)",
+        "implementation": "protected String toUtf16Escape(final int codePoint) {\n        final char[] surrogatePair = Character.toChars(codePoint);\n        return \"\\\\u\" + hex(surrogatePair[0]) + \"\\\\u\" + hex(surrogatePair[1]);\n    }",
+        "called_methods": [
+            "toChars",
+            "hex"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\JavaUnicodeEscaper.java",
+        "name": "toUtf16Escape",
+        "javadoc": "/**\n * Escapes a Unicode code point as a UTF-16 surrogate pair in the format of \"\\\\uXXXX\\\\uYYYY\".\n *\n * @param codePoint the Unicode code point to escape\n * @return the escaped UTF-16 surrogate pair\n */\n"
+    }
+]

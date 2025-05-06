@@ -1,0 +1,14 @@
+[
+    {
+        "signature": "static IllegalArgumentException format(final Throwable t, final String format, final Object... args)",
+        "implementation": "static IllegalArgumentException format(final Throwable t, final String format, final Object... args) {\n        return new IllegalArgumentException(String.format(format, args), t);\n    }",
+        "called_methods": [
+            "format"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\IllegalArgumentExceptions.java",
+        "name": "format",
+        "javadoc": "/**\n * Formats an exception message using a specified format string and arguments,\n * then wraps it in an {@link IllegalArgumentException}.\n *\n * @param t the underlying cause of the exception\n * @param format the format string to use for the exception message\n * @param args the arguments to be used in the formatted exception message\n * @return a new {@link IllegalArgumentException} with the formatted message and cause\n */\n",
+        "improved_javadoc": "/**\n * Formats an exception message using a specified format string and arguments,\n * then wraps it in an {@link IllegalArgumentException} with the underlying cause.\n *\n * @param t the underlying cause of the exception\n * @param format the format string to use for the exception message, which may contain placeholders for the provided arguments\n * @param args the variable number of arguments to be used in the formatted exception message\n * @return a new {@link IllegalArgumentException} instance with the formatted message and cause\n */\n"
+    }
+]

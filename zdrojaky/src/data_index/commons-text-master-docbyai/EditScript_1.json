@@ -1,0 +1,43 @@
+[
+    {
+        "signature": "public void append(final KeepCommand<T> command)",
+        "implementation": "public void append(final KeepCommand<T> command) {\n        commands.add(command);\n        ++lcsLength;\n    }",
+        "called_methods": [
+            "add"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditScript.java",
+        "name": "append",
+        "javadoc": "/**\n     * Appends a keep command to the script.\n     *\n     * @param command  command to add\n     */"
+    },
+    {
+        "signature": "public int getLCSLength()",
+        "implementation": "public int getLCSLength() {\n        return lcsLength;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditScript.java",
+        "name": "getLCSLength",
+        "javadoc": "/**\n     * Gets the length of the Longest Common Subsequence (LCS). The length of the\n     * longest common subsequence is the number of {@link KeepCommand keep\n     * commands} in the script.\n     *\n     * @return length of the Longest Common Subsequence\n     */"
+    },
+    {
+        "signature": "public int getModifications()",
+        "implementation": "public int getModifications() {\n        return modifications;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditScript.java",
+        "name": "getModifications",
+        "javadoc": "/**\n     * Gets the number of effective modifications. The number of effective\n     * modification is the number of {@link DeleteCommand delete} and\n     * {@link InsertCommand insert} commands in the script.\n     *\n     * @return number of effective modifications\n     */"
+    },
+    {
+        "signature": "public void visit(final CommandVisitor<T> visitor)",
+        "implementation": "public void visit(final CommandVisitor<T> visitor) {\n        commands.forEach(command -> command.accept(visitor));\n    }",
+        "called_methods": [
+            "forEach",
+            "accept"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\diff\\EditScript.java",
+        "name": "visit",
+        "javadoc": "/**\n     * Visits the script. The script implements the <em>visitor</em> design\n     * pattern, this method is the entry point to which the user supplies its\n     * own visitor, the script will be responsible to drive it through the\n     * commands in order and call the appropriate method as each command is\n     * encountered.\n     *\n     * @param visitor  the visitor that will visit all commands in turn\n     */"
+    }
+]

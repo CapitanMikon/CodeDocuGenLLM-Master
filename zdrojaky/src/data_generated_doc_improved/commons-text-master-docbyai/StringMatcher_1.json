@@ -1,0 +1,38 @@
+[
+    {
+        "signature": "default StringMatcher andThen(final StringMatcher stringMatcher)",
+        "implementation": "default StringMatcher andThen(final StringMatcher stringMatcher) {\n        return StringMatcherFactory.INSTANCE.andMatcher(this, stringMatcher);\n    }",
+        "called_methods": [
+            "andMatcher"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\StringMatcher.java",
+        "name": "andThen",
+        "javadoc": "/**\n * Combines this matcher with another matcher using a logical AND operation.\n *\n * @param stringMatcher The other matcher to combine with this one\n * @return A new matcher that matches if both this and the given matchers match\n */\n",
+        "improved_javadoc": "/**\n * Combines this matcher with another matcher using a logical AND operation.\n *\n * @param stringMatcher The other matcher to combine with this one\n * @return A new matcher that matches if both this and the given matchers match\n */\n"
+    },
+    {
+        "signature": "default int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd)",
+        "implementation": "default int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {\n        return isMatch(CharSequenceUtils.toCharArray(buffer), start, bufferEnd, bufferEnd);\n    }",
+        "called_methods": [
+            "isMatch",
+            "length",
+            "toCharArray"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\StringMatcher.java",
+        "name": "isMatch",
+        "javadoc": "/**\n * Checks if a regular expression matches the specified character sequence.\n *\n * This method delegates to {@link #isMatch(char[], int, int, int)} with the\n * character array representation of the input buffer.\n *\n * @param buffer the character sequence to match against\n * @param start  the starting position in the buffer\n * @param bufferStart the starting position in the buffer (inclusive)\n * @param bufferEnd the ending position in the buffer (exclusive)\n * @return a non-negative integer indicating the number of matches, or -1 if no match is found\n */\n",
+        "improved_javadoc": "INVALID FORMAT"
+    },
+    {
+        "signature": "default int size()",
+        "implementation": "default int size() {\n        return 0;\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\StringMatcher.java",
+        "name": "size",
+        "javadoc": "/**\n * Returns the number of elements in this collection.\n *\n * @return the number of elements in this collection\n */\n",
+        "improved_javadoc": "/**\n * Returns the number of elements in this collection, if it contains any; otherwise returns zero.\n *\n * @return the number of elements in this collection (or 0 if the collection is empty)\n */\n"
+    }
+]

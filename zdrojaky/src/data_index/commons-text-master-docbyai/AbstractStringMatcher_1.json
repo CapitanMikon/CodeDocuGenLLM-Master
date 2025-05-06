@@ -1,0 +1,27 @@
+[
+    {
+        "signature": "public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd)",
+        "implementation": "public int isMatch(final CharSequence buffer, final int start, final int bufferStart, final int bufferEnd) {\n            return buffer.charAt(start) <= SPACE_INT ? 1 : 0;\n        }",
+        "called_methods": [
+            "isMatch",
+            "size",
+            "charAt",
+            "binarySearch"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\AbstractStringMatcher.java",
+        "name": "isMatch",
+        "javadoc": "/**\n         * Returns {@code 1} if there is a match, or {@code 0} if there is no match.\n         *\n         * @param buffer the text content to match against, do not change\n         * @param start the starting position for the match, valid for buffer\n         * @param bufferStart unused\n         * @param bufferEnd unused\n         * @return The number of matching characters, zero for no match\n         */"
+    },
+    {
+        "signature": "public int size()",
+        "implementation": "public int size() {\n            return 1;\n        }",
+        "called_methods": [
+            "size"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\matcher\\AbstractStringMatcher.java",
+        "name": "size",
+        "javadoc": "/**\n         * Returns 1.\n         *\n         * @since 1.9\n         */"
+    }
+]

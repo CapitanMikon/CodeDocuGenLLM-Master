@@ -1,0 +1,16 @@
+[
+    {
+        "signature": "public boolean test(final int codePoint)",
+        "implementation": "public boolean test(final int codePoint) {\n            return ASCII_LOWERCASE_LETTERS.test(codePoint) || ASCII_UPPERCASE_LETTERS.test(codePoint)\n                    || ARABIC_NUMERALS.test(codePoint);\n        }",
+        "called_methods": [
+            "isLetter",
+            "isDigit",
+            "test"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\CharacterPredicates.java",
+        "name": "test",
+        "javadoc": "/**\n * Tests whether a code point is either a lowercase letter, an uppercase letter, or an Arabic numeral.\n *\n * @param codePoint the Unicode code point to test\n * @return true if the code point represents a lowercase letter, an uppercase letter, or an Arabic numeral; false otherwise\n */\n",
+        "improved_javadoc": "/**\n * Tests whether a Unicode code point represents a lowercase letter, an uppercase letter, or an Arabic numeral.\n *\n * @param codePoint the Unicode code point to test\n * @return true if the code point represents a valid character (lowercase letter, uppercase letter, or Arabic numeral); false otherwise\n */\n"
+    }
+]

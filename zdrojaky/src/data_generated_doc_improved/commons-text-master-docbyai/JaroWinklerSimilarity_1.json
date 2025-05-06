@@ -1,0 +1,37 @@
+[
+    {
+        "signature": "protected static <E> int[] matches(final SimilarityInput<E> first, final SimilarityInput<E> second)",
+        "implementation": "protected static <E> int[] matches(final SimilarityInput<E> first, final SimilarityInput<E> second) {\n        final SimilarityInput<E> max;\n        final SimilarityInput<E> min;\n        if (first.length() > second.length()) {\n            max = first;\n            min = second;\n        } else {\n            max = second;\n            min = first;\n        }\n        final int range = Math.max(max.length() / 2 - 1, 0);\n        final int[] matchIndexes = new int[min.length()];\n        Arrays.fill(matchIndexes, -1);\n        final boolean[] matchFlags = new boolean[max.length()];\n        int matches = 0;\n        for (int mi = 0; mi < min.length(); mi++) {\n            final E c1 = min.at(mi);\n            for (int xi = Math.max(mi - range, 0), xn = Math.min(mi + range + 1, max.length()); xi < xn; xi++) {\n                if (!matchFlags[xi] && c1.equals(max.at(xi))) {\n                    matchIndexes[mi] = xi;\n                    matchFlags[xi] = true;\n                    matches++;\n                    break;\n                }\n            }\n        }\n        final Object[] ms1 = new Object[matches];\n        final Object[] ms2 = new Object[matches];\n        for (int i = 0, si = 0; i < min.length(); i++) {\n            if (matchIndexes[i] != -1) {\n                ms1[si] = min.at(i);\n                si++;\n            }\n        }\n        for (int i = 0, si = 0; i < max.length(); i++) {\n            if (matchFlags[i]) {\n                ms2[si] = max.at(i);\n                si++;\n            }\n        }\n        int halfTranspositions = 0;\n        for (int mi = 0; mi < ms1.length; mi++) {\n            if (!ms1[mi].equals(ms2[mi])) {\n                halfTranspositions++;\n            }\n        }\n        int prefix = 0;\n        for (int mi = 0; mi < Math.min(4, min.length()); mi++) {\n            if (!first.at(mi).equals(second.at(mi))) {\n                break;\n            }\n            prefix++;\n        }\n        return new int[] { matches, halfTranspositions, prefix };\n    }",
+        "called_methods": [
+            "matches",
+            "input",
+            "length",
+            "max",
+            "fill",
+            "at",
+            "min",
+            "equals"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\JaroWinklerSimilarity.java",
+        "name": "matches",
+        "javadoc": "/**\n * Calculates similarity between two input sequences.\n *\n * This method compares two {@link SimilarityInput} objects and returns an array of three integers:\n * - The number of exact matches found in the shorter sequence.\n * - The number of half-transpositions (i.e., positions where the elements are not equal but their\n *   indices differ by one) found in the shorter sequence.\n * - The length of the longest common prefix between the two input sequences.\n *\n * @param first  the first {@link SimilarityInput} object to compare\n * @param second the second {@link SimilarityInput} object to compare\n * @return an array containing three integers representing the number of matches, half-transpositions,\n *         and the length of the common prefix respectively\n */\n",
+        "improved_javadoc": "/**\n * Calculates similarity between two input sequences.\n *\n * This method compares two {@link SimilarityInput} objects and returns an array of three integers:\n * - The number of exact matches found in the shorter sequence.\n * - The number of half-transpositions (i.e., positions where the elements are not equal but their\n *   indices differ by one) found in the shorter sequence.\n * - The length of the longest common prefix between the two input sequences.\n *\n * @param first  the first {@link SimilarityInput} object to compare\n * @param second the second {@link SimilarityInput} object to compare\n * @return an array containing three integers representing the number of matches, half-transpositions,\n *         and the length of the common prefix respectively\n */\n"
+    },
+    {
+        "signature": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right)",
+        "implementation": "public <E> Double apply(final SimilarityInput<E> left, final SimilarityInput<E> right) {\n        final double defaultScalingFactor = 0.1;\n        if (left == null || right == null) {\n            throw new IllegalArgumentException(\"CharSequences must not be null\");\n        }\n        if (Objects.equals(left, right)) {\n            return 1d;\n        }\n        final int[] mtp = matches(left, right);\n        final double m = mtp[0];\n        if (m == 0) {\n            return 0d;\n        }\n        final double j = (m / left.length() + m / right.length() + (m - (double) mtp[1] / 2) / m) / 3;\n        return j < 0.7d ? j : j + defaultScalingFactor * mtp[2] * (1d - j);\n    }",
+        "called_methods": [
+            "apply",
+            "input",
+            "equals",
+            "matches",
+            "length"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\similarity\\JaroWinklerSimilarity.java",
+        "name": "apply",
+        "javadoc": "/**\n * Applies a similarity measure to two input sequences.\n *\n * @param left   The first sequence to compare.\n * @param right  The second sequence to compare.\n * @return       A value between 0 and 1 representing the similarity of the two sequences.\n * @throws IllegalArgumentException if either of the input sequences is null.\n */\n",
+        "improved_javadoc": "/**\n * Applies a similarity measure to two input sequences.\n *\n * @param left   The first sequence to compare, which must implement {@link SimilarityInput}.\n * @param right  The second sequence to compare, which must implement {@link SimilarityInput}.\n * @return       A value between 0 and 1 representing the similarity of the two sequences, where 1 means identical and 0 means completely dissimilar.\n * @throws IllegalArgumentException if either of the input sequences is null or does not implement {@link SimilarityInput}.\n */\n"
+    }
+]

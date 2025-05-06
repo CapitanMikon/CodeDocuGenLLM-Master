@@ -1,0 +1,20 @@
+[
+    {
+        "signature": "void translateWhole(final CharSequence input, final Writer writer) throws IOException",
+        "implementation": "void translateWhole(final CharSequence input, final Writer writer) throws IOException {\n            // is input not quoted?\n            if (input.charAt(0) != CSV_QUOTE || input.charAt(input.length() - 1) != CSV_QUOTE) {\n                writer.write(input.toString());\n                return;\n            }\n\n            // strip quotes\n            final String quoteless = input.subSequence(1, input.length() - 1).toString();\n\n            if (StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS)) {\n                // deal with escaped quotes; ie) \"\"\n                writer.write(StringUtils.replace(quoteless, CSV_ESCAPED_QUOTE_STR, CSV_QUOTE_STR));\n            } else {\n                writer.write(quoteless);\n            }\n        }",
+        "called_methods": [
+            "toString",
+            "containsNone",
+            "write",
+            "replace",
+            "charAt",
+            "length",
+            "subSequence",
+            "containsAny"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\CsvTranslators.java",
+        "name": "translateWhole",
+        "javadoc": "/**\n * Translates a whole input CharSequence to the Writer.\n *\n * If the input is not quoted (i.e., does not start and end with a quote character),\n * it is written directly to the writer. Otherwise, quotes are stripped from the input,\n * and any escaped quotes are replaced with regular quotes.\n *\n * @param input  the input CharSequence to translate\n * @param writer the Writer to write the translated input to\n * @throws IOException if an I/O error occurs while writing to the Writer\n */\n"
+    }
+]

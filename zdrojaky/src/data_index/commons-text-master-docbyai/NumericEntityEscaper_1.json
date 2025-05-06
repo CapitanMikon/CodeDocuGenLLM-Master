@@ -1,0 +1,55 @@
+[
+    {
+        "signature": "public static NumericEntityEscaper above(final int codePoint)",
+        "implementation": "public static NumericEntityEscaper above(final int codePoint) {\n        return outsideOf(0, codePoint);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "above",
+        "javadoc": "/**\n     * Constructs a {@code NumericEntityEscaper} above the specified value (exclusive).\n     *\n     * @param codePoint above which to escape\n     * @return The newly created {@code NumericEntityEscaper} instance\n     */"
+    },
+    {
+        "signature": "public static NumericEntityEscaper below(final int codePoint)",
+        "implementation": "public static NumericEntityEscaper below(final int codePoint) {\n        return outsideOf(codePoint, Integer.MAX_VALUE);\n    }",
+        "called_methods": [
+            "outsideOf"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "below",
+        "javadoc": "/**\n     * Constructs a {@code NumericEntityEscaper} below the specified value (exclusive).\n     *\n     * @param codePoint below which to escape\n     * @return The newly created {@code NumericEntityEscaper} instance\n     */"
+    },
+    {
+        "signature": "public static NumericEntityEscaper between(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static NumericEntityEscaper between(final int codePointLow, final int codePointHigh) {\n        return new NumericEntityEscaper(codePointLow, codePointHigh, true);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "between",
+        "javadoc": "/**\n     * Constructs a {@code NumericEntityEscaper} between the specified values (inclusive).\n     *\n     * @param codePointLow above which to escape\n     * @param codePointHigh below which to escape\n     * @return The newly created {@code NumericEntityEscaper} instance\n     */"
+    },
+    {
+        "signature": "public static NumericEntityEscaper outsideOf(final int codePointLow, final int codePointHigh)",
+        "implementation": "public static NumericEntityEscaper outsideOf(final int codePointLow, final int codePointHigh) {\n        return new NumericEntityEscaper(codePointLow, codePointHigh, false);\n    }",
+        "called_methods": "",
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "outsideOf",
+        "javadoc": "/**\n     * Constructs a {@code NumericEntityEscaper} outside of the specified values (exclusive).\n     *\n     * @param codePointLow below which to escape\n     * @param codePointHigh above which to escape\n     * @return The newly created {@code NumericEntityEscaper} instance\n     */"
+    },
+    {
+        "signature": "public boolean translate(final int codePoint, final Writer writer) throws IOException",
+        "implementation": "public boolean translate(final int codePoint, final Writer writer) throws IOException {\n        if (this.between != this.range.contains(codePoint)) {\n            return false;\n        }\n        writer.write(\"&#\");\n        writer.write(Integer.toString(codePoint, 10));\n        writer.write(';');\n        return true;\n    }",
+        "called_methods": [
+            "contains",
+            "write",
+            "toString"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\NumericEntityEscaper.java",
+        "name": "translate",
+        "javadoc": "/**\n     * {@inheritDoc}\n     */"
+    }
+]

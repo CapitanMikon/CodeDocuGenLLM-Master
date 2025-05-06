@@ -1,0 +1,14 @@
+[
+    {
+        "signature": "public final int translate(final CharSequence input, final int index, final Writer writer) throws IOException",
+        "implementation": "public final int translate(final CharSequence input, final int index, final Writer writer) throws IOException {\n        final int codePoint = Character.codePointAt(input, index);\n        final boolean consumed = translate(codePoint, writer);\n        return consumed ? 1 : 0;\n    }",
+        "called_methods": [
+            "codePointAt",
+            "translate"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\translate\\CodePointTranslator.java",
+        "name": "translate",
+        "javadoc": "/**\n * Translates a character at the specified index in the input CharSequence to its corresponding Unicode code point and writes it to the provided Writer.\n *\n * @param input the input CharSequence from which to retrieve the character\n * @param index the index of the character to translate, where 0 <= index < input.length()\n * @param writer the Writer to write the translated character to\n * @return 1 if a character was consumed and written to the Writer, 0 otherwise\n * @throws IOException if an I/O error occurs while writing to the Writer\n */\n"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "signature": "public String lookup(final String key)",
+        "implementation": "public String lookup(final String key) {\n        return StringEscapeUtils.unescapeXml(key);\n    }",
+        "called_methods": [
+            "unescapeXml"
+        ],
+        "repository": "commons-text-master-docbyai",
+        "source": "commons-text-master-docbyai\\src\\main\\java\\org\\apache\\commons\\text\\lookup\\XmlDecoderStringLookup.java",
+        "name": "lookup",
+        "javadoc": "/**\n * Escapes any XML special characters in the given key.\n *\n * @param key the key to unescape\n * @return the unescaped key\n */\n",
+        "improved_javadoc": "/**\n * Escapes any XML special characters in the given key.\n *\n * @param key the input string containing XML entities to be unescaped\n * @return the input string with all XML entities unescaped\n */\n"
+    }
+]
