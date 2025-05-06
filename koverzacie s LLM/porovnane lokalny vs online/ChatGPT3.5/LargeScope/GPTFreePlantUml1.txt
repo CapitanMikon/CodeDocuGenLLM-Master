@@ -1,0 +1,46 @@
+@startuml
+
+interface Text {
+    +getText(): String
+}
+
+class PlainText {
+    -text: String
+    +PlainText(text: String)
+    +getText(): String
+}
+
+class TextDecorator {
+    -decoratedText: Text
+    +TextDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+class BoldDecorator {
+    +BoldDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+class ItalicsDecorator {
+    +ItalicsDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+class UnderlineDecorator {
+    +UnderlineDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+class ParagraphDecorator {
+    +ParagraphDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+Text <|.. PlainText
+Text <|-- TextDecorator
+TextDecorator <|-- BoldDecorator
+TextDecorator <|-- ItalicsDecorator
+TextDecorator <|-- UnderlineDecorator
+TextDecorator <|-- ParagraphDecorator
+
+@enduml

@@ -1,0 +1,22 @@
+decorator pattern to implement Milk and Sugar decorators to this code snippet:
+https://chat.openai.com/share/02209d97-6fcb-49e3-9d67-767a5ad5da76
+
+plantuml z kodu:
+https://chat.openai.com/share/144f77fb-7931-4d86-bcdb-a3b17f8841ba
+
+https://chat.openai.com/share/b1a8303f-adb2-4a50-bb2c-09b74a1b6b46 * broken
+
+plantuml z kodu2:
+https://chat.openai.com/share/98b37a5a-fd23-4f8f-89e9-6c5f44fb57ce
+
+plantuml z kodu + main:
+https://chat.openai.com/share/a8364ef6-a7a6-4f6e-b1d2-cddf4a3c1f44
+
+plantuml z kodu2 + main:
+https://chat.openai.com/share/9cc075cf-5f54-48b3-8809-5ae89f2e3037
+
+priklad na decorator + plantuml a potom pridaj novy decorator:
+https://chat.openai.com/share/8f3be40a-f228-4258-b880-60c4dc82e2c0
+
+refaktoring kodu:
+https://chat.openai.com/share/d3056f63-a1fd-49dc-8ed0-1457cd89698a

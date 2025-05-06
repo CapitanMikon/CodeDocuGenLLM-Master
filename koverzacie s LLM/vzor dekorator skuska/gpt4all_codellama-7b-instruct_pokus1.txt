@@ -1,0 +1,357 @@
+Prompt: provide me an example of source code in java and class diagram in PlantUML for Decorator pattern
+
+Response: Here is the source code in Java:
+```java
+public abstract class Beverage {
+    public String getDescription() {
+        return "Unknown beverage";
+    }
+    public double cost() {
+        return 0.0;
+    }
+}
+
+class Espresso extends Beverage {
+    @Override
+    public String getDescription() {
+        return "Espresso";
+    }
+    @Override
+    public double cost() {
+        return 1.99;
+    }
+}
+
+public abstract class CondimentDecorator extends Beverage {
+    protected final Beverage beverage;
+    public CondimentDecorator(Beverage beverage) {
+        this.beverage = beverage;
+    }
+    @Override
+    public String getDescription() {
+        return beverage.getDescription();
+    }
+}
+
+class Milk extends CondimentDecorator {
+    public Milk(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.5 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Milk";
+    }
+}
+class Whip extends CondimentDecorator {
+    public Whip(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Whip";
+    }
+}
+class Mocha extends CondimentDecorator {
+    public Mocha(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Mocha";
+    }
+}
+class Soy extends CondimentDecorator {
+    public Soy(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Soy";
+    }
+}
+class Vanilla extends CondimentDecorator {
+    public Vanilla(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Vanilla";
+    }
+}
+```
+Here is the class diagram in PlantUML:
+![Decorator pattern](https://github.com/AshikurRahmanKhan/Design-Patterns/blob/master/Behavioral%20patterns/decorator_pattern.png)
+Prompt: provide me a source code of class diagram in PlantUML for the code you provided
+Response: Here is the source code in Java:
+```java
+public abstract class Beverage {
+    public String getDescription() {
+        return "Unknown beverage";
+    }
+    public
+Prompt: Do you know what is PlantUML
+Response: Yes, I do. It's a simple and easy-to-use syntax for creating UML diagrams from textual descriptions.
+Prompt: Then create me class diagram in PlantUML from the code example i asked you to create
+Response: Here is the source code in Java:
+```java
+public abstract class Beverage {
+    public String getDescription() {
+        return "Unknown beverage";
+Prompt: provide me a sample PlantUML code
+Response: Here is an example of a simple UML diagram created with PlantUML:
+```plantuml
+@startuml
+!includeurl https://raw.githubusercontent.com/qwerty1283/plantuml-libs/master/dist/iuml.js
+skinparam linetype ortho
+class Beverage {
+    - String getDescription()
+}
+Beverage <|-- Espresso
+@enduml
+```
+Prompt: provide me PlantUML code for aforementioned decorator pattern example
+Response: Here is the source code in Java:
+```java
+public abstract class Beverage {
+    public String getDescription() {
+        return "Unknown beverage";
+}
+Beverage <|-- Espresso
+@enduml
+```
+Prompt: create PlantUML from this code: public abstract class Beverage {
+    public String getDescription() {
+        return "Unknown beverage";
+    }
+    public double cost() {
+        return 0.0;
+    }
+}
+
+class Espresso extends Beverage {
+    @Override
+    public String getDescription() {
+        return "Espresso";
+    }
+    @Override
+    public double cost() {
+        return 1.99;
+    }
+}
+
+public abstract class CondimentDecorator extends Beverage {
+    protected final Beverage beverage;
+    public CondimentDecorator(Beverage beverage) {
+        this.beverage = beverage;
+    }
+    @Override
+    public String getDescription() {
+        return beverage.getDescription();
+    }
+}
+
+class Milk extends CondimentDecorator {
+    public Milk(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.5 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Milk";
+    }
+}
+class Whip extends CondimentDecorator {
+    public Whip(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Whip";
+    }
+}
+class Mocha extends CondimentDecorator {
+    public Mocha(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Mocha";
+    }
+}
+class Soy extends CondimentDecorator {
+    public Soy(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Soy";
+    }
+}
+class Vanilla extends CondimentDecorator {
+    public Vanilla(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+    @Override
+    public String getDescription() {
+        return "Vanilla";
+    }
+}
+Response: Here is the source code in Java:
+```java
+public abstract class Beverage {
+    public String getDescription() {
+        return "Unknown beverage";
+    }
+    public double cost() {
+        return 0.0;
+    }
+}
+
+class Espresso extends Beverage {
+    @Override
+    public String getDescription() {
+        return "Espresso";
+    }
+    @Override
+    public double cost() {
+        return 1.99;
+    }
+}
+
+public abstract class CondimentDecorator extends Beverage {
+    protected final Beverage beverage;
+    public CondimentDecorator(Beverage beverage) {
+        this.beverage = beverage;
+    }
+    @Override
+    public String getDescription() {
+        return beverage.getDescription();
+    }
+}
+
+class Milk extends CondimentDecorator {
+    public Milk(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+}
+class Mocha extends CondimentDecorator {
+    public Mocha(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+}
+class Soy extends CondimentDecorator {
+    public Soy(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+}
+class Vanilla extends CondimentDecorator {
+    public Vanilla(Beverage beverage) {
+        super(beverage);
+    }
+    @Override
+    public double cost() {
+        return 0.25 + beverage.cost();
+    }
+}
+```
+Prompt: provide me longer example of plantuml code
+Response: Here is the source code in PlantUML format:
+@startuml
+class Beverage {
+  getDescription() : String
+  cost() : double
+}
+Beverage <|-- Espresso
+Espresso o----> Beverage
+
+interface CondimentDecorator extends Beverage {
+  beverage : Beverage
+  constructor(beverage: Beverage)
+  getDescription() : String
+}
+CondimentDecorator <|.. Milk
+Milk o----------> CondimentDecorator
+Milk o----------> Beverage
+
+class Milk extends CondimentDecorator {
+  constructor(beverage: Beverage)
+  cost() : double
+  getDescription() : String
+}
+@enduml
+Prompt: provide me full plantuml code
+Response: Here is the source code in PlantUML format:
+```plantuml
+class Beverage {
+  +getDescription(): string
+  +cost(): number
+}
+Beverage <|-- Espresso
+Espresso o----> Beverage
+
+interface CondimentDecorator extends Beverage {
+  beverage : Beverage
+  constructor(beverage: Beverage)
+  getDescription() : String
+}
+CondimentDecorator <|.. Milk
+Milk o----------> CondimentDecorator
+Milk o----------> Beverage
+
+class Milk extends CondimentDecorator {
+  +constructor(beverage: Beverage)
+  +cost(): number
+  +getDescription() : String
+}
+```

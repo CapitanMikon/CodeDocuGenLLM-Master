@@ -1,0 +1,147 @@
+Prompt: provide me an example of source code in java for Decorator pattern with two decorators
+Response: ```java
+public class Beverage {
+    public String getDescription() {
+        return "Unknown beverage";
+    }
+ 
+    public double cost() {
+        return 0.0;
+    }
+}
+ 
+public abstract class CondimentDecorator extends Beverage {
+    protected final Beverage beverage;
+ 
+    public CondimentDecorator(Beverage beverage) {
+        this.beverage = beverage;
+    }
+ 
+    @Override
+    public String getDescription() {
+        return beverage.getDescription();
+    }
+ 
+    @Override
+    public double cost() {
+        return beverage.cost();
+    }
+}
+ 
+public class Milk extends CondimentDecorator {
+    public Milk(Beverage beverage) {
+        super(beverage);
+    }
+ 
+    @Override
+    public String getDescription() {
+        return "Milk";
+    }
+ 
+    @Override
+    public double cost() {
+        return super.cost() + 0.25;
+    }
+}
+ 
+public class Whip extends CondimentDecorator {
+    public Whip(Beverage beverage) {
+        super(beverage);
+    }
+ 
+    @Override
+    public String getDescription() {
+        return "Whip";
+    }
+ 
+    @Override
+    public double cost() {
+        return super.cost() + 0.5;
+    }
+}
+ 
+public class Latte extends Beverage {
+    private final Milk milk = new Milk(this);
+    private final Whip whip = new Whip(milk);
+ 
+    @Override
+    public String getDescription() {
+        return "Latte";
+    }
+ 
+    @Override
+    public double cost() {
+        return super.cost() + milk.cost() + whip.cost();
+    }
+}
+```
+Prompt: now provide me complete plantuml code
+Response: ```plantuml
+@startuml
+!include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Model.puml
+ 
+title C4 Model for Decorator Pattern
+ 
+LAYOUT_WITH_LEGEND()
+ 
+Person(User, "Uses the system")
+System(Beverage, "Represents a beverage", "Unknown beverage")
+Rel(User, Beverage)
+ 
+Class(CondimentDecorator, "Abstract class that represents a decorator for condiments\nIt has two abstract methods: getDescription() and cost()")
+Note right of CondimentDecorator : Decorates the beverage with a condiment\nand provides its own description and cost.
+ 
+Class(Milk, "Represents milk as a decorator for a beverage", "Milk")
+Rel(Beverage, Milk)
+Note right of Milk: Adds milk to the beverage
+ 
+Class(Whip, "Represents whip as a decorator for a beverage", "Whip")
+Rel(Milk, Whip)
+Note right of Whip: Adds whip to the beverage
+ 
+Class(Latte, "Represents a latte as a beverage\nIt has two concrete decorators: milk and whip", "Latte")
+Rel(Beverage, Latte)
+Note right of Latte: Decorates the beverage with milk and whip
+ 
+@enduml
+```
+Prompt: provide me complete plantuml code without using any include
+Response: ```plantuml
+title C4 Model for Decorator Pattern
+LAYOUT_WITH_LEGEND()
+Person(User, "Uses the system")
+System(Beverage, "Represents a beverage", "Unknown beverage")
+Rel(User, Beverage)
+Class(CondimentDecorator, "Abstract class that represents a decorator for condiments\nIt has two abstract methods: getDescription() and cost()")
+Note right of CondimentDecorator : Decorates the beverage with a condiment\nand provides its own description and cost.
+Class(Milk, "Represents milk as a decorator for a beverage", "Milk")
+Rel(Beverage, Milk)
+Note right of Milk: Adds milk to the beverage
+Class(Whip, "Represents whip as a decorator for a beverage", "Whip")
+Rel(Milk, Whip)
+Note right of Whip: Adds whip to the beverage
+Class(Latte, "Represents a latte as a beverage\nIt has two concrete decorators: milk and whip", "Latte")
+Rel(Beverage, Latte)
+Note right of Latte: Decorates the beverage with milk and whip
+@enduml
+```
+Prompt: create plantuml code using latest syntaxt
+Response: ```plantuml
+title C4 Model for Decorator Pattern
+LAYOUT_WITH_LEGEND()
+Person(User, "Uses the system")
+System(Beverage, "Represents a beverage", "Unknown beverage")
+Rel(User, Beverage)
+Class(CondimentDecorator, "Abstract class that represents a decorator for condiments\nIt has two abstract methods: getDescription() and cost()")
+Note right of CondimentDecorator : Decorates the beverage with a condiment\nand provides its own description and cost.
+Class(Milk, "Represents milk as a decorator for a beverage", "Milk")
+Rel(Beverage, Milk)
+Note right of Milk: Adds milk to the beverage
+Class(Whip, "Represents whip as a decorator for a beverage", "Whip")
+Rel(Milk, Whip)
+Note right of Whip: Adds whip to the beverage
+Class(Latte, "Represents a latte as a beverage\nIt has two concrete decorators: milk and whip", "Latte")
+Rel(Beverage, Latte)
+Note right of Latte: Decorates the beverage with milk and whip
+@enduml
+```

@@ -1,0 +1,7 @@
+Nazov: Phind-CodeLlama-34B-v2-GGUF
+
+Strucny popis:
+This model is fine-tuned from Phind-CodeLlama-34B-v1 and achieves 73.8% pass@1 on HumanEval.
+Phind-CodeLlama-34B-v2 is multi-lingual and is proficient in Python, C/C++, TypeScript, Java, and more.
+
+Odkaz: https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2-GGUF/blob/main/phind-codellama-34b-v2.Q5_K_M.gguf

@@ -1,0 +1,297 @@
+Prompt: My code is using inheritance to create mutliple decorated text enclosed with html coresponding tags. But it is hard to add new decorations such as underline because i need to create new class and all combinations of each decoration. Can rewrite my code using decorator pattern so it is easier to create decorated text and implement new decorations? Here is my code: 
+```
+class Main {
+    public static void main(String[] args) {
+        Text normal = new Text("Normal text");
+        Text bold = new Bold("Bold text");
+        Text italics = new Italics("Italics text");
+        Text paragraph = new Paragraph("Paragraph text");
+
+        Text boldItalics = new BoldItalics("Bold italics text");
+        Text italicsBold = new ItalicsBold("Italics bold text");
+
+        Text paragraphBold = new ParagraphBold("Paragraph bold");
+        Text paragraphItalics = new ParagraphItalics("Paragraph italics");
+
+        Text paragraphBoldItalics = new ParagraphBoldItalics("Paragraph bold italics");
+        Text paragraphItalicsBold = new ParagraphItalicsBold("Paragraph italics bold");
+
+        System.out.println(normal);
+
+        System.out.println(bold);
+        System.out.println(italics);
+        System.out.println(paragraph);
+
+        System.out.println(boldItalics);
+        System.out.println(italicsBold);
+
+        System.out.println(paragraphBold);
+        System.out.println(paragraphItalics);
+
+        System.out.println(paragraphBoldItalics);
+        System.out.println(paragraphItalicsBold);
+    }
+}
+
+class Text{
+    private String text;
+    public Text(String text){
+        this.text = text;
+    }
+    @Override
+    public String toString() {
+        return text;
+    }
+}
+
+class Bold extends Text{
+    public Bold(String text) {
+        super("<b>" + text + "<\\b>");
+    }
+}
+
+class Italics extends Text{
+    public Italics(String text){
+        super("<i>" + text + "<\\i>");
+    }
+}
+
+class Paragraph extends Text{
+    public Paragraph(String text){
+        super("<p>" + text + "<\\p>");
+    }
+}
+
+class BoldItalics extends Text{
+    public BoldItalics(String text) {
+        super("<b><i>" + text + "<\\i><\\b>");
+    }
+}
+
+class ItalicsBold extends Text{
+    public ItalicsBold(String text) {
+        super("<i><b>" + text + "<\\b><\\i>");
+    }
+}
+
+class ParagraphBold extends Text{
+    public ParagraphBold(String text){
+        super("<p><b>" + text + "<\\b><\\p>");
+    }
+}
+
+class ParagraphItalics extends Text{
+    public ParagraphItalics(String text){
+        super("<p><i>" + text + "<\\i><\\p>");
+    }
+}
+
+class ParagraphBoldItalics extends Text{
+    public ParagraphBoldItalics(String text){
+        super("<p><b><i>" + text + "<\\i><\\b><\\p>");
+    }
+}
+
+class ParagraphItalicsBold extends Text{
+    public ParagraphItalicsBold(String text){
+        super("<p><i><b>" + text + "<\\b><\\i><\\p>");
+    }
+}
+
+ ``` 
+ 
+Response: Sure, I can help you refactor your code to use the decorator pattern. This pattern allows behavior to be added to individual objects, either statically or dynamically, without affecting the behavior of other objects from the same class. Here's how you can refactor your code:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Text normal = new PlainText("Normal text");
+        Text bold = new BoldDecorator(new PlainText("Bold text"));
+        Text italics = new ItalicsDecorator(new PlainText("Italics text"));
+        Text paragraph = new ParagraphDecorator(new PlainText("Paragraph text"));
+
+        Text boldItalics = new BoldDecorator(new ItalicsDecorator(new PlainText("Bold italics text")));
+        Text italicsBold = new ItalicsDecorator(new BoldDecorator(new PlainText("Italics bold text")));
+
+        Text paragraphBold = new ParagraphDecorator(new BoldDecorator(new PlainText("Paragraph bold")));
+        Text paragraphItalics = new ParagraphDecorator(new ItalicsDecorator(new PlainText("Paragraph italics")));
+
+        Text paragraphBoldItalics = new ParagraphDecorator(new BoldDecorator(new ItalicsDecorator(new PlainText("Paragraph bold italics"))));
+        Text paragraphItalicsBold = new ParagraphDecorator(new ItalicsDecorator(new BoldDecorator(new PlainText("Paragraph italics bold"))));
+
+        System.out.println(normal);
+        System.out.println(bold);
+        System.out.println(italics);
+        System.out.println(paragraph);
+        System.out.println(boldItalics);
+        System.out.println(italicsBold);
+        System.out.println(paragraphBold);
+        System.out.println(paragraphItalics);
+        System.out.println(paragraphBoldItalics);
+        System.out.println(paragraphItalicsBold);
+    }
+}
+
+interface Text {
+    String getText();
+}
+
+class PlainText implements Text {
+    private String text;
+    public PlainText(String text) {
+        this.text = text;
+    }
+    public String getText() {
+        return text;
+    }
+}
+
+abstract class TextDecorator implements Text {
+    protected Text decoratedText;
+    public TextDecorator(Text decoratedText) {
+        this.decoratedText = decoratedText;
+    }
+}
+
+class BoldDecorator extends TextDecorator {
+    public BoldDecorator(Text decoratedText) {
+        super(decoratedText);
+    }
+    public String getText() {
+        return "<b>" + decoratedText.getText() + "</b>";
+    }
+}
+
+class ItalicsDecorator extends TextDecorator {
+    public ItalicsDecorator(Text decoratedText) {
+        super(decoratedText);
+    }
+    public String getText() {
+        return "<i>" + decoratedText.getText() + "</i>";
+    }
+}
+
+class ParagraphDecorator extends TextDecorator {
+    public ParagraphDecorator(Text decoratedText) {
+        super(decoratedText);
+    }
+    public String getText() {
+        return "<p>" + decoratedText.getText() + "</p>";
+    }
+}
+```
+
+In this refactored code:
+
+- The `Text` interface represents the basic behavior of text.
+- `PlainText` class implements the `Text` interface and represents the plain text.
+- `TextDecorator` class is an abstract class implementing the `Text` interface as well. It holds a reference to the `Text` object to be decorated.
+- Concrete decorators like `BoldDecorator`, `ItalicsDecorator`, and `ParagraphDecorator` extend `TextDecorator`. They add specific HTML tags around the text they decorate.
+- In the `Main` class, you can easily apply multiple decorators to a text object to achieve the desired combination of decorations.
+
+Prompt: I don't quite understand how to add new dectorator. Can you show me an example how to add underline?
+
+Response: Certainly! Let's add an `UnderlineDecorator` to implement the underline decoration:
+
+```java
+class UnderlineDecorator extends TextDecorator {
+    public UnderlineDecorator(Text decoratedText) {
+        super(decoratedText);
+    }
+    public String getText() {
+        return "<u>" + decoratedText.getText() + "</u>";
+    }
+}
+```
+
+Now, you can use this `UnderlineDecorator` to add underline decoration to your text. Here's how you can modify the `Main` class to use the `UnderlineDecorator`:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Text normal = new PlainText("Normal text");
+        Text bold = new BoldDecorator(new PlainText("Bold text"));
+        Text italics = new ItalicsDecorator(new PlainText("Italics text"));
+        Text underline = new UnderlineDecorator(new PlainText("Underline text"));
+        Text paragraph = new ParagraphDecorator(new PlainText("Paragraph text"));
+
+        Text boldItalics = new BoldDecorator(new ItalicsDecorator(new PlainText("Bold italics text")));
+        Text italicsBold = new ItalicsDecorator(new BoldDecorator(new PlainText("Italics bold text")));
+
+        Text paragraphBold = new ParagraphDecorator(new BoldDecorator(new PlainText("Paragraph bold")));
+        Text paragraphItalics = new ParagraphDecorator(new ItalicsDecorator(new PlainText("Paragraph italics")));
+
+        Text paragraphBoldItalics = new ParagraphDecorator(new BoldDecorator(new ItalicsDecorator(new PlainText("Paragraph bold italics"))));
+        Text paragraphItalicsBold = new ParagraphDecorator(new ItalicsDecorator(new BoldDecorator(new PlainText("Paragraph italics bold"))));
+
+        System.out.println(normal);
+        System.out.println(bold);
+        System.out.println(italics);
+        System.out.println(underline);
+        System.out.println(paragraph);
+        System.out.println(boldItalics);
+        System.out.println(italicsBold);
+        System.out.println(paragraphBold);
+        System.out.println(paragraphItalics);
+        System.out.println(paragraphBoldItalics);
+        System.out.println(paragraphItalicsBold);
+    }
+}
+```
+
+Now, when you run the program, you'll see "Underline text" displayed with `<u>` tags, indicating the underline decoration has been applied.
+
+Prompt: can you also provide me complete plantuml?
+
+Response: Certainly! Here's the complete PlantUML code for the decorator pattern implementation in Java:
+
+```plantuml
+@startuml
+
+interface Text {
+    +getText(): String
+}
+
+class PlainText {
+    -text: String
+    +PlainText(text: String)
+    +getText(): String
+}
+
+class TextDecorator {
+    -decoratedText: Text
+    +TextDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+class BoldDecorator {
+    +BoldDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+class ItalicsDecorator {
+    +ItalicsDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+class UnderlineDecorator {
+    +UnderlineDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+class ParagraphDecorator {
+    +ParagraphDecorator(decoratedText: Text)
+    +getText(): String
+}
+
+Text <|.. PlainText
+Text <|-- TextDecorator
+TextDecorator <|-- BoldDecorator
+TextDecorator <|-- ItalicsDecorator
+TextDecorator <|-- UnderlineDecorator
+TextDecorator <|-- ParagraphDecorator
+
+@enduml
+```
+
+This PlantUML code depicts the class structure of the decorator pattern implementation in Java. Each class and interface is represented along with their relationships.

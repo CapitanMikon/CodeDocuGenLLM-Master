@@ -1,0 +1,198 @@
+Prompt: My code is using inheritance to create mutliple decorated text enclosed with html coresponding tags. But it is hard to add new decorations such as underline because i need to create new class and all combinations of each decoration. Can rewrite my code using decorator pattern so it is easier to create decorated text and implement new decorations? Here is my code: 
+```
+class Main {
+    public static void main(String[] args) {
+        Text normal = new Text("Normal text");
+        Text bold = new Bold("Bold text");
+        Text italics = new Italics("Italics text");
+        Text paragraph = new Paragraph("Paragraph text");
+
+        Text boldItalics = new BoldItalics("Bold italics text");
+        Text italicsBold = new ItalicsBold("Italics bold text");
+
+        Text paragraphBold = new ParagraphBold("Paragraph bold");
+        Text paragraphItalics = new ParagraphItalics("Paragraph italics");
+
+        Text paragraphBoldItalics = new ParagraphBoldItalics("Paragraph bold italics");
+        Text paragraphItalicsBold = new ParagraphItalicsBold("Paragraph italics bold");
+
+        System.out.println(normal);
+
+        System.out.println(bold);
+        System.out.println(italics);
+        System.out.println(paragraph);
+
+        System.out.println(boldItalics);
+        System.out.println(italicsBold);
+
+        System.out.println(paragraphBold);
+        System.out.println(paragraphItalics);
+
+        System.out.println(paragraphBoldItalics);
+        System.out.println(paragraphItalicsBold);
+    }
+}
+
+class Text{
+    private String text;
+    public Text(String text){
+        this.text = text;
+    }
+    @Override
+    public String toString() {
+        return text;
+    }
+}
+
+class Bold extends Text{
+    public Bold(String text) {
+        super("<b>" + text + "<\\b>");
+    }
+}
+
+class Italics extends Text{
+    public Italics(String text){
+        super("<i>" + text + "<\\i>");
+    }
+}
+
+class Paragraph extends Text{
+    public Paragraph(String text){
+        super("<p>" + text + "<\\p>");
+    }
+}
+
+class BoldItalics extends Text{
+    public BoldItalics(String text) {
+        super("<b><i>" + text + "<\\i><\\b>");
+    }
+}
+
+class ItalicsBold extends Text{
+    public ItalicsBold(String text) {
+        super("<i><b>" + text + "<\\b><\\i>");
+    }
+}
+
+class ParagraphBold extends Text{
+    public ParagraphBold(String text){
+        super("<p><b>" + text + "<\\b><\\p>");
+    }
+}
+
+class ParagraphItalics extends Text{
+    public ParagraphItalics(String text){
+        super("<p><i>" + text + "<\\i><\\p>");
+    }
+}
+
+class ParagraphBoldItalics extends Text{
+    public ParagraphBoldItalics(String text){
+        super("<p><b><i>" + text + "<\\i><\\b><\\p>");
+    }
+}
+
+class ParagraphItalicsBold extends Text{
+    public ParagraphItalicsBold(String text){
+        super("<p><i><b>" + text + "<\\b><\\i><\\p>");
+    }
+}
+
+ ``` 
+Response: Yes, you can refactor your code to use the Decorator pattern. Here's an example of how it could be done:
+
+```java
+public interface Text {
+    String render();
+}
+
+class SimpleText implements Text{
+    private final String text;
+    
+    public SimpleText(String text){
+        this.text = text;
+    }
+    
+    @Override
+    public String render() {
+        return text;
+    }
+}
+
+abstract class Decorator implements Text{
+    protected final Text decoratedText;
+    
+    public Decorator(Text decoratedText){
+        this.decoratedText = decoratedText;
+    }
+    
+    @Override
+    public String render() {
+        return decoratedText.render();
+    }
+}
+
+class Bold extends Decorator{
+    public Bold(Text text) {
+        super(text);
+    }
+    
+    @Override
+    public String render(){
+        return "<b>" + decoratedText.render() + "</b>";
+    } 
+}
+
+class Italics extends Decorator{
+    public Italics(Text text){
+        super(text);
+    }
+    
+    @Override
+    public String render(){
+        return "<i>" + decoratedText.render() + "</i>";
+    } 
+}
+// And so on for other decorations...
+```
+Now, you can easily add new decorations by creating a new class that extends the `Decorator` abstract class and implementing the specific HTML tag in its `render()` method. Also, notice how we've eliminated the need to create combinations of decorators (like BoldItalics) since any number of decorators can be applied to a single Text object.
+
+Here is an example usage:
+```java
+public static void main(String[] args){
+    SimpleText simple = new SimpleText("Hello, World!");
+    
+    Text bolded = new Bold(simple);
+    System.out.println(bolded.render()); // Outputs: <b>Hello, World!</b>
+    
+    Text italicized = new Italics(simple);
+    System.out.println(italicized.render()); // Outputs: <i>Hello, World!</i>
+}
+```
+Prompt: I don't quite understand how to add new dectorator. Can you show me an example how to add underline?
+Response: Sure, here is an example of adding a decorator for the "underline" attribute:
+
+First, create a new class called `Underline` that extends the `Decorator` abstract class and override its `render()` method with the appropriate HTML tag for underlining text. 
+
+```java
+class Underline extends Decorator{
+    public Underline(Text text) {
+        super(text);
+    }
+    
+    @Override
+    public String render(){
+        return "<u>" + decoratedText.render() + "</u>";
+    } 
+}
+```
+Then, you can use this new `Underline` class to underline any text:
+
+```java
+public static void main(String[] args){
+    SimpleText simple = new SimpleText("Hello, World!");
+    
+    Text underlined = new Underline(simple);
+    System.out.println(underlined.render()); // Outputs: <u>Hello, World!</u>
+}
+```
